@@ -1,15 +1,10 @@
 package com.example.lagrangianfluidsimulation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 
 import android.app.Activity;
-import android.opengl.GLES20;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.opengl.GLSurfaceView;
-import android.widget.TextView;
-
-import com.example.lagrangianfluidsimulation.databinding.ActivityMainBinding;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -21,7 +16,7 @@ public class MainActivity extends Activity {
 
     // Attributes
     private native void drawFrame();
-    private native void setupGraphics();
+    private native void setupGraphics(AssetManager assetManager);
     private GLSurfaceView glSurfaceView;
 
 
@@ -35,7 +30,8 @@ public class MainActivity extends Activity {
         glSurfaceView.setRenderer(new GLSurfaceView.Renderer() {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-                setupGraphics();
+                AssetManager assetManager = getAssets();
+                setupGraphics(assetManager);
             }
 
             @Override
@@ -68,33 +64,3 @@ public class MainActivity extends Activity {
         }
     }
 }
-
-
-
-//public class MainActivity extends AppCompatActivity {
-//
-//    // Used to load the 'lagrangianfluidsimulation' library on application startup.
-//    static {
-//        System.loadLibrary("lagrangianfluidsimulation");
-//    }
-//
-//    private ActivityMainBinding binding;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//
-//        // Example of a call to a native method
-//        TextView tv = binding.sampleText;
-//        tv.setText(stringFromJNI());
-//    }
-//
-//    /**
-//     * A native method that is implemented by the 'lagrangianfluidsimulation' native library,
-//     * which is packaged with this application.
-//     */
-//    public native String stringFromJNI();
-//}
