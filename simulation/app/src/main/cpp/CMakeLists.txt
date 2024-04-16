@@ -24,7 +24,10 @@ project("lagrangianfluidsimulation")
 # System.loadLibrary() and pass the name of the library defined here;
 # for GameActivity/NativeActivity derived applications, the same library name must be
 # used in the AndroidManifest.xml file.
-add_library(${CMAKE_PROJECT_NAME} SHARED native-lib.cpp)
+add_library(${CMAKE_PROJECT_NAME} SHARED
+        native-lib.cpp
+        png_loader.cpp
+)
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this

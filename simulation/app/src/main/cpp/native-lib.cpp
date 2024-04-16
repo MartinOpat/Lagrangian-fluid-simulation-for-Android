@@ -5,6 +5,8 @@
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
 
+#include "png_loader.h"
+
 #define LOG_TAG "native-lib"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
@@ -80,7 +82,8 @@ extern "C" {
         vertexShaderSource = loadShaderFile(mgr, "vertex_shader.glsl");
         fragmentShaderSource = loadShaderFile(mgr, "fragment_shader.glsl");
 
-        LOGI("Vertex shader source: %s", vertexShaderSource.c_str());
+        ImageData texData = loadSimpleTGA(mgr, "textures/pt_tex_debug.tga");
+        LOGI("Loaded texture with width %d and height %d", texData.width, texData.height);
 
         compileAndLinkShaders();
 
