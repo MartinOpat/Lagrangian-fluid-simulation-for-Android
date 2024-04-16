@@ -34,5 +34,11 @@ ImageData loadSimpleTGA(AAssetManager* assetManager, const char* filename) {
     }
 
     AAsset_close(asset);
+
+    // Correct the color channels
+    for (size_t i = 0; i < imageData.size(); i += 4) {
+        std::swap(imageData[i], imageData[i + 2]);  // BGRA -> RGBA
+    }
+
     return {width, height, std::move(imageData)};
 }

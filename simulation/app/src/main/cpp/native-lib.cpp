@@ -89,6 +89,9 @@ extern "C" {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glEnable(GL_BLEND); // Enable blending
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         glUseProgram(shaderProgram);
 
         GLint isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
@@ -115,6 +118,7 @@ extern "C" {
 
         ImageData texData = loadSimpleTGA(mgr, "textures/pt_tex_debug.tga");
         LOGI("Loaded texture with width %d and height %d", texData.width, texData.height);
+        LOGI("The pixel color is %d %d %d %d", texData.data[4*5050], texData.data[4*5050+1], texData.data[4*5050+2], texData.data[4*5050+3]);
 
         compileAndLinkShaders();
 
@@ -135,7 +139,7 @@ extern "C" {
         glEnableVertexAttribArray(0);
 
 
-        static const GLfloat particleVertex[] = {-0.5f, 0.5f, 0.0f};
+        static const GLfloat particleVertex[] = {0.0f, -0.25f, 0.0f};
         glGenBuffers(1, &particleVBO);
         glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(particleVertex), particleVertex, GL_STATIC_DRAW);
