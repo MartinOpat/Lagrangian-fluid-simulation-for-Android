@@ -4,6 +4,7 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
+#include <chrono>
 
 #include "png_loader.h"
 
@@ -33,6 +34,8 @@ GLuint textureID;
 
 GLuint triangleVBO;
 GLuint particleVBO;
+
+auto startTime = std::chrono::steady_clock::now();
 
 void createTexture(ImageData& texData) {
     glGenTextures(1, &textureID);
@@ -83,6 +86,40 @@ void compileAndLinkShaders() {
     LOGI("Successfully compiled and linked shaders");
 }
 
+struct Vec3 {
+    float x, y, z;
+};
+
+Vec3 particlePosition = {0.0f, -0.25f, 0.0f}; // Initial position
+Vec3 velocity = {0.1f, 0.0f, 0.0f}; // Speed and direction
+
+void updateParticlePosition(float deltaTime) {  // TODO: This should probably be done in the GPU (not CPU) cause SIMD, look into compute shaders
+    // Update position based on velocity
+    particlePosition.x += velocity.x * deltaTime;
+    particlePosition.y += velocity.y * deltaTime;
+
+    // Wrap the position around the screen
+    if (particlePosition.x > 1.0f) particlePosition.x = -1.0f;
+    else if (particlePosition.x < -1.0f) particlePosition.x = 1.0f;
+
+    if (particlePosition.y > 1.0f) particlePosition.y = -1.0f;
+    else if (particlePosition.y < -1.0f) particlePosition.y = 1.0f;
+}
+
+void setParticlePosition() {
+    // Update deltaTime based on your application's timing logic
+    auto currentTime = std::chrono::steady_clock::now();
+    float deltaTime = std::chrono::duration<float>(currentTime - startTime).count();
+    startTime = currentTime;
+
+    updateParticlePosition(deltaTime);
+
+    // Set uniform for updated position
+    GLint posLocation = glGetUniformLocation(shaderProgram, "uPosition");
+    glUniform3f(posLocation, particlePosition.x, particlePosition.y, particlePosition.z);
+}
+
+
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
@@ -95,14 +132,20 @@ extern "C" {
         glUseProgram(shaderProgram);
 
         GLint isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
-
         glUniform1i(isPointLocation, 0);
+
         glBindBuffer(GL_ARRAY_BUFFER, triangleVBO);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
         glEnableVertexAttribArray(0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glUniform1i(isPointLocation, 1);
+//        GLint timeLocation = glGetUniformLocation(shaderProgram, "uTime");
+//        glUniform1f(timeLocation, elapsedTime);
+//        GLint velocityLocation = glGetUniformLocation(shaderProgram, "uVelocity");
+//        glUniform3f(velocityLocation, 0.1f, 0.0f, 0.0f);
+        setParticlePosition();
+
         glBindTexture(GL_TEXTURE_2D, textureID); // Bind the texture for the particle
         glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
