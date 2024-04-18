@@ -63,4 +63,8 @@ extern "C" {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
     }
+
+     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_NetCDFLoader_processData(JNIEnv* env, jobject obj, jfloatArray data) {
+
+     }
 } // extern "C"

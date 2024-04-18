@@ -57,7 +57,16 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+//    implementation(files("lib/netcdfAll-5.5.3.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+//configurations.all {
+//    resolutionStrategy {
+//        // Exclude conflicting transitive dependencies globally
+//        exclude(group = "com.google.guava", module = "listenablefuture")
+//        exclude(group = "com.google.errorprone", module = "error_prone_annotations")
+//    }
+//}
