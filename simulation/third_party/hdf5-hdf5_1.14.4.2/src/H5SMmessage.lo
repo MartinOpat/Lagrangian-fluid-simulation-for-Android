@@ -8,5 +8,5 @@
 pic_object='.libs/H5SMmessage.o'
 
 # Name of the non-PIC object
-non_pic_object='H5SMmessage.o'
+non_pic_object=none
 

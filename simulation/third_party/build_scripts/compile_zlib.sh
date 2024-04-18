@@ -20,5 +20,5 @@ export CPPFLAGS="-I$SYSROOT/usr/include"
 
 
 cd ../zlib-1.3.1
-./configure --prefix=$SYSROOT/usr
+./configure --prefix=$SYSROOT/usr --shared
 make && make install

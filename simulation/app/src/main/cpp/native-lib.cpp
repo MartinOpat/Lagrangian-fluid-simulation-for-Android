@@ -7,6 +7,7 @@
 #include <chrono>
 
 #include "mainview.h"
+#include "test_read_nc.h"
 
 #define LOG_TAG "native-lib"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
@@ -57,14 +58,53 @@ extern "C" {
         shaderManager->drawTriangle();
         setParticlePosition();
         shaderManager->drawParticle();
+//        print_nc_vars("/home/martin/Lagrangian-fluid-simulation-for-Android/simulation/data/DoubleGyre2D/doublegyreU.nc");
     }
 
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
+//        print_nc_vars_from_asset(AAssetManager_fromJava(env, assetManager), "test_data/doublegyreU.nc");
     }
 
-     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_NetCDFLoader_processData(JNIEnv* env, jobject obj, jfloatArray data) {
+    JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_temp(JNIEnv* env, jobject obj, jobject assetManager, jstring assetName) {
+        const char *cAssetName = env->GetStringUTFChars(assetName, nullptr);
+        AAssetManager *mgr = AAssetManager_fromJava(env, assetManager);
+        if (mgr == nullptr) {
+            LOGE("Error loading asset manager");
+            return;
+        }
 
-     }
+        AAsset *asset = AAssetManager_open(mgr, cAssetName, AASSET_MODE_BUFFER);
+        if (asset == nullptr) {
+            LOGE("Error opening asset: %s", cAssetName);
+            env->ReleaseStringUTFChars(assetName, cAssetName);
+            return;
+        }
+
+        // Create a temporary file where you can write the asset contents
+        std::string tempFileName = "/data/data/com.example.lagrangianfluidsimulation/cache/tempfile.nc"; // Adjust the path according to your package name
+        FILE *out = fopen(tempFileName.c_str(), "wb");
+        if (out == nullptr) {
+            LOGE("Failed to open temporary file for writing");
+            AAsset_close(asset);
+            env->ReleaseStringUTFChars(assetName, cAssetName);
+            return;
+        }
+
+        // Read the asset content and write it to the temporary file
+        const size_t bufSize = 1024;
+        char buf[bufSize];
+        int bytesRead;
+        while ((bytesRead = AAsset_read(asset, buf, bufSize)) > 0) {
+            fwrite(buf, sizeof(char), bytesRead, out);
+        }
+
+        fclose(out);
+        AAsset_close(asset);
+        env->ReleaseStringUTFChars(assetName, cAssetName);
+
+        // Now that the file is written, you can open it with your netCDF reader
+        print_nc_vars(tempFileName.c_str());
+    }
 } // extern "C"

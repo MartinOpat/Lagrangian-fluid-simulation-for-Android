@@ -19,7 +19,7 @@ srcdir=.
 # Variables filled in by the configure process.
 # Determine the configure options of the hdf5 library and executables.
 Shared_Lib=yes
-Static_Lib=yes
+Static_Lib=no
 Static_exec=no
 h5haveexitcode=yes    # default is yes
 

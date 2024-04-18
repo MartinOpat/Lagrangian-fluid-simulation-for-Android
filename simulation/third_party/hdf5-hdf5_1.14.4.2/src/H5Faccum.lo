@@ -8,5 +8,5 @@
 pic_object='.libs/H5Faccum.o'
 
 # Name of the non-PIC object
-non_pic_object='H5Faccum.o'
+non_pic_object=none
 

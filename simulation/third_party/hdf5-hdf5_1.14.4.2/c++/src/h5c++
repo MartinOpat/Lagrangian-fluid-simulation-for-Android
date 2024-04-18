@@ -101,7 +101,7 @@ LIBS="${HDF5_LIBS:-$LIBSBASE}"
 # available library is shared, it will be used by default.  The user can
 # override either default, although choosing an unavailable library will result
 # in link errors.
-STATIC_AVAILABLE="yes"
+STATIC_AVAILABLE="no"
 if test "${STATIC_AVAILABLE}" = "yes"; then
   USE_SHARED_LIB="${HDF5_USE_SHLIB:-no}"
 else

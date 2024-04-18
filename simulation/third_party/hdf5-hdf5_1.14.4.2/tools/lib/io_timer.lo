@@ -8,5 +8,5 @@
 pic_object='.libs/io_timer.o'
 
 # Name of the non-PIC object
-non_pic_object='io_timer.o'
+non_pic_object=none
 

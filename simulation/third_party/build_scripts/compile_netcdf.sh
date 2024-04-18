@@ -20,5 +20,5 @@ export CPPFLAGS="-I$SYSROOT/usr/include"
 
 
 cd ../netcdf-c-4.9.2
-./configure --host=$TARGET --prefix=$SYSROOT/usr --disable-dap --enable-netcdf-4 --with-hdf5=$SYSROOT/usr --with-zlib=$SYSROOT/usr --disable-byterange
+./configure --host=$TARGET --prefix=$SYSROOT/usr --disable-dap --enable-netcdf-4 --with-hdf5=$SYSROOT/usr --with-zlib=$SYSROOT/usr --disable-byterange --enable-shared --disable-static
 make && make install

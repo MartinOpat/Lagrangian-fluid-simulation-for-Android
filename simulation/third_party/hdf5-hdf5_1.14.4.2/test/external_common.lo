@@ -8,5 +8,5 @@
 pic_object='.libs/external_common.o'
 
 # Name of the non-PIC object
-non_pic_object='external_common.o'
+non_pic_object=none
 

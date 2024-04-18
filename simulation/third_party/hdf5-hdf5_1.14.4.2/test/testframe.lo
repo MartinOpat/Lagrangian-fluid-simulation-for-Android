@@ -8,5 +8,5 @@
 pic_object='.libs/testframe.o'
 
 # Name of the non-PIC object
-non_pic_object='testframe.o'
+non_pic_object=none
 

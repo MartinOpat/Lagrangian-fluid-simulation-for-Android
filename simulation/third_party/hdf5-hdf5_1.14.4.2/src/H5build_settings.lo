@@ -8,5 +8,5 @@
 pic_object='.libs/H5build_settings.o'
 
 # Name of the non-PIC object
-non_pic_object='H5build_settings.o'
+non_pic_object=none
 

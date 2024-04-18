@@ -8,5 +8,5 @@
 pic_object='.libs/H5dbg.o'
 
 # Name of the non-PIC object
-non_pic_object='H5dbg.o'
+non_pic_object=none
 

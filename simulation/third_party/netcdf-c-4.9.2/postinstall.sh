@@ -115,7 +115,7 @@ if [ "x$DOAUTOTOOL" = "xTRUE" ]; then
         fi
 
         STATIC_BUILD="--disable-static"
-        if [ "xyes" = "xyes" ]; then
+        if [ "xno" = "xyes" ]; then
             STATIC_BUILD="--enable-static"
         fi
 

@@ -4,7 +4,7 @@
 General Information:
 -------------------
                    HDF5 Version: 1.14.4-2
-                  Configured on: Thu Apr 18 21:06:08 CEST 2024
+                  Configured on: Thu Apr 18 22:12:02 CEST 2024
                   Configured by: root@martin-Dell-G15-Special-Edition-5521
                     Host system: x86_64-pc-linux-android
               Uname information: Linux martin-Dell-G15-Special-Edition-5521 6.5.0-27-generic #28~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar 15 10:51:06 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
@@ -21,7 +21,7 @@ Compiling Options:
 
 Linking Options:
 ----------------
-                      Libraries: static, shared
+                      Libraries: shared
   Statically Linked Executables: 
                         LDFLAGS: --sysroot /home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -L/home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib
                      H5_LDFLAGS: 
@@ -42,7 +42,7 @@ Languages:
                      H5 C Flags:       
                      AM C Flags: 
                Shared C Library: yes
-               Static C Library: yes
+               Static C Library: no
 
 
                         Fortran: no

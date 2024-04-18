@@ -12,11 +12,20 @@ import javax.microedition.khronos.opengles.GL10;
 public class MainActivity extends Activity {
     static {
         System.loadLibrary("lagrangianfluidsimulation");
+//        System.loadLibrary("z.so.1");
+//        System.loadLibrary("z1");
+//        System.loadLibrary("zlib");
+//        System.loadLibrary("z1lib");
+//        System.loadLibrary("zlib1");
+        System.loadLibrary("hdf5_hl");
+        System.loadLibrary("hdf5");
+        System.loadLibrary("netcdf");
     }
 
     // Attributes
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
+    private native void temp(AssetManager assetManager, String assetName);
     private GLSurfaceView glSurfaceView;
 
 
@@ -32,6 +41,7 @@ public class MainActivity extends Activity {
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 AssetManager assetManager = getAssets();
                 setupGraphics(assetManager);
+                temp(assetManager, "test_data/doublegyreU.nc");
             }
 
             @Override

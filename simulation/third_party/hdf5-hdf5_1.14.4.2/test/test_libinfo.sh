@@ -27,7 +27,7 @@ srcdir=.
 # Determine the configure options of the hdf5 library and executables.
 
 Shared_Lib=yes
-Static_Lib=yes
+Static_Lib=no
 Static_exec=no
 
 

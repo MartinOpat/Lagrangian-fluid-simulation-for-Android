@@ -21,7 +21,7 @@ android {
         }
 
         ndk {
-            abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
+            abiFilters.addAll(listOf("x86_64"))
         }
     }
 
@@ -48,6 +48,8 @@ android {
     sourceSets {
         getByName("main") {
             resources.srcDirs("src/main/assets")
+            resources.srcDirs("src/main/test_data")
+            jniLibs.srcDirs("src/main/jniLibs")
         }
     }
 }

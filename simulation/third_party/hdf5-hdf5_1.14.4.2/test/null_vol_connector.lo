@@ -8,5 +8,5 @@
 pic_object='.libs/null_vol_connector.o'
 
 # Name of the non-PIC object
-non_pic_object='null_vol_connector.o'
+non_pic_object=none
 
