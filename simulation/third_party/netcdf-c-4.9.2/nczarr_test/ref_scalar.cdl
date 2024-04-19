@@ -1,8 +1,0 @@
-netcdf ref_scalar {
-variables:
-	int v ;
-		v:_FillValue = -1 ;
-data:
-
- v = 17 ;
-}
