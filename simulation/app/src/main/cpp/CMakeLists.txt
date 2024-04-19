@@ -29,64 +29,14 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # used in the AndroidManifest.xml file.
 
 
-# Subdirectories to include
-#include_directories(
-#        ${CMAKE_SOURCE_DIR}/hdf5-hdf5_1.14.4.2/src
-#        ${CMAKE_SOURCE_DIR}/hdf5-hdf5_1.14.4.2/c++/src
-#        ${CMAKE_SOURCE_DIR}/../../../../third_party/hdf5/include
-#        ${CMAKE_SOURCE_DIR}/netcdf-c-4.9.2/include
-#        ${CMAKE_SOURCE_DIR}/netcdf-cxx4-4.3.1/cxx4
-#        libs/netcdfpp-main/include
-#)
-
-#include_directories(${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include)
-#
-#add_library(zlib STATIC IMPORTED)
-#set_target_properties(zlib PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libz.a)
-#
-#add_library(hdf5 STATIC IMPORTED)
-#set_target_properties(hdf5 PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libhdf5.a)
-#
-#add_library(netcdf STATIC IMPORTED)
-#set_target_properties(netcdf PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libnetcdf.a)
-#
-## Assuming the dependencies are in the same lib path
-#add_library(hdf5 STATIC IMPORTED)
-#set_target_properties(hdf5 PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libhdf5.a)
-#
-#add_library(zlib STATIC IMPORTED)
-#set_target_properties(zlib PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libz.a)
-#
-## Link the libraries
-#target_link_libraries(netcdf hdf5 zlib)
-
-
-
-
-
-# Old manual setup
-#add_library(${CMAKE_PROJECT_NAME} SHARED
-#        native-lib.cpp
-#        png_loader.cpp
-#        mainview.cpp
-#)
-
-#add_library(hdf5 SHARED IMPORTED)
-#set_target_properties(hdf5 PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../../../../third_party/hdf5/lib/libhdf5.so)
-
 add_library(zlib SHARED IMPORTED)
-#set_target_properties(zlib PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libz.so)
 set_target_properties(zlib PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libz.so)
 
-#add_library(zlib1 SHARED IMPORTED)
-#set_target_properties(zlib1 PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libz.so.1)
-#
+
 add_library(hdf5 SHARED IMPORTED)
-#set_target_properties(hdf5 PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libhdf5.so)
 set_target_properties(hdf5 PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libhdf5.so)
 
 add_library(netcdf SHARED IMPORTED)
-#set_target_properties(netcdf PROPERTIES IMPORTED_LOCATION ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/libnetcdf.so)
 set_target_properties(netcdf PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libnetcdf.so)
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
@@ -94,9 +44,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         png_loader.cpp
         mainview.cpp
         test_read_nc.c
-
 )
-
 
 
 # Specifies libraries CMake should link to your target library. You
