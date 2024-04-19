@@ -12,7 +12,7 @@ export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
 export STRIP=$TOOLCHAIN/bin/llvm-strip
 
 # Setup Additional Flags
-export SYSROOT=$TOOLCHAIN/sysrootxrea
+export SYSROOT=$TOOLCHAIN/sysroot
 export CFLAGS="--sysroot $SYSROOT"
 export CXXFLAGS="--sysroot $SYSROOT"
 export LDFLAGS="--sysroot $SYSROOT -L$SYSROOT/usr/lib"

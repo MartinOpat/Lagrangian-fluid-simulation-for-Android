@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 AssetManager assetManager = getAssets();
                 setupGraphics(assetManager);
-                temp(assetManager, "test_data/doublegyreU.nc");
+                temp(assetManager, "test_data/test.nc");
             }
 
             @Override
