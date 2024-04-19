@@ -1,6 +1,6 @@
 export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export TARGET=x86_64-linux-android
+export TARGET=aarch64-linux-android
 export API=21
 
 # Setup Compiler Variables

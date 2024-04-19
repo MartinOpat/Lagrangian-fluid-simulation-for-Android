@@ -1,0 +1,61 @@
+# NetCDF C Configuration Summary
+==============================
+
+# General
+-------
+NetCDF Version:		4.9.2
+Dispatch Version:       5
+Configured On:		Fri Apr 19 15:51:46 CEST 2024
+Host System:		aarch64-unknown-linux-android
+Build Directory: 	/home/martin/Lagrangian-fluid-simulation-for-Android/simulation/third_party/netcdf-c-4.9.2
+Install Prefix:         /home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr
+Plugin Install Prefix:  N.A.
+
+# Compiling Options
+-----------------
+C Compiler:		/home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang
+CFLAGS:			--sysroot /home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fno-strict-aliasing
+CPPFLAGS:		-I/home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+LDFLAGS:		--sysroot /home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -L/home/martin/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib
+AM_CFLAGS:		
+AM_CPPFLAGS:		
+AM_LDFLAGS:		
+Shared Library:		yes
+Static Library:		no
+Extra libraries:	-lhdf5_hl -lhdf5 -lm -lz 
+XML Parser:             libxml2
+
+# Features
+--------
+Benchmarks:		no
+NetCDF-2 API:		yes
+HDF4 Support:		no
+HDF5 Support:		yes
+NetCDF-4 API:		yes
+CDF5 Support:		yes
+NC-4 Parallel Support:	no
+PnetCDF Support:	no
+
+DAP2 Support:		no
+DAP4 Support:		no
+Byte-Range Support:	no
+
+S3 Support:	        no
+
+NCZarr Support:		yes
+NCZarr Zip Support:     no
+
+Diskless Support:	yes
+MMap Support:		no
+JNA Support:		no
+ERANGE Fill Support:	no
+Relaxed Boundary Check:	yes
+
+Multi-Filter Support:	yes
+Quantization:		yes
+Logging:     		no
+SZIP Write Support:     no
+Standard Filters:       deflate bz2
+ZSTD Support:           no
+Parallel Filters:       yes
+
