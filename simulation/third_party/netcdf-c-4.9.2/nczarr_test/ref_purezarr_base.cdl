@@ -1,7 +1,0 @@
-netcdf ref_purezarr {
-dimensions:
-    x = 2;
-    y = 5;
-variables:
-	int i(x,y) ;
-}
