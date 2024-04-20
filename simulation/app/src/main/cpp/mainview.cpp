@@ -122,3 +122,17 @@ void GLShaderManager::setupGraphics() {
 
     this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
 }
+
+void GLShaderManager::loadVectorFieldData(const std::vector<float>& vertices) {
+    glGenBuffers(1, &vectorFieldVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+}
+
+void GLShaderManager::drawVectorField(int size) {
+    glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glEnableVertexAttribArray(0);
+    glDrawArrays(GL_LINES, 0, size / 3);
+    glDisableVertexAttribArray(0);
+}

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- This permission is required for API level < 29 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- For API level >= 29, consider adding this to access all files in shared storage -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LagrangianFluidSimulation"
-        tools:targetApi="31">
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="34">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -23,10 +30,5 @@
         </activity>
     </application>
 
-    <!-- This permission is required for API level < 29 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <!-- For API level >= 29, consider adding this to access all files in shared storage -->
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
 </manifest>

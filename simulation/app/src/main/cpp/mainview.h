@@ -20,6 +20,9 @@ public:
     void drawParticle();
     void setupGraphics();
 
+    void loadVectorFieldData(const std::vector<float>& vertices);
+    void drawVectorField(int size);
+
     GLuint shaderProgram;
     std::chrono::steady_clock::time_point startTime;
 
@@ -35,6 +38,8 @@ private:
     GLuint particleVBO;
 
     GLint isPointLocation;
+
+    GLuint vectorFieldVBO; // Add this to manage VBO for vector field
 };
 
 #endif // GL_SHADER_MANAGER_H
