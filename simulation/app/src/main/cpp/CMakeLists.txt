@@ -49,7 +49,8 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         native-lib.cpp
         png_loader.cpp
         mainview.cpp
-        test_read_nc.c
+        netcdf_reader.cpp
+#        test_read_nc.c
 )
 
 
