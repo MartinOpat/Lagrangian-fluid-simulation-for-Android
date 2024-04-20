@@ -103,7 +103,7 @@ extern "C" {
 
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
-        shaderManager->setupGraphics();
+        shaderManager->setupGraphics(vertices);
         LOGI("Graphics setup complete");
 //        print_nc_vars_from_asset(AAssetManager_fromJava(env, assetManager), "test_data/doublegyreU.nc");
     }
@@ -155,16 +155,30 @@ extern "C" {
         int width = dataVarU.getDim(3).getSize(); // Assuming dim(2) is 'x'
         int height = dataVarU.getDim(2).getSize(); // Assuming dim(1) is 'y'
 
+        float maxU = *std::max_element(uData.begin(), uData.end());
+        float minU = *std::min_element(uData.begin(), uData.end());
+        float maxV = *std::max_element(vData.begin(), vData.end());
+        float minV = *std::min_element(vData.begin(), vData.end());
+
         LOGI("Width: %d, Height: %d", width, height);
         for (int y = 0; y < height; y++) {
+            if (y % 25 != 0) continue;
             for (int x = 0; x < width; x++) {
                 int index = y * width + x;
+
+                if (x % 25 != 0) continue;
+                LOGI("U: %f, V: %f", uData[index], vData[index]);
 
                 float normalizedX = (x / (float)(width - 1)) * 2 - 1;
                 float normalizedY = (y / (float)(height - 1)) * 2 - 1;
 
-                float endX = normalizedX + uData[index] * 0.1f;
-                float endY = normalizedY + vData[index] * 0.1f;
+                float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
+                normalizedU *= 0.1f;
+                float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
+                normalizedV *= 0.1f;
+
+                float endX = normalizedX + normalizedU;
+                float endY = normalizedY + normalizedV;
 
                 // Start point
                 vertices.push_back(normalizedX);

@@ -18,7 +18,7 @@ public:
     void setFrame();
     void drawTriangle();
     void drawParticle();
-    void setupGraphics();
+    void setupGraphics(std::vector<float>);
 
     void loadVectorFieldData(const std::vector<float>& vertices);
     void drawVectorField(int size);
