@@ -8,7 +8,6 @@
 #include <netcdf>
 
 #include "mainview.h"
-#include "test_read_nc.h"
 
 #define LOG_TAG "native-lib"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
@@ -66,5 +65,48 @@ extern "C" {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
 //        print_nc_vars_from_asset(AAssetManager_fromJava(env, assetManager), "test_data/doublegyreU.nc");
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_example_lagrangianfluidsimulation_MainActivity_initializeNetCDFVisualization(
+            JNIEnv* env, jobject obj, jstring fileUPath, jstring fileVPath) {
+
+        const char* pathU = env->GetStringUTFChars(fileUPath, nullptr);
+        const char* pathV = env->GetStringUTFChars(fileVPath, nullptr);
+
+        try {
+            // Open the U component file
+            netCDF::NcFile dataFileU(pathU, netCDF::NcFile::read);
+            netCDF::NcVar dataVarU = dataFileU.getVar("vozocrtx");
+            if (!dataVarU.isNull()) {
+                // Assume 3D data: time, Y, X
+                std::vector<size_t> startp = {0, 0, 0}; // Start at the first time step
+                std::vector<size_t> countp = {1, dataVarU.getDim(1).getSize(), dataVarU.getDim(2).getSize()}; // One time step, all Y, all X
+
+                std::vector<float> uData(dataVarU.getDim(1).getSize() * dataVarU.getDim(2).getSize());
+                dataVarU.getVar(startp, countp, uData.data());
+            }
+
+            // Open the V component file
+            netCDF::NcFile dataFileV(pathV, netCDF::NcFile::read);
+            netCDF::NcVar dataVarV = dataFileV.getVar("vomecrty");
+            if (!dataVarV.isNull()) {
+                // Assume 3D data: time, Y, X
+                std::vector<size_t> startp = {0, 0, 0}; // Start at the first time step
+                std::vector<size_t> countp = {1, dataVarV.getDim(1).getSize(), dataVarV.getDim(2).getSize()}; // One time step, all Y, all X
+
+                std::vector<float> vData(dataVarV.getDim(1).getSize() * dataVarV.getDim(2).getSize());
+                dataVarV.getVar(startp, countp, vData.data());
+            }
+
+            // Prepare data for OpenGL
+            // Example: Process uData and vData for visualization
+
+        } catch (const netCDF::exceptions::NcException& e) {
+            std::cerr << "NetCDF error: " << e.what() << std::endl;
+        }
+
+        env->ReleaseStringUTFChars(fileUPath, pathU);
+        env->ReleaseStringUTFChars(fileVPath, pathV);
     }
 } // extern "C"
