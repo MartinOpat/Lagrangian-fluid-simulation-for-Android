@@ -30,3 +30,4 @@ sudo bash compile_netcdf-cxx4.sh
 ```
 
 Note that the path to the NDK used by the project (inside the `.sh` files) might need to be updated to match the path to the NDK on your system. Similarly, other flags can be adjusted to match the desired configuration.
+Make sure to copy all the newly build `.so` files to the `app/src/main/jniLibs` directory. Sometimes it happens that the libraries `libhdf5.so`, `libhdf5_hl.so` and `libnetcdf.so` have a dependency on `libz.so.1` which cannot be automatically added into the the apk due to android NDK's internal regex. You can check this by running `readelf -d libhdf5.so` and looking for `libz.so.1`. If you see it, you can change it into `libz.so` by running `patchelf --replace-needed libz.so.1 libz.so libhdf5.so`. This will make the library compatible with the android NDK.
