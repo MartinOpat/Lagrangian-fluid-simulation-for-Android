@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
         System.loadLibrary("hdf5_hl");
         System.loadLibrary("hdf5");
         System.loadLibrary("netcdf");
+        System.loadLibrary("netcdf_c++4");
     }
 
     // Attributes

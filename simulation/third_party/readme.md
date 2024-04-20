@@ -19,9 +19,14 @@ Similarly, to install [hdf5](https://github.com/HDFGroup/hdf5) you can run:
 sudo bash compile_hdf5.sh
 ```
 
-Lastly, to install [netcdf](https://github.com/Unidata/netcdf-c) you can run:
+To install [netcdf](https://github.com/Unidata/netcdf-c) you can run:
 ```bash
 sudo bash compile_netcdf.sh
+```
+
+Lastly, to install [netcdf-cxx4](https://github.com/Unidata/netcdf-cxx4) you can run:
+```bash
+sudo bash compile_netcdf-cxx4.sh
 ```
 
 Note that the path to the NDK used by the project (inside the `.sh` files) might need to be updated to match the path to the NDK on your system. Similarly, other flags can be adjusted to match the desired configuration.

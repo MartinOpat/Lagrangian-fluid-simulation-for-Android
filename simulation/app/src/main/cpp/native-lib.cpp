@@ -5,6 +5,7 @@
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
 #include <chrono>
+#include <netcdf>
 
 #include "mainview.h"
 #include "test_read_nc.h"
@@ -104,7 +105,32 @@ extern "C" {
         AAsset_close(asset);
         env->ReleaseStringUTFChars(assetName, cAssetName);
 
+        netCDF::NcFile dataFile(tempFileName.c_str(), netCDF::NcFile::read);
+        netCDF::NcVar vozocrtxVar = dataFile.getVar("x");
+
+        if (!vozocrtxVar.isNull()) {
+            // Read a small part of the data for printing
+            // For example, first time step, first depth layer, and a 5x5 section from the top-left corner
+            std::vector<size_t> startp = {0, 0, 0, 0}; // time, depth, y, x start indices
+            std::vector<size_t> countp = {1, 1, 5, 5}; // time, depth, y, x count sizes
+
+            std::vector<float> data(5 * 5); // Buffer to hold the data
+            vozocrtxVar.getVar(startp, countp, data.data());
+
+            // Print the data
+            for (int i = 0; i < 5; ++i) { // Rows
+                for (int j = 0; j < 5; ++j) { // Columns
+//                    std::cout << data[i * 5 + j] << " ";
+                    LOGI("%f", data[i * 5 + j]);
+                }
+//                std::cout << std::endl;
+                LOGI("\n");
+            }
+        } else {
+            LOGE("Variable vozocrtx not found in the file");
+        }
+
         // Now that the file is written, you can open it with your netCDF reader
-        print_nc_vars(tempFileName.c_str());
+//        print_nc_vars(tempFileName.c_str());
     }
 } // extern "C"

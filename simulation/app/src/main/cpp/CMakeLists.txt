@@ -39,6 +39,12 @@ set_target_properties(hdf5 PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../j
 add_library(netcdf SHARED IMPORTED)
 set_target_properties(netcdf PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libnetcdf.so)
 
+add_library(netcdf_cxx SHARED IMPORTED)
+set_target_properties(netcdf_cxx PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libnetcdf_c++4.so)
+
+add_library(libc++_shared SHARED IMPORTED)
+set_target_properties(libc++_shared PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libc++_shared.so)
+
 add_library(${CMAKE_PROJECT_NAME} SHARED
         native-lib.cpp
         png_loader.cpp
@@ -55,9 +61,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         android
         log
         GLESv2
+        netcdf_cxx
         netcdf
-        hdf5
-        zlib
+#        hdf5
+#        zlib
 )
 
 
