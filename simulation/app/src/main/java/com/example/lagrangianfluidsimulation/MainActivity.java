@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
     // Attributes
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
-    private native void temp(AssetManager assetManager, String assetName);
     private GLSurfaceView glSurfaceView;
 
 
@@ -42,7 +41,6 @@ public class MainActivity extends Activity {
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 AssetManager assetManager = getAssets();
                 setupGraphics(assetManager);
-                temp(assetManager, "test_data/test.nc");
             }
 
             @Override
