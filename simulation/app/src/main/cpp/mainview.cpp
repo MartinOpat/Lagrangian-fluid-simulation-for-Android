@@ -87,7 +87,7 @@ void GLShaderManager::drawParticle() {
     glDrawArrays(GL_POINTS, 0, 1);
 }
 
-void GLShaderManager::setupGraphics(std::vector<float> vertices) {
+void GLShaderManager::setupGraphics() {
     vertexShaderSource = loadShaderFile("vertex_shader.glsl");
     fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
 
@@ -121,17 +121,19 @@ void GLShaderManager::setupGraphics(std::vector<float> vertices) {
 //    glEnableVertexAttribArray(0);
 //
 //    this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
+}
 
+void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
     glGenBuffers(1, &vectorFieldVBO);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(0);
-
 }
 
-void GLShaderManager::loadVectorFieldData(const std::vector<float>& vertices) {
+void GLShaderManager::loadVectorFieldData(std::vector<float> vertices) {
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
 }
 

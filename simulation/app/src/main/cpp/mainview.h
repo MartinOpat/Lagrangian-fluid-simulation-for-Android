@@ -18,10 +18,11 @@ public:
     void setFrame();
     void drawTriangle();
     void drawParticle();
-    void setupGraphics(std::vector<float>);
+    void setupGraphics();
 
-    void loadVectorFieldData(const std::vector<float>& vertices);
+    void loadVectorFieldData(std::vector<float> vertices);
     void drawVectorField(int size);
+    void createVectorFieldBuffer(std::vector<float> vertices);
 
     GLuint shaderProgram;
     std::chrono::steady_clock::time_point startTime;

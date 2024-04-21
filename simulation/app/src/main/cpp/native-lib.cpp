@@ -19,7 +19,10 @@
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
-std::vector<float> vertices; // This will be a member variable in GLShaderManager class
+std::vector<float> vertices;
+std::vector<std::vector<float>> allVertices;
+int currentFrame = 0;
+int numVertices = 0;
 
 struct Vec3 {
     float x, y, z;
@@ -88,6 +91,80 @@ std::string writeTempFileFromFD(int fd, const std::string& tempFilename) {
     return tempFilePath;
 }
 
+void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, int width, int height) {
+
+    vertices.clear();
+
+    float maxU = *std::max_element(uData.begin(), uData.end());
+    float minU = *std::min_element(uData.begin(), uData.end());
+    float maxV = *std::max_element(vData.begin(), vData.end());
+    float minV = *std::min_element(vData.begin(), vData.end());
+
+    for (int y = 0; y < height; y++) {
+        if (y % 25 != 0) continue;
+        for (int x = 0; x < width; x++) {
+            int index = y * width + x;
+
+            if (x % 25 != 0) continue;
+
+            float normalizedX = (x / (float)(width - 1)) * 2 - 1;
+            float normalizedY = (y / (float)(height - 1)) * 2 - 1;
+
+            float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
+            normalizedU *= 0.1f;
+            float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
+            normalizedV *= 0.1f;
+
+            float endX = normalizedX + normalizedU;
+            float endY = normalizedY + normalizedV;
+
+            // Start point
+            vertices.push_back(normalizedX);
+            vertices.push_back(normalizedY);
+            vertices.push_back(0.0f);
+
+            // End point
+            vertices.push_back(endX);
+            vertices.push_back(endY);
+            vertices.push_back(0.0f);
+        }
+    }
+    numVertices = vertices.size();
+    allVertices.push_back(vertices);
+}
+
+void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath) {
+    netCDF::NcFile dataFileU(fileUPath, netCDF::NcFile::read);
+    netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
+
+    LOGI("NetCDF files opened");
+
+    // Assuming 'time_counter' is the time dimension size
+    size_t numTimeSteps = dataFileU.getDim("time_counter").getSize();
+
+    for (size_t i = 0; i < 2; i++) {
+        std::vector<size_t> startp = {i, 0, 0, 0};  // Start index for time, depth, y, x
+        std::vector<size_t> countp = {1, 1, dataFileU.getDim("y").getSize(), dataFileU.getDim("x").getSize()};  // Read one time step, all y, all x
+        std::vector<float> uData(countp[2] * countp[3]), vData(countp[2] * countp[3]);
+
+        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
+        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
+
+        // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
+        prepareVertexData(uData, vData, countp[3], countp[2]);
+    }
+}
+
+void updateFrame() {
+    static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
+    static const std::chrono::seconds updateInterval(1);       // Update every 1 second
+
+    auto now = std::chrono::steady_clock::now();
+    if (now - lastUpdate >= updateInterval) {                  // Check if 1 second has passed
+        currentFrame = (currentFrame + 1) % allVertices.size(); // Update the frame index
+        lastUpdate = now;                                      // Reset the last update time
+    }
+}
 
 
 extern "C" {
@@ -96,14 +173,16 @@ extern "C" {
 //        shaderManager->drawTriangle();
 //        setParticlePosition();
 //        shaderManager->drawParticle();
-        shaderManager->loadVectorFieldData(vertices);
-        shaderManager->drawVectorField(vertices.size());
+
+        shaderManager->loadVectorFieldData(allVertices[currentFrame]);
+        shaderManager->drawVectorField(numVertices);
+        updateFrame();
 //        print_nc_vars("/home/martin/Lagrangian-fluid-simulation-for-Android/simulation/data/DoubleGyre2D/doublegyreU.nc");
     }
 
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
-        shaderManager->setupGraphics(vertices);
+        shaderManager->setupGraphics();
         LOGI("Graphics setup complete");
 //        print_nc_vars_from_asset(AAssetManager_fromJava(env, assetManager), "test_data/doublegyreU.nc");
     }
@@ -121,75 +200,49 @@ extern "C" {
             return;
         }
 
-        LOGI("Temporary files created: %s, %s", tempFileU.c_str(), tempFileV.c_str());
+//        LOGI("Temporary files created: %s, %s", tempFileU.c_str(), tempFileV.c_str());
+//
+//        // Create NetCDF file handlers
+//        netCDF::NcFile dataFileU(tempFileU, netCDF::NcFile::read);
+//        netCDF::NcFile dataFileV(tempFileV, netCDF::NcFile::read);
+//
+//        LOGI("NetCDF files opened");
+//
+//        // Open the U component file
+//        netCDF::NcVar dataVarU = dataFileU.getVar("vozocrtx");
+//
+//        assert(!dataVarU.isNull());
+//        // Assume 3D data: time, Y, X
+//        std::vector<size_t> startp = {0, 0, 0, 0}; // Start at the first time step
+//        std::vector<size_t> countp = {1,  1, dataVarU.getDim(2).getSize(), dataVarU.getDim(3).getSize()}; // One time step, one depth, all Y, all X
+//
+//        std::vector<float> uData(dataVarU.getDim(2).getSize() * dataVarU.getDim(3).getSize());
+//        dataVarU.getVar(startp, countp, uData.data());
+//
+//        // Open the V component file
+//        netCDF::NcVar dataVarV = dataFileV.getVar("vomecrty");
+//
+//        assert(!dataVarV.isNull());
+//        // Assume 3D data: time, Y, X
+//        startp = {0, 0, 0, 0}; // Start at the first time step
+//        countp = {1, 1, dataVarV.getDim(2).getSize(), dataVarV.getDim(3).getSize()}; // One time step, one depth, all Y, all X
+//
+//        std::vector<float> vData(dataVarV.getDim(2).getSize() * dataVarV.getDim(3).getSize());
+//        dataVarV.getVar(startp, countp, vData.data());
+//
+//        // After loading data, prepare vertex data for OpenGL
+//        int width = dataVarU.getDim(3).getSize(); // Assuming dim(2) is 'x'
+//        int height = dataVarU.getDim(2).getSize(); // Assuming dim(1) is 'y'
+//        prepareVertexData(uData, vData, width, height);
 
-        // Create NetCDF file handlers
-        netCDF::NcFile dataFileU(tempFileU, netCDF::NcFile::read);
-        netCDF::NcFile dataFileV(tempFileV, netCDF::NcFile::read);
+        LOGI("Loading time steps");
+        loadAllTimeSteps(tempFileU, tempFileV);
+        LOGI("Time steps loaded");
 
-        LOGI("NetCDF files opened");
+    }
 
-        // Open the U component file
-        netCDF::NcVar dataVarU = dataFileU.getVar("vozocrtx");
-
-        assert(!dataVarU.isNull());
-        // Assume 3D data: time, Y, X
-        std::vector<size_t> startp = {0, 0, 0, 0}; // Start at the first time step
-        std::vector<size_t> countp = {1,  1, dataVarU.getDim(2).getSize(), dataVarU.getDim(3).getSize()}; // One time step, one depth, all Y, all X
-
-        std::vector<float> uData(dataVarU.getDim(2).getSize() * dataVarU.getDim(3).getSize());
-        dataVarU.getVar(startp, countp, uData.data());
-
-        // Open the V component file
-        netCDF::NcVar dataVarV = dataFileV.getVar("vomecrty");
-
-        assert(!dataVarV.isNull());
-        // Assume 3D data: time, Y, X
-        startp = {0, 0, 0, 0}; // Start at the first time step
-        countp = {1, 1, dataVarV.getDim(2).getSize(), dataVarV.getDim(3).getSize()}; // One time step, one depth, all Y, all X
-
-        std::vector<float> vData(dataVarV.getDim(2).getSize() * dataVarV.getDim(3).getSize());
-        dataVarV.getVar(startp, countp, vData.data());
-
-        // After loading data, prepare vertex data for OpenGL
-        int width = dataVarU.getDim(3).getSize(); // Assuming dim(2) is 'x'
-        int height = dataVarU.getDim(2).getSize(); // Assuming dim(1) is 'y'
-
-        float maxU = *std::max_element(uData.begin(), uData.end());
-        float minU = *std::min_element(uData.begin(), uData.end());
-        float maxV = *std::max_element(vData.begin(), vData.end());
-        float minV = *std::min_element(vData.begin(), vData.end());
-
-        LOGI("Width: %d, Height: %d", width, height);
-        for (int y = 0; y < height; y++) {
-            if (y % 25 != 0) continue;
-            for (int x = 0; x < width; x++) {
-                int index = y * width + x;
-
-                if (x % 25 != 0) continue;
-                LOGI("U: %f, V: %f", uData[index], vData[index]);
-
-                float normalizedX = (x / (float)(width - 1)) * 2 - 1;
-                float normalizedY = (y / (float)(height - 1)) * 2 - 1;
-
-                float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
-                normalizedU *= 0.1f;
-                float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
-                normalizedV *= 0.1f;
-
-                float endX = normalizedX + normalizedU;
-                float endY = normalizedY + normalizedV;
-
-                // Start point
-                vertices.push_back(normalizedX);
-                vertices.push_back(normalizedY);
-                vertices.push_back(0.0f);
-
-                // End point
-                vertices.push_back(endX);
-                vertices.push_back(endY);
-                vertices.push_back(0.0f);
-            }
-        }
+    JNIEXPORT void JNICALL
+    Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
+        shaderManager->createVectorFieldBuffer(allVertices[currentFrame]);
     }
 } // extern "C"

@@ -21,6 +21,10 @@ import androidx.documentfile.provider.DocumentFile;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -43,19 +47,29 @@ public class MainActivity extends Activity {
         System.loadLibrary("netcdf_c++4");
     }
 
+
     // Attributes
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private volatile boolean dataReady = false;
+    private GLSurfaceView glSurfaceView;
+
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
+    private native void createBuffers();
     public native void initializeNetCDFVisualization(int fdU, int fdV);
-    private GLSurfaceView glSurfaceView;
+
     private static final int REQUEST_CODE_READ_STORAGE = 100;
     private static final int REQUEST_CODE_PICK_FILES = 101;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupGLSurfaceView();
+        setContentView(glSurfaceView);
+        checkAndRequestPermissions();
+    }
 
+    private void setupGLSurfaceView() {
         glSurfaceView = new GLSurfaceView(this);
         glSurfaceView.setEGLContextClientVersion(2);
         glSurfaceView.setRenderer(new GLSurfaceView.Renderer() {
@@ -72,12 +86,13 @@ public class MainActivity extends Activity {
 
             @Override
             public void onDrawFrame(GL10 gl) {
+                if (!isDataReady()) {
+                    gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+                    return;
+                }
                 drawFrame();
             }
         });
-
-        setContentView(glSurfaceView);
-        checkAndRequestPermissions();
     }
 
     private void checkAndRequestPermissions() {
@@ -92,12 +107,34 @@ public class MainActivity extends Activity {
     private void openFilePicker() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*"); // Use "*/*" to allow all file types to be selectable.
+        intent.setType("*/*");
         String[] mimeTypes = {"application/netcdf", "application/x-netcdf"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(intent, REQUEST_CODE_PICK_FILES);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
+            Uri uriU = data.getClipData().getItemAt(0).getUri();
+            Uri uriV = data.getClipData().getItemAt(1).getUri();
+            loadNetCDFData(uriU, uriV);
+        }
+    }
+
+    private void loadNetCDFData(Uri uriU, Uri uriV) {
+        executor.submit(() -> {
+            int fdU = getFileDescriptor(uriU);
+            int fdV = getFileDescriptor(uriV);
+            if (fdU != -1 && fdV != -1) {
+                initializeNetCDFVisualization(fdU, fdV);
+            }
+            runOnUiThread(this::onDataLoaded);
+        });
+    }
+
 
     public int getFileDescriptor(Uri uri) {
         try {
@@ -111,6 +148,21 @@ public class MainActivity extends Activity {
         return -1; // Return an invalid file descriptor in case of error
     }
 
+    public void onDataLoaded() {
+        runOnUiThread(() -> setDataReady(true));
+        glSurfaceView.queueEvent(this::createBuffers);
+    }
+
+
+    public void setDataReady(boolean dataReady) {
+        this.dataReady = dataReady;
+    }
+
+    public boolean isDataReady() {
+        return dataReady;
+    }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -120,27 +172,6 @@ public class MainActivity extends Activity {
                 openFilePicker();
             } else {
                 Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("MainActivity", "onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
-            Log.i("MainActivity", "onActivityResult");
-            Uri uriV = data.getClipData().getItemAt(0).getUri();
-            Uri uriU = data.getClipData().getItemAt(1).getUri();
-
-            int fdU = getFileDescriptor(uriU);
-            int fdV = getFileDescriptor(uriV);
-
-            if (fdU != -1 && fdV != -1) {
-                Log.i("MainActivity", "onActivityResult");
-                initializeNetCDFVisualization(fdU, fdV);
-            } else {
-                Log.e("MainActivity", "Error obtaining file descriptors.");
             }
         }
     }
@@ -160,5 +191,11 @@ public class MainActivity extends Activity {
         if (glSurfaceView != null) {
             glSurfaceView.onPause();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executor.shutdown();
     }
 }
