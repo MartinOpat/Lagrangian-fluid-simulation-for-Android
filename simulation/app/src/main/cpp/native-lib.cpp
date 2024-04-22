@@ -139,10 +139,9 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
 
     LOGI("NetCDF files opened");
 
-    // Assuming 'time_counter' is the time dimension size
     size_t numTimeSteps = dataFileU.getDim("time_counter").getSize();
 
-    for (size_t i = 0; i < 2; i++) {
+    for (size_t i = 0; i < 1; i++) {
         std::vector<size_t> startp = {i, 0, 0, 0};  // Start index for time, depth, y, x
         std::vector<size_t> countp = {1, 1, dataFileU.getDim("y").getSize(), dataFileU.getDim("x").getSize()};  // Read one time step, all y, all x
         std::vector<float> uData(countp[2] * countp[3]), vData(countp[2] * countp[3]);
@@ -171,12 +170,12 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
 //        shaderManager->drawTriangle();
-//        setParticlePosition();
-//        shaderManager->drawParticle();
+        setParticlePosition();
+        shaderManager->drawParticle();
 
         shaderManager->loadVectorFieldData(allVertices[currentFrame]);
         shaderManager->drawVectorField(numVertices);
-        updateFrame();
+//        updateFrame();
 //        print_nc_vars("/home/martin/Lagrangian-fluid-simulation-for-Android/simulation/data/DoubleGyre2D/doublegyreU.nc");
     }
 

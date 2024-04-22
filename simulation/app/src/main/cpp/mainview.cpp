@@ -91,12 +91,12 @@ void GLShaderManager::setupGraphics() {
     vertexShaderSource = loadShaderFile("vertex_shader.glsl");
     fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
 
-//    ImageData texData = loadSimpleTGA(this->assetManager, "textures/pt_tex_debug.tga");
+    ImageData texData = loadSimpleTGA(this->assetManager, "textures/pt_tex_debug.tga");
 
     compileAndLinkShaders();
 
-//    createTexture(texData);
-//    glBindTexture(GL_TEXTURE_2D, textureID);
+    createTexture(texData);
+    glBindTexture(GL_TEXTURE_2D, textureID);
 
     // Triangle vertices
 //    static const GLfloat vertices[] = {
@@ -112,15 +112,15 @@ void GLShaderManager::setupGraphics() {
 //    glEnableVertexAttribArray(0);
 //
 //
-//    static const GLfloat particleVertex[] = {0.0f, -0.25f, 0.0f};
-//    glGenBuffers(1, &particleVBO);
-//    glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(particleVertex), particleVertex, GL_STATIC_DRAW);
-//
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-//    glEnableVertexAttribArray(0);
-//
-//    this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
+    static const GLfloat particleVertex[] = {0.0f, -0.25f, 0.0f};
+    glGenBuffers(1, &particleVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(particleVertex), particleVertex, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(0);
+
+    this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
 }
 
 void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
@@ -133,14 +133,15 @@ void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
 }
 
 void GLShaderManager::loadVectorFieldData(std::vector<float> vertices) {
+    glUniform1i(isPointLocation, 0);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
 }
 
 void GLShaderManager::drawVectorField(int size) {
     // Set the color
-    GLint colorLocation = glGetUniformLocation(shaderProgram, "u_Color");
-    glUniform4f(colorLocation, 1.0f, 0.3f, 1.0f, 1.0f);  // White color
+//    GLint colorLocation = glGetUniformLocation(shaderProgram, "u_Color");
+//    glUniform4f(colorLocation, 1.0f, 0.3f, 1.0f, 1.0f);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(0);
