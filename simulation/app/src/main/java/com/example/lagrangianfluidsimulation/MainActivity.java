@@ -95,14 +95,26 @@ public class MainActivity extends Activity {
         });
     }
 
+//    private void checkAndRequestPermissions() {
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
+//        } else {
+//            openFilePicker();
+//        }
+//    }
+
     private void checkAndRequestPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
+        Log.d("Permissions", "Checking permissions");
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("Permissions", "Permission not granted, requesting...");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
         } else {
+            Log.d("Permissions", "Permission already granted, opening picker");
             openFilePicker();
         }
     }
+
 
     private void openFilePicker() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -164,17 +176,27 @@ public class MainActivity extends Activity {
 
 
 
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == REQUEST_CODE_READ_STORAGE) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                openFilePicker();
+//            } else {
+//                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d("Permissions", "Request code: " + requestCode);
         if (requestCode == REQUEST_CODE_READ_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openFilePicker();
-            } else {
-                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_LONG).show();
-            }
         }
     }
+
 
 
     @Override
