@@ -23,20 +23,36 @@ std::vector<float> vertices;
 std::vector<std::vector<float>> allVertices;
 int currentFrame = 0;
 int numVertices = 0;
+int width = 0;
+int height = 0;
+int fineness = 15;
 
 struct Vec3 {
     float x, y, z;
 };
 
-Vec3 particlePosition = {0.0f, -0.25f, 0.0f}; // Initial position
+Vec3 particlePosition = {-0.5f, 0.25f, 0.0f}; // Initial position
 Vec3 velocity = {0.1f, 0.0f, 0.0f}; // Speed and direction
 
 GLShaderManager* shaderManager;
 
 void updateParticlePosition(float deltaTime) {  // TODO: This should probably be done in the GPU (not CPU) cause SIMD, look into compute shaders
+    int adjWidth = width / fineness;
+    int adjHeight = height / fineness;
+
     // Update position based on velocity
-    particlePosition.x += velocity.x * deltaTime;
-    particlePosition.y += velocity.y * deltaTime;
+    int x = (int) ((particlePosition.x + 1.0f) / 2 * adjWidth);
+    int y = (int) ((particlePosition.y + 1.0f) / 2 * adjHeight);
+    int idx = y * adjWidth + x;
+
+    LOGI("x: %d, y: %d, idx: %d", x, y, idx);
+    LOGI("numVertices: %d", numVertices);
+
+    float xVel = allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6];
+    float yVel = allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1];
+
+    particlePosition.x += xVel * deltaTime;
+    particlePosition.y += yVel * deltaTime;
 
     // Wrap the position around the screen
     if (particlePosition.x > 1.0f) particlePosition.x = -1.0f;
@@ -101,14 +117,14 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
     float minV = *std::min_element(vData.begin(), vData.end());
 
     for (int y = 0; y < height; y++) {
-        if (y % 25 != 0) continue;
+        if (y % fineness != 0) continue;
         for (int x = 0; x < width; x++) {
             int index = y * width + x;
 
-            if (x % 25 != 0) continue;
+            if (x % fineness != 0) continue;
 
-            float normalizedX = (x / (float)(width - 1)) * 2 - 1;
-            float normalizedY = (y / (float)(height - 1)) * 2 - 1;
+            float normalizedX = (x / (float)(width)) * 2 - 1;
+            float normalizedY = (y / (float)(height)) * 2 - 1;
 
             float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
             normalizedU *= 0.1f;
@@ -150,6 +166,8 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
         dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
 
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
+        width = countp[3];
+        height = countp[2];
         prepareVertexData(uData, vData, countp[3], countp[2]);
     }
 }
