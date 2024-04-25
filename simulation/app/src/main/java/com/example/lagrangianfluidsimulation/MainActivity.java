@@ -36,13 +36,6 @@ import android.opengl.GLSurfaceView;
 public class MainActivity extends Activity {
     static {
         System.loadLibrary("lagrangianfluidsimulation");
-//        System.loadLibrary("z.so.1");
-//        System.loadLibrary("z1");
-//        System.loadLibrary("zlib");
-//        System.loadLibrary("z1lib");
-//        System.loadLibrary("zlib1");
-//        System.loadLibrary("hdf5_hl");
-//        System.loadLibrary("hdf5");
         System.loadLibrary("netcdf");
         System.loadLibrary("netcdf_c++4");
     }
@@ -94,15 +87,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-
-//    private void checkAndRequestPermissions() {
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
-//        } else {
-//            openFilePicker();
-//        }
-//    }
 
     private void checkAndRequestPermissions() {
         Log.d("Permissions", "Checking permissions");
@@ -174,19 +158,6 @@ public class MainActivity extends Activity {
         return dataReady;
     }
 
-
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == REQUEST_CODE_READ_STORAGE) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                openFilePicker();
-//            } else {
-//                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
