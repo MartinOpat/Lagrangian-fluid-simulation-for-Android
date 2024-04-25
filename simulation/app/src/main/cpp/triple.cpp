@@ -1,4 +1,5 @@
 #include "triple.h"
+#include "android_logging.h"
 
 #include <cmath>
 #include <exception>
@@ -146,4 +147,9 @@ ostream &operator<<(ostream &os, Triple const &t) {
     // format: [x, y, z] (no newline)
     os << '[' << t.x << ", " << t.y << ", " << t.z << ']';
     return os;
+}
+
+// --- Logging -----------------------------------------------------------------
+void debugLogTriple(const char *msg, Triple const &t) {
+    LOGI("(%f, %f, %f)\n", t.x, t.y, t.z);
 }

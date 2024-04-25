@@ -10,7 +10,7 @@
 class Triple;
 typedef Triple Color;
 typedef Triple Point;
-typedef Triple Vector;
+typedef Triple Vec3;
 
 class Triple {
 public:
@@ -93,5 +93,9 @@ Triple operator*(double f, Triple const &t);
 
 std::istream &operator>>(std::istream &is, Triple &t);
 std::ostream &operator<<(std::ostream &os, Triple const &t);
+
+// --- Logging -----------------------------------------------------------------
+
+void debugLogTriple(const char *msg, Triple const &t);
 
 #endif

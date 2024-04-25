@@ -2,27 +2,22 @@
 #define PARTICLE_H
 
 // Include necessary libraries
+#include "triple.h"
 #include <vector>
 
 // Class declaration
 class Particle {
 public:
     // Constructor
-    Particle();
-
-    // Destructor
-    ~Particle();
+    Particle(Vec3 initialPosition, Vec3 initialVelocity);
 
     // Public methods
-    void update();
+    void updatePosition(double dt);
 
 private:
     // Private member variables
-    float position;
-    float velocity;
-
-    // Private methods
-    void calculateNewPosition();
+    Vec3 position;
+    Vec3 velocity;
 };
 
 #endif // PARTICLE_H
