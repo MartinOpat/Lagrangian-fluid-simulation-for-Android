@@ -194,21 +194,18 @@ extern "C" {
         shaderManager->loadVectorFieldData(allVertices[currentFrame]);
         shaderManager->drawVectorField(numVertices);
 //        updateFrame();
-//        print_nc_vars("/home/martin/Lagrangian-fluid-simulation-for-Android/simulation/data/DoubleGyre2D/doublegyreU.nc");
     }
 
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
         LOGI("Graphics setup complete");
-//        print_nc_vars_from_asset(AAssetManager_fromJava(env, assetManager), "test_data/doublegyreU.nc");
     }
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_initializeNetCDFVisualization(
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV) {
 
-        LOGI("Initializing NetCDF visualization");
         std::string tempFileU = writeTempFileFromFD(fdU, "tempU.nc");
         std::string tempFileV = writeTempFileFromFD(fdV, "tempV.nc");
 
@@ -217,49 +214,13 @@ extern "C" {
             return;
         }
 
-//        LOGI("Temporary files created: %s, %s", tempFileU.c_str(), tempFileV.c_str());
-//
-//        // Create NetCDF file handlers
-//        netCDF::NcFile dataFileU(tempFileU, netCDF::NcFile::read);
-//        netCDF::NcFile dataFileV(tempFileV, netCDF::NcFile::read);
-//
-//        LOGI("NetCDF files opened");
-//
-//        // Open the U component file
-//        netCDF::NcVar dataVarU = dataFileU.getVar("vozocrtx");
-//
-//        assert(!dataVarU.isNull());
-//        // Assume 3D data: time, Y, X
-//        std::vector<size_t> startp = {0, 0, 0, 0}; // Start at the first time step
-//        std::vector<size_t> countp = {1,  1, dataVarU.getDim(2).getSize(), dataVarU.getDim(3).getSize()}; // One time step, one depth, all Y, all X
-//
-//        std::vector<float> uData(dataVarU.getDim(2).getSize() * dataVarU.getDim(3).getSize());
-//        dataVarU.getVar(startp, countp, uData.data());
-//
-//        // Open the V component file
-//        netCDF::NcVar dataVarV = dataFileV.getVar("vomecrty");
-//
-//        assert(!dataVarV.isNull());
-//        // Assume 3D data: time, Y, X
-//        startp = {0, 0, 0, 0}; // Start at the first time step
-//        countp = {1, 1, dataVarV.getDim(2).getSize(), dataVarV.getDim(3).getSize()}; // One time step, one depth, all Y, all X
-//
-//        std::vector<float> vData(dataVarV.getDim(2).getSize() * dataVarV.getDim(3).getSize());
-//        dataVarV.getVar(startp, countp, vData.data());
-//
-//        // After loading data, prepare vertex data for OpenGL
-//        int width = dataVarU.getDim(3).getSize(); // Assuming dim(2) is 'x'
-//        int height = dataVarU.getDim(2).getSize(); // Assuming dim(1) is 'y'
-//        prepareVertexData(uData, vData, width, height);
-
-        LOGI("Loading time steps");
         loadAllTimeSteps(tempFileU, tempFileV);
-        LOGI("Time steps loaded");
-
+        LOGI("NetCDF files loaded");
     }
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         shaderManager->createVectorFieldBuffer(allVertices[currentFrame]);
+        LOGI("Buffers created");
     }
 } // extern "C"
