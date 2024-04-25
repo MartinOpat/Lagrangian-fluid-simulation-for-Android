@@ -50,7 +50,8 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         png_loader.cpp
         mainview.cpp
         netcdf_reader.cpp
-#        test_read_nc.c
+        particle.cpp
+        triple.cpp
 )
 
 
@@ -64,8 +65,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         GLESv2
         netcdf_cxx
         netcdf
-#        hdf5
-#        zlib
 )
 
 
