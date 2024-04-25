@@ -12,12 +12,16 @@ public:
     Particle(Vec3 initialPosition, Vec3 initialVelocity);
 
     // Public methods
-    void updatePosition(double dt);
+    void eulerStep(double dt);  // Euler integration - mostly debug purposes
+    void rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b);
 
 private:
     // Private member variables
     Vec3 position;
     Vec3 velocity;
+
+    // Private methods
+
 };
 
 #endif // PARTICLE_H

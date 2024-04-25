@@ -10,6 +10,7 @@
 #include "android_logging.h"
 #include "netcdf_reader.h"
 #include "mainview.h"
+#include "triple.h"
 
 
 
@@ -21,14 +22,34 @@ int width = 0;
 int height = 0;
 int fineness = 15;
 
-struct Vec3 {
-    float x, y, z;
-};
+//struct Vec3 {
+//    float x, y, z;
+//};
 
-Vec3 particlePosition = {-0.5f, 0.25f, 0.0f}; // Initial position
-Vec3 velocity = {0.1f, 0.0f, 0.0f}; // Speed and direction
+//Vec3 particlePosition = {-0.5f, 0.25f, 0.0f}; // Initial position
+//Vec3 velocity = {0.1f, 0.0f, 0.0f}; // Speed and direction
 
 GLShaderManager* shaderManager;
+
+void velocityField(Point position, Vec3& velocity) {
+    int adjWidth = width / fineness;
+    int adjHeight = height / fineness;
+
+    // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
+    int gridX = (int)((position.x + 1.0) / 2 * adjWidth);
+    int gridY = (int)((position.y + 1.0) / 2 * adjHeight);
+//    Point gridPosition = ((position + 1.0) / 2) * Point(adjWidth, adjHeight, 0);
+
+    // Ensure indices are within bounds
+    gridX = std::max(0, std::min(gridX, adjWidth - 1));
+    gridY = std::max(0, std::min(gridY, adjHeight - 1));
+
+    int idx = gridY * adjWidth + gridX;
+
+    // Calculate velocity as differences
+    velocity = Vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
+                    allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1], 0);
+}
 
 void updateParticlePosition(float deltaTime) {  // TODO: This should probably be done in the GPU (not CPU) cause SIMD, look into compute shaders
     int adjWidth = width / fineness;
