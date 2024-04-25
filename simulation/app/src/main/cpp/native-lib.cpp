@@ -7,11 +7,8 @@
 #include <chrono>
 #include <netcdf>
 #include <assert.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <fstream>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include "netcdf_reader.h"
+
 
 #include "mainview.h"
 
@@ -45,9 +42,6 @@ void updateParticlePosition(float deltaTime) {  // TODO: This should probably be
     int y = (int) ((particlePosition.y + 1.0f) / 2 * adjHeight);
     int idx = y * adjWidth + x;
 
-    LOGI("x: %d, y: %d, idx: %d", x, y, idx);
-    LOGI("numVertices: %d", numVertices);
-
     float xVel = allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6];
     float yVel = allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1];
 
@@ -73,38 +67,6 @@ void setParticlePosition() {
     // Set uniform for updated position
     GLint posLocation = glGetUniformLocation(shaderManager->shaderProgram, "uPosition");
     glUniform3f(posLocation, particlePosition.x, particlePosition.y, particlePosition.z);
-}
-
-std::string writeTempFileFromFD(int fd, const std::string& tempFilename) {
-    // Generate path for the temporary file in the app's internal storage
-    std::string tempFilePath = "/data/data/com.example.lagrangianfluidsimulation/tmp/" + tempFilename;
-
-    // Ensure the directory exists
-    mkdir("/data/data/com.example.lagrangianfluidsimulation/tmp/", 0777);
-
-    // Create and open the temporary file
-    int tempFd = open(tempFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
-    if (tempFd == -1) {
-        __android_log_print(ANDROID_LOG_ERROR, "native-lib", "Failed to open temporary file for writing");
-        return "";
-    }
-
-    // Rewind the source descriptor to ensure it's read from the start
-    lseek(fd, 0, SEEK_SET);
-
-    // Copy data from the file descriptor to the temporary file
-    char buffer[1024];
-    ssize_t bytesRead;
-    while ((bytesRead = read(fd, buffer, sizeof(buffer))) > 0) {
-        if (write(tempFd, buffer, bytesRead) != bytesRead) {
-            __android_log_print(ANDROID_LOG_ERROR, "native-lib", "Failed to write all bytes to temporary file");
-            close(tempFd);
-            return "";
-        }
-    }
-
-    close(tempFd);
-    return tempFilePath;
 }
 
 void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, int width, int height) {
@@ -206,8 +168,9 @@ extern "C" {
     Java_com_example_lagrangianfluidsimulation_MainActivity_initializeNetCDFVisualization(
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV) {
 
-        std::string tempFileU = writeTempFileFromFD(fdU, "tempU.nc");
-        std::string tempFileV = writeTempFileFromFD(fdV, "tempV.nc");
+        NetCDFReader reader;
+        std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
+        std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
 
         if (tempFileU.empty() || tempFileV.empty()) {
             LOGE("Failed to create temporary files.");

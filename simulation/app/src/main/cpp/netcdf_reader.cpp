@@ -4,9 +4,34 @@
 #include <fstream>
 #include <vector>
 #include <cstdio>
+#include <fcntl.h>
+#include <unistd.h>
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <android/log.h>
 
-NetCDFReader::NetCDFReader(AAssetManager* assetManager, const std::string& filename)
-        : mAssetManager(assetManager), mFilename(filename) {
+#define LOG_TAG "native-lib"
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
+
+NetCDFReader::NetCDFReader() {
+    mAssetManager = nullptr;
+    mFilename = "";
+    variableNames = {};
+}
+
+void NetCDFReader::loadAssetManager(AAssetManager* assetManager) {
+    mAssetManager = assetManager;
+}
+
+void NetCDFReader::loadFile(const std::string& filename) {
+    if (mAssetManager == nullptr) {
+        LOGE("Asset manager not loaded");
+        return;
+    }
+
     AAsset* asset = AAssetManager_open(mAssetManager, mFilename.c_str(), AASSET_MODE_UNKNOWN);
     if (!asset) {
         std::cerr << "Failed to open asset: " << mFilename << std::endl;
@@ -38,7 +63,12 @@ NetCDFReader::NetCDFReader(AAssetManager* assetManager, const std::string& filen
 }
 
 void NetCDFReader::printVariableNames() const {
+
     std::cout << "Variables in the NetCDF file:" << std::endl;
+    if (variableNames.empty()) {
+        LOGE("No variables found or no file loaded!");
+        return;
+    }
     for (const auto& varName : variableNames) {
         std::cout << varName << std::endl;
     }
@@ -46,4 +76,36 @@ void NetCDFReader::printVariableNames() const {
 
 const std::vector<std::string>& NetCDFReader::getVariableNames() const {
     return variableNames;
+}
+
+std::string NetCDFReader::writeTempFileFromFD(int fd, const std::string& tempFilename) {
+    // Generate path for the temporary file in the app's internal storage
+    std::string tempFilePath = "/data/data/com.example.lagrangianfluidsimulation/tmp/" + tempFilename;
+
+    // Ensure the directory exists
+    mkdir("/data/data/com.example.lagrangianfluidsimulation/tmp/", 0777);
+
+    // Create and open the temporary file
+    int tempFd = open(tempFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    if (tempFd == -1) {
+        __android_log_print(ANDROID_LOG_ERROR, "native-lib", "Failed to open temporary file for writing");
+        return "";
+    }
+
+    // Rewind the source descriptor to ensure it's read from the start
+    lseek(fd, 0, SEEK_SET);
+
+    // Copy data from the file descriptor to the temporary file
+    char buffer[1024];
+    ssize_t bytesRead;
+    while ((bytesRead = read(fd, buffer, sizeof(buffer))) > 0) {
+        if (write(tempFd, buffer, bytesRead) != bytesRead) {
+            __android_log_print(ANDROID_LOG_ERROR, "native-lib", "Failed to write all bytes to temporary file");
+            close(tempFd);
+            return "";
+        }
+    }
+
+    close(tempFd);
+    return tempFilePath;
 }

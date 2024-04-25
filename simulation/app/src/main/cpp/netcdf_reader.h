@@ -10,9 +10,12 @@
 
 class NetCDFReader {
 public:
-    NetCDFReader(AAssetManager* assetManager, const std::string& filename);
+    NetCDFReader();
+    void loadAssetManager(AAssetManager* assetManager);
+    void loadFile(const std::string& filename);
     void printVariableNames() const;
     const std::vector<std::string>& getVariableNames() const;
+    std::string writeTempFileFromFD(int fd, const std::string& tempFilename);
 
 private:
     AAssetManager* mAssetManager;
