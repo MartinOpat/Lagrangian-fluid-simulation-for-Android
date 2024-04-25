@@ -162,7 +162,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_MainActivity_initializeNetCDFVisualization(
+    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_initializeNetCDFVisualization(
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV) {
 
         NetCDFReader reader;

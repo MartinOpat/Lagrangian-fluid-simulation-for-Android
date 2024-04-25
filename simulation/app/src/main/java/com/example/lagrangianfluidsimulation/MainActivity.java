@@ -32,6 +32,8 @@ import javax.microedition.khronos.opengles.GL10;
 import android.Manifest;
 import android.opengl.GLSurfaceView;
 
+import com.example.lagrangianfluidsimulation.FileAccessHelper;
+
 
 public class MainActivity extends Activity {
     static {
@@ -42,14 +44,12 @@ public class MainActivity extends Activity {
 
 
     // Attributes
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
-    private volatile boolean dataReady = false;
     private GLSurfaceView glSurfaceView;
+    private final FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
 
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
-    private native void createBuffers();
-    public native void initializeNetCDFVisualization(int fdU, int fdV);
+    public native void createBuffers();
 
     private static final int REQUEST_CODE_READ_STORAGE = 100;
     private static final int REQUEST_CODE_PICK_FILES = 101;
@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setupGLSurfaceView();
         setContentView(glSurfaceView);
-        checkAndRequestPermissions();
+        fileAccessHelper.checkAndRequestPermissions();
     }
 
     private void setupGLSurfaceView() {
@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onDrawFrame(GL10 gl) {
-                if (!isDataReady()) {
+                if (!fileAccessHelper.isDataReady()) {
                     gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
                     return;
                 }
@@ -88,74 +88,20 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void checkAndRequestPermissions() {
-        Log.d("Permissions", "Checking permissions");
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("Permissions", "Permission not granted, requesting...");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
-        } else {
-            Log.d("Permissions", "Permission already granted, opening picker");
-            openFilePicker();
-        }
-    }
-
-
-    private void openFilePicker() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        String[] mimeTypes = {"application/netcdf", "application/x-netcdf"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(intent, REQUEST_CODE_PICK_FILES);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
             Uri uriU = data.getClipData().getItemAt(0).getUri();
             Uri uriV = data.getClipData().getItemAt(1).getUri();
-            loadNetCDFData(uriU, uriV);
+            fileAccessHelper.loadNetCDFData(uriU, uriV);
         }
     }
 
-    private void loadNetCDFData(Uri uriU, Uri uriV) {
-        executor.submit(() -> {
-            int fdU = getFileDescriptor(uriU);
-            int fdV = getFileDescriptor(uriV);
-            if (fdU != -1 && fdV != -1) {
-                initializeNetCDFVisualization(fdU, fdV);
-            }
-            runOnUiThread(this::onDataLoaded);
-        });
-    }
-
-
-    public int getFileDescriptor(Uri uri) {
-        try {
-            ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "r");
-            if (pfd != null) {
-                return pfd.detachFd(); // Detach the file descriptor to pass it to native code
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("MainActivity", "File not found.", e);
-        }
-        return -1; // Return an invalid file descriptor in case of error
-    }
 
     public void onDataLoaded() {
-        runOnUiThread(() -> setDataReady(true));
+        runOnUiThread(() -> fileAccessHelper.setDataReady(true));
         glSurfaceView.queueEvent(this::createBuffers);
-    }
-
-
-    public void setDataReady(boolean dataReady) {
-        this.dataReady = dataReady;
-    }
-
-    public boolean isDataReady() {
-        return dataReady;
     }
 
 
@@ -164,10 +110,9 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d("Permissions", "Request code: " + requestCode);
         if (requestCode == REQUEST_CODE_READ_STORAGE) {
-                openFilePicker();
+                fileAccessHelper.openFilePicker();
         }
     }
-
 
 
     @Override
@@ -189,6 +134,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        executor.shutdown();
+        fileAccessHelper.shutdown();
     }
 }
