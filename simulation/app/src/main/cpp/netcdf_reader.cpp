@@ -1,5 +1,4 @@
 // NetCDFReader.cpp
-#include "netcdf_reader.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -9,11 +8,10 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <android/log.h>
 
-#define LOG_TAG "native-lib"
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
+#include "netcdf_reader.h"
+#include "android_logging.h"
 
 
 NetCDFReader::NetCDFReader() {

@@ -3,18 +3,15 @@
 #include <GLES2/gl2.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-#include <android/log.h>
 #include <chrono>
 #include <netcdf>
 #include <assert.h>
+
+#include "android_logging.h"
 #include "netcdf_reader.h"
-
-
 #include "mainview.h"
 
-#define LOG_TAG "native-lib"
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
 
 std::vector<float> vertices;
 std::vector<std::vector<float>> allVertices;

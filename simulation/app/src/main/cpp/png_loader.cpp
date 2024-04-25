@@ -1,9 +1,8 @@
 #include <sys/endian.h>
-#include "png_loader.h"
 
-#define LOG_TAG "native-lib"
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#include "png_loader.h"
+#include "android_logging.h"
+
 
 ImageData loadSimpleTGA(AAssetManager* assetManager, const char* filename) {
     AAsset* asset = AAssetManager_open(assetManager, filename, AASSET_MODE_BUFFER);

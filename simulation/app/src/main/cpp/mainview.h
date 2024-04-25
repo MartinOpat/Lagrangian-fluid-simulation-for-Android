@@ -5,7 +5,10 @@
 #include <chrono>
 #include <GLES2/gl2.h>
 #include <android/asset_manager.h>
+
+#include "android_logging.h"
 #include "png_loader.h"
+
 
 class GLShaderManager {
 public:
