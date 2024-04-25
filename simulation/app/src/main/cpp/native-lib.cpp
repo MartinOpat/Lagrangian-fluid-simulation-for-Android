@@ -28,10 +28,6 @@ Vec3 initialPos(-0.5f, 0.25f, 0.0f);  // Initial position
 Vec3 initialVel(0.0f, 0.0f, 0.0f);  // Speed and direction
 Particle particle(initialPos, initialVel);
 
-//struct Vec3 {
-//    float x, y, z;
-//};
-
 
 GLShaderManager* shaderManager;
 
@@ -55,36 +51,12 @@ void velocityField(Point position, Vec3& velocity) {
                     allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1], 0);
 }
 
-//void updateParticlePosition(float deltaTime) {  // TODO: This should probably be done in the GPU (not CPU) cause SIMD, look into compute shaders
-//    int adjWidth = width / fineness;
-//    int adjHeight = height / fineness;
-//
-//    // Update position based on velocity
-//    int x = (int) ((particlePosition.x + 1.0f) / 2 * adjWidth);
-//    int y = (int) ((particlePosition.y + 1.0f) / 2 * adjHeight);
-//    int idx = y * adjWidth + x;
-//
-//    float xVel = allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6];
-//    float yVel = allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1];
-//
-//    particlePosition.x += xVel * deltaTime;
-//    particlePosition.y += yVel * deltaTime;
-//
-//    // Wrap the position around the screen
-//    if (particlePosition.x > 1.0f) particlePosition.x = -1.0f;
-//    else if (particlePosition.x < -1.0f) particlePosition.x = 1.0f;
-//
-//    if (particlePosition.y > 1.0f) particlePosition.y = -1.0f;
-//    else if (particlePosition.y < -1.0f) particlePosition.y = 1.0f;
-//}
-
 void setParticlePosition() {
     // Update deltaTime based on your application's timing logic
     auto currentTime = std::chrono::steady_clock::now();
     float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
     shaderManager->startTime = currentTime;
 
-//    updateParticlePosition(deltaTime);
     particle.rk4Step(deltaTime, velocityField, b);
 //    particle.eulerStep(deltaTime, velocityField);
     Vec3 particlePos = particle.getPosition();
