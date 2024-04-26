@@ -22,14 +22,31 @@ int numVertices = 0;
 int width = 0;
 int height = 0;
 int fineness = 15;
+bool started = false;
 
 float b = 0.8f;  // Drag coefficient
-Vec3 initialPos(-0.5f, 0.25f, 0.0f);  // Initial position
-Vec3 initialVel(0.0f, 0.0f, 0.0f);  // Speed and direction
-Particle particle(initialPos, initialVel);
+//Vec3 initialPos(-0.5f, 0.25f, 0.0f);  // Initial position
+//Vec3 initialVel(0.0f, 0.0f, 0.0f);  // Speed and direction
+//Particle particle(initialPos, initialVel);
+std::vector<Particle> particles;
 
 
 GLShaderManager* shaderManager;
+
+void initParticles(int num) {
+particles.clear();
+    for (int i = 0; i < num; i++) {
+        // Randomly generate initial velocity
+        float aspectRatio = 19.3f / 9.0f;
+        float angle = 2.0f * M_PI * rand() / (float)RAND_MAX;
+        float magnitude = 0.3f * rand() / (float)RAND_MAX;
+        float xVel = magnitude * cos(angle) * aspectRatio;
+        float yVel = magnitude * sin(angle);
+        Vec3 initialVel(xVel, yVel, 0.0f);
+        Vec3 initialPos(-0.5f, 0.25f, 0.0f);
+        particles.push_back(Particle(initialPos, initialVel));
+    }
+}
 
 void velocityField(Point position, Vec3& velocity) {
     int adjWidth = width / fineness;
@@ -51,19 +68,29 @@ void velocityField(Point position, Vec3& velocity) {
                     allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1], 0);
 }
 
-void setParticlePosition() {
-    // Update deltaTime based on your application's timing logic
-    auto currentTime = std::chrono::steady_clock::now();
-    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
-    shaderManager->startTime = currentTime;
-
+void setParticlePosition(Particle& particle, float deltaTime) {
     particle.rk4Step(deltaTime, velocityField, b);
-//    particle.eulerStep(deltaTime, velocityField);
     Vec3 particlePos = particle.getPosition();
 
     // Set uniform for updated position
     GLint posLocation = glGetUniformLocation(shaderManager->shaderProgram, "uPosition");
     glUniform3f(posLocation, particlePos.x, particlePos.y, particlePos.z);
+}
+
+void drawParticles() {
+    // Update deltaTime based on your application's timing logic
+    if (!started) {
+        shaderManager->startTime = std::chrono::steady_clock::now();
+        started = true;
+    }
+    auto currentTime = std::chrono::steady_clock::now();
+    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
+    shaderManager->startTime = currentTime;
+
+    for (auto& particle : particles) {
+        setParticlePosition(particle, deltaTime);
+        shaderManager->drawParticle();
+    }
 }
 
 void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, int width, int height) {
@@ -146,8 +173,7 @@ void updateFrame() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
-//        shaderManager->drawTriangle();
-        setParticlePosition();
+        drawParticles();
         shaderManager->drawParticle();
 
         shaderManager->loadVectorFieldData(allVertices[currentFrame]);
@@ -176,11 +202,15 @@ extern "C" {
 
         loadAllTimeSteps(tempFileU, tempFileV);
         LOGI("NetCDF files loaded");
+
+        initParticles(1000);
+        LOGI("Particles initialized");
     }
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         shaderManager->createVectorFieldBuffer(allVertices[currentFrame]);
+        shaderManager->createParticleBuffer(particles);
         LOGI("Buffers created");
     }
 } // extern "C"

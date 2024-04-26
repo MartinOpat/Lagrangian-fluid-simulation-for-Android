@@ -8,6 +8,8 @@
 
 #include "android_logging.h"
 #include "png_loader.h"
+#include "particle.h"
+
 
 
 class GLShaderManager {
@@ -26,6 +28,8 @@ public:
     void loadVectorFieldData(std::vector<float> vertices);
     void drawVectorField(int size);
     void createVectorFieldBuffer(std::vector<float> vertices);
+
+    void createParticleBuffer(std::vector<Particle> particles);
 
     GLuint shaderProgram;
     std::chrono::steady_clock::time_point startTime;

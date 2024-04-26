@@ -111,10 +111,21 @@ void GLShaderManager::setupGraphics() {
 //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 //    glEnableVertexAttribArray(0);
 
-    static const GLfloat particleVertex[] = {0.0f, -0.25f, 0.0f};
+//    static const GLfloat particleVertex[] = {0.0f, -0.25f, 0.0f};
+//    glGenBuffers(1, &particleVBO);
+//    glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(particleVertex), particleVertex, GL_STATIC_DRAW);
+//
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+//    glEnableVertexAttribArray(0);
+//
+//    this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
+}
+
+void GLShaderManager::createParticleBuffer(std::vector<Particle> particles) {
     glGenBuffers(1, &particleVBO);
     glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(particleVertex), particleVertex, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), particles.data(), GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(0);
