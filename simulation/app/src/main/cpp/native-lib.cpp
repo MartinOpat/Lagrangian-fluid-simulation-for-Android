@@ -29,12 +29,24 @@ float b = 0.8f;  // Drag coefficient
 //Vec3 initialVel(0.0f, 0.0f, 0.0f);  // Speed and direction
 //Particle particle(initialPos, initialVel);
 std::vector<Particle> particles;
+std::vector<float> particlesPos;
 
 
 GLShaderManager* shaderManager;
 
+void updateParticlePosArr() {
+    particlesPos.clear();
+    for (auto& particle : particles) {
+        Vec3 particlePos = particle.getPosition();
+        particlesPos.push_back(particlePos.x);
+        particlesPos.push_back(particlePos.y);
+        particlesPos.push_back(particlePos.z);
+    }
+}
+
 void initParticles(int num) {
-particles.clear();
+    particles.clear();
+    particlesPos.clear();
     for (int i = 0; i < num; i++) {
         // Randomly generate initial velocity
         float aspectRatio = 19.3f / 9.0f;
@@ -43,9 +55,11 @@ particles.clear();
         float xVel = magnitude * cos(angle) * aspectRatio;
         float yVel = magnitude * sin(angle);
         Vec3 initialVel(xVel, yVel, 0.0f);
-        Vec3 initialPos(-0.5f, 0.25f, 0.0f);
+        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
         particles.push_back(Particle(initialPos, initialVel));
     }
+
+    updateParticlePosArr();
 }
 
 void velocityField(Point position, Vec3& velocity) {
@@ -68,17 +82,32 @@ void velocityField(Point position, Vec3& velocity) {
                     allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1], 0);
 }
 
-void setParticlePosition(Particle& particle, float deltaTime) {
-    particle.rk4Step(deltaTime, velocityField, b);
-    Vec3 particlePos = particle.getPosition();
+//void setParticlePosition(Particle& particle, float deltaTime) {
+//    particle.rk4Step(deltaTime, velocityField, b);
+//    Vec3 particlePos = particle.getPosition();
+//
+//    // Set uniform for updated position
+//    GLint posLocation = glGetUniformLocation(shaderManager->shaderProgram, "uPosition");
+//    glUniform3f(posLocation, particlePos.x, particlePos.y, particlePos.z);
+//}
+//
+//void drawParticles() {
+//    // Update deltaTime based on your application's timing logic
+//    if (!started) {
+//        shaderManager->startTime = std::chrono::steady_clock::now();
+//        started = true;
+//    }
+//    auto currentTime = std::chrono::steady_clock::now();
+//    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
+//    shaderManager->startTime = currentTime;
+//
+//    for (auto& particle : particles) {
+//        setParticlePosition(particle, deltaTime);
+//        shaderManager->drawParticle();
+//    }
+//}
 
-    // Set uniform for updated position
-    GLint posLocation = glGetUniformLocation(shaderManager->shaderProgram, "uPosition");
-    glUniform3f(posLocation, particlePos.x, particlePos.y, particlePos.z);
-}
-
-void drawParticles() {
-    // Update deltaTime based on your application's timing logic
+void updateParticles() {
     if (!started) {
         shaderManager->startTime = std::chrono::steady_clock::now();
         started = true;
@@ -88,8 +117,7 @@ void drawParticles() {
     shaderManager->startTime = currentTime;
 
     for (auto& particle : particles) {
-        setParticlePosition(particle, deltaTime);
-        shaderManager->drawParticle();
+        particle.rk4Step(deltaTime, velocityField, b);
     }
 }
 
@@ -173,8 +201,14 @@ void updateFrame() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
-        drawParticles();
-        shaderManager->drawParticle();
+
+//        drawParticles();
+//        shaderManager->drawParticle();
+
+        updateParticles();
+        updateParticlePosArr();
+        shaderManager->loadParticlesData(particlesPos);
+        shaderManager->drawParticles(particlesPos.size());
 
         shaderManager->loadVectorFieldData(allVertices[currentFrame]);
         shaderManager->drawVectorField(numVertices);
@@ -210,7 +244,7 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         shaderManager->createVectorFieldBuffer(allVertices[currentFrame]);
-        shaderManager->createParticleBuffer(particles);
+        shaderManager->createParticlesBuffer(particlesPos);
         LOGI("Buffers created");
     }
 } // extern "C"

@@ -5,9 +5,6 @@ uniform vec3 uPosition;
 void main() {
     if (uIsPoint) {
         gl_PointSize = 10.0;
-        gl_Position = vec4(uPosition, 1.0);
-
-    } else {
-        gl_Position = vPosition;
     }
+    gl_Position = vPosition;
 }

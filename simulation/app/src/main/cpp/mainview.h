@@ -29,7 +29,9 @@ public:
     void drawVectorField(int size);
     void createVectorFieldBuffer(std::vector<float> vertices);
 
-    void createParticleBuffer(std::vector<Particle> particles);
+    void createParticlesBuffer(std::vector<float> particlesPos);
+    void loadParticlesData(std::vector<float> particlesPos);
+    void drawParticles(int size);
 
     GLuint shaderProgram;
     std::chrono::steady_clock::time_point startTime;
