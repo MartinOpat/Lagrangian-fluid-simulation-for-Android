@@ -25,9 +25,6 @@ int fineness = 15;
 bool started = false;
 
 float b = 0.8f;  // Drag coefficient
-//Vec3 initialPos(-0.5f, 0.25f, 0.0f);  // Initial position
-//Vec3 initialVel(0.0f, 0.0f, 0.0f);  // Speed and direction
-//Particle particle(initialPos, initialVel);
 std::vector<Particle> particles;
 std::vector<float> particlesPos;
 
@@ -81,31 +78,6 @@ void velocityField(Point position, Vec3& velocity) {
     velocity = Vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
                     allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1], 0);
 }
-
-//void setParticlePosition(Particle& particle, float deltaTime) {
-//    particle.rk4Step(deltaTime, velocityField, b);
-//    Vec3 particlePos = particle.getPosition();
-//
-//    // Set uniform for updated position
-//    GLint posLocation = glGetUniformLocation(shaderManager->shaderProgram, "uPosition");
-//    glUniform3f(posLocation, particlePos.x, particlePos.y, particlePos.z);
-//}
-//
-//void drawParticles() {
-//    // Update deltaTime based on your application's timing logic
-//    if (!started) {
-//        shaderManager->startTime = std::chrono::steady_clock::now();
-//        started = true;
-//    }
-//    auto currentTime = std::chrono::steady_clock::now();
-//    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
-//    shaderManager->startTime = currentTime;
-//
-//    for (auto& particle : particles) {
-//        setParticlePosition(particle, deltaTime);
-//        shaderManager->drawParticle();
-//    }
-//}
 
 void updateParticles() {
     if (!started) {
@@ -201,9 +173,6 @@ void updateFrame() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
-
-//        drawParticles();
-//        shaderManager->drawParticle();
 
         updateParticles();
         updateParticlePosArr();
