@@ -3,7 +3,8 @@
 
 #include <string>
 #include <chrono>
-#include <GLES2/gl2.h>
+//#include <GLES2/gl2.h>
+#include <GLES3/gl3.h>
 #include <android/asset_manager.h>
 
 #include "android_logging.h"
@@ -45,11 +46,14 @@ private:
     std::string fragmentShaderSource;
 
     GLuint triangleVBO;
+
     GLuint particleVBO;
+    GLuint particleVAO;
 
     GLint isPointLocation;
 
-    GLuint vectorFieldVBO; // Add this to manage VBO for vector field
+    GLuint vectorFieldVBO;
+    GLuint vectorFieldVAO;
 };
 
 #endif // GL_SHADER_MANAGER_H
