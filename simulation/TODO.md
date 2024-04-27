@@ -5,3 +5,7 @@
 
 ## Native side
 - [] Refactor the code into classes.
+
+## Current bottlenecks
+- [] Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
+- [] Loading bif files is slow, i.e. requires a "long" initial load time.
