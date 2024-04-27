@@ -113,9 +113,7 @@ void GLShaderManager::setupGraphics() {
 
     // Query uniform locations
     this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
-    if (this->isPointLocation == -1) {
-        LOGE("Failed to get the location of 'uIsPoint'");
-    }
+    this->pointSize = glGetUniformLocation(shaderProgram, "uPointSize");
 
     // Error checking after setup
     GLenum err;
@@ -148,6 +146,7 @@ void GLShaderManager::loadParticlesData(std::vector<float> particlesPos) {
 void GLShaderManager::drawParticles(int size) {
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocation, 1);
+    glUniform1f(pointSize, 15.0f);
 
     glDrawArrays(GL_POINTS, 0, size / 3);
 

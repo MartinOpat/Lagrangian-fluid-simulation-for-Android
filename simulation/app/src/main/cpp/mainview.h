@@ -43,12 +43,13 @@ private:
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
 
-    GLuint triangleVBO;
+    // Uniforms
+    GLint isPointLocation;
+    GLfloat pointSize;
 
+    // Buffers
     GLuint particleVBO;
     GLuint particleVAO;
-
-    GLint isPointLocation;
 
     GLuint vectorFieldVBO;
     GLuint vectorFieldVAO;
