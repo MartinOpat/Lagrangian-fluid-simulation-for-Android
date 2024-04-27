@@ -22,8 +22,6 @@ public:
     void createTexture(const ImageData& texData);
     void compileAndLinkShaders();
     void setFrame();
-    void drawTriangle();
-    void drawParticle();
     void setupGraphics();
 
     void loadVectorFieldData(std::vector<float> vertices);

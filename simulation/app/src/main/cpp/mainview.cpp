@@ -86,11 +86,7 @@ void GLShaderManager::compileAndLinkShaders() {
 
 void GLShaderManager::setFrame() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClear(GL_COLOR_BUFFER_BIT);
-
-//    glEnable(GL_DEPTH_TEST);
-//    glDepthFunc(GL_LESS);
 
     glEnable(GL_BLEND); // Enable blending
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -112,30 +108,21 @@ void GLShaderManager::setupGraphics() {
     if (!linked) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderProgram, sizeof(linkLog), NULL, linkLog);
-//        std::cerr << "Shader Program Link Error: " << linkLog << std::endl;
         LOGE("Shader Program Link Error: %s", linkLog);
     }
-
-    // Create and bind textures
-//    ImageData texData = loadSimpleTGA(this->assetManager, "textures/pt_tex_debug.tga");
-//    createTexture(texData);
-//    glBindTexture(GL_TEXTURE_2D, textureID);
 
     // Query uniform locations
     this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
     if (this->isPointLocation == -1) {
-//        std::cerr << "Failed to get the location of 'uIsPoint'" << std::endl;
         LOGE("Failed to get the location of 'uIsPoint'");
     }
 
     // Error checking after setup
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {
-//        std::cerr << "OpenGL setup error: " << std::hex << err << std::endl;
         LOGE("OpenGL setup error: %x", err);
     }
 }
-
 
 void GLShaderManager::createParticlesBuffer(std::vector<float> particlesPos) {
     glGenBuffers(1, &particleVBO);
