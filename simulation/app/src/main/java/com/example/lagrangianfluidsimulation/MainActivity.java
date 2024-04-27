@@ -75,7 +75,14 @@ public class MainActivity extends Activity {
         if (requestCode == REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
             Uri uriU = data.getClipData().getItemAt(0).getUri();
             Uri uriV = data.getClipData().getItemAt(1).getUri();
-            fileAccessHelper.loadNetCDFData(uriU, uriV);
+            try {
+                Uri uriW = data.getClipData().getItemAt(2).getUri();
+                Log.i("MainActivity", "3D mode");
+                fileAccessHelper.loadNetCDFData(uriU, uriV, uriW);
+            } catch (IndexOutOfBoundsException e) {
+                Log.i("MainActivity", "2D mode");
+                fileAccessHelper.loadNetCDFData(uriU, uriV);
+            }
         }
     }
 
