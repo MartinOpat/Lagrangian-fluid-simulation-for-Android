@@ -14,7 +14,6 @@ void main() {
         gl_PointSize = uPointSize;
     }
     gl_Position = vPosition;
-//    gl_Position = vec4(vPosition.xy, 0.0f, 1.0f);
     depth = vPosition.z;
 //    gl_Position = projectionTransform * viewTransform * modelTransform * vPosition;
 }

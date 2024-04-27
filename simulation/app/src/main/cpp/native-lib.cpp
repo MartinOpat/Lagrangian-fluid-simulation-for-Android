@@ -69,7 +69,6 @@ void velocityField(Point position, Vec3& velocity) {
     int gridX = (int)((position.x + 1.0) / 2 * adjWidth);
     int gridY = (int)((position.y + 1.0) / 2 * adjHeight);
     int gridZ = (int)((position.z + 1.0) / 2 * adjHeight);
-//    Point gridPosition = ((position + 1.0) / 2) * Point(adjWidth, adjHeight, 0);
 
     // Ensure indices are within bounds
     gridX = std::max(0, std::min(gridX, adjWidth - 1));
@@ -77,12 +76,6 @@ void velocityField(Point position, Vec3& velocity) {
     gridZ = std::max(0, std::min(gridZ, adjHeight - 1));
 
     int idx = gridY * adjWidth + gridX;
-
-//    LOGI("Grid position: %f, %f, %f", allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
-//         allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
-//         allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]);    LOGI("Grid position: %f, %f, %f", allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
-//         allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
-//         allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]);
 
     // Calculate velocity as differences
     velocity = Vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
@@ -102,7 +95,6 @@ void updateParticles() {
 
     for (auto& particle : particles) {
         particle.rk4Step(deltaTime, velocityField, b);
-        LOGI("Particle depth: %f", particle.getPosition().z);
     }
 }
 
@@ -189,12 +181,12 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
             // Start point
             vertices.push_back(normalizedX);
             vertices.push_back(normalizedY);
-            vertices.push_back(normalizedZ);
+            vertices.push_back(0.0f);
 
             // End point
             vertices.push_back(endX);
             vertices.push_back(endY);
-            vertices.push_back(endZ);
+            vertices.push_back(0.0f);
         }
     }
     numVertices = vertices.size();
@@ -243,16 +235,10 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
         dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
         dataFileW.getVar("W").getVar(startp, countp, wData.data());
 
-//        LOGI("W data:");
-//        for (int i = 0; i < 10; i++) {
-//            if (wData[i] != 0.0f) {
-//                LOGI("%f", wData[i]);
-//            }
-//        }
-
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
         width = countp[3];
         height = countp[2];
+        depth = 1;
         prepareVertexData(uData, vData, wData, countp[3], countp[2]);
     }
 }

@@ -86,13 +86,10 @@ void GLShaderManager::compileAndLinkShaders() {
 
 void GLShaderManager::setFrame() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glEnable(GL_BLEND); // Enable blending
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glEnable(GL_DEPTH_TEST); // Enable depth testing
-    glDepthFunc(GL_LESS);
 
     glUseProgram(shaderProgram);
 }
