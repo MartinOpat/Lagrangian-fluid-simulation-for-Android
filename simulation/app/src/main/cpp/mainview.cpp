@@ -34,33 +34,6 @@ void GLShaderManager::createTexture(const ImageData& texData) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
-//void GLShaderManager::compileAndLinkShaders() {
-//    // Compile vertex shader
-//    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-//    const char* vertexShaderSourceCStr = vertexShaderSource.c_str();
-//    glShaderSource(vertexShader, 1, &vertexShaderSourceCStr, NULL);
-//    glCompileShader(vertexShader);
-//
-//    // Compile fragment shader
-//    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-//    const char* fragmentShaderSourceCStr = fragmentShaderSource.c_str();
-//    glShaderSource(fragmentShader, 1, &fragmentShaderSourceCStr, NULL);
-//    glCompileShader(fragmentShader);
-//
-//    // Link shaders
-//    shaderProgram = glCreateProgram();
-//    glAttachShader(shaderProgram, vertexShader);
-//    glAttachShader(shaderProgram, fragmentShader);
-//    glBindAttribLocation(shaderProgram, 0, "vPosition");
-//    glLinkProgram(shaderProgram);
-//
-//    // Cleanup
-//    glDetachShader(shaderProgram, vertexShader);
-//    glDetachShader(shaderProgram, fragmentShader);
-//    glDeleteShader(vertexShader);
-//    glDeleteShader(fragmentShader);
-//}
-
 void GLShaderManager::compileAndLinkShaders() {
     GLint compileSuccess = 0;
     GLint linkSuccess = 0;
@@ -113,44 +86,17 @@ void GLShaderManager::compileAndLinkShaders() {
 
 void GLShaderManager::setFrame() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClear(GL_COLOR_BUFFER_BIT);
+
+//    glEnable(GL_DEPTH_TEST);
+//    glDepthFunc(GL_LESS);
 
     glEnable(GL_BLEND); // Enable blending
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glUseProgram(shaderProgram);
 }
-
-void GLShaderManager::drawTriangle() {
-    glUniform1i(isPointLocation, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, triangleVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-}
-
-void GLShaderManager::drawParticle() {
-    glUniform1i(isPointLocation, 1);
-    glBindTexture(GL_TEXTURE_2D, textureID); // Bind the texture for the particle
-    glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    glEnableVertexAttribArray(0);
-    glDrawArrays(GL_POINTS, 0, 1);
-}
-
-//void GLShaderManager::setupGraphics() {
-//    vertexShaderSource = loadShaderFile("vertex_shader.glsl");
-//    fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
-//
-//    ImageData texData = loadSimpleTGA(this->assetManager, "textures/pt_tex_debug.tga");
-//
-//    compileAndLinkShaders();
-//
-//    createTexture(texData);
-//    glBindTexture(GL_TEXTURE_2D, textureID);
-//
-//    this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
-//}
 
 void GLShaderManager::setupGraphics() {
     // Load shader source code
@@ -171,9 +117,9 @@ void GLShaderManager::setupGraphics() {
     }
 
     // Create and bind textures
-    ImageData texData = loadSimpleTGA(this->assetManager, "textures/pt_tex_debug.tga");
-    createTexture(texData);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+//    ImageData texData = loadSimpleTGA(this->assetManager, "textures/pt_tex_debug.tga");
+//    createTexture(texData);
+//    glBindTexture(GL_TEXTURE_2D, textureID);
 
     // Query uniform locations
     this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
@@ -213,22 +159,12 @@ void GLShaderManager::loadParticlesData(std::vector<float> particlesPos) {
 }
 
 void GLShaderManager::drawParticles(int size) {
-    // Set the color
-//    GLint colorLocation = glGetUniformLocation(shaderProgram, "u_Color");
-//    glUniform4f(colorLocation, 1.0f, 0.3f, 1.0f, 1.0f);
-
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocation, 1);
 
     glDrawArrays(GL_POINTS, 0, size / 3);
 
     glBindVertexArray(0);
-
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-//    glEnableVertexAttribArray(0);
-//
-//    glDisableVertexAttribArray(0);
-//    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
@@ -253,21 +189,10 @@ void GLShaderManager::loadVectorFieldData(std::vector<float> vertices) {
 }
 
 void GLShaderManager::drawVectorField(int size) {
-    // Set the color
-//    GLint colorLocation = glGetUniformLocation(shaderProgram, "u_Color");
-//    glUniform4f(colorLocation, 1.0f, 0.3f, 1.0f, 1.0f);
-
     glBindVertexArray(vectorFieldVAO);
     glUniform1i(isPointLocation, 0);
 
     glDrawArrays(GL_LINES, 0, size / 3);
 
     glBindVertexArray(0);
-
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-//    glEnableVertexAttribArray(0);
-//
-//
-//    glDisableVertexAttribArray(0);
-//    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
