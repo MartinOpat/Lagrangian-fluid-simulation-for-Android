@@ -5,6 +5,7 @@
 
 ## Native side
 - [] Refactor the code into classes.
+- [] Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 
 ## Current bottlenecks
 - [] Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

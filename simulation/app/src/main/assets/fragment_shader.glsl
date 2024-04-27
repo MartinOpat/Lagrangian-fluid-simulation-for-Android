@@ -13,7 +13,8 @@ void main() {
         if (dist > radius) {
             discard;
         } else {
-            fragColor = vec4(1.0, 0.0, 0.0, 1.0);  // Red for now
+            float depth = gl_FragCoord.z;
+            fragColor = vec4(1.0-depth, 0.0, 0.0, 1.0);  // Red for now
         }
 
     } else {
