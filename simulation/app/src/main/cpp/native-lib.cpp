@@ -70,14 +70,14 @@ void velocityField(Point position, Vec3& velocity) {
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
     int gridX = (int)((position.x + 1.0) / 2 * adjWidth);
     int gridY = (int)((position.y + 1.0) / 2 * adjHeight);
-    int gridZ = (int)((position.z + 1.0) / 2 * adjHeight);
+    int gridZ = abs((int)(position.z * depth));
 
     // Ensure indices are within bounds
     gridX = std::max(0, std::min(gridX, adjWidth - 1));
     gridY = std::max(0, std::min(gridY, adjHeight - 1));
     gridZ = std::max(0, std::min(gridZ, adjHeight - 1));
 
-    int idx = gridY * adjWidth + gridX;
+    int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
 
     // Calculate velocity as differences
     velocity = Vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
@@ -150,7 +150,7 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
     allVertices.push_back(vertices);
 }
 
-void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData, int width, int height) {
+void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData, int width, int height, int depth) {
 
     vertices.clear();
 
@@ -162,40 +162,41 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
     float minW = *std::min_element(wData.begin(), wData.end());
 
 //    LOGI("Max W: %f, Min W: %f", maxW, minW);
+    for (int z = 0; z < depth; z++) {
+        for (int y = 0; y < height; y++) {
+            if (y % fineness != 0) continue;
+            for (int x = 0; x < width; x++) {
+                if (x % fineness != 0) continue;
 
-    for (int y = 0; y < height; y++) {
-        if (y % fineness != 0) continue;
-        for (int x = 0; x < width; x++) {
-            if (x % fineness != 0) continue;
+                int index = z * width * height + y * width + x;
 
-            int index = y * width + x;
+                float normalizedX = (x / (float)(width)) * 2 - 1;
+                float normalizedY = (y / (float)(height)) * 2 - 1;
+                float normalizedZ = 0.0f;
 
-            float normalizedX = (x / (float)(width)) * 2 - 1;
-            float normalizedY = (y / (float)(height)) * 2 - 1;
-            float normalizedZ = 0.0f;
+                float scaleFactor = 0.1f;
+                float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
+                normalizedU *= scaleFactor;
+                float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
+                normalizedV *= scaleFactor;
+    //            float normalizedW = 2 * ((wData[index] - minW) / (maxW - minW)) - 1;
+                float normalizedW = wData[index];
+//                normalizedW *= scaleFactor;
 
-            float scaleFactor = 0.1f;
-            float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
-            normalizedU *= scaleFactor;
-            float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
-            normalizedV *= scaleFactor;
-//            float normalizedW = 2 * ((wData[index] - minW) / (maxW - minW)) - 1;
-            float normalizedW = wData[index];
-            normalizedW *= scaleFactor;
+                float endX = normalizedX + normalizedU;
+                float endY = normalizedY + normalizedV;
+                float endZ = normalizedZ + normalizedW;
 
-            float endX = normalizedX + normalizedU;
-            float endY = normalizedY + normalizedV;
-            float endZ = normalizedZ + normalizedW;
+                // Start point
+                vertices.push_back(normalizedX);
+                vertices.push_back(normalizedY);
+                vertices.push_back(normalizedZ);
 
-            // Start point
-            vertices.push_back(normalizedX);
-            vertices.push_back(normalizedY);
-            vertices.push_back(0.0f);
-
-            // End point
-            vertices.push_back(endX);
-            vertices.push_back(endY);
-            vertices.push_back(0.0f);
+                // End point
+                vertices.push_back(endX);
+                vertices.push_back(endY);
+                vertices.push_back(endZ);
+            }
         }
     }
     numVertices = vertices.size();
@@ -237,18 +238,24 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
 
     for (size_t i = 0; i < 1; i++) {
         std::vector<size_t> startp = {i, 1, 0, 0};  // Start index for time, depth, y, x
-        std::vector<size_t> countp = {1, 1, dataFileU.getDim("y").getSize(), dataFileU.getDim("x").getSize()};  // Read one time step, all y, all x
-        std::vector<float> uData(countp[2] * countp[3]), vData(countp[2] * countp[3]), wData(countp[2] * countp[3]);
-
-        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
-        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
-        dataFileW.getVar("W").getVar(startp, countp, wData.data());
+        std::vector<size_t> countp = {1, dataFileU.getDim("depthu").getSize()-1, dataFileU.getDim("y").getSize(), dataFileU.getDim("x").getSize()};  // Read one time step, all depths, all y, all x
+        std::vector<float> uData( countp[1] * countp[2] * countp[3]), vData(countp[1] * countp[2] * countp[3]), wData(countp[1] * countp[2] * countp[3]);
 
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
         width = countp[3];
         height = countp[2];
-        depth = 1;
-        prepareVertexData(uData, vData, wData, countp[3], countp[2]);
+        depth = countp[1];
+        LOGI("Width: %d, Height: %d, Depth: %d", width, height, depth);
+
+        LOGI("HERE0");
+        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
+        LOGI("HERE1");
+        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
+        LOGI("HERE2");
+        dataFileW.getVar("W").getVar(startp, countp, wData.data());
+
+        LOGI("HERE3");
+        prepareVertexData(uData, vData, wData, width, height, depth);
     }
 }
 
@@ -300,7 +307,7 @@ extern "C" {
         }
 
         loadAllTimeSteps(tempFileU, tempFileV);
-        LOGI("NetCDF files loaded");
+        LOGI("NetCDF files loaded of width: %d, height: %d", width, height);
 
         initParticles(1000);
         LOGI("Particles initialized");

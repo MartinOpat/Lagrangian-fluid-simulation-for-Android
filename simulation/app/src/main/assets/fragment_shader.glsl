@@ -14,9 +14,9 @@ void main() {
         if (dist > radius) {
             discard;
         } else {
-            fragColor = vec4(1.0 + 10.0 * depth, 0, 0, 1.0);  // Red for now
+//            fragColor = vec4(1.0 + 10.0 * depth, 0, 0, 1.0);  // Red for now
+            fragColor = vec4(1.0, 0, 0, 1.0);  // Red for now
         }
-
     } else {
         fragColor = vec4(0.4, 0.5, 0.8, 1.0);  // Blue for now
     }
