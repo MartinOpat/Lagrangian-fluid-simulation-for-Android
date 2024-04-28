@@ -290,7 +290,7 @@ extern "C" {
         loadAllTimeSteps(tempFileU, tempFileV);
         LOGI("NetCDF files loaded");
 
-        initParticles(1000);
+        initParticles(10000);
         LOGI("Particles initialized");
     }
 
