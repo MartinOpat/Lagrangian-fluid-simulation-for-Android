@@ -30,6 +30,9 @@ std::vector<float> particlesPos;
 
 GLShaderManager* shaderManager;
 
+int frameCount = 0;
+float timeCount = 0.0f;
+
 void updateParticlePosArr() {
     particlesPos.clear();
     for (auto& particle : particles) {
@@ -86,6 +89,13 @@ void updateParticles() {
     auto currentTime = std::chrono::steady_clock::now();
     float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
     shaderManager->startTime = currentTime;
+
+    timeCount += deltaTime;
+    if (timeCount > 1.0f) {
+        LOGI("Fps: %d\n", frameCount);
+        frameCount = 0;
+        timeCount = 0.0f;
+    }
 
     for (auto& particle : particles) {
         particle.rk4Step(deltaTime, velocityField, b);
@@ -181,6 +191,8 @@ extern "C" {
         shaderManager->loadVectorFieldData(allVertices[currentFrame]);
         shaderManager->drawVectorField(numVertices);
         //        updateFrame();
+
+        frameCount++;
     }
 
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
