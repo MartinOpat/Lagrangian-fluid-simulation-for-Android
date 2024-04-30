@@ -66,6 +66,8 @@ void initParticles(int num) {
         float zPos = 0.0f;
         Vec3 initialPos(xPos, yPos, zPos);
 
+
+
         particles.push_back(Particle(initialPos, initialVel));
     }
 
@@ -101,7 +103,8 @@ void updateParticles() {
         started = true;
     }
     auto currentTime = std::chrono::steady_clock::now();
-    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
+//    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
+    float deltaTime = 0.01f;
     shaderManager->startTime = currentTime;
 
     timeCount += deltaTime;
