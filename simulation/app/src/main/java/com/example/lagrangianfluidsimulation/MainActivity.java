@@ -21,6 +21,8 @@ public class MainActivity extends Activity {
         System.loadLibrary("lagrangianfluidsimulation");
         System.loadLibrary("netcdf");
         System.loadLibrary("netcdf_c++4");
+        System.loadLibrary("hdf5");
+        System.loadLibrary("hdf5_cpp");
     }
 
 

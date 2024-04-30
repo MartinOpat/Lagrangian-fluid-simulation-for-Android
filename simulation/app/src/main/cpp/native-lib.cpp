@@ -245,16 +245,11 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
         width = countp[3];
         height = countp[2];
         depth = countp[1];
-        LOGI("Width: %d, Height: %d, Depth: %d", width, height, depth);
 
-        LOGI("HERE0");
         dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
-        LOGI("HERE1");
         dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
-        LOGI("HERE2");
         dataFileW.getVar("W").getVar(startp, countp, wData.data());
 
-        LOGI("HERE3");
         prepareVertexData(uData, vData, wData, width, height, depth);
     }
 }

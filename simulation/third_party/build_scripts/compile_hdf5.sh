@@ -1,6 +1,6 @@
 export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export TARGET=aarch64-linux-android
+export TARGET=x86_64-linux-android
 export API=21
 
 # Setup Compiler Variables
@@ -20,5 +20,5 @@ export CPPFLAGS="-I$SYSROOT/usr/include"
 
 
 cd ../hdf5-hdf5_1.14.4.2
-./configure --host=$TARGET --prefix=$SYSROOT/usr --with-zlib=$SYSROOT/usr --enable-shared --disable-static
+./configure --host=$TARGET --prefix=$SYSROOT/usr --with-zlib=$SYSROOT/usr --enable-shared --disable-static --enable-cxx
 make && make install
