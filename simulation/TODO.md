@@ -4,6 +4,8 @@
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
 
 ## Native side
+- Refactor `writeTempFileFromFD` into a common superclass
+- Make file loaders load variables and use those instead of hardcoding the variable names.
 - Refactor the code into classes.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 
