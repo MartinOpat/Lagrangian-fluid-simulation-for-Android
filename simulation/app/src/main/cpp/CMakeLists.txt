@@ -50,7 +50,6 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         png_loader.cpp
         mainview.cpp
         netcdf_reader.cpp
-        hdf5_reader.cpp
         particle.cpp
         triple.cpp
 )
