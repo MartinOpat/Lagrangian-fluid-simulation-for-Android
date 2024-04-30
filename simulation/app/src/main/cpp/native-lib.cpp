@@ -60,13 +60,18 @@ void initParticles(int num) {
 //        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
 
         // Zero initial velocity, diagonal initial position
+//        Vec3 initialVel(0.0f, 0.0f, 0.0f);
+//        float xPos = 2 * (i / (float) num) - 1;
+//        float yPos = 2 * (i / (float) num) - 1;
+//        float zPos = 0.0f;
+//        Vec3 initialPos(xPos, yPos, zPos);
+
+        // Zero initial velocity, half-diagonal position
         Vec3 initialVel(0.0f, 0.0f, 0.0f);
         float xPos = 2 * (i / (float) num) - 1;
-        float yPos = 2 * (i / (float) num) - 1;
+        float yPos = i % 2 ? (i / (float) num) - 1 : 1 - (i / (float) num);
         float zPos = 0.0f;
         Vec3 initialPos(xPos, yPos, zPos);
-
-
 
         particles.push_back(Particle(initialPos, initialVel));
     }
