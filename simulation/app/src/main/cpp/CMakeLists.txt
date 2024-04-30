@@ -64,8 +64,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         android
         log
         GLESv3
-        hdf5
-        hdf5_cpp
         netcdf_cxx
         netcdf
 )
