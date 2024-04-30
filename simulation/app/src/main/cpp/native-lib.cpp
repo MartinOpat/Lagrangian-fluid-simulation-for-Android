@@ -48,15 +48,24 @@ void initParticles(int num) {
     particles.clear();
     particlesPos.clear();
     for (int i = 0; i < num; i++) {
+
         // Randomly generate initial velocity
-        float aspectRatio = 19.3f / 9.0f;
-        float angle = 2.0f * M_PI * rand() / (float)RAND_MAX;
-        float magnitude = 0.3f * rand() / (float)RAND_MAX;
-        float xVel = magnitude * cos(angle) * aspectRatio;
-        float yVel = magnitude * sin(angle);
-        float zVel = 0.0f;
-        Vec3 initialVel(xVel, yVel, zVel);
-        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
+//        float aspectRatio = 19.3f / 9.0f;
+//        float angle = 2.0f * M_PI * rand() / (float)RAND_MAX;
+//        float magnitude = 0.3f * rand() / (float)RAND_MAX;
+//        float xVel = magnitude * cos(angle) * aspectRatio;
+//        float yVel = magnitude * sin(angle);
+//        float zVel = 0.0f;
+//        Vec3 initialVel(xVel, yVel, zVel);
+//        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
+
+        // Zero initial velocity, diagonal initial position
+        Vec3 initialVel(0.0f, 0.0f, 0.0f);
+        float xPos = 2 * (i / (float) num) - 1;
+        float yPos = 2 * (i / (float) num) - 1;
+        float zPos = 0.0f;
+        Vec3 initialPos(xPos, yPos, zPos);
+
         particles.push_back(Particle(initialPos, initialVel));
     }
 
