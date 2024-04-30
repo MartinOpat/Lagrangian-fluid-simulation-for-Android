@@ -2,6 +2,7 @@
 
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
+- Remove hdf5 cpp library if not used.
 
 ## Native side
 - Refactor `writeTempFileFromFD` into a common superclass
