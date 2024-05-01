@@ -3,6 +3,7 @@
 ## General project
  - Split VTK build onto a separate branch.
  - Update readme.md in the third_party folder.
+ - Update the main readme.md with the new build instructions.
 
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
