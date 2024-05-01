@@ -1,7 +1,12 @@
 #!/bin/bash
-export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
+
+ABI=${1:-arm64-v8a}
+NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+
+
+#export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export TARGET=aarch64-linux-android
+export TARGET=$ABI-linux-android
 export API=21
 
 # Setup Compiler Variables
@@ -23,10 +28,8 @@ export CPPFLAGS="-I$SYSROOT/usr/include"
 export NETCDF_C_ROOT=$SYSROOT/usr
 
 # Change to the netcdf-cxx directory
-cd ../netcdf-cxx4-4.3.1
+cd ../netcdf-cxx/source
 
-# Configure the build
 ./configure --host=$TARGET --prefix=$SYSROOT/usr --with-netcdf=$NETCDF_C_ROOT --disable-dap --enable-shared --disable-static
-
-# Compile and install
 make && make install
+cd ../../build_scripts

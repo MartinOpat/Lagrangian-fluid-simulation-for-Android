@@ -1,6 +1,12 @@
-export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
+#!/bin/bash
+
+ABI=${1:-arm64-v8a}
+NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+
+# Define NDK path and toolchain
+#export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export TARGET=aarch64-linux-android
+export TARGET=$ABI-linux-android
 export API=21
 
 # Setup Compiler Variables
@@ -19,6 +25,7 @@ export LDFLAGS="--sysroot $SYSROOT -L$SYSROOT/usr/lib"
 export CPPFLAGS="-I$SYSROOT/usr/include"
 
 
-cd ../netcdf-c-4.9.2
+cd ../netcdf-c/source
 ./configure --host=$TARGET --prefix=$SYSROOT/usr --disable-dap --enable-netcdf-4 --with-hdf5=$SYSROOT/usr --with-zlib=$SYSROOT/usr --disable-byterange --enable-shared --disable-static
 make && make install
+cd ../../build_scripts

@@ -1,5 +1,9 @@
 # Things that need to be done that are not immediately obvious.
 
+## General project
+ - Split VTK build onto a separate branch.
+ - Update readme.md in the third_party folder.
+
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
 - Remove hdf5 cpp library if not used.

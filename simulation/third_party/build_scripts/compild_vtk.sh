@@ -1,9 +1,11 @@
 #!/bin/bash
 
+ABI=${1:-arm64-v8a}
+NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+
 # Define NDK path and toolchain
-export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
+#export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export ABI=arm64-v8a
 export TARGET=$ABI-linux-android
 export API=21
 
@@ -39,6 +41,5 @@ cmake -DVTK_ANDROID_BUILD=ON \
 
 # Build VTK
 cmake --build .
-
-# Install VTK
 cmake --install .
+cd ../../build_scripts
