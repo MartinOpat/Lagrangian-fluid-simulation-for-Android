@@ -9,6 +9,7 @@
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Refactor the code into classes.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
+- jni libraries folder contains shared c++ libs - fix.
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

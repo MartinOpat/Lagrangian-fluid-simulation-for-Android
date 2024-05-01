@@ -54,6 +54,11 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         triple.cpp
 )
 
+# Static libraries headers
+include_directories(${CMAKE_SOURCE_DIR}/include/vtk-9.3/)
+
+# Add the VTK static libraries
+file(GLOB VTK_LIBRARIES "${CMAKE_SOURCE_DIR}/libs/${ANDROID_ABI}/*.a")
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
@@ -65,6 +70,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         GLESv3
         netcdf_cxx
         netcdf
+        ${VTK_LIBRARIES}
 )
 
 

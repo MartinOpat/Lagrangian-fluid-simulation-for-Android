@@ -1,5 +1,8 @@
 *.tar.gz
 *.zip
+vtk
+vtk/
+vtk/*
 
 netcdf-c-4.9.2.tar.gz
 

@@ -13,7 +13,26 @@
 #include "triple.h"
 #include "particle.h"
 
+#include "vtkSmartPointer.h"
+#include "vtkSphereSource.h"
 
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_example_lagrangianfluidsimulation_MainActivity_testVTK(JNIEnv *env, jobject thiz) {
+    vtkSmartPointer<vtkSphereSource> sphereSource = vtkSmartPointer<vtkSphereSource>::New();
+    sphereSource->SetCenter(0.0, 0.0, 0.0);
+    sphereSource->SetRadius(5.0);
+    sphereSource->Update();  // Generate the sphere geometry
+
+    // Fetch the number of points in the sphere
+    int numPoints = sphereSource->GetOutput()->GetNumberOfPoints();
+
+    // Prepare a log message
+    std::string message = "Sphere has " + std::to_string(numPoints) + " points.";
+    __android_log_print(ANDROID_LOG_INFO, "VTKTest", "%s", message.c_str());
+
+    // Return the message to Java/Kotlin code
+    return env->NewStringUTF(message.c_str());
+}
 
 std::vector<float> vertices;
 std::vector<std::vector<float>> allVertices;
