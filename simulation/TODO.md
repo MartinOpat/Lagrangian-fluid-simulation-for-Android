@@ -1,7 +1,6 @@
 # Things that need to be done that are not immediately obvious.
 
 ## General project
- - Update the main readme.md with the new build instructions.
 
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
@@ -27,6 +26,5 @@
 - instanced rendering
 - geometry shader
 - depth sorting computer graphics
-- VTK for android
 - generate geometry in geometry shader
 - paraview
