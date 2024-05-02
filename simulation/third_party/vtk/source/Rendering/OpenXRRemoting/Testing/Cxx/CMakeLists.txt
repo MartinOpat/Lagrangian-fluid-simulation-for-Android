@@ -1,5 +1,0 @@
-vtk_add_test_cxx(vtkRenderingOpenXRRemotingCxxTests tests
-  TestOpenXRRemotingInitialization.cxx,NO_DATA,NO_VALID
-  )
-
-vtk_test_cxx_executable(vtkRenderingOpenXRRemotingCxxTests tests)

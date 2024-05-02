@@ -5,6 +5,12 @@ netcdf-c-4.9.2.tar.gz
 vtk
 vtk/
 vtk/*
+vtk/build
+vtk/build/
+vtk/build/*
+vtk/source
+vtk/source/
+vtk/source/*
 
 zlib
 zlib/
