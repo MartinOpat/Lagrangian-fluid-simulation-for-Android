@@ -21,8 +21,7 @@ android {
         }
 
         ndk {
-            abiFilters.addAll(listOf("x86_64", "arm64-v8a"))
-//            abiFilters.addAll(listOf("x86_64"))  // debug
+            abiFilters.addAll(listOf("arm64-v8a"))
         }
     }
 

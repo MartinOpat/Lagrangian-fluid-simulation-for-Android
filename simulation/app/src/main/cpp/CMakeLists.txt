@@ -68,6 +68,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         android
         log
         GLESv3
+        EGL
         netcdf_cxx
         netcdf
         ${VTK_LIBRARIES}

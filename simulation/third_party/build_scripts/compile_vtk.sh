@@ -7,7 +7,7 @@ NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
 #export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
 export TARGET=$ABI-linux-android
-export API=21
+export API=29
 
 # Setup Compiler Variables
 export AR=$TOOLCHAIN/bin/llvm-ar
@@ -33,13 +33,13 @@ cd ../vtk/build
 
 
 # Configure VTK using CMake for Android
-cmake -DVTK_ANDROID_BUILD=ON \
+ccmake -DVTK_ANDROID_BUILD=ON \
        -DANDROID_NDK=$NDK \
        -DANDROID_NATIVE_API_LEVEL=$API \
        -DANDROID_ARCH_ABI=$ABI \
        ../source
 
 # Build VTK
-cmake --build .
-cmake --install .
-cd ../../build_scripts
+#cmake --build .
+#cmake --install .
+#cd ../../build_scripts

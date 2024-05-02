@@ -1,6 +1,7 @@
 # Things that need to be done that are not immediately obvious.
 
 ## General project
+Properly test the vtk build script cause it seems inconsistent. Right now it seems to work when fetched with curl, extracted with tar and executed with sudo. 
 
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
