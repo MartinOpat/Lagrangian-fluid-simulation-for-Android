@@ -1,7 +1,7 @@
 # Lagrangian-fluid-simulation-for-Android
 ## Initial setup
 
-##$ Installing prerequisites First, make sure all the necessary packages are installed on your system. On Ubuntu, you can run:
+### Installing prerequisites First, make sure all the necessary packages are installed on your system. On Ubuntu, you can run:
 ```bash
 sudo apt-get install build-essential
 sudo apt-get install cmake
