@@ -1,7 +1,6 @@
 # Things that need to be done that are not immediately obvious.
 
 ## General project
- - Update readme.md in the third_party folder.
  - Update the main readme.md with the new build instructions.
 
 ## Android side
