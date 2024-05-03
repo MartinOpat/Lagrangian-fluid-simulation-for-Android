@@ -352,4 +352,19 @@ extern "C" {
         shaderManager->createParticlesBuffer(particlesPos);
         LOGI("Buffers created");
     }
+
+    JNIEXPORT void JNICALL
+    Java_com_example_lagrangianfluidsimulation_MainActivity_nativeSendTouchEvent(JNIEnv *env, jobject obj, jint pointerCount, jfloatArray xArray, jfloatArray yArray, jint action) {
+        jfloat* x = env->GetFloatArrayElements(xArray, nullptr);
+        jfloat* y = env->GetFloatArrayElements(yArray, nullptr);
+
+        if (pointerCount == 1) {
+            LOGI("Touch event: %f, %f", x[0], y[0]);
+        } else if (pointerCount == 2) {
+            LOGI("Touch event: %f, %f, %f, %f", x[0], y[0], x[1], y[1]);
+        }
+
+        env->ReleaseFloatArrayElements(xArray, x, 0);
+        env->ReleaseFloatArrayElements(yArray, y, 0);
+    }
 } // extern "C"
