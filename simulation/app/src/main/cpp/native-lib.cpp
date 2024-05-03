@@ -33,6 +33,15 @@ std::vector<float> particlesPos;
 
 GLShaderManager* shaderManager;
 
+struct TouchPoint {
+    float startX;
+    float startY;
+    float currentX;
+    float currentY;
+};
+
+TouchPoint tp;
+
 int frameCount = 0;
 float timeCount = 0.0f;
 
@@ -378,6 +387,34 @@ extern "C" {
     Java_com_example_lagrangianfluidsimulation_MainActivity_nativeSendTouchEvent(JNIEnv *env, jobject obj, jint pointerCount, jfloatArray xArray, jfloatArray yArray, jint action) {
         jfloat* x = env->GetFloatArrayElements(xArray, nullptr);
         jfloat* y = env->GetFloatArrayElements(yArray, nullptr);
+
+
+        // 0 -> click
+        // 1 -> release
+        // 2 -> move
+
+        LOGI("Touch event: %d", action);
+        if (action == 0) {
+            tp.startX = x[0];
+            tp.startY = y[0];
+            tp.currentX = x[0];
+            tp.currentY = y[0];
+
+        } else if (action == 1) {
+            tp.startX = 0.0f;
+            tp.startY = 0.0f;
+            tp.currentX = 0.0f;
+            tp.currentY = 0.0f;
+
+        } else if (action == 2) {
+            tp.currentX = x[0];
+            tp.currentY = y[0];
+
+            float rotSensitivity = 0.001f;
+            float dx = tp.currentX - tp.startX;
+            float dy = tp.currentY - tp.startY;
+            shaderManager->setRotation(rotSensitivity*dy, rotSensitivity*dx, 0.0f);
+        }
 
         if (pointerCount == 1) {
             LOGI("Touch event: %f, %f", x[0], y[0]);
