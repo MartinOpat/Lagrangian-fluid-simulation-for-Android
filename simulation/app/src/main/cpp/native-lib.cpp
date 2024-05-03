@@ -17,6 +17,7 @@
 
 std::vector<float> vertices;
 std::vector<std::vector<float>> allVertices;
+std::vector<std::vector<float>> displayVertices;
 int currentFrame = 0;
 int numVertices = 0;
 int width = 0;
@@ -24,6 +25,7 @@ int height = 0;
 int depth = 0;
 int fineness = 15;
 bool started = false;
+float dt = 0.05f;
 
 float b = 0.8f;  // Drag coefficient
 std::vector<Particle> particles;
@@ -80,6 +82,7 @@ void initParticles(int num) {
 }
 
 void velocityField(Point position, Vec3& velocity) {
+    int fineness = 1;  // TODO: Remove once definitely not needed
     int adjWidth = width / fineness;
     int adjHeight = height / fineness;
 
@@ -108,8 +111,7 @@ void updateParticles() {
         started = true;
     }
     auto currentTime = std::chrono::steady_clock::now();
-//    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
-    float deltaTime = 0.01f;
+    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
     shaderManager->startTime = currentTime;
 
     timeCount += deltaTime;
@@ -120,13 +122,15 @@ void updateParticles() {
     }
 
     for (auto& particle : particles) {
-        particle.rk4Step(deltaTime, velocityField, b);
+        particle.rk4Step(dt, velocityField, b);
+        particle.bindPosition();
     }
 }
 
 void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, int width, int height) {
 
     vertices.clear();
+    std::vector<float> tempVertices;
 
     float maxU = *std::max_element(uData.begin(), uData.end());
     float minU = *std::min_element(uData.begin(), uData.end());
@@ -134,10 +138,7 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
     float minV = *std::min_element(vData.begin(), vData.end());
 
     for (int y = 0; y < height; y++) {
-        if (y % fineness != 0) continue;
         for (int x = 0; x < width; x++) {
-            if (x % fineness != 0) continue;
-
             int index = y * width + x;
 
             float normalizedX = (x / (float)(width)) * 2 - 1;
@@ -161,15 +162,26 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
             vertices.push_back(endX);
             vertices.push_back(endY);
             vertices.push_back(0.0f);
+
+            if (y % fineness != 0 || x % fineness != 0) continue;
+            tempVertices.push_back(normalizedX);
+            tempVertices.push_back(normalizedY);
+            tempVertices.push_back(0.0f);
+
+            tempVertices.push_back(endX);
+            tempVertices.push_back(endY);
+            tempVertices.push_back(0.0f);
         }
     }
     numVertices = vertices.size();
     allVertices.push_back(vertices);
+    displayVertices.push_back(tempVertices);
 }
 
 void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData, int width, int height, int depth) {
 
     vertices.clear();
+    std::vector<float> tempVertices;
 
     float maxU = *std::max_element(uData.begin(), uData.end());
     float minU = *std::min_element(uData.begin(), uData.end());
@@ -181,9 +193,7 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
 //    LOGI("Max W: %f, Min W: %f", maxW, minW);
     for (int z = 0; z < depth; z++) {
         for (int y = 0; y < height; y++) {
-            if (y % fineness != 0) continue;
             for (int x = 0; x < width; x++) {
-                if (x % fineness != 0) continue;
 
                 int index = z * width * height + y * width + x;
 
@@ -213,11 +223,21 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
                 vertices.push_back(endX);
                 vertices.push_back(endY);
                 vertices.push_back(endZ);
+
+                if (y % fineness != 0 || x % fineness != 0) continue;
+                tempVertices.push_back(normalizedX);
+                tempVertices.push_back(normalizedY);
+                tempVertices.push_back(0.0f);
+
+                tempVertices.push_back(endX);
+                tempVertices.push_back(endY);
+                tempVertices.push_back(0.0f);
             }
         }
     }
     numVertices = vertices.size();
     allVertices.push_back(vertices);
+    displayVertices.push_back(tempVertices);
 }
 
 void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath) {
@@ -287,13 +307,14 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
 
+        shaderManager->loadVectorFieldData(displayVertices[currentFrame]);
+        shaderManager->drawVectorField(displayVertices[currentFrame].size());
+
         updateParticles();
         updateParticlePosArr();
         shaderManager->loadParticlesData(particlesPos);
         shaderManager->drawParticles(particlesPos.size());
 
-        shaderManager->loadVectorFieldData(allVertices[currentFrame]);
-        shaderManager->drawVectorField(numVertices);
         //        updateFrame();
 
         frameCount++;
