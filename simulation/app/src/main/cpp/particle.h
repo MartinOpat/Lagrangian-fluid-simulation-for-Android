@@ -15,6 +15,7 @@ public:
     void eulerStep(double dt, const std::function<void(Point, Vec3&)>& velocityField); // Euler integration - mostly debug purposes
     void rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b);
     Vec3 getPosition() const { return position; }
+    void bindPosition();
 
 private:
     // Private member variables
@@ -22,7 +23,6 @@ private:
     Vec3 velocity;
 
     // Private methods
-
 };
 
 #endif // PARTICLE_H

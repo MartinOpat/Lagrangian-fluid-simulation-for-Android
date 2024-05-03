@@ -10,6 +10,32 @@ void Particle::eulerStep(double dt, const std::function<void(Point, Vec3&)>& vel
     this->position += this->velocity * dt;
 }
 
+void Particle::bindPosition() {
+    if (this->position.x < -1) {
+        this->position.x = -1;
+        this->velocity.x = 0;
+    } else if (this->position.x > 1) {
+        this->position.x = 1;
+        this->velocity.x = 0;
+    }
+
+    if (this->position.y < -1) {
+        this->position.y = -1;
+        this->velocity.y = 0;
+    } else if (this->position.y > 1) {
+        this->position.y = 1;
+        this->velocity.y = 0;
+    }
+
+    if (this->position.z < -1) {
+        this->position.z = -1;
+        this->velocity.z = 0;
+    } else if (this->position.z > 1) {
+        this->position.z = 1;
+        this->velocity.z = 0;
+    }
+}
+
 void Particle::rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b) {
     // Define k1, k2, k3, k4 for position and velocity
     Vec3 a1, a2, a3, a4;
