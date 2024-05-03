@@ -13,7 +13,8 @@ void main() {
     if (uIsPoint) {
         gl_PointSize = uPointSize;
     }
-    gl_Position = vPosition;
+//    gl_Position = vPosition;
+    gl_Position = modelTransform * vPosition;
     depth = vPosition.z;
 //    gl_Position = projectionTransform * viewTransform * modelTransform * vPosition;
 }
