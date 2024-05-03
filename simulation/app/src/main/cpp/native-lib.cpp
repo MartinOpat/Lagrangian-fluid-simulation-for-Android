@@ -41,6 +41,7 @@ struct TouchPoint {
 };
 
 TouchPoint tp;
+Vec3 prevRot(0.0f, 0.0f, 0.0f);
 
 int frameCount = 0;
 float timeCount = 0.0f;
@@ -399,6 +400,7 @@ extern "C" {
             tp.startY = y[0];
             tp.currentX = x[0];
             tp.currentY = y[0];
+            prevRot = shaderManager->getRotation();
 
         } else if (action == 1) {
             tp.startX = 0.0f;
@@ -413,7 +415,7 @@ extern "C" {
             float rotSensitivity = 0.001f;
             float dx = tp.currentX - tp.startX;
             float dy = tp.currentY - tp.startY;
-            shaderManager->setRotation(rotSensitivity*dy, rotSensitivity*dx, 0.0f);
+            shaderManager->setRotation(rotSensitivity*dy + prevRot.y, rotSensitivity*dx + prevRot.x, prevRot.z);
         }
 
         if (pointerCount == 1) {

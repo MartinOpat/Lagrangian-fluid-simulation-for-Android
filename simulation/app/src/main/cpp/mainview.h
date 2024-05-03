@@ -36,6 +36,9 @@ public:
     void setScale(float scale);
     void updateTransformations();
 
+    Vec3 getRotation() { return rotation; }
+    float getScale() { return scale; }
+
     GLuint shaderProgram;
     std::chrono::steady_clock::time_point startTime;
 
