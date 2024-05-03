@@ -11,15 +11,15 @@
 class Matrix4x4 {
 public:
     // Elements stored in row-major order
-    double data[16];
+    float data[16];
 
     // Constructors
     Matrix4x4();
-    explicit Matrix4x4(double initVal);
+    explicit Matrix4x4(float initVal);
 
     // Indexing operators
-    double& operator()(int row, int col);
-    const double& operator()(int row, int col) const;
+    float& operator()(int row, int col);
+    const float& operator()(int row, int col) const;
 
     // Matrix operations
     Matrix4x4 operator+(const Matrix4x4& other) const;
@@ -27,14 +27,16 @@ public:
     Matrix4x4 operator*(const Matrix4x4& other) const;
 
     // Scalar multiplication
-    Matrix4x4 operator*(double scalar) const;
+    Matrix4x4 operator*(float scalar) const;
 
     // Utility functions
-    static Matrix4x4 translate(double dx, double dy, double dz);
-    static Matrix4x4 scale(double sx, double sy, double sz);
-    static Matrix4x4 rotateX(double angle);
-    static Matrix4x4 rotateY(double angle);
-    static Matrix4x4 rotateZ(double angle);
+    static Matrix4x4 translate(float dx, float dy, float dz);
+    static Matrix4x4 scale(float sx, float sy, float sz);
+    static Matrix4x4 rotateX(float angle);
+    static Matrix4x4 rotateY(float angle);
+    static Matrix4x4 rotateZ(float angle);
+    static Matrix4x4 perspective(float fov, float aspect, float near, float far);
+    void setToIdentity();
 
     // IO Operators
     friend std::ostream& operator<<(std::ostream& os, const Matrix4x4& m);

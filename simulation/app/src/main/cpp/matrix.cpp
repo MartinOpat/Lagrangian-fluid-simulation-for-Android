@@ -13,18 +13,18 @@ Matrix4x4::Matrix4x4() {
     }
 }
 
-Matrix4x4::Matrix4x4(double initVal) {
+Matrix4x4::Matrix4x4(float initVal) {
     for (int i = 0; i < 16; ++i) {
         data[i] = initVal;
     }
 }
 
 // Indexing operators
-double& Matrix4x4::operator()(int row, int col) {
+float& Matrix4x4::operator()(int row, int col) {
     return data[row * 4 + col];
 }
 
-const double& Matrix4x4::operator()(int row, int col) const {
+const float& Matrix4x4::operator()(int row, int col) const {
     return data[row * 4 + col];
 }
 
@@ -57,7 +57,7 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const {
     return result;
 }
 
-Matrix4x4 Matrix4x4::operator*(double scalar) const {
+Matrix4x4 Matrix4x4::operator*(float scalar) const {
     Matrix4x4 result;
     for (int i = 0; i < 16; ++i) {
         result.data[i] = this->data[i] * scalar;
@@ -66,7 +66,7 @@ Matrix4x4 Matrix4x4::operator*(double scalar) const {
 }
 
 // Utility functions
-Matrix4x4 Matrix4x4::translate(double dx, double dy, double dz) {
+Matrix4x4 Matrix4x4::translate(float dx, float dy, float dz) {
     Matrix4x4 result;
     result(0, 3) = dx;
     result(1, 3) = dy;
@@ -74,7 +74,7 @@ Matrix4x4 Matrix4x4::translate(double dx, double dy, double dz) {
     return result;
 }
 
-Matrix4x4 Matrix4x4::scale(double sx, double sy, double sz) {
+Matrix4x4 Matrix4x4::scale(float sx, float sy, float sz) {
     Matrix4x4 result;
     result(0, 0) = sx;
     result(1, 1) = sy;
@@ -82,10 +82,10 @@ Matrix4x4 Matrix4x4::scale(double sx, double sy, double sz) {
     return result;
 }
 
-Matrix4x4 Matrix4x4::rotateX(double angle) {
+Matrix4x4 Matrix4x4::rotateX(float angle) {
     Matrix4x4 result;
-    double c = cos(angle);
-    double s = sin(angle);
+    float c = cos(angle);
+    float s = sin(angle);
     result(1, 1) = c;
     result(1, 2) = -s;
     result(2, 1) = s;
@@ -93,10 +93,10 @@ Matrix4x4 Matrix4x4::rotateX(double angle) {
     return result;
 }
 
-Matrix4x4 Matrix4x4::rotateY(double angle) {
+Matrix4x4 Matrix4x4::rotateY(float angle) {
     Matrix4x4 result;
-    double c = cos(angle);
-    double s = sin(angle);
+    float c = cos(angle);
+    float s = sin(angle);
     result(0, 0) = c;
     result(0, 2) = s;
     result(2, 0) = -s;
@@ -104,16 +104,36 @@ Matrix4x4 Matrix4x4::rotateY(double angle) {
     return result;
 }
 
-Matrix4x4 Matrix4x4::rotateZ(double angle) {
+Matrix4x4 Matrix4x4::rotateZ(float angle) {
     Matrix4x4 result;
-    double c = cos(angle);
-    double s = sin(angle);
+    float c = cos(angle);
+    float s = sin(angle);
     result(0, 0) = c;
     result(0, 1) = -s;
     result(1, 0) = s;
     result(1, 1) = c;
     return result;
 }
+
+void Matrix4x4::setToIdentity() {
+    for (int i = 0; i < 16; ++i) {
+        data[i] = (i % 5 == 0) ? 1.0 : 0.0; // Identity matrix elements
+    }
+}
+
+Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float near, float far) {
+    float const tanHalfFOV = tan(fov / 2.0);
+    Matrix4x4 result(0.0);  // Initialize all elements to 0
+
+    result(0, 0) = 1.0 / (aspect * tanHalfFOV);
+    result(1, 1) = 1.0 / (tanHalfFOV);
+    result(2, 2) = -(far + near) / (far - near);
+    result(2, 3) = -1.0;
+    result(3, 2) = -(2.0 * far * near) / (far - near);
+
+    return result;
+}
+
 
 // IO Operators
 std::ostream& operator<<(std::ostream& os, const Matrix4x4& m) {
