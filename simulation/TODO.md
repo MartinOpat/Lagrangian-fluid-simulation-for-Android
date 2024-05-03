@@ -12,6 +12,7 @@
 - Refactor transformations (into class or such)
 - Make sure buffers are properly cleaned up
 - Refactor GLShaderManager (or at least the name)
+- Rotation behaves weirdly when tested with a physical phone
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
@@ -29,3 +30,7 @@
 - VTK for android
 - generate geometry in geometry shader
 - paraview
+
+## General project
+- Add comments
+- Document the code
