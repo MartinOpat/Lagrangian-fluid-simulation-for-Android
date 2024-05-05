@@ -66,6 +66,8 @@ GLShaderManager::GLShaderManager(AAssetManager* assetManager)
         : assetManager(assetManager), shaderProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
     startTime = std::chrono::steady_clock::now();
 //    setRotation(0.78f, 0.78f, 0.78f);
+//    setScale(0.5f);
+    updateTransformations();
 }
 
 GLShaderManager::~GLShaderManager() {

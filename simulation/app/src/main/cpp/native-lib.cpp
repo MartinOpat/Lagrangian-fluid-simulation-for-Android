@@ -40,8 +40,13 @@ struct TouchPoint {
     float currentY;
 };
 
-TouchPoint tp;
+TouchPoint tpScale1;
+TouchPoint tpScale2;
+float prevScale = 0.5f;
+
+TouchPoint tpRot;
 Vec3 prevRot(0.0f, 0.0f, 0.0f);
+
 
 int frameCount = 0;
 float timeCount = 0.0f;
@@ -393,38 +398,66 @@ extern "C" {
         jfloat* y = env->GetFloatArrayElements(yArray, nullptr);
 
 
-        // 0 -> click
-        // 1 -> release
+        // 0, 5 -> click
+        // 1, 6 -> release
         // 2 -> move
 
         LOGI("Touch event: %d", action);
-        if (action == 0) {
-            tp.startX = x[0];
-            tp.startY = y[0];
-            tp.currentX = x[0];
-            tp.currentY = y[0];
-            prevRot = shaderManager->getRotation();
-
-        } else if (action == 1) {
-            tp.startX = 0.0f;
-            tp.startY = 0.0f;
-            tp.currentX = 0.0f;
-            tp.currentY = 0.0f;
-
-        } else if (action == 2) {
-            tp.currentX = x[0];
-            tp.currentY = y[0];
-
-            float rotSensitivity = 0.001f;
-            float dx = tp.currentX - tp.startX;
-            float dy = tp.currentY - tp.startY;
-            shaderManager->setRotation(rotSensitivity*dy + prevRot.x, rotSensitivity*dx + prevRot.y, prevRot.z);
-        }
-
         if (pointerCount == 1) {
-            LOGI("Touch event: %f, %f", x[0], y[0]);
+            if (action == 0) {
+                tpRot.startX = x[0];
+                tpRot.startY = y[0];
+                tpRot.currentX = x[0];
+                tpRot.currentY = y[0];
+                prevRot = shaderManager->getRotation();
+            } else if (action == 1) {
+                tpRot.startX = 0.0f;
+                tpRot.startY = 0.0f;
+                tpRot.currentX = 0.0f;
+                tpRot.currentY = 0.0f;
+            } else if (action == 2) {
+                tpRot.currentX = x[0];
+                tpRot.currentY = y[0];
+
+                float rotSensitivity = 0.001f;
+                float dx = tpRot.currentX - tpRot.startX;
+                float dy = tpRot.currentY - tpRot.startY;
+                shaderManager->setRotation(rotSensitivity*dy + prevRot.x, rotSensitivity*dx + prevRot.y, prevRot.z);
+            }
         } else if (pointerCount == 2) {
-            LOGI("Touch event: %f, %f, %f, %f", x[0], y[0], x[1], y[1]);
+            if (action == 5) {
+                tpScale1.startX = x[0];
+                tpScale1.startY = y[0];
+                tpScale1.currentX = x[0];
+                tpScale1.currentY = y[0];
+                tpScale2.startX = x[1];
+                tpScale2.startY = y[1];
+                tpScale2.currentX = x[1];
+                tpScale2.currentY = y[1];
+                prevScale = shaderManager->getScale();
+            } else if (action == 6) {
+                tpScale1.startX = 0.0f;
+                tpScale1.startY = 0.0f;
+                tpScale1.currentX = 0.0f;
+                tpScale1.currentY = 0.0f;
+                tpScale2.startX = 0.0f;
+                tpScale2.startY = 0.0f;
+                tpScale2.currentX = 0.0f;
+                tpScale2.currentY = 0.0f;
+            } else if (action == 2) {
+                tpScale1.currentX = x[0];
+                tpScale1.currentY = y[0];
+
+                tpScale2.currentX = x[1];
+                tpScale2.currentY = y[1];
+
+                float currDist = (tpScale1.currentX - tpScale2.currentX)*(tpScale1.currentX - tpScale2.currentX) +
+                                      (tpScale1.currentY - tpScale2.currentY)*(tpScale1.currentY - tpScale2.currentY);
+                float initDist = (tpScale1.startX - tpScale2.startX)*(tpScale1.startX - tpScale2.startX) +
+                                      (tpScale1.startY - tpScale2.startY)*(tpScale1.startY - tpScale2.startY);
+                float scale = sqrt(currDist / initDist);
+                shaderManager->setScale(scale * prevScale);
+            }
         }
 
         env->ReleaseFloatArrayElements(xArray, x, 0);

@@ -64,7 +64,7 @@ private:
     GLuint vectorFieldVAO;
 
     // Transformations
-    float scale = 1.0f;
+    float scale = 0.5f;
     Vec3 rotation;
     Matrix4x4 modelTransform;
     Matrix4x4 projectionTransform;
