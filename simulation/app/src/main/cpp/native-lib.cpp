@@ -415,7 +415,7 @@ extern "C" {
             float rotSensitivity = 0.001f;
             float dx = tp.currentX - tp.startX;
             float dy = tp.currentY - tp.startY;
-            shaderManager->setRotation(rotSensitivity*dy + prevRot.y, rotSensitivity*dx + prevRot.x, prevRot.z);
+            shaderManager->setRotation(rotSensitivity*dy + prevRot.x, rotSensitivity*dx + prevRot.y, prevRot.z);
         }
 
         if (pointerCount == 1) {
