@@ -193,6 +193,8 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
     vertices.clear();
     std::vector<float> tempVertices;
 
+    LOGI("3d");
+
     float maxU = *std::max_element(uData.begin(), uData.end());
     float minU = *std::min_element(uData.begin(), uData.end());
     float maxV = *std::max_element(vData.begin(), vData.end());
@@ -209,7 +211,7 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
 
                 float normalizedX = (x / (float)(width)) * 2 - 1;
                 float normalizedY = (y / (float)(height)) * 2 - 1;
-                float normalizedZ = 0.0f;
+                float normalizedZ = (z / (float)(depth)) * 2 - 1;
 
                 float scaleFactor = 0.1f;
                 float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
@@ -234,14 +236,14 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
                 vertices.push_back(endY);
                 vertices.push_back(endZ);
 
-                if (y % fineness != 0 || x % fineness != 0) continue;
+                if (z % (fineness/2) != 0 || y % fineness != 0 || x % fineness != 0) continue;
                 tempVertices.push_back(normalizedX);
                 tempVertices.push_back(normalizedY);
-                tempVertices.push_back(0.0f);
+                tempVertices.push_back(normalizedZ);
 
                 tempVertices.push_back(endX);
                 tempVertices.push_back(endY);
-                tempVertices.push_back(0.0f);
+                tempVertices.push_back(1.2*endZ);
             }
         }
     }
@@ -297,6 +299,7 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
         dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
         dataFileW.getVar("W").getVar(startp, countp, wData.data());
 
+        LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData, width, height, depth);
     }
 }
