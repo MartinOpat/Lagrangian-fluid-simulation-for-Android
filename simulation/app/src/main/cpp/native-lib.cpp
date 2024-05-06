@@ -100,11 +100,13 @@ void velocityField(Point position, Vec3& velocity) {
     int fineness = 1;  // TODO: Remove once definitely not needed
     int adjWidth = width / fineness;
     int adjHeight = height / fineness;
+    int adjDepth = depth / (fineness / 2);
 
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
     int gridX = (int)((position.x + 1.0) / 2 * adjWidth);
     int gridY = (int)((position.y + 1.0) / 2 * adjHeight);
-    int gridZ = abs((int)(position.z * depth));
+    int gridZ = (int)((position.z + 1.0) / 2 * adjDepth);
+//    int gridZ = abs((int)(position.z * depth));
 
     // Ensure indices are within bounds
     gridX = std::max(0, std::min(gridX, adjWidth - 1));
@@ -217,15 +219,15 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
                 float normalizedX = (x / (float)(width)) * 2 - 1;
                 float normalizedY = (y / (float)(height)) * 2 - 1;
                 float normalizedZ = (z / (float)(depth)) * 2 - 1;
+//                float normalizedZ = z;
 
                 float scaleFactor = 0.1f;
                 float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
                 normalizedU *= scaleFactor;
                 float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
                 normalizedV *= scaleFactor;
-    //            float normalizedW = 2 * ((wData[index] - minW) / (maxW - minW)) - 1;
-                float normalizedW = wData[index];
-//                normalizedW *= scaleFactor;
+                float normalizedW = 2 * ((wData[index] - minW) / (maxW - minW)) - 1;
+                normalizedW *= scaleFactor;
 
                 float endX = normalizedX + normalizedU;
                 float endY = normalizedY + normalizedV;
@@ -241,14 +243,14 @@ void prepareVertexData(const std::vector<float>& uData, const std::vector<float>
                 vertices.push_back(endY);
                 vertices.push_back(endZ);
 
-                if (z % (fineness/2) != 0 || y % fineness != 0 || x % fineness != 0) continue;
+                if (z % (fineness / 2) != 0 || y % fineness != 0 || x % fineness != 0) continue;
                 tempVertices.push_back(normalizedX);
                 tempVertices.push_back(normalizedY);
                 tempVertices.push_back(normalizedZ);
 
                 tempVertices.push_back(endX);
                 tempVertices.push_back(endY);
-                tempVertices.push_back(1.2*endZ);
+                tempVertices.push_back(endZ);
             }
         }
     }
