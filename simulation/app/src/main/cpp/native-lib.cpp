@@ -77,18 +77,18 @@ void initParticles(int num) {
 //        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
 
         // Zero initial velocity, diagonal initial position
-//        Vec3 initialVel(0.0f, 0.0f, 0.0f);
-//        float xPos = 2 * (i / (float) num) - 1;
-//        float yPos = 2 * (i / (float) num) - 1;
-//        float zPos = 0.0f;
-//        Vec3 initialPos(xPos, yPos, zPos);
-
-        // Zero initial velocity, half-diagonal position
         Vec3 initialVel(0.0f, 0.0f, 0.0f);
         float xPos = 2 * (i / (float) num) - 1;
-        float yPos = i % 2 ? (i / (float) num) - 1 : 1 - (i / (float) num);
+        float yPos = 2 * (i / (float) num) - 1;
         float zPos = 0.0f;
         Vec3 initialPos(xPos, yPos, zPos);
+
+        // Zero initial velocity, half-diagonal position
+//        Vec3 initialVel(0.0f, 0.0f, 0.0f);
+//        float xPos = 2 * (i / (float) num) - 1;
+//        float yPos = i % 2 ? (i / (float) num) - 1 : 1 - (i / (float) num);
+//        float zPos = 0.0f;
+//        Vec3 initialPos(xPos, yPos, zPos);
 
         particles.push_back(Particle(initialPos, initialVel));
     }
@@ -290,11 +290,11 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
 
     LOGI("NetCDF files opened");
 
-    size_t numTimeSteps = dataFileU.getDim("time_counter").getSize();
+    size_t numTimeSteps = dataFileU.getDim("time").getSize();
 
     for (size_t i = 0; i < 1; i++) {
         std::vector<size_t> startp = {i, 1, 0, 0};  // Start index for time, depth, y, x
-        std::vector<size_t> countp = {1, dataFileU.getDim("depthu").getSize()-1, dataFileU.getDim("y").getSize(), dataFileU.getDim("x").getSize()};  // Read one time step, all depths, all y, all x
+        std::vector<size_t> countp = {1, dataFileU.getDim("depth").getSize()-1, dataFileU.getDim("lat").getSize(), dataFileU.getDim("lon").getSize()};  // Read one time step, all depths, all y, all x
         std::vector<float> uData( countp[1] * countp[2] * countp[3]), vData(countp[1] * countp[2] * countp[3]), wData(countp[1] * countp[2] * countp[3]);
 
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
@@ -302,9 +302,12 @@ void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath
         height = countp[2];
         depth = countp[1];
 
-        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
-        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
-        dataFileW.getVar("W").getVar(startp, countp, wData.data());
+        dataFileU.getVar("u").getVar(startp, countp, uData.data());
+//        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
+        dataFileV.getVar("v").getVar(startp, countp, vData.data());
+//        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
+        dataFileW.getVar("w").getVar(startp, countp, wData.data());
+//        dataFileW.getVar("W").getVar(startp, countp, wData.data());
 
         LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData, width, height, depth);
