@@ -13,6 +13,7 @@
 - Make sure buffers are properly cleaned up
 - Refactor GLShaderManager (or at least the name)
 - Make sure somehow that when lifting fingers after scaling, rotation doesn't get affected
+- Particles get clipped away when zooming in too much
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
