@@ -1,0 +1,39 @@
+//
+// Created by martin on 08-05-2024.
+//
+
+#ifndef LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H
+#define LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H
+
+
+#include "triple.h"
+#include "mainview.h"
+
+struct TouchPoint {
+    float startX;
+    float startY;
+    float currentX;
+    float currentY;
+};
+
+
+class TouchHandler {
+public:
+    TouchHandler(GLShaderManager& shaderManager);
+
+    void handleTouch(float x[2], float y[2], int action, int pointerCount);
+    void handleSingleTouch(float x, float y, int action);
+    void handleDoubleTouch(float x[2], float y[2], int action);
+
+private:
+    TouchPoint tpScale1;
+    TouchPoint tpScale2;
+    float prevScale;
+
+    TouchPoint tpRot;
+    Vec3 prevRot;
+
+    GLShaderManager& shaderManager;
+};
+
+#endif //LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H

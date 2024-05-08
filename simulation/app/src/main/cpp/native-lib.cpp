@@ -14,6 +14,7 @@
 #include "particle.h"
 #include "particles_handler.h"
 #include "vector_field_handler.h"
+#include "touch_handler.h"
 
 
 bool started = false;
@@ -21,20 +22,7 @@ bool started = false;
 GLShaderManager* shaderManager;
 ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
-
-struct TouchPoint {
-    float startX;
-    float startY;
-    float currentX;
-    float currentY;
-};
-
-TouchPoint tpScale1;
-TouchPoint tpScale2;
-float prevScale = 0.5f;
-
-TouchPoint tpRot;
-Vec3 prevRot(0.0f, 0.0f, 0.0f);
+TouchHandler* touchHandler;
 
 
 int frameCount = 0;
@@ -55,9 +43,6 @@ void updateFrame() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
-
-//        shaderManager->loadVectorFieldData(displayVertices[currentFrame]);
-//        shaderManager->drawVectorField(displayVertices[currentFrame].size());
         vectorFieldHandler->draw(*shaderManager);
 
         particlesHandler->drawParticles(*shaderManager);
@@ -69,6 +54,7 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
+        touchHandler = new TouchHandler(*shaderManager);
         LOGI("Graphics setup complete");
     }
 
@@ -116,7 +102,6 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
-//        shaderManager->createVectorFieldBuffer(allVertices[currentFrame]);
         shaderManager->createVectorFieldBuffer(vectorFieldHandler->getAllVertices());
         shaderManager->createParticlesBuffer(particlesHandler->getParticlesPositions());
         LOGI("Buffers created");
@@ -124,73 +109,20 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_nativeSendTouchEvent(JNIEnv *env, jobject obj, jint pointerCount, jfloatArray xArray, jfloatArray yArray, jint action) {
-        jfloat* x = env->GetFloatArrayElements(xArray, nullptr);
-        jfloat* y = env->GetFloatArrayElements(yArray, nullptr);
+        jfloat* xTemp = env->GetFloatArrayElements(xArray, nullptr);
+        jfloat* yTemp = env->GetFloatArrayElements(yArray, nullptr);
 
-
-        // 0, 5 -> click
-        // 1, 6 -> release
-        // 2 -> move
-
-        LOGI("Touch event: %d", action);
         if (pointerCount == 1) {
-            if (action == 0) {
-                tpRot.startX = x[0];
-                tpRot.startY = y[0];
-                tpRot.currentX = x[0];
-                tpRot.currentY = y[0];
-                prevRot = shaderManager->getRotation();
-            } else if (action == 1) {
-                tpRot.startX = 0.0f;
-                tpRot.startY = 0.0f;
-                tpRot.currentX = 0.0f;
-                tpRot.currentY = 0.0f;
-            } else if (action == 2) {
-                tpRot.currentX = x[0];
-                tpRot.currentY = y[0];
-
-                float rotSensitivity = 0.001f;
-                float dx = tpRot.currentX - tpRot.startX;
-                float dy = tpRot.currentY - tpRot.startY;
-                shaderManager->setRotation(rotSensitivity*dy + prevRot.x, rotSensitivity*dx + prevRot.y, prevRot.z);
-            }
+            touchHandler->handleSingleTouch(xTemp[0], yTemp[0], action);
         } else if (pointerCount == 2) {
-            if (action == 5) {
-                tpScale1.startX = x[0];
-                tpScale1.startY = y[0];
-                tpScale1.currentX = x[0];
-                tpScale1.currentY = y[0];
-                tpScale2.startX = x[1];
-                tpScale2.startY = y[1];
-                tpScale2.currentX = x[1];
-                tpScale2.currentY = y[1];
-                prevScale = shaderManager->getScale();
-            } else if (action == 6) {
-                tpScale1.startX = 0.0f;
-                tpScale1.startY = 0.0f;
-                tpScale1.currentX = 0.0f;
-                tpScale1.currentY = 0.0f;
-                tpScale2.startX = 0.0f;
-                tpScale2.startY = 0.0f;
-                tpScale2.currentX = 0.0f;
-                tpScale2.currentY = 0.0f;
-            } else if (action == 2) {
-                tpScale1.currentX = x[0];
-                tpScale1.currentY = y[0];
-
-                tpScale2.currentX = x[1];
-                tpScale2.currentY = y[1];
-
-                float currDist = (tpScale1.currentX - tpScale2.currentX)*(tpScale1.currentX - tpScale2.currentX) +
-                                      (tpScale1.currentY - tpScale2.currentY)*(tpScale1.currentY - tpScale2.currentY);
-                float initDist = (tpScale1.startX - tpScale2.startX)*(tpScale1.startX - tpScale2.startX) +
-                                      (tpScale1.startY - tpScale2.startY)*(tpScale1.startY - tpScale2.startY);
-                float scale = sqrt(currDist / initDist);
-                shaderManager->setScale(scale * prevScale);
-            }
+            float x[2] = {xTemp[0], xTemp[1]};
+            float y[2] = {yTemp[0], yTemp[1]};
+            touchHandler->handleDoubleTouch(x, y, action);
         }
 
-        env->ReleaseFloatArrayElements(xArray, x, 0);
-        env->ReleaseFloatArrayElements(yArray, y, 0);
+        LOGI("Touch event: %d", action);
+
+        env->ReleaseFloatArrayElements(xArray, xTemp, 0);
+        env->ReleaseFloatArrayElements(yArray, yTemp, 0);
     }
 } // extern "C"
