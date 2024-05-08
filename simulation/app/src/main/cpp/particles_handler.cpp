@@ -8,10 +8,6 @@ ParticlesHandler::ParticlesHandler(InitType type, const std::function<void(Point
     initParticles(type);
 }
 
-ParticlesHandler::~ParticlesHandler() {
-
-}
-
 void ParticlesHandler::initParticles(InitType type) {
     particles.clear();
     particlesPos.clear();

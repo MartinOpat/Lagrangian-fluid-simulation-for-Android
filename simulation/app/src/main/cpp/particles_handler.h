@@ -20,7 +20,6 @@ public:
     };
 
     ParticlesHandler(InitType type, const std::function<void(Point, Vec3&)>& velocityField, int num = 100, float dt = 0.02f, float b = 0.8f);
-    ~ParticlesHandler();
     void initParticles(InitType type);
     void updateParticles();
     void updateParticlePositions();
