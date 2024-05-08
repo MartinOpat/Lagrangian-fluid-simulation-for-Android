@@ -49,6 +49,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         native-lib.cpp
         png_loader.cpp
         mainview.cpp
+        file_reader.cpp
         netcdf_reader.cpp
         particle.cpp
         triple.cpp

@@ -2,10 +2,8 @@
 
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
-- Remove hdf5 cpp library if not used.
 
 ## Native side
-- Refactor `writeTempFileFromFD` into a common superclass
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Refactor the code into classes.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
@@ -14,6 +12,8 @@
 - Refactor GLShaderManager (or at least the name)
 - Make sure somehow that when lifting fingers after scaling, rotation doesn't get affected
 - Particles get clipped away when zooming in too much
+- Some vectors have slightly wrong colors
+- Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
