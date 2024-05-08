@@ -1,0 +1,45 @@
+\hypertarget{classParticle}{}\doxysection{Particle Class Reference}
+\label{classParticle}\index{Particle@{Particle}}
+
+
+Collaboration diagram for Particle\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{classParticle__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticle_af3afc54807cfddfc5bbc5ce5e2e4b645}\label{classParticle_af3afc54807cfddfc5bbc5ce5e2e4b645}} 
+{\bfseries Particle} (\mbox{\hyperlink{classTriple}{Vec3}} initial\+Position, \mbox{\hyperlink{classTriple}{Vec3}} initial\+Velocity)
+\item 
+\mbox{\Hypertarget{classParticle_abe56938bf93879a3fd5164ddbea8e0d9}\label{classParticle_abe56938bf93879a3fd5164ddbea8e0d9}} 
+void {\bfseries euler\+Step} (double dt, \mbox{\hyperlink{classVectorFieldHandler}{Vector\+Field\+Handler}} \&vector\+Field\+Handler)
+\item 
+\mbox{\Hypertarget{classParticle_aac4e242dec0abcbb0f6e525e4193fce8}\label{classParticle_aac4e242dec0abcbb0f6e525e4193fce8}} 
+void {\bfseries rk4\+Step} (double dt, double b, \mbox{\hyperlink{classVectorFieldHandler}{Vector\+Field\+Handler}} \&vector\+Field\+Handler)
+\item 
+\mbox{\Hypertarget{classParticle_acd822a016bdcc7747f5c62c7c23414bd}\label{classParticle_acd822a016bdcc7747f5c62c7c23414bd}} 
+\mbox{\hyperlink{classTriple}{Vec3}} {\bfseries get\+Position} () const
+\item 
+\mbox{\Hypertarget{classParticle_aaae5146df5ddca1d5764f87a39c5abca}\label{classParticle_aaae5146df5ddca1d5764f87a39c5abca}} 
+void {\bfseries bind\+Position} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticle_a5c68223c6a73df81795309cac6cf9ff2}\label{classParticle_a5c68223c6a73df81795309cac6cf9ff2}} 
+\mbox{\hyperlink{classTriple}{Vec3}} {\bfseries position}
+\item 
+\mbox{\Hypertarget{classParticle_ae7c2cf59dd89016b7edd2442f8a3c1b4}\label{classParticle_ae7c2cf59dd89016b7edd2442f8a3c1b4}} 
+\mbox{\hyperlink{classTriple}{Vec3}} {\bfseries velocity}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+Lagrangian-\/fluid-\/simulation-\/for-\/\+Android/simulation/app/src/main/cpp/particle.\+h\item 
+/home/martin/\+Lagrangian-\/fluid-\/simulation-\/for-\/\+Android/simulation/app/src/main/cpp/particle.\+cpp\end{DoxyCompactItemize}
