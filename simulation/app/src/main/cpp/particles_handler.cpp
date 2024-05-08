@@ -4,7 +4,7 @@
 
 #include "particles_handler.h"
 
-ParticlesHandler::ParticlesHandler(InitType type, const std::function<void(Point, Vec3&)>& velocityField, int num, float dt, float b) : velocityField(velocityField), num(num), dt(dt), b(b) {
+ParticlesHandler::ParticlesHandler(InitType type, VectorFieldHandler& vectorFieldHandler, int num, float dt, float b) : vectorFieldHandler(vectorFieldHandler), num(num), dt(dt), b(b) {
     initParticles(type);
 }
 
@@ -54,7 +54,7 @@ void ParticlesHandler::initParticles(InitType type) {
 
 void ParticlesHandler::updateParticles() {
     for (auto& particle : particles) {
-        particle.rk4Step(dt, velocityField, b);
+        particle.rk4Step(dt, b, vectorFieldHandler);
         particle.bindPosition();
     }
 }

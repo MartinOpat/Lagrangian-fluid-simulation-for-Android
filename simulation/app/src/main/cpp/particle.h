@@ -3,6 +3,8 @@
 
 // Include necessary libraries
 #include "triple.h"
+#include "vector_field_handler.h"
+
 #include <vector>
 
 // Class declaration
@@ -12,8 +14,10 @@ public:
     Particle(Vec3 initialPosition, Vec3 initialVelocity);
 
     // Public methods
-    void eulerStep(double dt, const std::function<void(Point, Vec3&)>& velocityField); // Euler integration - mostly debug purposes
-    void rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b);
+    void eulerStep(double dt, VectorFieldHandler& vectorFieldHandler); // Euler integration - mostly debug purposes
+//    void eulerStep(double dt, const std::function<void(Point, Vec3&)>& velocityField); // Euler integration - mostly debug purposes
+    void rk4Step(double dt, double b, VectorFieldHandler& vectorFieldHandler);
+//    void rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b);
     Vec3 getPosition() const { return position; }
     void bindPosition();
 

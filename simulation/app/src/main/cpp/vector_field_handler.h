@@ -5,4 +5,37 @@
 #ifndef LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H
 #define LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H
 
+#include "triple.h"
+#include "mainview.h"
+
+#include <vector>
+
+class VectorFieldHandler {
+public:
+    VectorFieldHandler(int fineness = 15);
+    void velocityField(const Point &position, Vec3& velocity);
+
+    void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData);
+    void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
+
+    void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath);
+    void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath);
+
+    void draw(GLShaderManager& shaderManager);
+
+    std::vector<float> getAllVertices() {return allVertices[currentFrame];};
+
+private:
+    int width = 0 ;
+    int height = 0;
+    int depth = 0;
+    int currentFrame = 0;
+    int numVertices = 0;
+    int fineness = 1;
+    std::vector<float> vertices;
+    std::vector<std::vector<float>> allVertices;
+    std::vector<std::vector<float>> displayVertices;
+
+};
+
 #endif //LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H

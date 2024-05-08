@@ -51,6 +51,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         mainview.cpp
         file_reader.cpp
         netcdf_reader.cpp
+        vector_field_handler.cpp
         particle.cpp
         particles_handler.cpp
         triple.cpp

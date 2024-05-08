@@ -8,7 +8,7 @@
 
 #include "android_logging.h"
 #include "png_loader.h"
-#include "particle.h"
+#include "triple.h"
 #include "matrix.h"
 
 

@@ -5,8 +5,8 @@ Particle::Particle(Vec3 initialPosition, Vec3 initialVelocity)
     : position(initialPosition), velocity(initialVelocity) {}
 
 
-void Particle::eulerStep(double dt, const std::function<void(Point, Vec3&)>& velocityField) {
-    velocityField(this->position, this->velocity);
+void Particle::eulerStep(double dt, VectorFieldHandler& vectorFieldHandler) {
+    vectorFieldHandler.velocityField(this->position, this->velocity);
     this->position += this->velocity * dt;
 }
 
@@ -36,14 +36,14 @@ void Particle::bindPosition() {
     }
 }
 
-void Particle::rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b) {
+void Particle::rk4Step(double dt, double b, VectorFieldHandler& vectorFieldHandler) {
     // Define k1, k2, k3, k4 for position and velocity
     Vec3 a1, a2, a3, a4;
     Vec3 v1, v2, v3, v4;
 
     auto dvdt = [&](Point pos, Vec3 vel) {
         Vec3 velField;
-        velocityField(pos, velField); // Fluid velocity at particle's position
+        vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
         return - b * (vel - velField);
     };
 

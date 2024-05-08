@@ -7,6 +7,7 @@
 
 #include "particle.h"
 #include "mainview.h"
+#include "vector_field_handler.h"
 
 #include <stdio.h>
 #include <vector>
@@ -19,7 +20,7 @@ public:
         explosion   // Explosion of particles
     };
 
-    ParticlesHandler(InitType type, const std::function<void(Point, Vec3&)>& velocityField, int num = 100, float dt = 0.02f, float b = 0.8f);
+    ParticlesHandler(InitType type, VectorFieldHandler& vectorFieldHandler, int num = 100, float dt = 0.02f, float b = 0.8f);
     void initParticles(InitType type);
     void updateParticles();
     void updateParticlePositions();
@@ -32,7 +33,7 @@ private:
     float b = 0.8f;  // Drag coefficient
     std::vector<Particle> particles;
     std::vector<float> particlesPos;
-    const std::function<void(Point, Vec3&)>& velocityField;
+    VectorFieldHandler& vectorFieldHandler;
 
 };
 
