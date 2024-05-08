@@ -52,6 +52,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         file_reader.cpp
         netcdf_reader.cpp
         particle.cpp
+        particles_handler.cpp
         triple.cpp
         matrix.cpp
 )

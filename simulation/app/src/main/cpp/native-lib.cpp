@@ -12,6 +12,7 @@
 #include "mainview.h"
 #include "triple.h"
 #include "particle.h"
+#include "particles_handler.h"
 
 
 
@@ -25,13 +26,14 @@ int height = 0;
 int depth = 0;
 int fineness = 15;
 bool started = false;
-float dt = 0.05f;
+//float dt = 0.05f;
 
-float b = 0.8f;  // Drag coefficient
-std::vector<Particle> particles;
-std::vector<float> particlesPos;
+//float b = 0.8f;  // Drag coefficient
+//std::vector<Particle> particles;
+//std::vector<float> particlesPos;
 
 GLShaderManager* shaderManager;
+ParticlesHandler* particlesHandler;
 
 struct TouchPoint {
     float startX;
@@ -51,50 +53,50 @@ Vec3 prevRot(0.0f, 0.0f, 0.0f);
 int frameCount = 0;
 float timeCount = 0.0f;
 
-void updateParticlePosArr() {
-    particlesPos.clear();
-    for (auto& particle : particles) {
-        Vec3 particlePos = particle.getPosition();
-        particlesPos.push_back(particlePos.x);
-        particlesPos.push_back(particlePos.y);
-        particlesPos.push_back(particlePos.z);
-    }
-}
-
-void initParticles(int num) {
-    particles.clear();
-    particlesPos.clear();
-    for (int i = 0; i < num; i++) {
-
-        // Randomly generate initial velocity
-//        float aspectRatio = 19.3f / 9.0f;
-//        float angle = 2.0f * M_PI * rand() / (float)RAND_MAX;
-//        float magnitude = 0.3f * rand() / (float)RAND_MAX;
-//        float xVel = magnitude * cos(angle) * aspectRatio;
-//        float yVel = magnitude * sin(angle);
-//        float zVel = 0.0f;
-//        Vec3 initialVel(xVel, yVel, zVel);
-//        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
-
-        // Zero initial velocity, diagonal initial position
-        Vec3 initialVel(0.0f, 0.0f, 0.0f);
-        float xPos = 2 * (i / (float) num) - 1;
-        float yPos = 2 * (i / (float) num) - 1;
-        float zPos = 0.0f;
-        Vec3 initialPos(xPos, yPos, zPos);
-
-        // Zero initial velocity, half-diagonal position
+//void updateParticlePosArr() {
+//    particlesPos.clear();
+//    for (auto& particle : particles) {
+//        Vec3 particlePos = particle.getPosition();
+//        particlesPos.push_back(particlePos.x);
+//        particlesPos.push_back(particlePos.y);
+//        particlesPos.push_back(particlePos.z);
+//    }
+//}
+//
+//void initParticles(int num) {
+//    particles.clear();
+//    particlesPos.clear();
+//    for (int i = 0; i < num; i++) {
+//
+//        // Randomly generate initial velocity
+////        float aspectRatio = 19.3f / 9.0f;
+////        float angle = 2.0f * M_PI * rand() / (float)RAND_MAX;
+////        float magnitude = 0.3f * rand() / (float)RAND_MAX;
+////        float xVel = magnitude * cos(angle) * aspectRatio;
+////        float yVel = magnitude * sin(angle);
+////        float zVel = 0.0f;
+////        Vec3 initialVel(xVel, yVel, zVel);
+////        Vec3 initialPos(-0.25f, 0.25f, 0.0f);
+//
+//        // Zero initial velocity, diagonal initial position
 //        Vec3 initialVel(0.0f, 0.0f, 0.0f);
 //        float xPos = 2 * (i / (float) num) - 1;
-//        float yPos = i % 2 ? (i / (float) num) - 1 : 1 - (i / (float) num);
+//        float yPos = 2 * (i / (float) num) - 1;
 //        float zPos = 0.0f;
 //        Vec3 initialPos(xPos, yPos, zPos);
-
-        particles.push_back(Particle(initialPos, initialVel));
-    }
-
-    updateParticlePosArr();
-}
+//
+//        // Zero initial velocity, half-diagonal position
+////        Vec3 initialVel(0.0f, 0.0f, 0.0f);
+////        float xPos = 2 * (i / (float) num) - 1;
+////        float yPos = i % 2 ? (i / (float) num) - 1 : 1 - (i / (float) num);
+////        float zPos = 0.0f;
+////        Vec3 initialPos(xPos, yPos, zPos);
+//
+//        particles.push_back(Particle(initialPos, initialVel));
+//    }
+//
+//    updateParticlePosArr();
+//}
 
 void velocityField(Point position, Vec3& velocity) {
     int fineness = 1;  // TODO: Remove once definitely not needed
@@ -122,27 +124,27 @@ void velocityField(Point position, Vec3& velocity) {
                     );
 }
 
-void updateParticles() {
-    if (!started) {
-        shaderManager->startTime = std::chrono::steady_clock::now();
-        started = true;
-    }
-    auto currentTime = std::chrono::steady_clock::now();
-    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
-    shaderManager->startTime = currentTime;
-
-    timeCount += deltaTime;
-    if (timeCount >= 1.0f) {
-        LOGI("Fps: %d\n", frameCount);
-        frameCount = 0;
-        timeCount = 0.0f;
-    }
-
-    for (auto& particle : particles) {
-        particle.rk4Step(dt, velocityField, b);
-        particle.bindPosition();
-    }
-}
+//void updateParticles() {
+//    if (!started) {
+//        shaderManager->startTime = std::chrono::steady_clock::now();
+//        started = true;
+//    }
+//    auto currentTime = std::chrono::steady_clock::now();
+//    float deltaTime = std::chrono::duration<float>(currentTime - shaderManager->startTime).count();
+//    shaderManager->startTime = currentTime;
+//
+//    timeCount += deltaTime;
+//    if (timeCount >= 1.0f) {
+//        LOGI("Fps: %d\n", frameCount);
+//        frameCount = 0;
+//        timeCount = 0.0f;
+//    }
+//
+//    for (auto& particle : particles) {
+//        particle.rk4Step(dt, velocityField, b);
+//        particle.bindPosition();
+//    }
+//}
 
 void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, int width, int height) {
 
@@ -333,13 +335,9 @@ extern "C" {
         shaderManager->loadVectorFieldData(displayVertices[currentFrame]);
         shaderManager->drawVectorField(displayVertices[currentFrame].size());
 
-        updateParticles();
-        updateParticlePosArr();
-        shaderManager->loadParticlesData(particlesPos);
-        shaderManager->drawParticles(particlesPos.size());
+        particlesHandler->drawParticles(*shaderManager);
 
         //        updateFrame();
-
         frameCount++;
     }
 
@@ -365,7 +363,7 @@ extern "C" {
         loadAllTimeSteps(tempFileU, tempFileV);
         LOGI("NetCDF files loaded of width: %d, height: %d", width, height);
 
-        initParticles(1000);
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines, velocityField);
         LOGI("Particles initialized");
     }
 
@@ -386,14 +384,14 @@ extern "C" {
         loadAllTimeSteps(tempFileU, tempFileV, tempFileW);
         LOGI("NetCDF files loaded");
 
-        initParticles(100);
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, velocityField);
         LOGI("Particles initialized");
     }
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         shaderManager->createVectorFieldBuffer(allVertices[currentFrame]);
-        shaderManager->createParticlesBuffer(particlesPos);
+        shaderManager->createParticlesBuffer(particlesHandler->getParticlesPositions());
         LOGI("Buffers created");
     }
 
