@@ -2,7 +2,7 @@
 
 
 void GLShaderManager::setRotation(float rotateX, float rotateY, float rotateZ) {
-    this->rotation = Vec3(rotateX, rotateY, rotateZ);
+    this->rotation = glm::vec3(rotateX, rotateY, rotateZ);
     updateTransformations();
 }
 
@@ -12,11 +12,13 @@ void GLShaderManager::setScale(float scale) {
 }
 
 void GLShaderManager::updateTransformations() {
-    modelTransform.setToIdentity();
-    modelTransform = modelTransform * Matrix4x4::scale(scale, scale, scale);
-    modelTransform = modelTransform * Matrix4x4::rotateX(rotation.x);
-    modelTransform = modelTransform * Matrix4x4::rotateY(rotation.y);
-    modelTransform = modelTransform * Matrix4x4::rotateZ(rotation.z);
+    modelTransform = glm::identity<glm::mat4>();
+    modelTransform = glm::scale(modelTransform, glm::vec3(scale, scale, scale));
+
+    // Rotation behaviour is order dependent
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 
@@ -24,8 +26,8 @@ void GLShaderManager::updateTransformations() {
 GLShaderManager::GLShaderManager(AAssetManager* assetManager)
         : assetManager(assetManager), shaderProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
     startTime = std::chrono::steady_clock::now();
-//    setRotation(0.78f, 0.78f, 0.78f);
-//    setScale(0.5f);
+    setRotation(0.0f, 0.0f, M_PI/2.0f);
+    setScale(0.5f);
     updateTransformations();
 }
 
@@ -71,7 +73,6 @@ void GLShaderManager::compileAndLinkShaders() {
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-//        std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         LOGE("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
     }
 
@@ -83,7 +84,6 @@ void GLShaderManager::compileAndLinkShaders() {
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-//        std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
         LOGE("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
     }
 
@@ -96,7 +96,6 @@ void GLShaderManager::compileAndLinkShaders() {
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-//        std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         LOGE("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
 
@@ -172,7 +171,7 @@ void GLShaderManager::drawParticles(int size) {
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocation, 1);
     glUniform1f(pointSize, 15.0f);
-    glUniformMatrix4fv(modelLocation, 1, GL_TRUE, modelTransform.data);
+    glUniformMatrix4fv(modelLocation, 1, GL_TRUE, &modelTransform[0][0]);
 
     glDrawArrays(GL_POINTS, 0, size / 3);
 
@@ -205,7 +204,7 @@ void GLShaderManager::loadVectorFieldData(std::vector<float> vertices) {
 void GLShaderManager::drawVectorField(int size) {
     glBindVertexArray(vectorFieldVAO);
     glUniform1i(isPointLocation, 0);
-    glUniformMatrix4fv(modelLocation, 1, GL_TRUE, modelTransform.data);
+    glUniformMatrix4fv(modelLocation, 1, GL_TRUE, &modelTransform[0][0]);
 
     glDrawArrays(GL_LINES, 0, size / 3);
 

@@ -8,6 +8,8 @@
 #include "particle.h"
 #include "mainview.h"
 #include "vector_field_handler.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <stdio.h>
 #include <vector>

@@ -7,13 +7,15 @@
 
 #include "triple.h"
 #include "mainview.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <vector>
 
 class VectorFieldHandler {
 public:
     VectorFieldHandler(int fineness = 15);
-    void velocityField(const Point &position, Vec3& velocity);
+    void velocityField(const glm::vec3 &position, glm::vec3 &velocity);
 
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData);
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);

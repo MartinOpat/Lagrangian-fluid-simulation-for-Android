@@ -9,7 +9,7 @@
 
 VectorFieldHandler::VectorFieldHandler(int fineness): fineness(fineness) {}
 
-void VectorFieldHandler::velocityField(const Point &position, Vec3& velocity) {
+void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
     int fineness = 1;  // TODO: Remove once definitely not needed
     int adjWidth = width / fineness;
     int adjHeight = height / fineness;
@@ -28,10 +28,9 @@ void VectorFieldHandler::velocityField(const Point &position, Vec3& velocity) {
 
     int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
 
-    // Calculate velocity as differences
-    velocity = Vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
-                    allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
-                    allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]
+    velocity = glm::vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
+                        allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
+                        allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]
     );
 }
 
@@ -195,11 +194,8 @@ void VectorFieldHandler::loadAllTimeSteps(const std::string& fileUPath, const st
         depth = countp[1];
 
         dataFileU.getVar("u").getVar(startp, countp, uData.data());
-//        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
         dataFileV.getVar("v").getVar(startp, countp, vData.data());
-//        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
         dataFileW.getVar("w").getVar(startp, countp, wData.data());
-//        dataFileW.getVar("W").getVar(startp, countp, wData.data());
 
         LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData);

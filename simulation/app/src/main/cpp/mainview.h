@@ -10,6 +10,8 @@
 #include "png_loader.h"
 #include "triple.h"
 #include "matrix.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 
 
@@ -36,7 +38,7 @@ public:
     void setScale(float scale);
     void updateTransformations();
 
-    Vec3 getRotation() { return rotation; }
+    glm::vec3 getRotation() { return rotation; }
     float getScale() { return scale; }
 
     GLuint shaderProgram;
@@ -64,11 +66,11 @@ private:
     GLuint vectorFieldVAO;
 
     // Transformations
-    float scale = 0.5f;
-    Vec3 rotation;
-    Matrix4x4 modelTransform;
-    Matrix4x4 projectionTransform;
-    Matrix4x4 viewTransform;
+    float scale;
+    glm::vec3 rotation;
+    glm::mat4 modelTransform;
+    glm::mat4 projectionTransform;
+    glm::mat4 viewTransform;
 };
 
 #endif // GL_SHADER_MANAGER_H
