@@ -1,0 +1,65 @@
+\hypertarget{classVectorFieldHandler}{}\doxysection{Vector\+Field\+Handler Class Reference}
+\label{classVectorFieldHandler}\index{VectorFieldHandler@{VectorFieldHandler}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a7371553997fb2c332194efca8e3d0941}\label{classVectorFieldHandler_a7371553997fb2c332194efca8e3d0941}} 
+{\bfseries Vector\+Field\+Handler} (int fineness=15)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a0dcaecd8f6bba2894c7599e68ea454e7}\label{classVectorFieldHandler_a0dcaecd8f6bba2894c7599e68ea454e7}} 
+void {\bfseries velocity\+Field} (const \mbox{\hyperlink{classTriple}{Point}} \&position, \mbox{\hyperlink{classTriple}{Vec3}} \&velocity)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_af79329539cc280647a4910741868aad9}\label{classVectorFieldHandler_af79329539cc280647a4910741868aad9}} 
+void {\bfseries prepare\+Vertex\+Data} (const std\+::vector$<$ float $>$ \&u\+Data, const std\+::vector$<$ float $>$ \&v\+Data)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_afa14bc2b3e0c562783dc43be37ebfd2d}\label{classVectorFieldHandler_afa14bc2b3e0c562783dc43be37ebfd2d}} 
+void {\bfseries prepare\+Vertex\+Data} (const std\+::vector$<$ float $>$ \&u\+Data, const std\+::vector$<$ float $>$ \&v\+Data, const std\+::vector$<$ float $>$ \&w\+Data)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a1f584db5510d95062f4301d63bf3009d}\label{classVectorFieldHandler_a1f584db5510d95062f4301d63bf3009d}} 
+void {\bfseries load\+All\+Time\+Steps} (const std\+::string \&file\+UPath, const std\+::string \&file\+VPath)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a878af6bf4af74dd83fa31e576596eb74}\label{classVectorFieldHandler_a878af6bf4af74dd83fa31e576596eb74}} 
+void {\bfseries load\+All\+Time\+Steps} (const std\+::string \&file\+UPath, const std\+::string \&file\+VPath, const std\+::string \&file\+WPath)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_ac83a4b4a20098fa41959e385f582cfa2}\label{classVectorFieldHandler_ac83a4b4a20098fa41959e385f582cfa2}} 
+void {\bfseries draw} (\mbox{\hyperlink{classGLShaderManager}{GLShader\+Manager}} \&shader\+Manager)
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_ae77669bcbbebdb320c22d18e25ed23a4}\label{classVectorFieldHandler_ae77669bcbbebdb320c22d18e25ed23a4}} 
+std\+::vector$<$ float $>$ {\bfseries get\+All\+Vertices} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a716ac738fadb466967d61e3709f46a93}\label{classVectorFieldHandler_a716ac738fadb466967d61e3709f46a93}} 
+int {\bfseries width} = 0
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_ac373d4087d7b02c0db77acc2fbb65463}\label{classVectorFieldHandler_ac373d4087d7b02c0db77acc2fbb65463}} 
+int {\bfseries height} = 0
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a73b5985c0f589777aff8b3e25f4c66c6}\label{classVectorFieldHandler_a73b5985c0f589777aff8b3e25f4c66c6}} 
+int {\bfseries depth} = 0
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a8e70ac399f9bcc5dc2ff18c02fbc157f}\label{classVectorFieldHandler_a8e70ac399f9bcc5dc2ff18c02fbc157f}} 
+int {\bfseries current\+Frame} = 0
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a26e447eae3137ffac20003694b8a6ff3}\label{classVectorFieldHandler_a26e447eae3137ffac20003694b8a6ff3}} 
+int {\bfseries num\+Vertices} = 0
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_af6d4ba9d0a64f7a5f23b01ec7ea956af}\label{classVectorFieldHandler_af6d4ba9d0a64f7a5f23b01ec7ea956af}} 
+int {\bfseries fineness} = 1
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a0f4778c824cae8367df9427ece7bdee6}\label{classVectorFieldHandler_a0f4778c824cae8367df9427ece7bdee6}} 
+std\+::vector$<$ float $>$ {\bfseries vertices}
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_ade65c3fc57d798eb99a700ac97bdf5e7}\label{classVectorFieldHandler_ade65c3fc57d798eb99a700ac97bdf5e7}} 
+std\+::vector$<$ std\+::vector$<$ float $>$ $>$ {\bfseries all\+Vertices}
+\item 
+\mbox{\Hypertarget{classVectorFieldHandler_a943190159a5f4131c258a5e54b65c157}\label{classVectorFieldHandler_a943190159a5f4131c258a5e54b65c157}} 
+std\+::vector$<$ std\+::vector$<$ float $>$ $>$ {\bfseries display\+Vertices}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+Lagrangian-\/fluid-\/simulation-\/for-\/\+Android/simulation/app/src/main/cpp/vector\+\_\+field\+\_\+handler.\+h\item 
+/home/martin/\+Lagrangian-\/fluid-\/simulation-\/for-\/\+Android/simulation/app/src/main/cpp/vector\+\_\+field\+\_\+handler.\+cpp\end{DoxyCompactItemize}

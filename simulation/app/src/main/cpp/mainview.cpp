@@ -1,8 +1,32 @@
 #include "mainview.h"
 
+
+void GLShaderManager::setRotation(float rotateX, float rotateY, float rotateZ) {
+    this->rotation = Vec3(rotateX, rotateY, rotateZ);
+    updateTransformations();
+}
+
+void GLShaderManager::setScale(float scale) {
+    this->scale = scale;
+    updateTransformations();
+}
+
+void GLShaderManager::updateTransformations() {
+    modelTransform.setToIdentity();
+    modelTransform = modelTransform * Matrix4x4::scale(scale, scale, scale);
+    modelTransform = modelTransform * Matrix4x4::rotateX(rotation.x);
+    modelTransform = modelTransform * Matrix4x4::rotateY(rotation.y);
+    modelTransform = modelTransform * Matrix4x4::rotateZ(rotation.z);
+}
+
+
+
 GLShaderManager::GLShaderManager(AAssetManager* assetManager)
         : assetManager(assetManager), shaderProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
     startTime = std::chrono::steady_clock::now();
+//    setRotation(0.78f, 0.78f, 0.78f);
+//    setScale(0.5f);
+    updateTransformations();
 }
 
 GLShaderManager::~GLShaderManager() {
@@ -114,6 +138,7 @@ void GLShaderManager::setupGraphics() {
     // Query uniform locations
     this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
     this->pointSize = glGetUniformLocation(shaderProgram, "uPointSize");
+    this->modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 
     // Error checking after setup
     GLenum err;
@@ -147,6 +172,7 @@ void GLShaderManager::drawParticles(int size) {
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocation, 1);
     glUniform1f(pointSize, 15.0f);
+    glUniformMatrix4fv(modelLocation, 1, GL_TRUE, modelTransform.data);
 
     glDrawArrays(GL_POINTS, 0, size / 3);
 
@@ -163,6 +189,8 @@ void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)(3 * sizeof(float)));
 
     glBindVertexArray(0);  // Unbind VAO
     glBindBuffer(GL_ARRAY_BUFFER, 0);  // Unbind VBO
@@ -177,6 +205,7 @@ void GLShaderManager::loadVectorFieldData(std::vector<float> vertices) {
 void GLShaderManager::drawVectorField(int size) {
     glBindVertexArray(vectorFieldVAO);
     glUniform1i(isPointLocation, 0);
+    glUniformMatrix4fv(modelLocation, 1, GL_TRUE, modelTransform.data);
 
     glDrawArrays(GL_LINES, 0, size / 3);
 

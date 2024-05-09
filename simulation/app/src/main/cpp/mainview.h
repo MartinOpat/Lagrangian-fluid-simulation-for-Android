@@ -8,7 +8,8 @@
 
 #include "android_logging.h"
 #include "png_loader.h"
-#include "particle.h"
+#include "triple.h"
+#include "matrix.h"
 
 
 
@@ -31,6 +32,13 @@ public:
     void loadParticlesData(std::vector<float> particlesPos);
     void drawParticles(int size);
 
+    void setRotation(float rotateX, float rotateY, float rotateZ);
+    void setScale(float scale);
+    void updateTransformations();
+
+    Vec3 getRotation() { return rotation; }
+    float getScale() { return scale; }
+
     GLuint shaderProgram;
     std::chrono::steady_clock::time_point startTime;
 
@@ -44,7 +52,9 @@ private:
 
     // Uniforms
     GLint isPointLocation;
-    GLfloat pointSize;
+    GLfloat pointSize;  // TODO: This can (and probably should) be a GLint
+    GLint modelLocation;
+
 
     // Buffers
     GLuint particleVBO;
@@ -52,6 +62,13 @@ private:
 
     GLuint vectorFieldVBO;
     GLuint vectorFieldVAO;
+
+    // Transformations
+    float scale = 0.5f;
+    Vec3 rotation;
+    Matrix4x4 modelTransform;
+    Matrix4x4 projectionTransform;
+    Matrix4x4 viewTransform;
 };
 
 #endif // GL_SHADER_MANAGER_H

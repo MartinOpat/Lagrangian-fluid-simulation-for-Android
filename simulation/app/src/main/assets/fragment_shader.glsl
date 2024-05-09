@@ -2,7 +2,7 @@
 precision mediump float;
 uniform bool uIsPoint; // Uniform to tell if we're rendering a point or triangle
 
-in float depth;
+flat in vec4 col;
 out vec4 fragColor;
 
 void main() {
@@ -18,7 +18,8 @@ void main() {
             fragColor = vec4(1.0, 0, 0, 1.0);  // Red for now
         }
     } else {
-        fragColor = vec4(0.4, 0.5, 0.8, 1.0);  // Blue for now
+        // fragColor = vec4(0.4, 0.5, 0.8, 1.0);  // Blue for now
+        fragColor = col;
     }
 }
 

@@ -49,9 +49,14 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         native-lib.cpp
         png_loader.cpp
         mainview.cpp
+        file_reader.cpp
         netcdf_reader.cpp
+        vector_field_handler.cpp
         particle.cpp
+        particles_handler.cpp
         triple.cpp
+        matrix.cpp
+        touch_handler.cpp
 )
 
 

@@ -14,6 +14,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
+import android.view.MotionEvent;
 
 
 public class MainActivity extends Activity {
@@ -31,6 +32,7 @@ public class MainActivity extends Activity {
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
     public native void createBuffers();
+    public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
 
     private static final int REQUEST_CODE_READ_STORAGE = 100;
     private static final int REQUEST_CODE_PICK_FILES = 101;
@@ -124,4 +126,23 @@ public class MainActivity extends Activity {
         super.onDestroy();
         fileAccessHelper.shutdown();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getActionMasked();
+        int pointerCount = event.getPointerCount();
+        float[] x = new float[pointerCount];
+        float[] y = new float[pointerCount];
+
+        for (int i = 0; i < pointerCount; i++) {
+            x[i] = event.getX(i);
+            y[i] = event.getY(i);
+        }
+
+        // Pass the touch event details along with pointer count and coordinates to native code
+        nativeSendTouchEvent(pointerCount, x, y, action);
+
+        return true;
+    }
+
 }
