@@ -22,7 +22,7 @@ void main() {
         gl_PointSize = uPointSize;
     }
 //    gl_Position = vPosition;
-    gl_Position = modelTransform * vPosition;
+    gl_Position = projectionTransform * viewTransform * modelTransform * vPosition;
     vec4 v = vNextPos - vPosition;
     float angle = atan(v.y, v.x);
     hue = (angle + 3.14159) / (2.0 * 3.14159);

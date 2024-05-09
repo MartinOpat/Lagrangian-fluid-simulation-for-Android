@@ -1,5 +1,22 @@
 #include "mainview.h"
 
+GLShaderManager::GLShaderManager(AAssetManager* assetManager)
+        : assetManager(assetManager), shaderProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
+    startTime = std::chrono::steady_clock::now();
+    modelTransform = glm::identity<glm::mat4>();
+    projectionTransform = glm::identity<glm::mat4>();
+//    projectionTransform = glm::perspective(glm::radians(60.0f), 20.0f/9.0f, 0.2f, 20.0f);
+    viewTransform = glm::identity<glm::mat4>();
+//    viewTransform = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    setRotation(0.0f, 0.0f, M_PI/2.0f);
+    setScale(0.5f);
+    updateTransformations();
+}
+
+GLShaderManager::~GLShaderManager() {
+    glDeleteProgram(shaderProgram);
+    glDeleteTextures(1, &textureID);
+}
 
 void GLShaderManager::setRotation(float rotateX, float rotateY, float rotateZ) {
     this->rotation = glm::vec3(rotateX, rotateY, rotateZ);
@@ -16,25 +33,13 @@ void GLShaderManager::updateTransformations() {
     modelTransform = glm::scale(modelTransform, glm::vec3(scale, scale, scale));
 
     // Rotation behaviour is order dependent
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
     modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 
 
-GLShaderManager::GLShaderManager(AAssetManager* assetManager)
-        : assetManager(assetManager), shaderProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
-    startTime = std::chrono::steady_clock::now();
-    setRotation(0.0f, 0.0f, M_PI/2.0f);
-    setScale(0.5f);
-    updateTransformations();
-}
-
-GLShaderManager::~GLShaderManager() {
-    glDeleteProgram(shaderProgram);
-    glDeleteTextures(1, &textureID);
-}
 
 std::string GLShaderManager::loadShaderFile(const char* fileName) {
     AAsset* asset = AAssetManager_open(assetManager, fileName, AASSET_MODE_BUFFER);
@@ -138,6 +143,8 @@ void GLShaderManager::setupGraphics() {
     this->isPointLocation = glGetUniformLocation(shaderProgram, "uIsPoint");
     this->pointSize = glGetUniformLocation(shaderProgram, "uPointSize");
     this->modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
+    this->projectionLocation = glGetUniformLocation(shaderProgram, "projectionTransform");
+    this->viewLocation = glGetUniformLocation(shaderProgram, "viewTransform");
 
     // Error checking after setup
     GLenum err;
@@ -172,6 +179,8 @@ void GLShaderManager::drawParticles(int size) {
     glUniform1i(isPointLocation, 1);
     glUniform1f(pointSize, 15.0f);
     glUniformMatrix4fv(modelLocation, 1, GL_TRUE, &modelTransform[0][0]);
+    glUniformMatrix4fv(projectionLocation, 1, GL_TRUE, &projectionTransform[0][0]);
+    glUniformMatrix4fv(viewLocation, 1, GL_TRUE, &viewTransform[0][0]);
 
     glDrawArrays(GL_POINTS, 0, size / 3);
 
@@ -205,6 +214,8 @@ void GLShaderManager::drawVectorField(int size) {
     glBindVertexArray(vectorFieldVAO);
     glUniform1i(isPointLocation, 0);
     glUniformMatrix4fv(modelLocation, 1, GL_TRUE, &modelTransform[0][0]);
+    glUniformMatrix4fv(projectionLocation, 1, GL_TRUE, &projectionTransform[0][0]);
+    glUniformMatrix4fv(viewLocation, 1, GL_TRUE, &viewTransform[0][0]);
 
     glDrawArrays(GL_LINES, 0, size / 3);
 

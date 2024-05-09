@@ -54,6 +54,8 @@ private:
     GLint isPointLocation;
     GLfloat pointSize;  // TODO: This can (and probably should) be a GLint
     GLint modelLocation;
+    GLint viewLocation;
+    GLint projectionLocation;
 
 
     // Buffers
