@@ -10,7 +10,6 @@
 #include "android_logging.h"
 #include "netcdf_reader.h"
 #include "mainview.h"
-#include "triple.h"
 #include "particle.h"
 #include "particles_handler.h"
 #include "vector_field_handler.h"

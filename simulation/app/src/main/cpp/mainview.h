@@ -8,8 +8,6 @@
 
 #include "android_logging.h"
 #include "png_loader.h"
-#include "triple.h"
-#include "matrix.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 

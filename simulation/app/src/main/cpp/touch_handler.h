@@ -6,7 +6,6 @@
 #define LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H
 
 
-#include "triple.h"
 #include "mainview.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"

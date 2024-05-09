@@ -3,7 +3,6 @@
 //
 
 #include "vector_field_handler.h"
-#include "triple.h"
 #include "android_logging.h"
 #include "netcdf_reader.h"
 

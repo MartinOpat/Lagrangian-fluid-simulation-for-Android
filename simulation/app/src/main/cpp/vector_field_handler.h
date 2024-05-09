@@ -5,7 +5,6 @@
 #ifndef LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H
 #define LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H
 
-#include "triple.h"
 #include "mainview.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
