@@ -56,8 +56,6 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         vector_field_handler.cpp
         particle.cpp
         particles_handler.cpp
-        triple.cpp
-        matrix.cpp
         touch_handler.cpp
 )
 
