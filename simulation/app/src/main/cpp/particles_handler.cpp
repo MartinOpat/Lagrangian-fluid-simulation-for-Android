@@ -16,8 +16,8 @@ void ParticlesHandler::initParticles(InitType type) {
             for (int i = 0; i < num; i++) {
                 // Zero initial velocity, diagonal initial position
                 glm::vec3 initialVel(0.0f, 0.0f, 0.0f);
-                float xPos = 2 * (i / (float) num) - 1;
-                float yPos = 2 * (i / (float) num) - 1;
+                float xPos = 100*(2 * (i / (float) num) - 1);
+                float yPos = 100*(2 * (i / (float) num) - 1);
                 float zPos = 0.0f;
                 glm::vec3 initialPos(xPos, yPos, zPos);
                 particles.push_back(Particle(initialPos, initialVel));

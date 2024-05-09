@@ -5,6 +5,7 @@
 #include "vector_field_handler.h"
 #include "android_logging.h"
 #include "netcdf_reader.h"
+#include "consts.h"
 
 VectorFieldHandler::VectorFieldHandler(int fineness): fineness(fineness) {}
 
@@ -15,9 +16,9 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
     int adjDepth = 0;
 
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
-    int gridX = (int)((position.x + 1.0) / 2 * adjWidth);
-    int gridY = (int)((position.y + 1.0) / 2 * adjHeight);
-    int gridZ = (int)((position.z + 1.0) / 2 * adjDepth);
+    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * adjWidth);
+    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * adjHeight);
+    int gridZ = (int)((position.z / 100.0f + 1.0) / 2 * adjDepth);
 //    int gridZ = abs((int)(position.z * depth));
 
     // Ensure indices are within bounds
@@ -105,12 +106,15 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 
                 int index = z * width * height + y * width + x;
 
-                float normalizedX = (x / (float)(width)) * 2 - 1;
-                float normalizedY = (y / (float)(height)) * 2 - 1;
-                float normalizedZ = (z / (float)(depth)) * 2 - 1;
+                float normalizedX = FIELD_WIDTH*((x / (float)(width)) * 2 - 1);
+//                float scaledX = x;
+                float normalizedY = FIELD_HEIGHT*((y / (float)(height)) * 2 - 1);
+//                float scaledY = y;
+                float normalizedZ = FIELD_DEPTH*((z / (float)(depth)) * 2 - 1);
+//                float scaledZ = z;
 //                float normalizedZ = z;
 
-                float scaleFactor = 0.1f;
+                float scaleFactor = 10.0f;
                 float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
                 normalizedU *= scaleFactor;
                 float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
@@ -119,13 +123,19 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
                 normalizedW *= scaleFactor;
 
                 float endX = normalizedX + normalizedU;
+//                float endX = scaledX + uData[index];
                 float endY = normalizedY + normalizedV;
+//                float endY = scaledY + vData[index];
                 float endZ = normalizedZ + normalizedW;
+//                float endZ = scaledZ + wData[index];
 
                 // Start point
                 vertices.push_back(normalizedX);
+//                vertices.push_back(scaledX);
                 vertices.push_back(normalizedY);
+//                vertices.push_back(scaledY);
                 vertices.push_back(normalizedZ);
+//                vertices.push_back(scaledZ);
 
                 // End point
                 vertices.push_back(endX);
@@ -134,8 +144,12 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 
                 if (z % (fineness / 2) != 0 || y % fineness != 0 || x % fineness != 0) continue;
                 tempVertices.push_back(normalizedX);
+//                tempVertices.push_back(scaledX);
                 tempVertices.push_back(normalizedY);
+//                tempVertices.push_back(scaledY);
                 tempVertices.push_back(normalizedZ);
+//                tempVertices.push_back(scaledZ);
+
 
                 tempVertices.push_back(endX);
                 tempVertices.push_back(endY);

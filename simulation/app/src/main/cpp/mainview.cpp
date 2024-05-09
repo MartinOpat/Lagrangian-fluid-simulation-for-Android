@@ -6,10 +6,15 @@ GLShaderManager::GLShaderManager(AAssetManager* assetManager)
     modelTransform = glm::identity<glm::mat4>();
     projectionTransform = glm::identity<glm::mat4>();
 //    projectionTransform = glm::perspective(glm::radians(60.0f), 20.0f/9.0f, 0.2f, 20.0f);
+//    projectionTransform = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 10.0f);
+    float max_dim = std::max(FIELD_WIDTH, std::max(FIELD_HEIGHT, FIELD_DEPTH));
+    projectionTransform = glm::ortho(-max_dim, max_dim, -max_dim, max_dim, -max_dim, max_dim);
     viewTransform = glm::identity<glm::mat4>();
 //    viewTransform = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     setRotation(0.0f, 0.0f, M_PI/2.0f);
+//    setRotation(0.0f, 0.0f, 0.0f);
     setScale(0.5f);
+//    setScale(1.0f);
     updateTransformations();
 }
 

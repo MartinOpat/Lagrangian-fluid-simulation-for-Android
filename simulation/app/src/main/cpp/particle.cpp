@@ -11,21 +11,21 @@ void Particle::eulerStep(float dt, VectorFieldHandler& vectorFieldHandler) {
 }
 
 void Particle::bindPosition() {
-    if (this->position.x < -1) {
-        this->position.x = -1;
-        this->velocity.x = 0;
-    } else if (this->position.x > 1) {
-        this->position.x = 1;
-        this->velocity.x = 0;
-    }
-
-    if (this->position.y < -1) {
-        this->position.y = -1;
-        this->velocity.y = 0;
-    } else if (this->position.y > 1) {
-        this->position.y = 1;
-        this->velocity.y = 0;
-    }
+//    if (this->position.x < -1) {
+//        this->position.x = -1;
+//        this->velocity.x = 0;
+//    } else if (this->position.x > 1) {
+//        this->position.x = 1;
+//        this->velocity.x = 0;
+//    }
+//
+//    if (this->position.y < -1) {
+//        this->position.y = -1;
+//        this->velocity.y = 0;
+//    } else if (this->position.y > 1) {
+//        this->position.y = 1;
+//        this->velocity.y = 0;
+//    }
 
     if (this->position.z < -1) {
         this->position.z = -1;

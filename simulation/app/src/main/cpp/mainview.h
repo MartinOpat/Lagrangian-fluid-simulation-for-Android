@@ -5,11 +5,14 @@
 #include <chrono>
 #include <GLES3/gl3.h>
 #include <android/asset_manager.h>
+#include <iostream>
+#include <sstream>
 
 #include "android_logging.h"
 #include "png_loader.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "consts.h"
 
 
 

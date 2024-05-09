@@ -31,7 +31,7 @@ public:
 
 private:
     int num = 100;  // Number of particles
-    float dt = 0.02f;  // Time step
+    float dt = 0.001f;  // Time step
     float b = 0.8f;  // Drag coefficient
     std::vector<Particle> particles;
     std::vector<float> particlesPos;
