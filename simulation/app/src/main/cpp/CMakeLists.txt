@@ -28,6 +28,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # for GameActivity/NativeActivity derived applications, the same library name must be
 # used in the AndroidManifest.xml file.
 
+add_subdirectory(glm)
+
 
 add_library(zlib SHARED IMPORTED)
 set_target_properties(zlib PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libz.so)
@@ -70,6 +72,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         GLESv3
         netcdf_cxx
         netcdf
+        glm
 )
 
 
