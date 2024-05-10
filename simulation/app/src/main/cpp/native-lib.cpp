@@ -48,7 +48,7 @@ extern "C" {
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
-//        particlesHandler->drawParticles(*shaderManager);
+        particlesHandler->drawParticles(*shaderManager);
 
         //        updateFrame();
         frameCount++;
@@ -57,6 +57,7 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
+
         touchHandler = new TouchHandler(*shaderManager);
         LOGI("Graphics setup complete");
     }

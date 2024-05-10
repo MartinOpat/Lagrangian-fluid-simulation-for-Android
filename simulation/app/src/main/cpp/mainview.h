@@ -44,24 +44,30 @@ public:
     glm::vec3 getRotation() { return rotation; }
     float getScale() { return scale; }
 
-    GLuint shaderProgram;
+    GLuint shaderLinesProgram;
+    GLuint shaderPointsProgram;
     std::chrono::steady_clock::time_point startTime;
 
 private:
     AAssetManager* assetManager;
-    GLuint vertexShader, fragmentShader, geometryShader;
+    GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader;
     GLuint textureID;
 
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
-    std::string geometryShaderSource;
+    std::string geometryLinesShaderSource;
+    std::string geometryPointsShaderSource;
 
     // Uniforms
-    GLint isPointLocation;
+    GLint isPointLocationLines;
+    GLint isPointLocationPoints;
     GLfloat pointSize;  // TODO: This can (and probably should) be a GLint
-    GLint modelLocation;
-    GLint viewLocation;
-    GLint projectionLocation;
+    GLint modelLocationLines;
+    GLint viewLocationLines;
+    GLint projectionLocationLines;
+    GLint modelLocationPoints;
+    GLint viewLocationPoints;
+    GLint projectionLocationPoints;
 
 
     // Buffers

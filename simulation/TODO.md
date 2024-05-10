@@ -15,6 +15,7 @@
 - Some vectors have slightly wrong colors
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Re-implemented fps counter for (physical) devices
+- Split the fragment shader
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
