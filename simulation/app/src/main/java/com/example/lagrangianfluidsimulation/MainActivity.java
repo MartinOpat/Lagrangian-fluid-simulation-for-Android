@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
     private final FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
 
     private native void drawFrame();
-    private native void setupGraphics(AssetManager assetManager, Surface surface);
+    private native void setupGraphics(AssetManager assetManager);
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
 
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 AssetManager assetManager = getAssets();
-                setupGraphics(assetManager, glSurfaceView.getHolder().getSurface());
+                setupGraphics(assetManager);
             }
 
             @Override
