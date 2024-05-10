@@ -71,6 +71,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         netcdf_cxx
         netcdf
         glm
+        EGL
 )
 
 

@@ -97,9 +97,21 @@ void GLShaderManager::compileAndLinkShaders() {
         LOGE("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
     }
 
+    // Compile geometry shader
+    geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
+    const char* geometryShaderSourceCStr = geometryShaderSource.c_str();
+    glShaderSource(geometryShader, 1, &geometryShaderSourceCStr, NULL);
+    glCompileShader(geometryShader);
+    glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &compileSuccess);
+    if (!compileSuccess) {
+        glGetShaderInfoLog(geometryShader, 512, NULL, infoLog);
+        LOGE("ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n%s", infoLog);
+    }
+
     // Link shaders
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, geometryShader);
     glAttachShader(shaderProgram, fragmentShader);
     glBindAttribLocation(shaderProgram, 0, "vPosition");
     glLinkProgram(shaderProgram);
@@ -111,8 +123,10 @@ void GLShaderManager::compileAndLinkShaders() {
 
     // Cleanup
     glDetachShader(shaderProgram, vertexShader);
+    glDetachShader(shaderProgram, geometryShader);
     glDetachShader(shaderProgram, fragmentShader);
     glDeleteShader(vertexShader);
+    glDeleteShader(geometryShader);
     glDeleteShader(fragmentShader);
 }
 
@@ -128,9 +142,12 @@ void GLShaderManager::setFrame() {
 }
 
 void GLShaderManager::setupGraphics() {
+
+
     // Load shader source code
     vertexShaderSource = loadShaderFile("vertex_shader.glsl");
     fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
+    geometryShaderSource = loadShaderFile("geometry_shader.glsl");
 
     // Compile and link shaders
     compileAndLinkShaders();

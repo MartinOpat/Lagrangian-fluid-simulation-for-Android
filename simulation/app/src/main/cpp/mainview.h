@@ -3,7 +3,9 @@
 
 #include <string>
 #include <chrono>
-#include <GLES3/gl3.h>
+#include <GLES3/gl32.h>
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
 #include <android/asset_manager.h>
 #include <iostream>
 #include <sstream>
@@ -47,11 +49,12 @@ public:
 
 private:
     AAssetManager* assetManager;
-    GLuint vertexShader, fragmentShader;
+    GLuint vertexShader, fragmentShader, geometryShader;
     GLuint textureID;
 
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
+    std::string geometryShaderSource;
 
     // Uniforms
     GLint isPointLocation;

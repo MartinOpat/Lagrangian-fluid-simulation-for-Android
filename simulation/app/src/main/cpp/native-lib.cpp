@@ -1,11 +1,14 @@
 #include <jni.h>
 #include <string>
-#include <GLES3/gl3.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
+#include <android/native_window_jni.h>
 #include <chrono>
 #include <netcdf>
 #include <assert.h>
+#include <GLES3/gl32.h>
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
 
 #include "android_logging.h"
 #include "netcdf_reader.h"
@@ -39,18 +42,72 @@ void updateFrame() {
 }
 
 
+bool setupOpenGLES32(EGLDisplay eglDisplay, EGLNativeWindowType nativeWindow) {
+    const EGLint configAttributes[] = {
+            EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT_KHR,
+            EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+            EGL_BLUE_SIZE, 8,
+            EGL_GREEN_SIZE, 8,
+            EGL_RED_SIZE, 8,
+            EGL_DEPTH_SIZE, 24,
+            EGL_NONE
+    };
+
+    EGLConfig eglConfig;
+    EGLint numConfigs;
+    if (!eglChooseConfig(eglDisplay, configAttributes, &eglConfig, 1, &numConfigs)) {
+        return false;
+    }
+
+    EGLSurface eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, nativeWindow, NULL);
+    if (eglSurface == EGL_NO_SURFACE) {
+        return false;
+    }
+
+    const EGLint contextAttributes[] = {
+            EGL_CONTEXT_CLIENT_VERSION, 3,
+            EGL_NONE
+    };
+
+    EGLContext eglContext = eglCreateContext(eglDisplay, eglConfig, EGL_NO_CONTEXT, contextAttributes);
+    if (eglContext == EGL_NO_CONTEXT) {
+        return false;
+    }
+
+    if (!eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)) {
+        return false;
+    }
+
+    return true;
+}
+
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
-        particlesHandler->drawParticles(*shaderManager);
+//        particlesHandler->drawParticles(*shaderManager);
 
         //        updateFrame();
         frameCount++;
     }
 
-    JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
+    JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager, jobject surface) {
+        EGLDisplay eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+        if (eglDisplay == EGL_NO_DISPLAY) {
+            LOGE("eglGetDisplay() returned error %d", eglGetError());
+        }
+
+        if (!eglInitialize(eglDisplay, 0, 0)) {
+            LOGE("eglInitialize() returned error %d", eglGetError());
+        }
+
+        EGLNativeWindowType nativeWindow = ANativeWindow_fromSurface(env, surface);
+        if (!setupOpenGLES32(eglDisplay, nativeWindow)) {
+            LOGE("Failed to setup OpenGL ES 3.2");
+        }
+
+
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
         touchHandler = new TouchHandler(*shaderManager);

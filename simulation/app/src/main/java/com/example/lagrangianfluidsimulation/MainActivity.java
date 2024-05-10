@@ -5,16 +5,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.opengl.EGL14;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
+import android.view.Surface;
 
 
 public class MainActivity extends Activity {
@@ -30,7 +34,7 @@ public class MainActivity extends Activity {
     private final FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
 
     private native void drawFrame();
-    private native void setupGraphics(AssetManager assetManager);
+    private native void setupGraphics(AssetManager assetManager, Surface surface);
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
 
@@ -46,13 +50,12 @@ public class MainActivity extends Activity {
     }
 
     private void setupGLSurfaceView() {
-        glSurfaceView = new GLSurfaceView(this);
-        glSurfaceView.setEGLContextClientVersion(2);
+        glSurfaceView = new MyGLSurfaceView(this);
         glSurfaceView.setRenderer(new GLSurfaceView.Renderer() {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 AssetManager assetManager = getAssets();
-                setupGraphics(assetManager);
+                setupGraphics(assetManager, glSurfaceView.getHolder().getSurface());
             }
 
             @Override
