@@ -16,6 +16,7 @@
 - Re-implemented fps counter for (physical) devices
 - Split the fragment shader
 - Take into account the device screen's aspect ratio
+- Implement parallelism
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
@@ -33,4 +34,5 @@
 - Add flow diagrams mayhaps
 
 ## Next meeting points
+- The field is currently static => should be changing, right ?
 - Can all the (17GB) be stored on the device directly? (Technically can be on a USB without much change ig)
