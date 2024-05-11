@@ -7,7 +7,7 @@
 #include "netcdf_reader.h"
 #include "consts.h"
 
-VectorFieldHandler::VectorFieldHandler(int fineness): fineness(fineness) {}
+VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
 
 void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
     int fineness = 1;  // TODO: Remove once definitely not needed
@@ -70,7 +70,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
             vertices.push_back(endY);
             vertices.push_back(0.0f);
 
-            if (y % fineness != 0 || x % fineness != 0) continue;
+            if (y % finenessXY != 0 || x % finenessXY != 0) continue;
             tempVertices.push_back(normalizedX);
             tempVertices.push_back(normalizedY);
             tempVertices.push_back(0.0f);
@@ -142,7 +142,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
                 vertices.push_back(endY);
                 vertices.push_back(endZ);
 
-                if (z % (fineness / 2) != 0 || y % fineness != 0 || x % fineness != 0) continue;
+                if (z % finenessZ != 0 || y % finenessXY != 0 || x % finenessXY != 0) continue;
                 tempVertices.push_back(normalizedX);
 //                tempVertices.push_back(scaledX);
                 tempVertices.push_back(normalizedY);

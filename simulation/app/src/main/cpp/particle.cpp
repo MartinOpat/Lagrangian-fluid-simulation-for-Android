@@ -26,12 +26,12 @@ void Particle::bindPosition() {
 //        this->position.y = 1;
 //        this->velocity.y = 0;
 //    }
-
-    if (this->position.z < -1) {
-        this->position.z = -1;
+//
+    if (this->position.z < -FIELD_DEPTH) {
+        this->position.z = -FIELD_DEPTH;
         this->velocity.z = 0;
-    } else if (this->position.z > 1) {
-        this->position.z = 1;
+    } else if (this->position.z > FIELD_DEPTH) {
+        this->position.z = FIELD_DEPTH;
         this->velocity.z = 0;
     }
 }

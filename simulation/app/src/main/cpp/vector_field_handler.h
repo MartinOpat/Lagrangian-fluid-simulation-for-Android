@@ -13,7 +13,7 @@
 
 class VectorFieldHandler {
 public:
-    VectorFieldHandler(int fineness = 15);
+    VectorFieldHandler(int finenessXY = 15, int finenessZ = 3);
     void velocityField(const glm::vec3 &position, glm::vec3 &velocity);
 
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData);
@@ -32,7 +32,8 @@ private:
     int depth = 0;
     int currentFrame = 0;
     int numVertices = 0;
-    int fineness = 1;
+    int finenessXY = 1;
+    int finenessZ = 1;
     std::vector<float> vertices;
     std::vector<std::vector<float>> allVertices;
     std::vector<std::vector<float>> displayVertices;
