@@ -31,3 +31,6 @@
 - Add comments
 - Document the code
 - Add flow diagrams mayhaps
+
+## Next meeting points
+- Can all the (17GB) be stored on the device directly? (Technically can be on a USB without much change ig)
