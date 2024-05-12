@@ -18,6 +18,7 @@
 - Take into account the device screen's aspect ratio
 - Implement parallelism
 - Separate vector_field's functionality into display and physics
+- Finish implementing the advection equation model
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

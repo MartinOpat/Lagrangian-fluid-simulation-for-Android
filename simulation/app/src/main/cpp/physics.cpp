@@ -48,8 +48,11 @@ glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
             return (Fd + Fc + Fb + Fg + Fm) / m;
         }
 
-        case Model::particles_advection:
+        case Model::particles_advection: {
+
             return - b / m * (vel - velField);
+
+        }
 
         case Model::density_advection:
             return - b / m * (vel - velField);
