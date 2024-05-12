@@ -36,7 +36,8 @@
 
 ## Next meeting points
 - The field is currently static => should be changing, right ?
-- Can all the (17GB) be stored on the device directly? (Technically can be on a USB without much change ig)
+- Can all the (17GB) be stored on the device directly? (Technically can be on a USB without much change ig) 
+- Particle interactions (?)
 
 ### Progress
 - Looked into VTK for android (not a good option)
