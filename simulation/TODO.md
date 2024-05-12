@@ -43,5 +43,6 @@
 - Fully switched to opengl es 3.2 (to have access to geometry shaders)
 - Implemented orthogonal projection (and other transformation) for the 3D displaying
 - Geometry shader for the colouring of the vectors
+- User input (touch)
 - Worked on the physics of the model
 - Code refactoring + initial documentation
