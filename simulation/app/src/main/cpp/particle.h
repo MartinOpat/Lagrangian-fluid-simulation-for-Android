@@ -5,6 +5,7 @@
 #include "vector_field_handler.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "physics.h"
 
 #include <vector>
 
@@ -15,8 +16,8 @@ public:
     Particle(glm::vec3 initialPosition, glm::vec3 initialVelocity);
 
     // Public methods
-    void eulerStep(float dt, VectorFieldHandler& vectorFieldHandler); // Euler integration - mostly debug purposes
-    void rk4Step(float dt, float b, VectorFieldHandler& vectorFieldHandler);
+    void eulerStep(Physics& physics); // Euler integration - mostly debug purposes
+    void rk4Step(Physics& physics);
     glm::vec3 getPosition() const { return position; }
     void bindPosition();
 

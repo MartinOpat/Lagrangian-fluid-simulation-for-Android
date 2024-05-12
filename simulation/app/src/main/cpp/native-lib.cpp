@@ -25,6 +25,7 @@ GLShaderManager* shaderManager;
 ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
+Physics* physics;
 
 
 int frameCount = 0;
@@ -78,7 +79,9 @@ extern "C" {
         vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV);
 
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines, *vectorFieldHandler);
+        physics = new Physics(*vectorFieldHandler);
+
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines, *physics);
         LOGI("Particles initialized");
     }
 
@@ -96,11 +99,14 @@ extern "C" {
             return;
         }
 
+
         vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV, tempFileW);
         LOGI("NetCDF files loaded");
 
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *vectorFieldHandler);
+        physics = new Physics(*vectorFieldHandler);
+
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }
 

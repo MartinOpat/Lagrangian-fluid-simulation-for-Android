@@ -5,9 +5,9 @@ Particle::Particle(glm::vec3 initialPosition, glm::vec3 initialVelocity)
     : position(initialPosition), velocity(initialVelocity) {}
 
 
-void Particle::eulerStep(float dt, VectorFieldHandler& vectorFieldHandler) {
-    vectorFieldHandler.velocityField(this->position, this->velocity);
-    this->position += this->velocity * dt;
+void Particle::eulerStep(Physics& physics) {
+    physics.dvdt(this->position, this->velocity);
+    this->position += this->velocity * physics.dt;
 }
 
 void Particle::bindPosition() {
@@ -36,31 +36,33 @@ void Particle::bindPosition() {
     }
 }
 
-void Particle::rk4Step(float dt, float b, VectorFieldHandler& vectorFieldHandler) {
+void Particle::rk4Step(Physics& physics) {
     // Define k1, k2, k3, k4 for position and velocity
     glm::vec3 a1, a2, a3, a4;
     glm::vec3 v1, v2, v3, v4;
 
-    auto dvdt = [&](glm::vec3 pos, glm::vec3 vel) {
-        glm::vec3 velField;
-        vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
-        return - b * (vel - velField);
-    };
+//    auto dvdt = [&](glm::vec3 pos, glm::vec3 vel) {
+//        glm::vec3 velField;
+//        vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
+//        return - b * (vel - velField);
+//    };
+
+    float dt = physics.dt;
 
     // Initial adjusted velocity
-    a1 = dvdt(this->position, this->velocity);
+    a1 = physics.dvdt(this->position, this->velocity);
     v1 = this->velocity;
 
     // Update for k2
-    a2 = dvdt(this->position + 0.5f * v1 * dt, this->velocity + 0.5f * a1 * dt);
+    a2 = physics.dvdt(this->position + 0.5f * v1 * dt, this->velocity + 0.5f * a1 * dt);
     v2 = this->velocity + 0.5f * v1 * dt;
 
     // Update for k3
-    a3 = dvdt(this->position + 0.5f * v2 * dt, this->velocity + 0.5f * a2 * dt);
+    a3 = physics.dvdt(this->position + 0.5f * v2 * dt, this->velocity + 0.5f * a2 * dt);
     v3 = this->velocity + 0.5f * v2 * dt;
 
     // Update for k4
-    a4 = dvdt(this->position + v3 * dt, this->velocity + a3 * dt);
+    a4 = physics.dvdt(this->position + v3 * dt, this->velocity + a3 * dt);
     v4 = this->velocity + v3 * dt;
 
     this->velocity += dt * (a1 + 2.0f * a2 + 2.0f * a3 + a4) / 6.0f;

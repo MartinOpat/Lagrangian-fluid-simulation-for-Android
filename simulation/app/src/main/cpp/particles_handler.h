@@ -22,7 +22,7 @@ public:
         explosion   // Explosion of particles
     };
 
-    ParticlesHandler(InitType type, VectorFieldHandler& vectorFieldHandler, int num = 100, float dt = 0.02f, float b = 0.8f);
+    ParticlesHandler(InitType type, Physics& physics, int num = 100);
     void initParticles(InitType type);
     void updateParticles();
     void updateParticlePositions();
@@ -30,12 +30,10 @@ public:
     std::vector<float> getParticlesPositions() { return particlesPos; };
 
 private:
-    int num = 100;  // Number of particles
-    float dt = 0.02f;  // Time step
-    float b = 0.8f;  // Drag coefficient
+    int num;  // Number of particles
     std::vector<Particle> particles;
     std::vector<float> particlesPos;
-    VectorFieldHandler& vectorFieldHandler;
+    Physics& physics;
 
 };
 
