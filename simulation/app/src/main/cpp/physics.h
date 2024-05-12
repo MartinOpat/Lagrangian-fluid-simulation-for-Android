@@ -11,7 +11,7 @@
 class Physics {
 public:
     enum class Model {
-        particles_simple,       // centripetal, and drag force
+        particles_simple,       // drag force
         particles,              // centripetal, buoyant, drag, gravity, drag, and added mass force
         particles_advection,    // Advection equation for particles
         density_advection       // Advection equation for density
@@ -19,10 +19,15 @@ public:
 
     Physics(VectorFieldHandler vectorFieldHandler, Model model = Model::particles_simple);
     glm::vec3 dvdt(glm::vec3 pos, glm::vec3 vel);
+    glm::vec3 dvdt(std::vector<glm::vec3> args);
 
     float dt = 0.02f;  // Time step
-    float b = 0.8f;  // Drag coefficient
+    float b = 50;  // Drag coefficient (6*pi*mu*radius = 0.017 for water)
     float m = 1.0f;  // Mass of the particle
+    float rho = 1.0f;  // Density of the fluid
+    float V = 1.0f;  // Volume of the particle
+    float g = 9.81f;  // Gravity
+    float C = 0.5f;  // Displacement coefficient
 
 private:
     VectorFieldHandler vectorFieldHandler;

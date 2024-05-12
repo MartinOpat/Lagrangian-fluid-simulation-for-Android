@@ -1,32 +1,33 @@
 #include "particle.h"
 #include "android_logging.h"
 
-Particle::Particle(glm::vec3 initialPosition, glm::vec3 initialVelocity)
-    : position(initialPosition), velocity(initialVelocity) {}
+Particle::Particle(glm::vec3 initialPosition, glm::vec3 initialVelocity, glm::vec3 initialAcceleration)
+    : position(initialPosition), velocity(initialVelocity), acceleration(initialAcceleration)  {}
 
 
 void Particle::eulerStep(Physics& physics) {
-    physics.dvdt(this->position, this->velocity);
+    this->acceleration = physics.dvdt(this->position, this->velocity);
+    this->velocity += this->acceleration * physics.dt;
     this->position += this->velocity * physics.dt;
 }
 
 void Particle::bindPosition() {
-//    if (this->position.x < -1) {
-//        this->position.x = -1;
-//        this->velocity.x = 0;
-//    } else if (this->position.x > 1) {
-//        this->position.x = 1;
-//        this->velocity.x = 0;
-//    }
-//
-//    if (this->position.y < -1) {
-//        this->position.y = -1;
-//        this->velocity.y = 0;
-//    } else if (this->position.y > 1) {
-//        this->position.y = 1;
-//        this->velocity.y = 0;
-//    }
-//
+    if (this->position.x < -FIELD_WIDTH) {
+        this->position.x = -FIELD_WIDTH;
+        this->velocity.x = 0;
+    } else if (this->position.x > FIELD_WIDTH) {
+        this->position.x = FIELD_WIDTH;
+        this->velocity.x = 0;
+    }
+
+    if (this->position.y < -FIELD_HEIGHT) {
+        this->position.y = -FIELD_HEIGHT;
+        this->velocity.y = 0;
+    } else if (this->position.y > FIELD_HEIGHT) {
+        this->position.y = FIELD_HEIGHT;
+        this->velocity.y = 0;
+    }
+
     if (this->position.z < -FIELD_DEPTH) {
         this->position.z = -FIELD_DEPTH;
         this->velocity.z = 0;
@@ -47,24 +48,30 @@ void Particle::rk4Step(Physics& physics) {
 //        return - b * (vel - velField);
 //    };
 
+//    LOGI("acc before: %f %f %f", this->acceleration.x, this->acceleration.y, this->acceleration.z);
+//    this->acceleration = glm::vec3(0.0f);
+
+
     float dt = physics.dt;
+//    LOGI("acceleration: %f %f %f", this->acceleration.x, this->acceleration.y, this->acceleration.z);
 
     // Initial adjusted velocity
-    a1 = physics.dvdt(this->position, this->velocity);
+    a1 = physics.dvdt({this->position, this->velocity, this->acceleration});
     v1 = this->velocity;
 
     // Update for k2
-    a2 = physics.dvdt(this->position + 0.5f * v1 * dt, this->velocity + 0.5f * a1 * dt);
-    v2 = this->velocity + 0.5f * v1 * dt;
+    a2 = physics.dvdt({this->position + 0.5f * v1 * dt, this->velocity + 0.5f * a1 * dt, this->acceleration});
+    v2 = this->velocity + 0.5f * a1 * dt;
 
     // Update for k3
-    a3 = physics.dvdt(this->position + 0.5f * v2 * dt, this->velocity + 0.5f * a2 * dt);
-    v3 = this->velocity + 0.5f * v2 * dt;
+    a3 = physics.dvdt({this->position + 0.5f * v2 * dt, this->velocity + 0.5f * a2 * dt, this->acceleration});
+    v3 = this->velocity + 0.5f * a2 * dt;
 
     // Update for k4
-    a4 = physics.dvdt(this->position + v3 * dt, this->velocity + a3 * dt);
-    v4 = this->velocity + v3 * dt;
+    a4 = physics.dvdt({this->position + v3 * dt, this->velocity + a3 * dt, this->acceleration});
+    v4 = this->velocity + a3 * dt;
 
+    this->acceleration = (a1 + 2.0f * a2 + 2.0f * a3 + a4) / 6.0f;
     this->velocity += dt * (a1 + 2.0f * a2 + 2.0f * a3 + a4) / 6.0f;
     this->position += dt * (v1 + 2.0f * v2 + 2.0f * v3 + v4) / 6.0f;
 }

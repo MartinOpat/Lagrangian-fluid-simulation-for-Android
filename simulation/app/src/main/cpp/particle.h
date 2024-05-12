@@ -13,7 +13,7 @@
 class Particle {
 public:
     // Constructor
-    Particle(glm::vec3 initialPosition, glm::vec3 initialVelocity);
+    Particle(glm::vec3 initialPosition, glm::vec3 initialVelocity = glm::vec3(0.0f), glm::vec3 initialAcceleration = glm::vec3(0.0f));
 
     // Public methods
     void eulerStep(Physics& physics); // Euler integration - mostly debug purposes
@@ -25,6 +25,7 @@ private:
     // Private member variables
     glm::vec3 position;
     glm::vec3 velocity;
+    glm::vec3 acceleration;
 
     // Private methods
 };
