@@ -42,18 +42,7 @@ void Particle::rk4Step(Physics& physics) {
     glm::vec3 a1, a2, a3, a4;
     glm::vec3 v1, v2, v3, v4;
 
-//    auto dvdt = [&](glm::vec3 pos, glm::vec3 vel) {
-//        glm::vec3 velField;
-//        vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
-//        return - b * (vel - velField);
-//    };
-
-//    LOGI("acc before: %f %f %f", this->acceleration.x, this->acceleration.y, this->acceleration.z);
-//    this->acceleration = glm::vec3(0.0f);
-
-
     float dt = physics.dt;
-//    LOGI("acceleration: %f %f %f", this->acceleration.x, this->acceleration.y, this->acceleration.z);
 
     // Initial adjusted velocity
     a1 = physics.dvdt({this->position, this->velocity, this->acceleration});
