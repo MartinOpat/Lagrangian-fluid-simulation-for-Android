@@ -37,3 +37,11 @@
 ## Next meeting points
 - The field is currently static => should be changing, right ?
 - Can all the (17GB) be stored on the device directly? (Technically can be on a USB without much change ig)
+
+### Progress
+- Looked into VTK for android (not a good option)
+- Fully switched to opengl es 3.2 (to have access to geometry shaders)
+- Implemented orthogonal projection (and other transformation) for the 3D displaying
+- Geometry shader for the colouring of the vectors
+- Worked on the physics of the model
+- Code refactoring + initial documentation

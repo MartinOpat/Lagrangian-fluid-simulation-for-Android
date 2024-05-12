@@ -29,6 +29,7 @@ glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
     switch (model) {
         case Model::particles_simple:
             return - b / m * (vel - velField);
+
         case Model::particles: {
             glm::vec3 acc = args[2];
             glm::vec3 Fd = - b * (vel - velField);
@@ -46,8 +47,10 @@ glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
             glm::vec3 Fm = -C * rho * V * acc;
             return (Fd + Fc + Fb + Fg + Fm) / m;
         }
+
         case Model::particles_advection:
             return - b / m * (vel - velField);
+
         case Model::density_advection:
             return - b / m * (vel - velField);
     }
