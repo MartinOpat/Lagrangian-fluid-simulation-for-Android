@@ -10,7 +10,6 @@
 - Refactor transformations (into class or such)
 - Make sure buffers are properly cleaned up
 - Refactor GLShaderManager (or at least the name)
-- Make sure somehow that when lifting fingers after scaling, rotation doesn't get affected
 - Some vectors have slightly wrong colors
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Re-implemented fps counter for (physical) devices
