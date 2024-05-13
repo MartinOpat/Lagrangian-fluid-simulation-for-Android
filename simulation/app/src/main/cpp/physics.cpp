@@ -17,8 +17,8 @@ glm::vec3 Physics::dvdt(glm::vec3 pos, glm::vec3 vel) {
 glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
     glm::vec3 velField;
 
-    if (args.size() < 2) {
-        LOGE("Physics::dvdt: args must contain at least the position and velocity of the particle");
+    if (args.size() < 1) {
+        LOGE("Physics::dvdt: args must contain at least the position of the particle");
         return glm::vec3(0.0f);
     }
 
@@ -99,6 +99,7 @@ void Physics::advectionStep(Particle &particle) {
     glm::vec3 v4 = dvdt({pos3});
 
     particle.position += dt * (v1 + 2.0f * v2 + 2.0f * v3 + v4) / 6.0f;
+    LOGI("Physics::advectionStep: particle position: %f, %f, %f", particle.position.x, particle.position.y, particle.position.z);
 }
 
 void Physics::doStep(Particle& particle) {

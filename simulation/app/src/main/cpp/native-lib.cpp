@@ -104,7 +104,7 @@ extern "C" {
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV, tempFileW);
         LOGI("NetCDF files loaded");
 
-        physics = new Physics(*vectorFieldHandler, Physics::Model::particles);
+        physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
         particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
