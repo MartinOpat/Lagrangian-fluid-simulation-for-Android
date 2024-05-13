@@ -5,15 +5,16 @@
 #ifndef LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H
 #define LAGRANGIAN_FLUID_SIMULATION_VECTOR_FIELD_HANDLER_H
 
-#include "triple.h"
 #include "mainview.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <vector>
 
 class VectorFieldHandler {
 public:
-    VectorFieldHandler(int fineness = 15);
-    void velocityField(const Point &position, Vec3& velocity);
+    VectorFieldHandler(int finenessXY = 15, int finenessZ = 5);
+    void velocityField(const glm::vec3 &position, glm::vec3 &velocity);
 
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData);
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
@@ -31,7 +32,8 @@ private:
     int depth = 0;
     int currentFrame = 0;
     int numVertices = 0;
-    int fineness = 1;
+    int finenessXY;
+    int finenessZ;
     std::vector<float> vertices;
     std::vector<std::vector<float>> allVertices;
     std::vector<std::vector<float>> displayVertices;

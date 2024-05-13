@@ -3,22 +3,22 @@
 //
 
 #include "vector_field_handler.h"
-#include "triple.h"
 #include "android_logging.h"
 #include "netcdf_reader.h"
+#include "consts.h"
 
-VectorFieldHandler::VectorFieldHandler(int fineness): fineness(fineness) {}
+VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
 
-void VectorFieldHandler::velocityField(const Point &position, Vec3& velocity) {
+void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
     int fineness = 1;  // TODO: Remove once definitely not needed
     int adjWidth = width / fineness;
     int adjHeight = height / fineness;
     int adjDepth = 0;
 
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
-    int gridX = (int)((position.x + 1.0) / 2 * adjWidth);
-    int gridY = (int)((position.y + 1.0) / 2 * adjHeight);
-    int gridZ = (int)((position.z + 1.0) / 2 * adjDepth);
+    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * adjWidth);
+    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * adjHeight);
+    int gridZ = (int)((position.z / 100.0f + 1.0) / 2 * adjDepth);
 //    int gridZ = abs((int)(position.z * depth));
 
     // Ensure indices are within bounds
@@ -28,10 +28,9 @@ void VectorFieldHandler::velocityField(const Point &position, Vec3& velocity) {
 
     int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
 
-    // Calculate velocity as differences
-    velocity = Vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
-                    allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
-                    allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]
+    velocity = glm::vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
+                        allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
+                        allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]
     );
 }
 
@@ -71,7 +70,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
             vertices.push_back(endY);
             vertices.push_back(0.0f);
 
-            if (y % fineness != 0 || x % fineness != 0) continue;
+            if (y % finenessXY != 0 || x % finenessXY != 0) continue;
             tempVertices.push_back(normalizedX);
             tempVertices.push_back(normalizedY);
             tempVertices.push_back(0.0f);
@@ -107,12 +106,15 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 
                 int index = z * width * height + y * width + x;
 
-                float normalizedX = (x / (float)(width)) * 2 - 1;
-                float normalizedY = (y / (float)(height)) * 2 - 1;
-                float normalizedZ = (z / (float)(depth)) * 2 - 1;
+                float normalizedX = FIELD_WIDTH*((x / (float)(width)) * 2 - 1);
+//                float scaledX = x;
+                float normalizedY = FIELD_HEIGHT*((y / (float)(height)) * 2 - 1);
+//                float scaledY = y;
+                float normalizedZ = FIELD_DEPTH*((z / (float)(depth)) * 2 - 1);
+//                float scaledZ = z;
 //                float normalizedZ = z;
 
-                float scaleFactor = 0.1f;
+                float scaleFactor = 10.0f;
                 float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
                 normalizedU *= scaleFactor;
                 float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
@@ -121,23 +123,33 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
                 normalizedW *= scaleFactor;
 
                 float endX = normalizedX + normalizedU;
+//                float endX = scaledX + uData[index];
                 float endY = normalizedY + normalizedV;
+//                float endY = scaledY + vData[index];
                 float endZ = normalizedZ + normalizedW;
+//                float endZ = scaledZ + wData[index];
 
                 // Start point
                 vertices.push_back(normalizedX);
+//                vertices.push_back(scaledX);
                 vertices.push_back(normalizedY);
+//                vertices.push_back(scaledY);
                 vertices.push_back(normalizedZ);
+//                vertices.push_back(scaledZ);
 
                 // End point
                 vertices.push_back(endX);
                 vertices.push_back(endY);
                 vertices.push_back(endZ);
 
-                if (z % (fineness / 2) != 0 || y % fineness != 0 || x % fineness != 0) continue;
+                if (z % finenessZ != 0 || y % finenessXY != 0 || x % finenessXY != 0) continue;
                 tempVertices.push_back(normalizedX);
+//                tempVertices.push_back(scaledX);
                 tempVertices.push_back(normalizedY);
+//                tempVertices.push_back(scaledY);
                 tempVertices.push_back(normalizedZ);
+//                tempVertices.push_back(scaledZ);
+
 
                 tempVertices.push_back(endX);
                 tempVertices.push_back(endY);
@@ -195,11 +207,8 @@ void VectorFieldHandler::loadAllTimeSteps(const std::string& fileUPath, const st
         depth = countp[1];
 
         dataFileU.getVar("u").getVar(startp, countp, uData.data());
-//        dataFileU.getVar("vozocrtx").getVar(startp, countp, uData.data());
         dataFileV.getVar("v").getVar(startp, countp, vData.data());
-//        dataFileV.getVar("vomecrty").getVar(startp, countp, vData.data());
         dataFileW.getVar("w").getVar(startp, countp, wData.data());
-//        dataFileW.getVar("W").getVar(startp, countp, wData.data());
 
         LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData);

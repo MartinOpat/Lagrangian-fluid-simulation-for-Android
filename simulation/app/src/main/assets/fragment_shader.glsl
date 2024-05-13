@@ -1,4 +1,4 @@
-#version 300 es
+#version 320 es
 precision mediump float;
 uniform bool uIsPoint; // Uniform to tell if we're rendering a point or triangle
 

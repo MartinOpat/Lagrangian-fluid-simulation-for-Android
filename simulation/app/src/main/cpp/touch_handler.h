@@ -6,8 +6,9 @@
 #define LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H
 
 
-#include "triple.h"
 #include "mainview.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 struct TouchPoint {
     float startX;
@@ -31,7 +32,7 @@ private:
     float prevScale;
 
     TouchPoint tpRot;
-    Vec3 prevRot;
+    glm::vec3 prevRot;
 
     GLShaderManager& shaderManager;
 };

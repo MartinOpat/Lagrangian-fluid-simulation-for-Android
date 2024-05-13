@@ -1,16 +1,18 @@
 #include <jni.h>
 #include <string>
-#include <GLES3/gl3.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
+#include <android/native_window_jni.h>
 #include <chrono>
 #include <netcdf>
 #include <assert.h>
+#include <GLES3/gl32.h>
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
 
 #include "android_logging.h"
 #include "netcdf_reader.h"
 #include "mainview.h"
-#include "triple.h"
 #include "particle.h"
 #include "particles_handler.h"
 #include "vector_field_handler.h"
@@ -23,6 +25,7 @@ GLShaderManager* shaderManager;
 ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
+Physics* physics;
 
 
 int frameCount = 0;
@@ -40,6 +43,7 @@ void updateFrame() {
 }
 
 
+
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         shaderManager->setFrame();
@@ -54,6 +58,7 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
+
         touchHandler = new TouchHandler(*shaderManager);
         LOGI("Graphics setup complete");
     }
@@ -74,7 +79,9 @@ extern "C" {
         vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV);
 
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines, *vectorFieldHandler);
+        physics = new Physics(*vectorFieldHandler);
+
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }
 
@@ -92,11 +99,14 @@ extern "C" {
             return;
         }
 
+
         vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV, tempFileW);
         LOGI("NetCDF files loaded");
 
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *vectorFieldHandler);
+        physics = new Physics(*vectorFieldHandler, Physics::Model::particles);
+
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }
 
