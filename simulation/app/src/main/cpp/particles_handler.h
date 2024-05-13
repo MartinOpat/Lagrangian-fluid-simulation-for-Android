@@ -7,6 +7,7 @@
 
 #include "particle.h"
 #include "mainview.h"
+#include "physics.h"
 #include "vector_field_handler.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -28,6 +29,8 @@ public:
     void updateParticlePositions();
     void drawParticles(GLShaderManager& shaderManager);
     std::vector<float> getParticlesPositions() { return particlesPos; };
+    void bindPosition(Particle& particle);
+    void bindParticlesPositions();
 
 private:
     int num;  // Number of particles
