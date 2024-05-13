@@ -2,8 +2,9 @@
 #define PARTICLE_H
 
 // Include necessary libraries
-#include "triple.h"
-#include "vector_field_handler.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "consts.h"
 
 #include <vector>
 
@@ -11,22 +12,13 @@
 class Particle {
 public:
     // Constructor
-    Particle(Vec3 initialPosition, Vec3 initialVelocity);
+    Particle(glm::vec3 initialPosition = glm::vec3(0.0f), glm::vec3 initialVelocity = glm::vec3(0.0f), glm::vec3 initialAcceleration = glm::vec3(0.0f));
 
-    // Public methods
-    void eulerStep(double dt, VectorFieldHandler& vectorFieldHandler); // Euler integration - mostly debug purposes
-//    void eulerStep(double dt, const std::function<void(Point, Vec3&)>& velocityField); // Euler integration - mostly debug purposes
-    void rk4Step(double dt, double b, VectorFieldHandler& vectorFieldHandler);
-//    void rk4Step(double dt, const std::function<void(Point, Vec3&)>& velocityField, double b);
-    Vec3 getPosition() const { return position; }
-    void bindPosition();
-
+    glm::vec3 position;
+    glm::vec3 velocity;
+    glm::vec3 acceleration;
 private:
-    // Private member variables
-    Vec3 position;
-    Vec3 velocity;
 
-    // Private methods
 };
 
 #endif // PARTICLE_H

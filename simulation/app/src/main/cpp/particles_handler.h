@@ -7,7 +7,10 @@
 
 #include "particle.h"
 #include "mainview.h"
+#include "physics.h"
 #include "vector_field_handler.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <stdio.h>
 #include <vector>
@@ -20,20 +23,20 @@ public:
         explosion   // Explosion of particles
     };
 
-    ParticlesHandler(InitType type, VectorFieldHandler& vectorFieldHandler, int num = 100, float dt = 0.02f, float b = 0.8f);
+    ParticlesHandler(InitType type, Physics& physics, int num = 100);
     void initParticles(InitType type);
     void updateParticles();
     void updateParticlePositions();
     void drawParticles(GLShaderManager& shaderManager);
     std::vector<float> getParticlesPositions() { return particlesPos; };
+    void bindPosition(Particle& particle);
+    void bindParticlesPositions();
 
 private:
-    int num = 100;  // Number of particles
-    float dt = 0.02f;  // Time step
-    float b = 0.8f;  // Drag coefficient
+    int num;  // Number of particles
     std::vector<Particle> particles;
     std::vector<float> particlesPos;
-    VectorFieldHandler& vectorFieldHandler;
+    Physics& physics;
 
 };
 

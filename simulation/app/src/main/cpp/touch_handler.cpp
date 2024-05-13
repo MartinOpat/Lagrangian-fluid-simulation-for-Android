@@ -4,7 +4,9 @@
 
 #include "touch_handler.h"
 
-TouchHandler::TouchHandler(GLShaderManager& shaderManager) : shaderManager(shaderManager), prevRot(Vec3(0, 0, 0)), prevScale(0.5f) {
+bool isScaling = false;
+
+TouchHandler::TouchHandler(GLShaderManager& shaderManager) : shaderManager(shaderManager), prevRot(glm::vec3(0, 0, 0)), prevScale(0.5f) {
     tpScale1 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpScale2 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpRot = {0.0f, 0.0f, 0.0f, 0.0f};
@@ -22,6 +24,11 @@ void TouchHandler::handleTouch(float x[2], float y[2], int action, int pointerCo
 }
 
 void TouchHandler::handleSingleTouch(float x, float y, int action) {
+    if (isScaling) {
+        isScaling = false;
+        return;
+    }
+
     if (action == 0) {
         tpRot.startX = x;
         tpRot.startY = y;
@@ -40,11 +47,12 @@ void TouchHandler::handleSingleTouch(float x, float y, int action) {
         float rotSensitivity = 0.001f;
         float dx = tpRot.currentX - tpRot.startX;
         float dy = tpRot.currentY - tpRot.startY;
-        shaderManager.setRotation(rotSensitivity*dy + prevRot.x, rotSensitivity*dx + prevRot.y, prevRot.z);
+        shaderManager.setRotation(rotSensitivity*dx + prevRot.x, rotSensitivity*dy + prevRot.y, prevRot.z);
     }
 }
 
 void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
+    isScaling = true;
     if (action == 5) {
         tpScale1.startX = x[0];
         tpScale1.startY = y[0];

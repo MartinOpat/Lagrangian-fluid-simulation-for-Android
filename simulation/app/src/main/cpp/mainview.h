@@ -3,13 +3,18 @@
 
 #include <string>
 #include <chrono>
-#include <GLES3/gl3.h>
+#include <GLES3/gl32.h>
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
 #include <android/asset_manager.h>
+#include <iostream>
+#include <sstream>
 
 #include "android_logging.h"
 #include "png_loader.h"
-#include "triple.h"
-#include "matrix.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "consts.h"
 
 
 
@@ -36,24 +41,33 @@ public:
     void setScale(float scale);
     void updateTransformations();
 
-    Vec3 getRotation() { return rotation; }
+    glm::vec3 getRotation() { return rotation; }
     float getScale() { return scale; }
 
-    GLuint shaderProgram;
+    GLuint shaderLinesProgram;
+    GLuint shaderPointsProgram;
     std::chrono::steady_clock::time_point startTime;
 
 private:
     AAssetManager* assetManager;
-    GLuint vertexShader, fragmentShader;
+    GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader;
     GLuint textureID;
 
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
+    std::string geometryLinesShaderSource;
+    std::string geometryPointsShaderSource;
 
     // Uniforms
-    GLint isPointLocation;
+    GLint isPointLocationLines;
+    GLint isPointLocationPoints;
     GLfloat pointSize;  // TODO: This can (and probably should) be a GLint
-    GLint modelLocation;
+    GLint modelLocationLines;
+    GLint viewLocationLines;
+    GLint projectionLocationLines;
+    GLint modelLocationPoints;
+    GLint viewLocationPoints;
+    GLint projectionLocationPoints;
 
 
     // Buffers
@@ -64,11 +78,11 @@ private:
     GLuint vectorFieldVAO;
 
     // Transformations
-    float scale = 0.5f;
-    Vec3 rotation;
-    Matrix4x4 modelTransform;
-    Matrix4x4 projectionTransform;
-    Matrix4x4 viewTransform;
+    float scale;
+    glm::vec3 rotation;
+    glm::mat4 modelTransform;
+    glm::mat4 projectionTransform;
+    glm::mat4 viewTransform;
 };
 
 #endif // GL_SHADER_MANAGER_H
