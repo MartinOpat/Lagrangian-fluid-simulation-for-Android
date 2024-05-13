@@ -26,9 +26,7 @@
 - Loading biG files is slow, i.e. requires a "long" initial load time.
 
 ## Stuff to research
-- instanced rendering
-- depth sorting computer graphics
-- generate geometry in geometry shader
+- best color wheel for scientific visualization of the direction of a 2d vector field
 
 ## General project
 - Add comments
@@ -36,17 +34,6 @@
 - Add flow diagrams mayhaps
 
 ## Next meeting points
-- Is the way of 3D displaying sufficient?
-- Add edges to better see the vector field ?
-- ~~ The field is currently static => should be changing, right ? ~~
-- ~~Can all the (17GB) be stored on the device directly? (Technically can be on a USB without much change ig) ~~
-- Add particle interactions ? -> No
 
 ### Progress
-- Looked into VTK for android (not a good option)
-- Fully switched to opengl es 3.2 (to have access to geometry shaders)
-- Implemented orthogonal projection (and other transformation) for the 3D displaying
-- Geometry shader for the colouring of the vectors
-- User input (touch)
-- Worked on the physics of the model -> two kinds
-- Code refactoring + initial documentation
+
