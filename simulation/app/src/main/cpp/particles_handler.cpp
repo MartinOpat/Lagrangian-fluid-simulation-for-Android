@@ -52,20 +52,45 @@ void ParticlesHandler::initParticles(InitType type) {
     updateParticlePositions();
 }
 
+void ParticlesHandler::bindPosition(Particle& particle) {
+    if (particle.position.x < -FIELD_WIDTH) {
+        particle.position.x = -FIELD_WIDTH;
+        particle.velocity.x = 0;
+    } else if (particle.position.x > FIELD_WIDTH) {
+        particle.position.x = FIELD_WIDTH;
+        particle.velocity.x = 0;
+    }
+
+    if (particle.position.y < -FIELD_HEIGHT) {
+        particle.position.y = -FIELD_HEIGHT;
+        particle.velocity.y = 0;
+    } else if (particle.position.y > FIELD_HEIGHT) {
+        particle.position.y = FIELD_HEIGHT;
+        particle.velocity.y = 0;
+    }
+
+    if (particle.position.z < -FIELD_DEPTH) {
+        particle.position.z = -FIELD_DEPTH;
+        particle.velocity.z = 0;
+    } else if (particle.position.z > FIELD_DEPTH) {
+        particle.position.z = FIELD_DEPTH;
+        particle.velocity.z = 0;
+    }
+}
+
 void ParticlesHandler::updateParticles() {
     for (auto& particle : particles) {
-        particle.rk4Step(physics);
-        particle.bindPosition();
+        physics.doStep(particle);
+        bindPosition(particle);
     }
 }
 
 void ParticlesHandler::updateParticlePositions() {
     particlesPos.clear();
     for (auto& particle : particles) {
-        glm::vec3 particlePos = particle.getPosition();
-        particlesPos.push_back(particlePos.x);
-        particlesPos.push_back(particlePos.y);
-        particlesPos.push_back(particlePos.z);
+        particlesPos.push_back(particle.position.x);
+        particlesPos.push_back(particle.position.y);
+        particlesPos.push_back(particle.position.z);
     }
 }
 
@@ -74,5 +99,11 @@ void ParticlesHandler::drawParticles(GLShaderManager& shaderManager) {
     updateParticlePositions();
     shaderManager.loadParticlesData(particlesPos);
     shaderManager.drawParticles(particlesPos.size());
+}
+
+void ParticlesHandler::bindParticlesPositions() {
+    for (auto& particle : particles) {
+        bindPosition(particle);
+    }
 }
 
