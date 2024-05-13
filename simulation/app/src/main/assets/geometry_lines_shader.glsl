@@ -16,6 +16,27 @@ vec3 hsv2rgb(vec3 c) {
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
+vec3 angleToRGB(float angle) {
+//    float hue = (angle + 3.141593) / (2.0 * 3.141593);
+//    return hsv2rgb(vec3(hue, 1.0, 1.0));
+
+//    float normalized = mod(angle / (2.0 * 3.14159265), 1.0);
+//    float r = 0.5 + 0.5 * sin(normalized * 2.0 * 3.14159265 + 0.0);
+//    float g = 0.5 + 0.5 * sin(normalized * 2.0 * 3.14159265 + 2.0 * 3.14159265 / 3.0);
+//    float b = 0.5 + 0.5 * sin(normalized * 2.0 * 3.14159265 + 4.0 * 3.14159265 / 3.0);
+//    return vec3(r, g, b);
+
+    float normalized = mod(angle / (2.0 * 3.14159265), 1.0);
+    float r = 0.5 + 0.3 * sin(normalized * 2.0 * 3.14159265 + 0.0);           // Red component
+    float g = 0.5 + 0.3 * sin(normalized * 2.0 * 3.14159265 + 2.0 * 3.14159265 / 3.0); // Green component
+    float b = 0.5 + 0.3 * sin(normalized * 2.0 * 3.14159265 + 4.0 * 3.14159265 / 3.0); // Blue component
+    float saturation = 0.75;  // Reduce saturation for less intense colors
+    vec3 color = vec3(r, g, b);
+    vec3 gray = vec3(0.5);  // Gray level for desaturation effect
+    color = mix(gray, color, saturation);
+    return color;
+}
+
 void main() {
     vec3 startPosition = pos[0];
     vec3 endPosition = pos[1];
@@ -25,8 +46,9 @@ void main() {
 
     vec3 v = normalize(endPosition - startPosition);
     float angle = atan(v.y, v.x);
-    float hue = (angle + 3.141593) / (2.0 * 3.141593);
-    col = vec4(hsv2rgb(vec3(hue, 1.0, 1.0)), 1.0);
+
+    col = vec4(angleToRGB(angle), 1.0);
+
 
     // Output the transformed vertices and pass color to fragment shader
     gl_Position = projectionTransform * viewTransform * worldStartPos;
