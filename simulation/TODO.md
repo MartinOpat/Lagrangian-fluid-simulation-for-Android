@@ -7,9 +7,9 @@
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
-- Refactor transformations from mainview (into class or such)
+- Refactor transformations from `mainview` (into class or such)
 - Make sure ALL buffers are properly cleaned up
-- Refactor GLShaderManager (or at least the name)
+- Refactor `GLShaderManager` (or at least the name)
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Re-implemented fps counter for (physical) devices
 - Split the fragment shader
@@ -17,6 +17,7 @@
 - Implement parallelism
 - Separate vector_field's functionality into display and physics
 - Finish implementing the advection equation model
+- Add `physics object` or some other hierarchy to the physics engine
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
