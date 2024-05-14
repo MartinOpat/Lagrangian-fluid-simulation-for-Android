@@ -3,7 +3,8 @@
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
 - Give the app a proper name
-- pick code consts should be in one place only
+- pick code consts. should be in one place only
+- Reactor the file picking - the separation of concerns is not really separating
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names.
@@ -20,7 +21,7 @@
 - Finish implementing the advection equation model
 - Add `physics object` or some other hierarchy to the physics engine
 - Do not forget the interpolation for vertices
-- 
+- Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
