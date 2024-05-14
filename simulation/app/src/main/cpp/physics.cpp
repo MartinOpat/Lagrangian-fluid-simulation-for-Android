@@ -99,7 +99,6 @@ void Physics::advectionStep(Particle &particle) {
     glm::vec3 v4 = dvdt({pos3});
 
     particle.position += dt * (v1 + 2.0f * v2 + 2.0f * v3 + v4) / 6.0f;
-    LOGI("Physics::advectionStep: particle position: %f, %f, %f", particle.position.x, particle.position.y, particle.position.z);
 }
 
 void Physics::doStep(Particle& particle) {
