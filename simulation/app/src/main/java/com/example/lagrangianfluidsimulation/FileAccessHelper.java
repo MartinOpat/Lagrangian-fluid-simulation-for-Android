@@ -25,6 +25,7 @@ public class FileAccessHelper {
 
     private static final int REQUEST_CODE_READ_STORAGE = 100;
     private static final int REQUEST_CODE_PICK_FILES = 101;
+    private static final int REQUEST_CODE_PICK_DIRECTORY = 102;
 
     public native void initializeNetCDFVisualization(int fdU, int fdV);
     public native void initializeNetCDFVisualization3D(int fdU, int fdV, int fdW);
@@ -44,6 +45,13 @@ public class FileAccessHelper {
         mainActivity.startActivityForResult(intent, REQUEST_CODE_PICK_FILES);
     }
 
+    public void openDirectoryPicker() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        mainActivity.startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY);
+    }
+
+
     public void checkAndRequestPermissions() {
         Log.d("Permissions", "Checking permissions");
         if (ContextCompat.checkSelfPermission(mainActivity, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -51,7 +59,8 @@ public class FileAccessHelper {
             ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
         } else {
             Log.d("Permissions", "Permission already granted, opening picker");
-            openFilePicker();
+            openDirectoryPicker();
+//            openFilePicker();
         }
     }
 

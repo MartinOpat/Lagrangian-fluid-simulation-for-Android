@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
 
     private static final int REQUEST_CODE_READ_STORAGE = 100;
     private static final int REQUEST_CODE_PICK_FILES = 101;
+    private static final int REQUEST_CODE_PICK_DIRECTORY = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,19 @@ public class MainActivity extends Activity {
                 Log.i("MainActivity", "2D mode");
                 fileAccessHelper.loadNetCDFData(uriU, uriV);
             }
+        } else if (requestCode == REQUEST_CODE_PICK_DIRECTORY && resultCode == RESULT_OK) {
+            Log.i("MainActivity", "Directory picked");
+            // Extract the uri of all files from directory
+            Uri uri = data.getData();
+            Log.i("MainActivity", "Directory URI: " + uri);
+
+            DocumentFile directory = DocumentFile.fromTreeUri(this, uri);
+            DocumentFile[] files = directory.listFiles();
+            Uri[] uris = new Uri[files.length];
+            for (int i = 0; i < files.length; i++) {
+                uris[i] = files[i].getUri();
+            }
+            fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);
         }
     }
 
@@ -103,7 +118,8 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d("Permissions", "Request code: " + requestCode);
         if (requestCode == REQUEST_CODE_READ_STORAGE) {
-                fileAccessHelper.openFilePicker();
+                fileAccessHelper.openDirectoryPicker();
+//                fileAccessHelper.openFilePicker();
         }
     }
 
