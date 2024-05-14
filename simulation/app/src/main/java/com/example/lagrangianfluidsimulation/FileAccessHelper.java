@@ -29,6 +29,7 @@ public class FileAccessHelper {
 
     public native void initializeNetCDFVisualization(int fdU, int fdV);
     public native void initializeNetCDFVisualization3D(int fdU, int fdV, int fdW);
+    public native void loadFilesFDs(int[] fds);
 
     // Constructor
     public FileAccessHelper(MainActivity mainActivity) {
@@ -84,6 +85,17 @@ public class FileAccessHelper {
                 initializeNetCDFVisualization3D(fdU, fdV, fdW);
             }
             mainActivity.runOnUiThread(mainActivity::onDataLoaded);
+        });
+    }
+
+    public void loadNetCDFData(Uri[] uris) {
+        executor.submit(() -> {
+            int[] fds = new int[uris.length];
+            for (int i = 0; i < uris.length; i++) {
+                fds[i] = getFileDescriptor(uris[i]);
+            }
+            loadFilesFDs(fds);
+//            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
         });
     }
 

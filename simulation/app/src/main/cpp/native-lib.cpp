@@ -20,6 +20,7 @@
 
 
 bool started = false;
+std::vector<int> fileDescriptors;
 
 GLShaderManager* shaderManager;
 ParticlesHandler* particlesHandler;
@@ -42,7 +43,17 @@ void updateFrame() {
 //    }
 }
 
+void init() {
+    vectorFieldHandler = new VectorFieldHandler();
+    LOGI("NetCDF files loaded");
 
+    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
+
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
+    LOGI("Particles initialized");
+
+    LOGI("Init called");
+}
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
@@ -61,6 +72,9 @@ extern "C" {
 
         touchHandler = new TouchHandler(*shaderManager);
         LOGI("Graphics setup complete");
+
+        init();  // TODO: Think whether this belongs here or should be its own native func.
+        LOGI("Setup complete");
     }
 
     JNIEXPORT void JNICALL
@@ -76,14 +90,28 @@ extern "C" {
             return;
         }
 
-        vectorFieldHandler = new VectorFieldHandler();
+//        vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV);
 
-        physics = new Physics(*vectorFieldHandler);
+//        physics = new Physics(*vectorFieldHandler);
 
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
+//        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }
+
+    JNIEXPORT void JNICALL
+        Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
+                JNIEnv* env, jobject /* this */, jintArray jfds) {
+        jsize len = env->GetArrayLength(jfds);
+        jint* fds = env->GetIntArrayElements(jfds, nullptr);
+        fileDescriptors.clear();
+        for (int i = 0; i < len; i++) {
+            fileDescriptors.push_back(fds[i]);
+        }
+
+        env->ReleaseIntArrayElements(jfds, fds, 0);
+    }
+
 
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_FileAccessHelper_initializeNetCDFVisualization3D(
@@ -103,9 +131,9 @@ extern "C" {
         vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV, tempFileW);
         LOGI("NetCDF files loaded");
-
+//
         physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-
+//
         particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }

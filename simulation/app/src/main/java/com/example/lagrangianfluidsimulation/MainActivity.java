@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
     // Attributes
     private GLSurfaceView glSurfaceView;
     private final FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
+    private Uri[] uris;
 
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
@@ -98,11 +99,13 @@ public class MainActivity extends Activity {
 
             DocumentFile directory = DocumentFile.fromTreeUri(this, uri);
             DocumentFile[] files = directory.listFiles();
-            Uri[] uris = new Uri[files.length];
+            uris = new Uri[files.length];
             for (int i = 0; i < files.length; i++) {
                 uris[i] = files[i].getUri();
             }
             fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);
+            fileAccessHelper.loadNetCDFData(uris);
+
         }
     }
 
