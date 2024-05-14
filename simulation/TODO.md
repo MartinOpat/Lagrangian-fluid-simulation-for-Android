@@ -3,6 +3,7 @@
 ## Android side
 - Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
 - Give the app a proper name
+- pick code consts should be in one place only
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names.
