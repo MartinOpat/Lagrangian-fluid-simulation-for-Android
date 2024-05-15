@@ -112,22 +112,24 @@ public class MainActivity extends Activity {
             for (DocumentFile file : files) {
                 nameCache.put(file, file.getName());
             }
+//            Arrays.sort(files, new Comparator<DocumentFile>() {
+//                @Override
+//                public int compare(DocumentFile f1, DocumentFile f2) {
+//                    String name1 = nameCache.get(f1);
+//                    String name2 = nameCache.get(f2);
+//                    return name1.compareTo(name2);
+//                }
+//            });
+            DocumentFile[] sortedFiles = Arrays.stream(files)
+                    .parallel()
+                    .sorted(Comparator.comparing(nameCache::get))
+                    .toArray(DocumentFile[]::new);
 
-            // Sort files by name using the cached names
-            Arrays.sort(files, new Comparator<DocumentFile>() {
-                @Override
-                public int compare(DocumentFile f1, DocumentFile f2) {
-                    String name1 = nameCache.get(f1);
-                    String name2 = nameCache.get(f2);
-                    return name1.compareTo(name2);
-                }
-            });
 
-
-            Log.i("MainActivity", "Files in directory: " + files.length);
-            uris = new Uri[files.length];
-            for (int i = 0; i < files.length; i++) {
-                uris[i] = files[i].getUri();
+            Log.i("MainActivity", "Files in directory: " + sortedFiles.length);
+            uris = new Uri[sortedFiles.length];
+            for (int i = 0; i < sortedFiles.length; i++) {
+                uris[i] = sortedFiles[i].getUri();
             }
             Log.i("MainActivity", "URIs: " + Arrays.toString(uris));
 //            fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);

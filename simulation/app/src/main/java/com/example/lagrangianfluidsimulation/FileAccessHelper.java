@@ -12,8 +12,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 
 public class FileAccessHelper {
@@ -90,17 +95,31 @@ public class FileAccessHelper {
 
     public void loadNetCDFData(Uri[] uris) {
         executor.submit(() -> {
-            Log.i("MainActivity", "Loading files...");
-            int[] fds = new int[uris.length];
-            for (int i = 0; i < uris.length; i++) {
-                fds[i] = getFileDescriptor(uris[i]);
+
+            ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            List<Future<Integer>> futureList = new ArrayList<>();
+            for (Uri uri : uris) {
+                futureList.add(executor.submit(() -> getFileDescriptor(uri)));
             }
-            Log.i("MainActivity", "File descriptors: " + fds);
-            loadFilesFDs(fds);
-            Log.i("MainActivity", "Files loaded");
-            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
-            Log.i("MainActivity", "Data loaded");
-//            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
+            executor.shutdown();
+            try {
+                executor.awaitTermination(1, TimeUnit.MINUTES); // Wait for all tasks to finish
+            } catch (InterruptedException e) {
+                Log.e("MainActivity", "Executor service interrupted", e);
+            }
+            int[] fds = new int[uris.length];
+            for (int i = 0; i < futureList.size(); i++) {
+                try {
+                    fds[i] = futureList.get(i).get();
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Error getting file descriptor", e);
+                }
+            }
+            Log.i("MainActivity", "File descriptors: " + Arrays.toString(fds));
+            mainActivity.runOnUiThread(() -> {
+                loadFilesFDs(fds);
+                mainActivity.onDataLoaded();
+            });
         });
     }
 
