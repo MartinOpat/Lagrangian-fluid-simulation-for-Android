@@ -27,8 +27,8 @@ public class FileAccessHelper {
     private static final int REQUEST_CODE_PICK_FILES = 101;
     private static final int REQUEST_CODE_PICK_DIRECTORY = 102;
 
-    public native void initializeNetCDFVisualization(int fdU, int fdV);
-    public native void initializeNetCDFVisualization3D(int fdU, int fdV, int fdW);
+    public native void loadNetCDFData(int fdU, int fdV);
+    public native void loadNetCDFData3D(int fdU, int fdV, int fdW);
     public native void loadFilesFDs(int[] fds);
 
     // Constructor
@@ -70,7 +70,7 @@ public class FileAccessHelper {
             int fdU = getFileDescriptor(uriU);
             int fdV = getFileDescriptor(uriV);
             if (fdU != -1 && fdV != -1) {
-                initializeNetCDFVisualization(fdU, fdV);
+                loadNetCDFData(fdU, fdV);
             }
             mainActivity.runOnUiThread(mainActivity::onDataLoaded);
         });
@@ -82,7 +82,7 @@ public class FileAccessHelper {
             int fdV = getFileDescriptor(uriV);
             int fdW = getFileDescriptor(uriW);
             if (fdU != -1 && fdV != -1 && fdW != -1) {
-                initializeNetCDFVisualization3D(fdU, fdV, fdW);
+                loadNetCDFData3D(fdU, fdV, fdW);
             }
             mainActivity.runOnUiThread(mainActivity::onDataLoaded);
         });

@@ -19,8 +19,8 @@ public:
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData);
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
 
-    void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath);
-    void loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath);
+    void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath);
+    void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath);
 
     void draw(GLShaderManager& shaderManager);
 

@@ -78,7 +78,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_initializeNetCDFVisualization(
+    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData(
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV) {
 
         NetCDFReader reader;
@@ -91,7 +91,7 @@ extern "C" {
         }
 
 //        vectorFieldHandler = new VectorFieldHandler();
-        vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV);
+        vectorFieldHandler->loadTimeStep(tempFileU, tempFileV);
 
 //        physics = new Physics(*vectorFieldHandler);
 
@@ -100,7 +100,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-        Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
+    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
                 JNIEnv* env, jobject /* this */, jintArray jfds) {
         jsize len = env->GetArrayLength(jfds);
         jint* fds = env->GetIntArrayElements(jfds, nullptr);
@@ -112,9 +112,8 @@ extern "C" {
         env->ReleaseIntArrayElements(jfds, fds, 0);
     }
 
-
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_initializeNetCDFVisualization3D(
+    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadNextFile3D (
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV, jint fdW) {
 
         NetCDFReader reader;
@@ -129,11 +128,37 @@ extern "C" {
 
 
         vectorFieldHandler = new VectorFieldHandler();
-        vectorFieldHandler->loadAllTimeSteps(tempFileU, tempFileV, tempFileW);
+        vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
         LOGI("NetCDF files loaded");
-//
+
         physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-//
+
+        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
+        LOGI("Particles initialized");
+    }
+
+
+    JNIEXPORT void JNICALL
+    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData3D(
+            JNIEnv* env, jobject /* this */, jint fdU, jint fdV, jint fdW) {
+
+        NetCDFReader reader;
+        std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
+        std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
+        std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
+
+        if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
+            LOGE("Failed to create temporary files.");
+            return;
+        }
+
+
+        vectorFieldHandler = new VectorFieldHandler();
+        vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
+        LOGI("NetCDF files loaded");
+
+        physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
+
         particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }

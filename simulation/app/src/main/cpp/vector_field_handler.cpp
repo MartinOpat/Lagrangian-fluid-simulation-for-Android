@@ -162,7 +162,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     displayVertices.push_back(tempVertices);
 }
 
-void VectorFieldHandler::loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath) {
+void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath) {
     netCDF::NcFile dataFileU(fileUPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
 
@@ -187,14 +187,12 @@ void VectorFieldHandler::loadAllTimeSteps(const std::string& fileUPath, const st
     }
 }
 
-void VectorFieldHandler::loadAllTimeSteps(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
+void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
     netCDF::NcFile dataFileU(fileUPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileW(fileWPath, netCDF::NcFile::read);
 
     LOGI("NetCDF files opened");
-
-    size_t numTimeSteps = dataFileU.getDim("time").getSize();
 
     for (size_t i = 0; i < 1; i++) {
         std::vector<size_t> startp = {i, 1, 0, 0};  // Start index for time, depth, y, x
