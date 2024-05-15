@@ -7,8 +7,6 @@
 - Reactor the file picking - the separation of concerns is not really separating
 
 ## Native side
-- Fix initial file load time
-- Fix file switching (take long too)
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
@@ -20,12 +18,10 @@
 - Take into account the device screen's aspect ratio
 - Implement parallelism
 - Separate vector_field's functionality into display and physics
-- Finish implementing the advection equation model
 - Add `physics object` or some other hierarchy to the physics engine
 - Do not forget the interpolation for vertices
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 - Delete (old) 2D functions
-- Refactor the initialization of handlers in native-lib
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
