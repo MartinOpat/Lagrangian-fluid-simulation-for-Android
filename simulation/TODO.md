@@ -22,6 +22,7 @@
 - Add `physics object` or some other hierarchy to the physics engine
 - Do not forget the interpolation for vertices
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
+- Delete (old) 2D functions
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

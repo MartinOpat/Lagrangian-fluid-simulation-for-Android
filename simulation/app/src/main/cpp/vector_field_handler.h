@@ -31,10 +31,8 @@ private:
     int height = 0;
     int depth = 0;
     int currentFrame = 0;
-    int numVertices = 0;
     int finenessXY;
     int finenessZ;
-    std::vector<float> vertices;
     std::vector<std::vector<float>> allVertices;
     std::vector<std::vector<float>> displayVertices;
 
