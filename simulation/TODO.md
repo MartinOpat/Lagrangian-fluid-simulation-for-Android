@@ -7,6 +7,8 @@
 - Reactor the file picking - the separation of concerns is not really separating
 
 ## Native side
+- Fix initial file load time
+- Fix file switching (take long too)
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
