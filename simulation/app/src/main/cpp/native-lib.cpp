@@ -29,8 +29,10 @@ TouchHandler* touchHandler;
 Physics* physics;
 
 
-int frameCount = 0;
-float timeCount = 0.0f;
+
+int currentFrame = 0;
+int numFrames = 0;
+int daysToSeconds = 20;
 
 void updateFrame() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
@@ -43,27 +45,67 @@ void updateFrame() {
 //    }
 }
 
+void loadStepHelper(int fdU, int fdV, int fdW) {
+    NetCDFReader reader;
+    std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
+    std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
+    std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
+
+    if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
+        LOGE("Failed to create temporary files.");
+        return;
+    }
+
+    if (vectorFieldHandler == nullptr) {
+        LOGE("Vector field handler not initialized");
+    }
+    vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
+}
+
+void loadStep(int frame) {
+    LOGI("Loading step %d", frame);
+    loadStepHelper(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
+}
+
+void loadInitStep() {
+    if (numFrames == 0) {
+        LOGE("No frames loaded");
+        return;
+    } else if (numFrames == 1) {
+        loadStep(0);
+    } else {
+        loadStep(0);
+        loadStep(1);
+        currentFrame = 1;
+    }
+}
+
+void update() {
+    static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
+    static const std::chrono::seconds updateInterval(daysToSeconds);
+
+    auto now = std::chrono::steady_clock::now();
+    if (now - lastUpdate >= updateInterval) {
+        currentFrame = (currentFrame + 1) % numFrames;
+        loadStep(currentFrame);
+        lastUpdate = now;
+    }
+}
+
 void init() {
     vectorFieldHandler = new VectorFieldHandler();
-    LOGI("NetCDF files loaded");
-
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
-    LOGI("Particles initialized");
-
-    LOGI("Init called");
+    LOGI("init complete");
 }
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
+        update();
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
         particlesHandler->drawParticles(*shaderManager);
-
-        //        updateFrame();
-        frameCount++;
     }
 
     JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
@@ -72,9 +114,6 @@ extern "C" {
 
         touchHandler = new TouchHandler(*shaderManager);
         LOGI("Graphics setup complete");
-
-        init();  // TODO: Think whether this belongs here or should be its own native func.
-        LOGI("Setup complete");
     }
 
     JNIEXPORT void JNICALL
@@ -102,7 +141,11 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
                 JNIEnv* env, jobject /* this */, jintArray jfds) {
+        LOGI("Loading file descriptors");
         jsize len = env->GetArrayLength(jfds);
+        numFrames = len / 3;
+        LOGI("Number of frames: %d", numFrames);
+
         jint* fds = env->GetIntArrayElements(jfds, nullptr);
         fileDescriptors.clear();
         for (int i = 0; i < len; i++) {
@@ -110,31 +153,10 @@ extern "C" {
         }
 
         env->ReleaseIntArrayElements(jfds, fds, 0);
-    }
-
-    JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadNextFile3D (
-            JNIEnv* env, jobject /* this */, jint fdU, jint fdV, jint fdW) {
-
-        NetCDFReader reader;
-        std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
-        std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
-        std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
-
-        if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
-            LOGE("Failed to create temporary files.");
-            return;
-        }
-
-
-        vectorFieldHandler = new VectorFieldHandler();
-        vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
-        LOGI("NetCDF files loaded");
-
-        physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
-        LOGI("Particles initialized");
+        LOGI("File descriptors loaded");
+        init();
+        loadInitStep();
+        LOGI("Initial step loaded");
     }
 
 

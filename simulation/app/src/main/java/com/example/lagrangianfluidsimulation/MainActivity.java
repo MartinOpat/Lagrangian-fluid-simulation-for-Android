@@ -21,6 +21,9 @@ import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.Surface;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 
 public class MainActivity extends Activity {
     static {
@@ -99,11 +102,21 @@ public class MainActivity extends Activity {
 
             DocumentFile directory = DocumentFile.fromTreeUri(this, uri);
             DocumentFile[] files = directory.listFiles();
+
+            // Sort files by name
+            Arrays.sort(files, new Comparator<DocumentFile>() {
+                @Override
+                public int compare(DocumentFile f1, DocumentFile f2) {
+                    return f1.getName().compareTo(f2.getName());
+                }
+            });
+
+            Log.i("MainActivity", "Files in directory: " + files.length);
             uris = new Uri[files.length];
             for (int i = 0; i < files.length; i++) {
                 uris[i] = files[i].getUri();
             }
-            fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);
+//            fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);
             fileAccessHelper.loadNetCDFData(uris);
 
         }

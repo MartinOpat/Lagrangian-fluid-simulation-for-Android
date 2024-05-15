@@ -19,7 +19,6 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
     int gridX = (int)((position.x / 100.0f + 1.0) / 2 * adjWidth);
     int gridY = (int)((position.y / 100.0f + 1.0) / 2 * adjHeight);
     int gridZ = (int)((position.z / 100.0f + 1.0) / 2 * adjDepth);
-//    int gridZ = abs((int)(position.z * depth));
 
     // Ensure indices are within bounds
     gridX = std::max(0, std::min(gridX, adjWidth - 1));
@@ -154,6 +153,8 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     } else {
         LOGI("Vertices not yet filled, pushing");
         allVertices.push_back(vertices);
+        LOGI("vertices size: %zu", vertices.size());
+        LOGI("all vertices size: %zu", allVertices.size());
         displayVertices.push_back(tempDisplayVertices);
     }
 }
@@ -194,12 +195,12 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         std::vector<size_t> startp = {i, 1, 0, 0};  // Start index for time, depth, y, x
         std::vector<size_t> countp = {1, dataFileU.getDim("depth").getSize()-1, dataFileU.getDim("lat").getSize(), dataFileU.getDim("lon").getSize()};  // Read one time step, all depths, all y, all x
         std::vector<float> uData( countp[1] * countp[2] * countp[3]), vData(countp[1] * countp[2] * countp[3]), wData(countp[1] * countp[2] * countp[3]);
-
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
         width = countp[3];
         height = countp[2];
         depth = countp[1];
 
+        LOGI("HERE");
         dataFileU.getVar("u").getVar(startp, countp, uData.data());
         dataFileV.getVar("v").getVar(startp, countp, vData.data());
         dataFileW.getVar("w").getVar(startp, countp, wData.data());

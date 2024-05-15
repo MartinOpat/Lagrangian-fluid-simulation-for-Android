@@ -17,7 +17,7 @@ public:
         particles_advection,    // Advection equation for particles
     };
 
-    Physics(VectorFieldHandler vectorFieldHandler, Model model = Model::particles_simple);
+    Physics(VectorFieldHandler& vectorFieldHandler, Model model = Model::particles_simple);
 
     glm::vec3 dvdt(glm::vec3 pos, glm::vec3 vel);
     glm::vec3 dvdt(std::vector<glm::vec3> args);
@@ -39,7 +39,7 @@ public:
     float C = 0.5f;  // Displacement coefficient
 
 private:
-    VectorFieldHandler vectorFieldHandler;
+    VectorFieldHandler& vectorFieldHandler;
     Model model;
 };
 

@@ -95,6 +95,7 @@ public class FileAccessHelper {
                 fds[i] = getFileDescriptor(uris[i]);
             }
             loadFilesFDs(fds);
+            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
 //            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
         });
     }

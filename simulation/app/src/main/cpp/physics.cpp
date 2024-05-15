@@ -5,7 +5,7 @@
 #include "physics.h"
 
 
-Physics::Physics(VectorFieldHandler vectorFieldHandler, Physics::Model model): vectorFieldHandler(vectorFieldHandler), model(model) {}
+Physics::Physics(VectorFieldHandler& vectorFieldHandler, Physics::Model model): vectorFieldHandler(vectorFieldHandler), model(model) {}
 
 glm::vec3 Physics::dvdt(glm::vec3 pos, glm::vec3 vel) {
     glm::vec3 velField;
@@ -16,14 +16,12 @@ glm::vec3 Physics::dvdt(glm::vec3 pos, glm::vec3 vel) {
 // args can contain any arguments, but at least the position
 glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
     glm::vec3 velField;
-
     if (args.size() < 1) {
         LOGE("Physics::dvdt: args must contain at least the position of the particle");
         return glm::vec3(0.0f);
     }
 
     glm::vec3 pos = args[0];
-
     vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
     switch (model) {
         case Model::particles_simple: {
