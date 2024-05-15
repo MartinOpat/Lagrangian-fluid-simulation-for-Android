@@ -90,12 +90,16 @@ public class FileAccessHelper {
 
     public void loadNetCDFData(Uri[] uris) {
         executor.submit(() -> {
+            Log.i("MainActivity", "Loading files...");
             int[] fds = new int[uris.length];
             for (int i = 0; i < uris.length; i++) {
                 fds[i] = getFileDescriptor(uris[i]);
             }
+            Log.i("MainActivity", "File descriptors: " + fds);
             loadFilesFDs(fds);
+            Log.i("MainActivity", "Files loaded");
             mainActivity.runOnUiThread(mainActivity::onDataLoaded);
+            Log.i("MainActivity", "Data loaded");
 //            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
         });
     }

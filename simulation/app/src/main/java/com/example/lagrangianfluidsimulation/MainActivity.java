@@ -23,6 +23,8 @@ import android.view.Surface;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends Activity {
@@ -101,23 +103,36 @@ public class MainActivity extends Activity {
             Log.i("MainActivity", "Directory URI: " + uri);
 
             DocumentFile directory = DocumentFile.fromTreeUri(this, uri);
+            Log.i("MainActivity", "Directory: " + directory.getName());
             DocumentFile[] files = directory.listFiles();
+            Log.i("MainActivity", "Files: " + Arrays.toString(files));
 
             // Sort files by name
+            Map<DocumentFile, String> nameCache = new HashMap<>();
+            for (DocumentFile file : files) {
+                nameCache.put(file, file.getName());
+            }
+
+            // Sort files by name using the cached names
             Arrays.sort(files, new Comparator<DocumentFile>() {
                 @Override
                 public int compare(DocumentFile f1, DocumentFile f2) {
-                    return f1.getName().compareTo(f2.getName());
+                    String name1 = nameCache.get(f1);
+                    String name2 = nameCache.get(f2);
+                    return name1.compareTo(name2);
                 }
             });
+
 
             Log.i("MainActivity", "Files in directory: " + files.length);
             uris = new Uri[files.length];
             for (int i = 0; i < files.length; i++) {
                 uris[i] = files[i].getUri();
             }
+            Log.i("MainActivity", "URIs: " + Arrays.toString(uris));
 //            fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);
             fileAccessHelper.loadNetCDFData(uris);
+            Log.i("MainActivity", "Data loaded");
 
         }
     }
