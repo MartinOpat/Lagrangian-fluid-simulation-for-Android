@@ -146,8 +146,6 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 
     if (allVertices.size() == 2) {
         LOGI("Loading new vertices");
-        allVertices[0] = std::move(allVertices[1]);
-        displayVertices[0] = std::move(displayVertices[1]);
         allVertices[1] = vertices;
         displayVertices[1] = tempDisplayVertices;
     } else {
@@ -157,6 +155,11 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
         LOGI("all vertices size: %zu", allVertices.size());
         displayVertices.push_back(tempDisplayVertices);
     }
+}
+
+void VectorFieldHandler::updateTimeStep() {
+    allVertices[0] = std::move(allVertices[1]);
+    displayVertices[0] = std::move(displayVertices[1]);
 }
 
 void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath) {

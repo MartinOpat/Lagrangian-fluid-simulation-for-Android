@@ -22,6 +22,8 @@ public:
     void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath);
     void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath);
 
+    void updateTimeStep();
+
     void draw(GLShaderManager& shaderManager);
 
     std::vector<float> getAllVertices() {return allVertices[currentFrame];};

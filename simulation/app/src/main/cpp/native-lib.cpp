@@ -9,6 +9,9 @@
 #include <GLES3/gl32.h>
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
+#include <thread>
+#include <atomic>
+#include <functional>
 
 #include "android_logging.h"
 #include "netcdf_reader.h"
@@ -83,12 +86,24 @@ void loadInitStep() {
 void update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
     static const std::chrono::seconds updateInterval(daysToSeconds);
+    static std::thread loadThread;
+    static std::atomic<bool> isLoading(false);
 
     auto now = std::chrono::steady_clock::now();
     if (now - lastUpdate >= updateInterval) {
-        currentFrame = (currentFrame + 1) % numFrames;
-        loadStep(currentFrame);
         lastUpdate = now;
+        vectorFieldHandler->updateTimeStep();
+
+        if (loadThread.joinable()) {
+            loadThread.join(); // Ensure the previous loadStep thread has completed
+        }
+
+        currentFrame = (currentFrame + 1) % numFrames;
+
+        isLoading.store(true);
+        loadThread = std::thread([frame = currentFrame]() {
+            loadStep(frame);  // Should be thread safe due to how vectorfieldhandler is implemented
+        });
     }
 }
 
