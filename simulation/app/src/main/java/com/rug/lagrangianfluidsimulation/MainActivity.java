@@ -5,22 +5,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-import android.opengl.GLSurfaceView;
-import android.view.MotionEvent;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 
 public class MainActivity extends Activity {

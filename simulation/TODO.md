@@ -18,7 +18,7 @@
 - Implement parallelism
 - Separate vector_field's functionality into display and physics
 - Add `physics object` or some other hierarchy to the physics engine
-- Do not forget the interpolation for vertices
+- Do not forget the interpolation for vertices - Is simply splitting between cubes sufficient ? -> Maybe ask this
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 - Delete (old) 2D functions
 - Check them float checks for zero (just to be sure)
