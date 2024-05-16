@@ -94,7 +94,7 @@ void ParticlesHandler::updateParticlePositions() {
     }
 }
 
-void ParticlesHandler::drawParticles(GLShaderManager& shaderManager) {
+void ParticlesHandler::drawParticles(Mainview& shaderManager) {
     updateParticles();
     updateParticlePositions();
     shaderManager.loadParticlesData(particlesPos);

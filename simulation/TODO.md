@@ -10,7 +10,7 @@
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
 - Make sure ALL buffers are properly cleaned up
-- Refactor `GLShaderManager` (or at least the name)
+- Refactor the functions in `Mainview` into shorter functions 
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Re-implemented fps counter for (physical) devices
 - Split the fragment shader

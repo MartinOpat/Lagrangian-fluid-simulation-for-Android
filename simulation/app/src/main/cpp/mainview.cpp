@@ -1,6 +1,6 @@
 #include "mainview.h"
 
-GLShaderManager::GLShaderManager(AAssetManager* assetManager)
+Mainview::Mainview(AAssetManager* assetManager)
         : assetManager(assetManager), shaderLinesProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
     startTime = std::chrono::steady_clock::now();
     modelTransform = glm::identity<glm::mat4>();
@@ -13,22 +13,22 @@ GLShaderManager::GLShaderManager(AAssetManager* assetManager)
     updateTransformations();
 }
 
-GLShaderManager::~GLShaderManager() {
+Mainview::~Mainview() {
     glDeleteProgram(shaderLinesProgram);
     glDeleteTextures(1, &textureID);
 }
 
-void GLShaderManager::setRotation(float rotateX, float rotateY, float rotateZ) {
+void Mainview::setRotation(float rotateX, float rotateY, float rotateZ) {
     this->rotation = glm::vec3(rotateX, rotateY, rotateZ);
     updateTransformations();
 }
 
-void GLShaderManager::setScale(float scale) {
+void Mainview::setScale(float scale) {
     this->scale = scale;
     updateTransformations();
 }
 
-void GLShaderManager::updateTransformations() {
+void Mainview::updateTransformations() {
     modelTransform = glm::identity<glm::mat4>();
     modelTransform = glm::scale(modelTransform, glm::vec3(scale, scale, scale));
 
@@ -39,7 +39,7 @@ void GLShaderManager::updateTransformations() {
 }
 
 
-std::string GLShaderManager::loadShaderFile(const char* fileName) {
+std::string Mainview::loadShaderFile(const char* fileName) {
     AAsset* asset = AAssetManager_open(assetManager, fileName, AASSET_MODE_BUFFER);
     if (!asset) return "";
 
@@ -51,7 +51,7 @@ std::string GLShaderManager::loadShaderFile(const char* fileName) {
     return buffer;
 }
 
-void GLShaderManager::createTexture(const ImageData& texData) {
+void Mainview::createTexture(const ImageData& texData) {
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -63,7 +63,7 @@ void GLShaderManager::createTexture(const ImageData& texData) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
-void GLShaderManager::compileAndLinkShaders() {
+void Mainview::compileAndLinkShaders() {
     GLint compileSuccess = 0;
     GLint linkSuccess = 0;
     GLchar infoLog[512];
@@ -152,7 +152,7 @@ void GLShaderManager::compileAndLinkShaders() {
 }
 
 
-void GLShaderManager::setFrame() {
+void Mainview::setFrame() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -160,7 +160,7 @@ void GLShaderManager::setFrame() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void GLShaderManager::setupGraphics() {
+void Mainview::setupGraphics() {
 
 
     // Load shader source code
@@ -209,7 +209,7 @@ void GLShaderManager::setupGraphics() {
 
 }
 
-void GLShaderManager::createParticlesBuffer(std::vector<float> particlesPos) {
+void Mainview::createParticlesBuffer(std::vector<float> particlesPos) {
     glUseProgram(shaderPointsProgram);
     glGenBuffers(1, &particleVBO);
     glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
@@ -225,14 +225,14 @@ void GLShaderManager::createParticlesBuffer(std::vector<float> particlesPos) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);  // Unbind VBO
 }
 
-void GLShaderManager::loadParticlesData(std::vector<float> particlesPos) {
+void Mainview::loadParticlesData(std::vector<float> particlesPos) {
     glUseProgram(shaderPointsProgram);
     glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
     glBufferData(GL_ARRAY_BUFFER, particlesPos.size() * sizeof(float), particlesPos.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void GLShaderManager::drawParticles(int size) {
+void Mainview::drawParticles(int size) {
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocationPoints, 1);
     glUniform1f(pointSize, 15.0f);
@@ -245,7 +245,7 @@ void GLShaderManager::drawParticles(int size) {
     glBindVertexArray(0);
 }
 
-void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
+void Mainview::createVectorFieldBuffer(std::vector<float> vertices) {
     glUseProgram(shaderLinesProgram);
     glGenBuffers(1, &vectorFieldVBO);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
@@ -261,14 +261,14 @@ void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);  // Unbind VBO
 }
 
-void GLShaderManager::loadVectorFieldData(std::vector<float> vertices) {
+void Mainview::loadVectorFieldData(std::vector<float> vertices) {
     glUseProgram(shaderLinesProgram);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void GLShaderManager::drawVectorField(int size) {
+void Mainview::drawVectorField(int size) {
     glBindVertexArray(vectorFieldVAO);
     glUniform1i(isPointLocationLines, 0);
     glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &modelTransform[0][0]);

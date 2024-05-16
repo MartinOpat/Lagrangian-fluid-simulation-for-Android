@@ -18,10 +18,10 @@
 
 
 
-class GLShaderManager {
+class Mainview {
 public:
-    GLShaderManager(AAssetManager* assetManager);
-    ~GLShaderManager();
+    Mainview(AAssetManager* assetManager);
+    ~Mainview();
 
     std::string loadShaderFile(const char* fileName);
     void createTexture(const ImageData& texData);

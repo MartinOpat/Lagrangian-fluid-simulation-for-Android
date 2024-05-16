@@ -24,7 +24,7 @@ public:
 
     void updateTimeStep();
 
-    void draw(GLShaderManager& shaderManager);
+    void draw(Mainview& shaderManager);
 
     std::vector<float> getAllVertices() {return allVertices[0];};
 

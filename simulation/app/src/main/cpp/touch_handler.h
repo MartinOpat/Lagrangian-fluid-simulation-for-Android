@@ -20,7 +20,7 @@ struct TouchPoint {
 
 class TouchHandler {
 public:
-    TouchHandler(GLShaderManager& shaderManager);
+    TouchHandler(Mainview& shaderManager);
 
     void handleTouch(float x[2], float y[2], int action, int pointerCount);
     void handleSingleTouch(float x, float y, int action);
@@ -34,7 +34,7 @@ private:
     TouchPoint tpRot;
     glm::vec3 prevRot;
 
-    GLShaderManager& shaderManager;
+    Mainview& shaderManager;
 };
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H

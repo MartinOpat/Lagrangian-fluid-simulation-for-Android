@@ -225,7 +225,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     }
 }
 
-void VectorFieldHandler::draw(GLShaderManager& shaderManager) {
+void VectorFieldHandler::draw(Mainview& shaderManager) {
     // y = [0] + t / T * ([0]-[1])
     std::vector<float> vertices(displayVertices[0].size());
     for (int i = 0; i < displayVertices[0].size(); i++) {

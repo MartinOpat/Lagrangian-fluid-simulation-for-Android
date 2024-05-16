@@ -25,7 +25,7 @@
 bool started = false;
 std::vector<int> fileDescriptors;
 
-GLShaderManager* shaderManager;
+Mainview* shaderManager;
 ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
@@ -123,7 +123,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
-        shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
+        shaderManager = new Mainview(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
 
         touchHandler = new TouchHandler(*shaderManager);

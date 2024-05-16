@@ -6,7 +6,7 @@
 
 bool isScaling = false;
 
-TouchHandler::TouchHandler(GLShaderManager& shaderManager) : shaderManager(shaderManager), prevRot(glm::vec3(0, 0, 0)), prevScale(0.5f) {
+TouchHandler::TouchHandler(Mainview& shaderManager) : shaderManager(shaderManager), prevRot(glm::vec3(0, 0, 0)), prevScale(0.5f) {
     tpScale1 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpScale2 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpRot = {0.0f, 0.0f, 0.0f, 0.0f};

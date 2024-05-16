@@ -27,7 +27,7 @@ public:
     void initParticles(InitType type);
     void updateParticles();
     void updateParticlePositions();
-    void drawParticles(GLShaderManager& shaderManager);
+    void drawParticles(Mainview& shaderManager);
     std::vector<float> getParticlesPositions() { return particlesPos; };
     void bindPosition(Particle& particle);
     void bindParticlesPositions();
