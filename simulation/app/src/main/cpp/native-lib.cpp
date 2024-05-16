@@ -36,17 +36,6 @@ int numFrames = 0;
 
 float global_time_in_step = 0.0f;
 
-void updateFrame() {
-    static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
-    static const std::chrono::seconds updateInterval(1);       // Update every 1 second
-
-//    auto now = std::chrono::steady_clock::now();
-//    if (now - lastUpdate >= updateInterval) {                  // Check if 1 second has passed
-//        currentFrame = (currentFrame + 1) % allVertices.size(); // Update the frame index
-//        lastUpdate = now;                                      // Reset the last update time
-//    }
-}
-
 void loadStepHelper(int fdU, int fdV, int fdW) {
     NetCDFReader reader;
     std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
@@ -104,7 +93,7 @@ void update() {
 
         if (loadThread.joinable()) {
             LOGI("Joining thread");
-            loadThread.join(); // Ensure the previous loadStep thread has completed
+            loadThread.join();
         }
         vectorFieldHandler->updateTimeStep();
 
@@ -154,12 +143,8 @@ extern "C" {
             return;
         }
 
-//        vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadTimeStep(tempFileU, tempFileV);
 
-//        physics = new Physics(*vectorFieldHandler);
-
-//        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
         LOGI("Particles initialized");
     }
 

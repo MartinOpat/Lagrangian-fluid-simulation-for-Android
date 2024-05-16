@@ -112,14 +112,7 @@ public class MainActivity extends Activity {
             for (DocumentFile file : files) {
                 nameCache.put(file, file.getName());
             }
-//            Arrays.sort(files, new Comparator<DocumentFile>() {
-//                @Override
-//                public int compare(DocumentFile f1, DocumentFile f2) {
-//                    String name1 = nameCache.get(f1);
-//                    String name2 = nameCache.get(f2);
-//                    return name1.compareTo(name2);
-//                }
-//            });
+
             DocumentFile[] sortedFiles = Arrays.stream(files)
                     .parallel()
                     .sorted(Comparator.comparing(nameCache::get))
@@ -152,7 +145,6 @@ public class MainActivity extends Activity {
         Log.d("Permissions", "Request code: " + requestCode);
         if (requestCode == REQUEST_CODE_READ_STORAGE) {
                 fileAccessHelper.openDirectoryPicker();
-//                fileAccessHelper.openFilePicker();
         }
     }
 

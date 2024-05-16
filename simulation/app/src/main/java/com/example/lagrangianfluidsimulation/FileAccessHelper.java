@@ -66,7 +66,6 @@ public class FileAccessHelper {
         } else {
             Log.d("Permissions", "Permission already granted, opening picker");
             openDirectoryPicker();
-//            openFilePicker();
         }
     }
 

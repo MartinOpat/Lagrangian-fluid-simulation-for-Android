@@ -5,16 +5,11 @@ GLShaderManager::GLShaderManager(AAssetManager* assetManager)
     startTime = std::chrono::steady_clock::now();
     modelTransform = glm::identity<glm::mat4>();
     projectionTransform = glm::identity<glm::mat4>();
-//    projectionTransform = glm::perspective(glm::radians(60.0f), 20.0f/9.0f, 0.2f, 20.0f);
-//    projectionTransform = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 10.0f);
     float max_dim = std::max(FIELD_WIDTH, std::max(FIELD_HEIGHT, FIELD_DEPTH));
     projectionTransform = glm::ortho(-max_dim, max_dim, -max_dim, max_dim, -max_dim, max_dim);
     viewTransform = glm::identity<glm::mat4>();
-//    viewTransform = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     setRotation(0.0f, 0.0f, M_PI/2.0f);
-//    setRotation(0.0f, 0.0f, 0.0f);
     setScale(0.5f);
-//    setScale(1.0f);
     updateTransformations();
 }
 
@@ -42,8 +37,6 @@ void GLShaderManager::updateTransformations() {
     modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
     modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 }
-
-
 
 
 std::string GLShaderManager::loadShaderFile(const char* fileName) {
@@ -165,9 +158,6 @@ void GLShaderManager::setFrame() {
 
     glEnable(GL_BLEND); // Enable blending
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-//    glUseProgram(shaderLinesProgram);
-//    glUseProgram(shaderPointsProgram);
 }
 
 void GLShaderManager::setupGraphics() {
@@ -181,7 +171,6 @@ void GLShaderManager::setupGraphics() {
 
     // Compile and link shaders
     compileAndLinkShaders();
-    // Error checking after setup
 
     // Check shader program link status
     GLint linked;
@@ -267,8 +256,6 @@ void GLShaderManager::createVectorFieldBuffer(std::vector<float> vertices) {
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-//    glEnableVertexAttribArray(1);
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)(3 * sizeof(float)));
 
     glBindVertexArray(0);  // Unbind VAO
     glBindBuffer(GL_ARRAY_BUFFER, 0);  // Unbind VBO

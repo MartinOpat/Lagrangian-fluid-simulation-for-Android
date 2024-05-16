@@ -39,10 +39,6 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
                          y0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (y1 - y0),
                          z0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (z1 - z0)
     );
-//    velocity = glm::vec3(allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6],
-//                        allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1],
-//                        allVertices[0][idx * 6 + 5] - allVertices[0][idx * 6 + 2]
-//    );
 }
 
 void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData) {
@@ -109,7 +105,6 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     float maxW = *std::max_element(wData.begin(), wData.end());
     float minW = *std::min_element(wData.begin(), wData.end());
 
-//    LOGI("Max W: %f, Min W: %f", maxW, minW);
     for (int z = 0; z < depth; z++) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
