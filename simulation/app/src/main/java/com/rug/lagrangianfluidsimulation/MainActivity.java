@@ -1,25 +1,21 @@
-package com.example.lagrangianfluidsimulation;
+package com.rug.lagrangianfluidsimulation;
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
-import android.opengl.EGL14;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
 
-import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
-import android.view.Surface;
 
 import java.util.Arrays;
 import java.util.Comparator;

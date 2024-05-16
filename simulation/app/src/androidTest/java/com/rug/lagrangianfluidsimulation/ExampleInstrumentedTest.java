@@ -1,4 +1,4 @@
-package com.example.lagrangianfluidsimulation;
+package com.rug.lagrangianfluidsimulation;
 
 import android.content.Context;
 

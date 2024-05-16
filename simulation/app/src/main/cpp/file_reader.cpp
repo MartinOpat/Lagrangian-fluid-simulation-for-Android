@@ -10,10 +10,10 @@
 
 std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilename) {
     // Generate path for the temporary file in the app's internal storage
-    std::string tempFilePath = "/data/data/com.example.lagrangianfluidsimulation/tmp/" + tempFilename;
+    std::string tempFilePath = "/data/data/com.rug.lagrangianfluidsimulation/tmp/" + tempFilename;
 
     // Ensure the directory exists
-    mkdir("/data/data/com.example.lagrangianfluidsimulation/tmp/", 0777);
+    mkdir("/data/data/com.rug.lagrangianfluidsimulation/tmp/", 0777);
 
     // Create and open the temporary file
     int tempFd = open(tempFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);

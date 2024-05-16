@@ -114,7 +114,7 @@ void init() {
 }
 
 extern "C" {
-    JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
+    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         update();
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
@@ -122,7 +122,7 @@ extern "C" {
         particlesHandler->drawParticles(*shaderManager);
     }
 
-    JNIEXPORT void JNICALL Java_com_example_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
+    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         shaderManager = new GLShaderManager(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
 
@@ -131,7 +131,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData(
+    Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData(
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV) {
 
         NetCDFReader reader;
@@ -149,7 +149,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
+    Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
                 JNIEnv* env, jobject /* this */, jintArray jfds) {
         LOGI("Loading file descriptors");
         jsize len = env->GetArrayLength(jfds);
@@ -171,7 +171,7 @@ extern "C" {
 
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData3D(
+    Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData3D(
             JNIEnv* env, jobject /* this */, jint fdU, jint fdV, jint fdW) {
 
         NetCDFReader reader;
@@ -196,14 +196,14 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         shaderManager->createVectorFieldBuffer(vectorFieldHandler->getAllVertices());
         shaderManager->createParticlesBuffer(particlesHandler->getParticlesPositions());
         LOGI("Buffers created");
     }
 
     JNIEXPORT void JNICALL
-    Java_com_example_lagrangianfluidsimulation_MainActivity_nativeSendTouchEvent(JNIEnv *env, jobject obj, jint pointerCount, jfloatArray xArray, jfloatArray yArray, jint action) {
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_nativeSendTouchEvent(JNIEnv *env, jobject obj, jint pointerCount, jfloatArray xArray, jfloatArray yArray, jint action) {
         jfloat* xTemp = env->GetFloatArrayElements(xArray, nullptr);
         jfloat* yTemp = env->GetFloatArrayElements(yArray, nullptr);
 

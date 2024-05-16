@@ -1,4 +1,4 @@
-package com.example.lagrangianfluidsimulation;
+package com.rug.lagrangianfluidsimulation;
 
 
 import android.Manifest;
@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

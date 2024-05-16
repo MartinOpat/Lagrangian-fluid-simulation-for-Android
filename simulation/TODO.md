@@ -1,13 +1,12 @@
 # Things that need to be done that are not immediately obvious.
 
 ## Android side
-- Figure out how to make the permission behave more in line with security standards. (Note: Right now, it never asks for permission to read external storage but somehow has it anyway.)
-- Give the app a proper name
 - pick code consts. should be in one place only
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
 
 ## Native side
+- Fix logs always saying `native-lib`
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
@@ -26,6 +25,7 @@
 - Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
+- Still a small lag when switching time steps
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

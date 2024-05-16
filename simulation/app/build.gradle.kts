@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lagrangianfluidsimulation"
+    namespace = "com.rug.lagrangianfluidsimulation"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lagrangianfluidsimulation"
+        applicationId = "com.rug.lagrangianfluidsimulation"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
