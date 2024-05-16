@@ -23,6 +23,8 @@
 - Do not forget the interpolation for vertices
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 - Delete (old) 2D functions
+- Check them float checks for zero (just to be sure)
+- Refactor includes
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

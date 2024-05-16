@@ -27,10 +27,22 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
 
     int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
 
-    velocity = glm::vec3(allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6],
-                        allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1],
-                        allVertices[0][idx * 6 + 5] - allVertices[0][idx * 6 + 2]
+    float x0 = allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6];
+    float y0 = allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1];
+    float z0 = allVertices[0][idx * 6 + 5] - allVertices[0][idx * 6 + 2];
+
+    float x1 = allVertices[1][idx * 6 + 3] - allVertices[1][idx * 6];
+    float y1 = allVertices[1][idx * 6 + 4] - allVertices[1][idx * 6 + 1];
+    float z1 = allVertices[1][idx * 6 + 5] - allVertices[1][idx * 6 + 2];
+
+    velocity = glm::vec3(x0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (x1 - x0),
+                         y0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (y1 - y0),
+                         z0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (z1 - z0)
     );
+//    velocity = glm::vec3(allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6],
+//                        allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1],
+//                        allVertices[0][idx * 6 + 5] - allVertices[0][idx * 6 + 2]
+//    );
 }
 
 void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData) {
@@ -219,6 +231,11 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
 }
 
 void VectorFieldHandler::draw(GLShaderManager& shaderManager) {
-    shaderManager.loadVectorFieldData(displayVertices[0]);
-    shaderManager.drawVectorField(displayVertices[0].size());
+    // y = [0] + t / T * ([0]-[1])
+    std::vector<float> vertices(displayVertices[0].size());
+    for (int i = 0; i < displayVertices[0].size(); i++) {
+        vertices[i] = displayVertices[0][i] + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (displayVertices[1][i] - displayVertices[0][i]);
+    }
+    shaderManager.loadVectorFieldData(vertices);
+    shaderManager.drawVectorField(vertices.size());
 }

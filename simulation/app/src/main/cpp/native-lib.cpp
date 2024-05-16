@@ -31,11 +31,10 @@ VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
 
-
-
 int currentFrame = 0;
 int numFrames = 0;
-int daysToSeconds = 20;
+
+float global_time_in_step = 0.0f;
 
 void updateFrame() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
@@ -90,13 +89,18 @@ void loadInitStep() {
 
 void update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
-    static const std::chrono::seconds updateInterval(daysToSeconds);
+    static const std::chrono::seconds updateInterval(TIME_STEP_IN_SECONDS);
     static std::thread loadThread;
     static std::atomic<bool> isLoading(false);
 
+    static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
+    global_time_in_step += std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall).count() / 1000.0f;
+    lastCall = now;
+
     if (now - lastUpdate >= updateInterval) {
         lastUpdate = now;
+        global_time_in_step = 0.0f;
 
         if (loadThread.joinable()) {
             LOGI("Joining thread");
