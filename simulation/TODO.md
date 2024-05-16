@@ -1,7 +1,6 @@
 # Things that need to be done that are not immediately obvious.
 
 ## Android side
-- pick code consts. should be in one place only
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
 

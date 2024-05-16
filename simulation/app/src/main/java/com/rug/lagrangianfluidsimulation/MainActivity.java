@@ -41,10 +41,6 @@ public class MainActivity extends Activity {
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
 
-    private static final int REQUEST_CODE_READ_STORAGE = 100;
-    private static final int REQUEST_CODE_PICK_FILES = 101;
-    private static final int REQUEST_CODE_PICK_DIRECTORY = 102;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +77,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
+        if (requestCode == FileAccessHelper.REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
             Uri uriU = data.getClipData().getItemAt(0).getUri();
             Uri uriV = data.getClipData().getItemAt(1).getUri();
             try {
@@ -92,7 +88,7 @@ public class MainActivity extends Activity {
                 Log.i("MainActivity", "2D mode");
                 fileAccessHelper.loadNetCDFData(uriU, uriV);
             }
-        } else if (requestCode == REQUEST_CODE_PICK_DIRECTORY && resultCode == RESULT_OK) {
+        } else if (requestCode == FileAccessHelper.REQUEST_CODE_PICK_DIRECTORY && resultCode == RESULT_OK) {
             // Extract the uri of all files from directory
             Uri uri = data.getData();
 
@@ -134,7 +130,7 @@ public class MainActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d("Permissions", "Request code: " + requestCode);
-        if (requestCode == REQUEST_CODE_READ_STORAGE) {
+        if (requestCode == FileAccessHelper.REQUEST_CODE_READ_STORAGE) {
                 fileAccessHelper.openDirectoryPicker();
         }
     }

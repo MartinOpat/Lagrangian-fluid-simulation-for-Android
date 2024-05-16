@@ -27,9 +27,9 @@ public class FileAccessHelper {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
-    private static final int REQUEST_CODE_READ_STORAGE = 100;
-    private static final int REQUEST_CODE_PICK_FILES = 101;
-    private static final int REQUEST_CODE_PICK_DIRECTORY = 102;
+    public static final int REQUEST_CODE_READ_STORAGE = 100;
+    public static final int REQUEST_CODE_PICK_FILES = 101;
+    public static final int REQUEST_CODE_PICK_DIRECTORY = 102;
 
     public native void loadNetCDFData(int fdU, int fdV);
     public native void loadNetCDFData3D(int fdU, int fdV, int fdW);
