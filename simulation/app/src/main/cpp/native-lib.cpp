@@ -76,10 +76,15 @@ void loadInitStep() {
         return;
     } else if (numFrames == 1) {
         loadStep(0);
-    } else {
+    } else if (numFrames == 2) {
         loadStep(0);
         loadStep(1);
         currentFrame = 1;
+    } else {
+        loadStep(0);
+        loadStep(1);
+        loadStep(2);
+        currentFrame = 2;
     }
 }
 
@@ -92,11 +97,12 @@ void update() {
     auto now = std::chrono::steady_clock::now();
     if (now - lastUpdate >= updateInterval) {
         lastUpdate = now;
-        vectorFieldHandler->updateTimeStep();
 
         if (loadThread.joinable()) {
+            LOGI("Joining thread");
             loadThread.join(); // Ensure the previous loadStep thread has completed
         }
+        vectorFieldHandler->updateTimeStep();
 
         currentFrame = (currentFrame + 1) % numFrames;
 

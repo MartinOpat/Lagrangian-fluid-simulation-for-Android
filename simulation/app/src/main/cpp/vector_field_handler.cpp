@@ -27,9 +27,9 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
 
     int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
 
-    velocity = glm::vec3(allVertices[currentFrame][idx * 6 + 3] - allVertices[currentFrame][idx * 6],
-                        allVertices[currentFrame][idx * 6 + 4] - allVertices[currentFrame][idx * 6 + 1],
-                        allVertices[currentFrame][idx * 6 + 5] - allVertices[currentFrame][idx * 6 + 2]
+    velocity = glm::vec3(allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6],
+                        allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1],
+                        allVertices[0][idx * 6 + 5] - allVertices[0][idx * 6 + 2]
     );
 }
 
@@ -144,22 +144,27 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
         }
     }
 
-    if (allVertices.size() == 2) {
+    if (allVertices.size() == 3) {
         LOGI("Loading new vertices");
-        allVertices[1] = vertices;
-        displayVertices[1] = tempDisplayVertices;
+        allVertices[2] = vertices;
+        displayVertices[2] = tempDisplayVertices;
     } else {
         LOGI("Vertices not yet filled, pushing");
         allVertices.push_back(vertices);
-        LOGI("vertices size: %zu", vertices.size());
-        LOGI("all vertices size: %zu", allVertices.size());
         displayVertices.push_back(tempDisplayVertices);
     }
 }
 
 void VectorFieldHandler::updateTimeStep() {
-    allVertices[0] = std::move(allVertices[1]);
-    displayVertices[0] = std::move(displayVertices[1]);
+    if (allVertices.size() > 2) {
+        allVertices[0] = std::move(allVertices[1]);
+        displayVertices[0] = std::move(displayVertices[1]);
+        allVertices[1] = std::move(allVertices[2]);
+        displayVertices[1] = std::move(displayVertices[2]);
+    } else if (allVertices.size() > 1) {
+        allVertices[0] = std::move(allVertices[1]);
+        displayVertices[0] = std::move(displayVertices[1]);
+    }
 }
 
 void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath) {
@@ -214,6 +219,6 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
 }
 
 void VectorFieldHandler::draw(GLShaderManager& shaderManager) {
-    shaderManager.loadVectorFieldData(displayVertices[currentFrame]);
-    shaderManager.drawVectorField(displayVertices[currentFrame].size());
+    shaderManager.loadVectorFieldData(displayVertices[0]);
+    shaderManager.drawVectorField(displayVertices[0].size());
 }

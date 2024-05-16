@@ -26,13 +26,12 @@ public:
 
     void draw(GLShaderManager& shaderManager);
 
-    std::vector<float> getAllVertices() {return allVertices[currentFrame];};
+    std::vector<float> getAllVertices() {return allVertices[0];};
 
 private:
     int width = 0 ;
     int height = 0;
     int depth = 0;
-    int currentFrame = 0;
     int finenessXY;
     int finenessZ;
     std::vector<std::vector<float>> allVertices;
