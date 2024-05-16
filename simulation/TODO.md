@@ -5,6 +5,7 @@
 - Give the app a proper name
 - pick code consts. should be in one place only
 - Reactor the file picking - the separation of concerns is not really separating
+- Add/check error handling
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names.
@@ -23,7 +24,8 @@
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 - Delete (old) 2D functions
 - Check them float checks for zero (just to be sure)
-- Refactor includes
+- Refactor class includes
+- Add/check error handling
 
 ## Current bottlenecks
 - Loading relevant data into the app - currently from phone's storage which is not ideal for big files.

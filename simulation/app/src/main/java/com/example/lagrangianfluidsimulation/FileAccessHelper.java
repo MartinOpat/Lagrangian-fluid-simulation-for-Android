@@ -114,7 +114,6 @@ public class FileAccessHelper {
                     Log.e("MainActivity", "Error getting file descriptor", e);
                 }
             }
-            Log.i("MainActivity", "File descriptors: " + Arrays.toString(fds));
             mainActivity.runOnUiThread(() -> {
                 loadFilesFDs(fds);
                 mainActivity.onDataLoaded();

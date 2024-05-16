@@ -97,15 +97,12 @@ public class MainActivity extends Activity {
                 fileAccessHelper.loadNetCDFData(uriU, uriV);
             }
         } else if (requestCode == REQUEST_CODE_PICK_DIRECTORY && resultCode == RESULT_OK) {
-            Log.i("MainActivity", "Directory picked");
             // Extract the uri of all files from directory
             Uri uri = data.getData();
-            Log.i("MainActivity", "Directory URI: " + uri);
 
             DocumentFile directory = DocumentFile.fromTreeUri(this, uri);
-            Log.i("MainActivity", "Directory: " + directory.getName());
+            Log.i("MainActivity", "Directory picked: "  + directory.getName());
             DocumentFile[] files = directory.listFiles();
-            Log.i("MainActivity", "Files: " + Arrays.toString(files));
 
             // Sort files by name
             Map<DocumentFile, String> nameCache = new HashMap<>();
@@ -119,13 +116,11 @@ public class MainActivity extends Activity {
                     .toArray(DocumentFile[]::new);
 
 
-            Log.i("MainActivity", "Files in directory: " + sortedFiles.length);
+            Log.i("MainActivity", "Files loaded: " + sortedFiles.length);
             uris = new Uri[sortedFiles.length];
             for (int i = 0; i < sortedFiles.length; i++) {
                 uris[i] = sortedFiles[i].getUri();
             }
-            Log.i("MainActivity", "URIs: " + Arrays.toString(uris));
-//            fileAccessHelper.loadNetCDFData(uris[0], uris[1], uris[2]);
             fileAccessHelper.loadNetCDFData(uris);
             Log.i("MainActivity", "Data loaded");
 
