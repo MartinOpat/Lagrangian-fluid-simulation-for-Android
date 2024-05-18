@@ -1,5 +1,7 @@
 #version 320 es
 
+#define PI 3.14159265
+
 layout(lines) in;
 layout(line_strip, max_vertices = 2) out;
 
@@ -17,19 +19,19 @@ vec3 hsv2rgb(vec3 c) {
 }
 
 vec3 angleToRGB(float angle) {
-//    float hue = (angle + 3.141593) / (2.0 * 3.141593);
+//    float hue = (angle + PI) / (2.0 * PI);
 //    return hsv2rgb(vec3(hue, 1.0, 1.0));
 
 //    float normalized = mod(angle / (2.0 * 3.14159265), 1.0);
-//    float r = 0.5 + 0.5 * sin(normalized * 2.0 * 3.14159265 + 0.0);
-//    float g = 0.5 + 0.5 * sin(normalized * 2.0 * 3.14159265 + 2.0 * 3.14159265 / 3.0);
-//    float b = 0.5 + 0.5 * sin(normalized * 2.0 * 3.14159265 + 4.0 * 3.14159265 / 3.0);
+//    float r = 0.5 + 0.5 * sin(normalized * 2.0 * PI + 0.0);
+//    float g = 0.5 + 0.5 * sin(normalized * 2.0 * PI + 2.0 * PI / 3.0);
+//    float b = 0.5 + 0.5 * sin(normalized * 2.0 * PI + 4.0 * PI / 3.0);
 //    return vec3(r, g, b);
 
-    float normalized = mod(angle / (2.0 * 3.14159265), 1.0);
-    float r = 0.5 + 0.3 * sin(normalized * 2.0 * 3.14159265 + 0.0);           // Red component
-    float g = 0.5 + 0.3 * sin(normalized * 2.0 * 3.14159265 + 2.0 * 3.14159265 / 3.0); // Green component
-    float b = 0.5 + 0.3 * sin(normalized * 2.0 * 3.14159265 + 4.0 * 3.14159265 / 3.0); // Blue component
+    float normalized = mod(angle / (2.0 * PI), 1.0);
+    float r = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 0.0);           // Red component
+    float g = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 2.0 * PI / 3.0); // Green component
+    float b = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 4.0 * PI / 3.0); // Blue component
     float saturation = 0.75;  // Reduce saturation for less intense colors
     vec3 color = vec3(r, g, b);
     vec3 gray = vec3(0.5);  // Gray level for desaturation effect
