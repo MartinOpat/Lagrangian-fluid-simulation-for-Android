@@ -121,7 +121,7 @@ void update() {
 void init() {
     vectorFieldHandler = new VectorFieldHandler();
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics, NUM_PARTICLES);
     LOGI("init complete");
 }
 
