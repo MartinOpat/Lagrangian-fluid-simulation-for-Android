@@ -65,9 +65,9 @@ vec3 getVelocity(vec3 position) {
 }
 
 vec3 bindPosition(vec3 position) {
-    return vec3(clamp(position.x, -float(width), float(width)),
-    clamp(position.y, -float(height), float(height)),
-    clamp(position.z, -float(depth), float(depth)));
+    return vec3(clamp(position.x, -100.0f, 100.0f),
+    clamp(position.y, -100.0f, 100.0f),
+    clamp(position.z, -50.0f, 50.0f));
 }
 
 void main() {
