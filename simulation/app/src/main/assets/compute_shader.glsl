@@ -70,16 +70,24 @@ vec3 bindPosition(vec3 position) {
     clamp(position.z, -50.0f, 50.0f));
 }
 
+vec3 advectionStep(vec3 position, float dt) {
+    vec3 v1 = getVelocity(position);
+    vec3 pos1 = position + 0.5f * v1 * dt;
+    vec3 v2 = getVelocity(pos1);
+    vec3 pos2 = position + 0.5f * v2 * dt;
+    vec3 v3 = getVelocity(pos2);
+    vec3 pos3 = position + v3 * dt;
+    vec3 v4 = getVelocity(pos3);
+
+    return position + (v1 + 2.0f * v2 + 2.0f * v3 + v4) * dt / 6.0f;
+}
+
 void main() {
     int id = int(gl_GlobalInvocationID.x) * 3;
     if (id >= particles.length()) return;
 
     vec3 position = vec3(particles[id], particles[id + 1], particles[id + 2]);
-    vec3 velocity = getVelocity(position);
-
-
-    // Update particle position as an example (RK4 steps should be added here)
-    position += velocity * dt; // Example update
+    position = advectionStep(position, dt);
     position = bindPosition(position);
 
     // Write back updated position
