@@ -82,7 +82,7 @@ void update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
     static const std::chrono::seconds updateInterval(TIME_STEP_IN_SECONDS);
     static std::thread loadThread;
-    static std::atomic<bool> isLoading(false);
+//    static std::atomic<bool> isLoading(false);
 
     static const std::chrono::seconds fpsUpdateInterval(1);
     static auto fpsLastUpdate = std::chrono::steady_clock::now();
@@ -104,7 +104,7 @@ void update() {
 
         currentFrame = (currentFrame + 1) % numFrames;
 
-        isLoading.store(true);
+//        isLoading.store(true);
         loadThread = std::thread([frame = currentFrame]() {
             loadStep(frame);  // Should be thread safe due to how vectorfieldhandler is implemented
         });

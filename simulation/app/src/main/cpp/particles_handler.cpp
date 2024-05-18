@@ -49,7 +49,12 @@ void ParticlesHandler::initParticles(InitType type) {
             }
             break;
     }
-    updateParticlePositions();
+    particlesPos.clear();
+    for (auto& particle : particles) {
+        particlesPos.push_back(particle.position.x);
+        particlesPos.push_back(particle.position.y);
+        particlesPos.push_back(particle.position.z);
+    }
 }
 
 void ParticlesHandler::bindPosition(Particle& particle) {
@@ -86,11 +91,11 @@ void ParticlesHandler::updateParticles() {
 }
 
 void ParticlesHandler::updateParticlePositions() {
-    particlesPos.clear();
+    int i = 0;
     for (auto& particle : particles) {
-        particlesPos.push_back(particle.position.x);
-        particlesPos.push_back(particle.position.y);
-        particlesPos.push_back(particle.position.z);
+        particlesPos[i++] = particle.position.x;
+        particlesPos[i++] = particle.position.y;
+        particlesPos[i++] = particle.position.z;
     }
 }
 
