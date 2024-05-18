@@ -34,6 +34,8 @@ Physics* physics;
 int currentFrame = 0;
 int numFrames = 0;
 
+int fps = 0;
+
 float global_time_in_step = 0.0f;
 
 void loadStepHelper(int fdU, int fdV, int fdW) {
@@ -82,6 +84,9 @@ void update() {
     static std::thread loadThread;
     static std::atomic<bool> isLoading(false);
 
+    static const std::chrono::seconds fpsUpdateInterval(1);
+    static auto fpsLastUpdate = std::chrono::steady_clock::now();
+
     static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
     global_time_in_step += std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall).count() / 1000.0f;
@@ -103,6 +108,13 @@ void update() {
         loadThread = std::thread([frame = currentFrame]() {
             loadStep(frame);  // Should be thread safe due to how vectorfieldhandler is implemented
         });
+    }
+    if (now - fpsLastUpdate >= fpsUpdateInterval) {
+        fpsLastUpdate = now;
+        LOGI("FPS: %d", fps);
+        fps = 0;
+    } else {
+        fps++;
     }
 }
 
