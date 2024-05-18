@@ -31,7 +31,7 @@
 - Check / correct the timing (fps, dt, etc.)
 
 ## Current bottlenecks
-- 
+- Memory management (sisgev at large number of particles)
 
 ## Stuff to research
 - best color wheel for scientific visualization of the direction of a 2d vector field
@@ -49,4 +49,9 @@
 - Fluid vector field not static anymore
 - Added initial processing of files to be done in parallel
 - Added vector field time linear interpolation
+
+- 10'000 particles:
+  - Sequential: 30 fps
+  - Parallel: 60 fps
+  - Pool of threads: 100 fps
 
