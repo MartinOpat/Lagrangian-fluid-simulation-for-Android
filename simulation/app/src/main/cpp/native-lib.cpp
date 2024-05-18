@@ -133,7 +133,7 @@ extern "C" {
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
-        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
+        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth(), vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
         particlesHandler->drawParticles(*shaderManager);
     }
 

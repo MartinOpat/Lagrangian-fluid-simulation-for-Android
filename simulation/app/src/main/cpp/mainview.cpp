@@ -319,7 +319,7 @@ void Mainview::createComputeBuffer(std::vector<float>& vector_field_vertices) {
 }
 
 // Dispatch Compute Shader
-void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth) {
+void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth, std::vector<float>& vector_field0, std::vector<float>& vector_field1) {
     glUseProgram(shaderComputeProgram);
 
     glUniform1i(glGetUniformLocation(shaderComputeProgram, "width"), width);
@@ -328,6 +328,12 @@ void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int wi
     glUniform1f(glGetUniformLocation(shaderComputeProgram, "global_time_in_step"), global_time_in_step);
     glUniform1f(glGetUniformLocation(shaderComputeProgram, "TIME_STEP_IN_SECONDS"), (float) TIME_STEP_IN_SECONDS);
     glUniform1f(glGetUniformLocation(shaderComputeProgram, "dt"), dt);
+
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField0SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field0.size() * sizeof(float), vector_field0.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, particleVBO); // Bind VBO as SSBO
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, computeVectorField0SSBO);
