@@ -215,7 +215,6 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         height = countp[2];
         depth = countp[1];
 
-        LOGI("HERE");
         dataFileU.getVar("u").getVar(startp, countp, uData.data());
         dataFileV.getVar("v").getVar(startp, countp, vData.data());
         dataFileW.getVar("w").getVar(startp, countp, wData.data());
