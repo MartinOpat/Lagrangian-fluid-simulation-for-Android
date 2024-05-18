@@ -44,6 +44,7 @@
 - Add comments
 - Document the code
 - Add flow diagrams mayhaps
+- PREPARE FOR MIDETERM MEETING!!!
 
 ## Next meeting points
 
