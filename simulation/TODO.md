@@ -29,6 +29,7 @@
 - Make particle size a uniform (fragment shader)
 - Put glm into libs folder ?
 - Check / correct the timing (fps, dt, etc.)
+- Choose which threadpool library to use
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles)
