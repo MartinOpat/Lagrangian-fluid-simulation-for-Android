@@ -30,6 +30,10 @@
 - Put glm into libs folder ?
 - Check / correct the timing (fps, dt, etc.)
 - Choose which threadpool library to use
+- Revisit `GL_STATIC_DRAW`
+- Check for more efficient way to load interpolated data into compute shader
+- Optimize mainview.cpp
+- Check if the implementation of `velocityField` correctly handles the z-coordnate
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles)
