@@ -7,7 +7,7 @@
 ## Native side
 - Fix logs always saying `native-lib`
 - Make file loaders load variables and use those instead of hardcoding the variable names.
-- Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
+- Consider doing vector field SIMD instructions in the compute shaders as well (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
 - Make sure ALL buffers are properly cleaned up
 - Make sure ALL no longer necessary temp files get deleted
@@ -16,7 +16,7 @@
 - Refactor fps counter for (physical) devices
 - Split the fragment shader
 - Take into account the device screen's aspect ratio
-- Implement parallelism
+- Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
 - Add `physics object` or some other hierarchy to the physics engine
 - Do not forget the interpolation for vertices - Is simply splitting between cubes sufficient ? -> Maybe ask this
@@ -32,10 +32,7 @@
 - Choose which threadpool library to use
 - Revisit `GL_STATIC_DRAW`
 - Check for more efficient way to load interpolated data into compute shader
-- Optimize mainview.cpp
 - Check if the implementation of `velocityField` correctly handles the z-coordnate
-- FIELD_WIDTH etc. is actually half width
-- The field sizes in mainview are hardcoded
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles)
@@ -56,9 +53,9 @@
 - Fluid vector field not static anymore
 - Added initial processing of files to be done in parallel
 - Added vector field time linear interpolation
-
 - 10'000 particles:
   - Sequential: 30 fps
   - Parallel: 60 fps
   - Pool of threads: 100 fps
+- Compute shader can handle 100'000 particles on 120 fps
 

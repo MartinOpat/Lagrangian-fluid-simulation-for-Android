@@ -307,37 +307,31 @@ void Mainview::drawVectorField(int size) {
 
 // Create Buffers
 void Mainview::createComputeBuffer(std::vector<float>& vector_field_vertices) {
-    glGenBuffers(1, &computeVectorField0VBO);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField0VBO);
+    glGenBuffers(1, &computeVectorField0SSBO);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField0SSBO);
     glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field_vertices.size() * sizeof(float), vector_field_vertices.data(), GL_STATIC_DRAW);
 
-    glGenBuffers(1, &computeVectorField1VBO);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1VBO);
+    glGenBuffers(1, &computeVectorField1SSBO);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
     glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field_vertices.size() * sizeof(float), vector_field_vertices.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 // Dispatch Compute Shader
-void Mainview::dispatchComputeShader(float dt, float global_time_in_step, std::vector<float>& vectorField0, std::vector<float>& vectorField1) {
+void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth) {
     glUseProgram(shaderComputeProgram);
 
-    glUniform1i(glGetUniformLocation(shaderComputeProgram, "width"), 539);
-    glUniform1i(glGetUniformLocation(shaderComputeProgram, "height"), 269);
-    glUniform1i(glGetUniformLocation(shaderComputeProgram, "depth"), 27);
-    glUniform1f(glGetUniformLocation(shaderComputeProgram, "global_time_in_step"), 0.0f);
-    glUniform1f(glGetUniformLocation(shaderComputeProgram, "TIME_STEP_IN_SECONDS"), 10.0f);
-    glUniform1f(glGetUniformLocation(shaderComputeProgram, "dt"), 0.02f);
+    glUniform1i(glGetUniformLocation(shaderComputeProgram, "width"), width);
+    glUniform1i(glGetUniformLocation(shaderComputeProgram, "height"), height);
+    glUniform1i(glGetUniformLocation(shaderComputeProgram, "depth"), depth);
+    glUniform1f(glGetUniformLocation(shaderComputeProgram, "global_time_in_step"), global_time_in_step);
+    glUniform1f(glGetUniformLocation(shaderComputeProgram, "TIME_STEP_IN_SECONDS"), (float) TIME_STEP_IN_SECONDS);
+    glUniform1f(glGetUniformLocation(shaderComputeProgram, "dt"), dt);
 
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, particleVBO); // Bind VBO as SSBO
-
-//    glBindBuffer(GL_UNIFORM_BUFFER, computeVectorField0VBO);
-//    glBufferData(GL_UNIFORM_BUFFER, vectorField0.size() * sizeof(float), vectorField0.data(), GL_STATIC_DRAW);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, computeVectorField0VBO); // Bind VBO as SSBO
-
-//    glBindBuffer(GL_UNIFORM_BUFFER, computeVectorField1VBO);
-//    glBufferData(GL_UNIFORM_BUFFER, vectorField1.size() * sizeof(float), vectorField1.data(), GL_STATIC_DRAW);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, computeVectorField1VBO); // Bind VBO as SSBO
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, computeVectorField0SSBO);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, computeVectorField1SSBO);
 
     glDispatchCompute((NUM_PARTICLES+127) / 128, 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT); // Ensure vertex shader sees the updates

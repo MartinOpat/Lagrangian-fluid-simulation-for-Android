@@ -45,7 +45,7 @@ public:
     float getScale() { return scale; }
 
     void createComputeBuffer(std::vector<float>& vector_field_vertices);
-    void dispatchComputeShader(float dt, float global_time_in_step, std::vector<float>& vectorField0, std::vector<float>& vectorField1);
+    void dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth);
 
     GLuint shaderLinesProgram;
     GLuint shaderPointsProgram;
@@ -82,8 +82,8 @@ private:
     GLuint vectorFieldVBO;
     GLuint vectorFieldVAO;
 
-    GLuint computeVectorField1VBO;
-    GLuint computeVectorField0VBO;
+    GLuint computeVectorField0SSBO;
+    GLuint computeVectorField1SSBO;
 
     // Transformations
     float scale;

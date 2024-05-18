@@ -164,73 +164,7 @@ void ParticlesHandler::updateParticlesPool2() {
     }
 }
 
-//void ParticlesHandler::updateParticlePositions() {
-//    int i = 0;
-//    for (auto& particle : particles) {
-//        particlesPos[i++] = particle.position.x;
-//        particlesPos[i++] = particle.position.y;
-//        particlesPos[i++] = particle.position.z;
-//    }
-//}
-//
-//void ParticlesHandler::updateParticlePositionsParallel() {
-//    unsigned int num_threads = std::thread::hardware_concurrency();
-//    std::vector<std::thread> threads(num_threads);
-//    auto chunk_size = particles.size() / num_threads;
-//
-//    auto worker = [this](auto begin, auto end, size_t start_index) {
-//        size_t index = start_index;
-//        for (auto it = begin; it != end; ++it) {
-//            particlesPos[index++] = it->position.x;
-//            particlesPos[index++] = it->position.y;
-//            particlesPos[index++] = it->position.z;
-//        }
-//    };
-//
-//    size_t start_index = 0;
-//    auto begin = particles.begin();
-//    for (unsigned int i = 0; i < num_threads; ++i) {
-//        auto end = (i == num_threads - 1) ? particles.end() : begin + chunk_size;
-//        threads[i] = std::thread(worker, begin, end, start_index);
-//        begin = end;
-//        start_index += chunk_size * 3; // Move the start index by the number of floats processed
-//    }
-//
-//    for (auto& thread : threads) {
-//        thread.join();
-//    }
-//}
-//
-//void ParticlesHandler::updateParticlePositionsPool() {
-//    size_t num_particles = particles.size();
-//    size_t batch_size = std::max(num_particles / pool.get_thread_count(), 1ul);  // Calculate batch size based on thread count and ensure it's not zero
-//
-//    particlesPos.resize(num_particles * 3);  // Ensure the vector is appropriately sized
-//
-//    // Launch tasks in the thread pool
-//    for (size_t i = 0; i < num_particles; i += batch_size) {
-//        pool.submit_task([this, i, batch_size, num_particles]() {
-//            size_t end = std::min(i + batch_size, num_particles);
-//            for (size_t j = i; j < end; ++j) {
-//                size_t index = j * 3;
-//                particlesPos[index] = particles[j].position.x;
-//                particlesPos[index + 1] = particles[j].position.y;
-//                particlesPos[index + 2] = particles[j].position.z;
-//            }
-//        });
-//    }
-//}
-
 void ParticlesHandler::drawParticles(Mainview& shaderManager) {
-//    updateParticles();
-//    updateParticlesParallel();
-//    updateParticlesPool();
-//    updateParticlesPool2();
-//    updateParticlePositions();
-//    updateParticlePositionsParallel();
-//    updateParticlePositionsPool();
-
-//    shaderManager.loadParticlesData(particlesPos);
     shaderManager.drawParticles(particlesPos.size());
 }
 
