@@ -10,6 +10,7 @@
 - Consider doing more SIMD instructions in the shaders (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
 - Make sure ALL buffers are properly cleaned up
+- Make sure ALL no longer necessary temp files get deleted
 - Refactor the functions in `Mainview` into shorter functions 
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Refactor fps counter for (physical) devices
@@ -26,10 +27,11 @@
 - Add/check error handling
 - Still a small lag when switching time steps
 - Make particle size a uniform (fragment shader)
+- Put glm into libs folder ?
+- Check / correct the timing (fps, dt, etc.)
 
 ## Current bottlenecks
-- Loading relevant data into the app - currently from phone's storage which is not ideal for big files.
-- Loading biG files is slow, i.e. requires a "long" initial load time.
+- 
 
 ## Stuff to research
 - best color wheel for scientific visualization of the direction of a 2d vector field
@@ -42,4 +44,9 @@
 ## Next meeting points
 
 ### Progress
+- Color wheel changed
+- Dynamic vector field file loading
+- Fluid vector field not static anymore
+- Added initial processing of files to be done in parallel
+- Added vector field time linear interpolation
 
