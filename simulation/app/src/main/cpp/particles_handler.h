@@ -14,6 +14,8 @@
 
 #include <stdio.h>
 #include <vector>
+#include <algorithm>
+#include <thread>
 
 class ParticlesHandler {
 public:
@@ -25,10 +27,15 @@ public:
 
     ParticlesHandler(InitType type, Physics& physics, int num = 100);
     void initParticles(InitType type);
+
     void updateParticles();
+    void updateParticlesParallel();
     void updateParticlePositions();
+    void updateParticlePositionsParallel();
+
     void drawParticles(Mainview& shaderManager);
     std::vector<float> getParticlesPositions() { return particlesPos; };
+
     void bindPosition(Particle& particle);
     void bindParticlesPositions();
 

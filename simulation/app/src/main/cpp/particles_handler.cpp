@@ -4,6 +4,7 @@
 
 #include "particles_handler.h"
 
+
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) : physics(physics), num(num) {
     initParticles(type);
 }
@@ -90,12 +91,64 @@ void ParticlesHandler::updateParticles() {
     }
 }
 
+void ParticlesHandler::updateParticlesParallel() {
+    int num_threads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads(num_threads);
+    auto chunk_size = particles.size() / num_threads;
+
+    auto worker = [this](auto begin, auto end) {
+        for (auto it = begin; it != end; ++it) {
+            physics.doStep(*it);
+            bindPosition(*it);
+        }
+    };
+
+    auto begin = particles.begin();
+    for (unsigned int i = 0; i < num_threads; i++) {
+        auto end = (i == num_threads - 1) ? particles.end() : begin + chunk_size;
+        threads[i] = std::thread(worker, begin, end);
+        begin = end;
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
+    }
+}
+
 void ParticlesHandler::updateParticlePositions() {
     int i = 0;
     for (auto& particle : particles) {
         particlesPos[i++] = particle.position.x;
         particlesPos[i++] = particle.position.y;
         particlesPos[i++] = particle.position.z;
+    }
+}
+
+void ParticlesHandler::updateParticlePositionsParallel() {
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads(num_threads);
+    auto chunk_size = particles.size() / num_threads;
+
+    auto worker = [this](auto begin, auto end, size_t start_index) {
+        size_t index = start_index;
+        for (auto it = begin; it != end; ++it) {
+            particlesPos[index++] = it->position.x;
+            particlesPos[index++] = it->position.y;
+            particlesPos[index++] = it->position.z;
+        }
+    };
+
+    size_t start_index = 0;
+    auto begin = particles.begin();
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        auto end = (i == num_threads - 1) ? particles.end() : begin + chunk_size;
+        threads[i] = std::thread(worker, begin, end, start_index);
+        begin = end;
+        start_index += chunk_size * 3; // Move the start index by the number of floats processed
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
     }
 }
 
