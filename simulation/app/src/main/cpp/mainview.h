@@ -29,12 +29,12 @@ public:
     void setFrame();
     void setupGraphics();
 
-    void loadVectorFieldData(std::vector<float> vertices);
+    void loadVectorFieldData(std::vector<float>& vertices);
     void drawVectorField(int size);
-    void createVectorFieldBuffer(std::vector<float> vertices);
+    void createVectorFieldBuffer(std::vector<float>& vertices);
 
-    void createParticlesBuffer(std::vector<float> particlesPos);
-    void loadParticlesData(std::vector<float> particlesPos);
+    void createParticlesBuffer(std::vector<float>& particlesPos);
+    void loadParticlesData(std::vector<float>& particlesPos);
     void drawParticles(int size);
 
     void setRotation(float rotateX, float rotateY, float rotateZ);
@@ -44,19 +44,24 @@ public:
     glm::vec3 getRotation() { return rotation; }
     float getScale() { return scale; }
 
+    void createComputeBuffer(std::vector<float>& vector_field_vertices);
+    void dispatchComputeShader(float dt, float global_time_in_step, std::vector<float>& vectorField0, std::vector<float>& vectorField1);
+
     GLuint shaderLinesProgram;
     GLuint shaderPointsProgram;
+    GLuint shaderComputeProgram;
     std::chrono::steady_clock::time_point startTime;
 
 private:
     AAssetManager* assetManager;
-    GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader;
+    GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader, computeShader;
     GLuint textureID;
 
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
     std::string geometryLinesShaderSource;
     std::string geometryPointsShaderSource;
+    std::string computeShaderSource;
 
     // Uniforms
     GLint isPointLocationLines;
@@ -76,6 +81,9 @@ private:
 
     GLuint vectorFieldVBO;
     GLuint vectorFieldVAO;
+
+    GLuint computeVectorField1VBO;
+    GLuint computeVectorField0VBO;
 
     // Transformations
     float scale;

@@ -40,7 +40,7 @@ public:
 //    void updateParticlePositionsPool();
 
     void drawParticles(Mainview& shaderManager);
-    std::vector<float> getParticlesPositions() { return particlesPos; };
+    std::vector<float>& getParticlesPositions() { return particlesPos; };
 
     void bindPosition(Particle& particle);
     void bindParticlesPositions();

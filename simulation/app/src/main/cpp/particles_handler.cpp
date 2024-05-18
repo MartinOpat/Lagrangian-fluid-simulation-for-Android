@@ -222,7 +222,7 @@ void ParticlesHandler::updateParticlesPool2() {
 //}
 
 void ParticlesHandler::drawParticles(Mainview& shaderManager) {
-    updateParticles();
+//    updateParticles();
 //    updateParticlesParallel();
 //    updateParticlesPool();
 //    updateParticlesPool2();
@@ -230,7 +230,7 @@ void ParticlesHandler::drawParticles(Mainview& shaderManager) {
 //    updateParticlePositionsParallel();
 //    updateParticlePositionsPool();
 
-    shaderManager.loadParticlesData(particlesPos);
+//    shaderManager.loadParticlesData(particlesPos);
     shaderManager.drawParticles(particlesPos.size());
 }
 

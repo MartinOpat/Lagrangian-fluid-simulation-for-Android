@@ -9,7 +9,7 @@
 #define FIELD_HEIGHT 100.0f
 #define FIELD_DEPTH 50.0f
 
-#define NUM_PARTICLES 10000
+#define NUM_PARTICLES 250000
 
 #define TIME_STEP_IN_SECONDS 10
 extern float global_time_in_step;

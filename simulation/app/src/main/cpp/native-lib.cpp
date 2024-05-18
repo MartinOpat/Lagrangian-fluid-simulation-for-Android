@@ -122,6 +122,8 @@ void init() {
     vectorFieldHandler = new VectorFieldHandler();
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics, NUM_PARTICLES);
+    shaderManager->loadParticlesData(particlesHandler->getParticlesPositions());
+
     LOGI("init complete");
 }
 
@@ -131,6 +133,7 @@ extern "C" {
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
+        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
         particlesHandler->drawParticles(*shaderManager);
     }
 
@@ -209,8 +212,9 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
-        shaderManager->createVectorFieldBuffer(vectorFieldHandler->getAllVertices());
+        shaderManager->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
         shaderManager->createParticlesBuffer(particlesHandler->getParticlesPositions());
+        shaderManager->createComputeBuffer(vectorFieldHandler->getOldVertices());
         LOGI("Buffers created");
     }
 

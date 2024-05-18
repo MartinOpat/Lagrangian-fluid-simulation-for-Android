@@ -34,6 +34,8 @@
 - Check for more efficient way to load interpolated data into compute shader
 - Optimize mainview.cpp
 - Check if the implementation of `velocityField` correctly handles the z-coordnate
+- FIELD_WIDTH etc. is actually half width
+- The field sizes in mainview are hardcoded
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles)
