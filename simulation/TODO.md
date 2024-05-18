@@ -31,7 +31,6 @@
 - Check / correct the timing (fps, dt, etc.)
 - Choose which threadpool library to use
 - Revisit `GL_STATIC_DRAW`
-- Check for more efficient way to load interpolated data into compute shader!!!!!!!!
 - Check if the implementation of `velocityField` correctly handles the z-coordnate
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 
@@ -59,4 +58,4 @@
   - Parallel: 60 fps
   - Pool of threads: 100 fps
   
-- Compute shaders: Around 60fps for anything between 10'000 and 250`000 particles
+- Compute shaders: 90 fps for 250'000 particles

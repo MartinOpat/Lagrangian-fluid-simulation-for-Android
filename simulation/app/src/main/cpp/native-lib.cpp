@@ -101,6 +101,7 @@ void update() {
             loadThread.join();
         }
         vectorFieldHandler->updateTimeStep();
+        shaderManager->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
 
         currentFrame = (currentFrame + 1) % numFrames;
 
@@ -133,7 +134,7 @@ extern "C" {
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
-        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth(), vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
+        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
         particlesHandler->drawParticles(*shaderManager);
     }
 

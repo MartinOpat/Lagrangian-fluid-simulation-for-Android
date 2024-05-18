@@ -45,7 +45,8 @@ public:
     float getScale() { return scale; }
 
     void createComputeBuffer(std::vector<float>& vector_field_vertices);
-    void dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth, std::vector<float>& vector_field0, std::vector<float>& vector_field1);
+    void loadComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1);
+    void dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth);
 
     GLuint shaderLinesProgram;
     GLuint shaderPointsProgram;
