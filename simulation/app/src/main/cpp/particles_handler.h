@@ -11,6 +11,8 @@
 #include "vector_field_handler.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "BS_thread_pool.hpp"
+#include "ThreadPool.h"
 
 #include <stdio.h>
 #include <vector>
@@ -30,8 +32,12 @@ public:
 
     void updateParticles();
     void updateParticlesParallel();
-    void updateParticlePositions();
-    void updateParticlePositionsParallel();
+    void updateParticlesPool();
+    void updateParticlesPool2();
+
+//    void updateParticlePositions();
+//    void updateParticlePositionsParallel();
+//    void updateParticlePositionsPool();
 
     void drawParticles(Mainview& shaderManager);
     std::vector<float> getParticlesPositions() { return particlesPos; };
@@ -44,6 +50,10 @@ private:
     std::vector<Particle> particles;
     std::vector<float> particlesPos;
     Physics& physics;
+
+    size_t thread_count;
+    BS::thread_pool pool;
+    ThreadPool pool2;
 
 };
 
