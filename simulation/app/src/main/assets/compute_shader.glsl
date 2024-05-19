@@ -25,7 +25,7 @@ vec3 getVelocity(vec3 position) {
     // Transform position to grid indices
     int gridX = int((position.x / 100.0f + 1.0f) / 2.0f * float(width));
     int gridY = int((position.y / 100.0f + 1.0f) / 2.0f * float(height));
-    int gridZ = 0;
+    int gridZ = int((position.z / 50.0f + 1.0f) / 2.0f * float(depth));
 
     gridX = clamp(gridX, 0, width - 1);
     gridY = clamp(gridY, 0, height - 1);
@@ -43,7 +43,12 @@ vec3 getVelocity(vec3 position) {
     vectorData1[idx * 6 + 5] - vectorData1[idx * 6 + 2]);
 
     // Linear interpolation based on time step
-    return v0 + global_time_in_step / TIME_STEP_IN_SECONDS * (v1 - v0);
+    vec3 v = v0 + global_time_in_step / TIME_STEP_IN_SECONDS * (v1 - v0);
+
+    // Negative => oscillation around z=0, unchanged => all particles at edge planes
+    v.z = -v.z;
+
+    return v;
 }
 
 vec3 bindPosition(vec3 position) {

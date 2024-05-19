@@ -10,22 +10,17 @@
 VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
 
 void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
-    int fineness = 1;  // TODO: Remove once definitely not needed
-    int adjWidth = width / fineness;
-    int adjHeight = height / fineness;
-    int adjDepth = 0;
-
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
-    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * adjWidth);
-    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * adjHeight);
-    int gridZ = (int)((position.z / 100.0f + 1.0) / 2 * adjDepth);
+    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * width);
+    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * height);
+    int gridZ = (int)((position.z / 50.0f + 1.0) / 2 * depth);
 
     // Ensure indices are within bounds
-    gridX = std::max(0, std::min(gridX, adjWidth - 1));
-    gridY = std::max(0, std::min(gridY, adjHeight - 1));
-    gridZ = std::max(0, std::min(gridZ, adjHeight - 1));
+    gridX = std::max(0, std::min(gridX, width - 1));
+    gridY = std::max(0, std::min(gridY, height - 1));
+    gridZ = std::max(0, std::min(gridZ, depth - 1));
 
-    int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
+    int idx = gridZ* width * height + gridY * width + gridX;
 
     float x0 = allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6];
     float y0 = allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1];
@@ -207,8 +202,8 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     LOGI("NetCDF files opened");
 
     for (size_t i = 0; i < 1; i++) {
-        std::vector<size_t> startp = {i, 1, 0, 0};  // Start index for time, depth, y, x
-        std::vector<size_t> countp = {1, dataFileU.getDim("depth").getSize()-1, dataFileU.getDim("lat").getSize(), dataFileU.getDim("lon").getSize()};  // Read one time step, all depths, all y, all x
+        std::vector<size_t> startp = {i, 0, 0, 0};  // Start index for time, depth, y, x
+        std::vector<size_t> countp = {1, dataFileU.getDim("depth").getSize(), dataFileU.getDim("lat").getSize(), dataFileU.getDim("lon").getSize()};  // Read one time step, all depths, all y, all x
         std::vector<float> uData( countp[1] * countp[2] * countp[3]), vData(countp[1] * countp[2] * countp[3]), wData(countp[1] * countp[2] * countp[3]);
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
         width = countp[3];

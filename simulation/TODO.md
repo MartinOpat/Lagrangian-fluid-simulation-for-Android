@@ -28,7 +28,6 @@
 - Make particle size a uniform (fragment shader)
 - Put glm into libs folder ?
 - Choose which threadpool library to use
-- Check if the implementation of `velocityField` correctly handles the z-coordnate
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Play around with the number of groups in the compute shader
 - Figure out what to do about performance going to shit over time
