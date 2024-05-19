@@ -34,6 +34,7 @@
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
+- Memory leaks, i.e. not everything getting freed -> app gets slower on re-runs
 
 ## Stuff to research
 - best color wheel for scientific visualization of the direction of a 2d vector field
