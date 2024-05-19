@@ -34,6 +34,9 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
                          y0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (y1 - y0),
                          z0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (z1 - z0)
     );
+
+    // Negative => oscillation around z=0, unchanged => all particles at edge planes
+    velocity.z = -velocity.z;
 }
 
 void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData) {
