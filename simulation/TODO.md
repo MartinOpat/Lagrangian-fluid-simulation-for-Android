@@ -7,7 +7,6 @@
 ## Native side
 - Fix logs always saying `native-lib`
 - Make file loaders load variables and use those instead of hardcoding the variable names.
-- Consider doing vector field SIMD instructions in the compute shaders as well (i.e. on the GPU)
 - Refactor transformations from `mainview` (into class or such)
 - Make sure ALL buffers are properly cleaned up
 - Make sure ALL no longer necessary temp files get deleted
@@ -21,7 +20,7 @@
 - Add `physics object` or some other hierarchy to the physics engine
 - Do not forget the interpolation for vertices - Is simply splitting between cubes sufficient ? -> Maybe ask this
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
-- Delete (old) 2D functions
+- Delete (old) 2D functions ?
 - Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
@@ -30,13 +29,13 @@
 - Put glm into libs folder ?
 - Check / correct the timing (fps, dt, etc.)
 - Choose which threadpool library to use
-- Revisit `GL_STATIC_DRAW`
 - Check if the implementation of `velocityField` correctly handles the z-coordnate
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Play around with the number of groups in the compute shader
+- Figure out what to do about performance going to shit over time
 
 ## Current bottlenecks
-- Memory management (sisgev at large number of particles)
+- Memory management (sisgev at large number of particles) in parallel approach
 
 ## Stuff to research
 - best color wheel for scientific visualization of the direction of a 2d vector field
