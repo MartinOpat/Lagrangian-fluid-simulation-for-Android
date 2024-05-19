@@ -33,6 +33,7 @@
 - Revisit `GL_STATIC_DRAW`
 - Check if the implementation of `velocityField` correctly handles the z-coordnate
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
+- Play around with the number of groups in the compute shader
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles)
@@ -44,7 +45,7 @@
 - Add comments
 - Document the code
 - Add flow diagrams mayhaps
-- PREPARE FOR MIDETERM MEETING!!!
+- PREPARE FOR MIDTERM MEETING!!!
 
 ## Next meeting points
 

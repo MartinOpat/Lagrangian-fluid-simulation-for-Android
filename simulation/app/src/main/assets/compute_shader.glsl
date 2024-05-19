@@ -1,21 +1,3 @@
-//#version 320 es
-//layout(local_size_x = 128) in; // Define work-group size
-//
-//layout(std430, binding = 0) buffer ParticleBuffer {
-//    float particles[]; // Flat array of particle positions (x, y, z, x, y, z, ...)
-//};
-//
-//void main() {
-//    int id = int(gl_GlobalInvocationID.x) * 3; // Calculate index for x component of each particle
-//    if (id + 2 >= particles.length()) return;
-//
-//    // Example physics update for the particle position
-//    vec3 velocity = vec3(0.01f, 0.01f, 0.01f); // Simple constant velocity for demonstration
-//    particles[id]   += velocity.x * 2.0f; // Update x
-//    particles[id+1] += velocity.y * 2.0f; // Update y
-//    particles[id+2] += velocity.z * 2.0f; // Update z
-//}
-
 #version 320 es
 layout(local_size_x = 128) in;
 
