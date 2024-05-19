@@ -27,7 +27,6 @@
 - Still a small lag when switching time steps
 - Make particle size a uniform (fragment shader)
 - Put glm into libs folder ?
-- Check / correct the timing (fps, dt, etc.)
 - Choose which threadpool library to use
 - Check if the implementation of `velocityField` correctly handles the z-coordnate
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField

@@ -89,10 +89,10 @@ void update() {
 
     static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
-    global_time_in_step += std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall).count() / 1000.0f;
+    global_time_in_step += physics->dt;
     lastCall = now;
 
-    if (now - lastUpdate >= updateInterval) {
+    if (global_time_in_step >= TIME_STEP_IN_SECONDS) {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
