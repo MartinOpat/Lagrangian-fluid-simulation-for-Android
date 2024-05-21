@@ -45,9 +45,6 @@ vec3 getVelocity(vec3 position) {
     // Linear interpolation based on time step
     vec3 v = v0 + global_time_in_step / TIME_STEP_IN_SECONDS * (v1 - v0);
 
-    // Negative => oscillation around z=0, unchanged => all particles at edge planes
-    v.z = -v.z;
-
     return v;
 }
 
