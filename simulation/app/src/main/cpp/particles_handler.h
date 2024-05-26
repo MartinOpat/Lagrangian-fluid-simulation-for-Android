@@ -28,6 +28,8 @@ public:
     };
 
     ParticlesHandler(InitType type, Physics& physics, int num = 100);
+    ~ParticlesHandler();
+
     void initParticles(InitType type);
 
     void updateParticles();

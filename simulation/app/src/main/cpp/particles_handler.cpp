@@ -59,6 +59,10 @@ void ParticlesHandler::initParticles(InitType type) {
     }
 }
 
+ParticlesHandler::~ParticlesHandler() {
+    pool.purge();  // TODO: Check if this is necessary
+}
+
 void ParticlesHandler::bindPosition(Particle& particle) {
     if (particle.position.x < -FIELD_WIDTH) {
         particle.position.x = -FIELD_WIDTH;
