@@ -32,6 +32,7 @@
 - Play around with the number of groups in the compute shader
 - Figure out what to do about performance going to shit over time
 - Remove `emojiCompat` native class
+- Check whether to close AssetManager immediately after use (see `png_loader`)
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
