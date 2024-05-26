@@ -192,6 +192,10 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData);
     }
+
+    // close the files
+    dataFileU.close();
+    dataFileV.close();
 }
 
 void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
@@ -217,6 +221,11 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData);
     }
+
+    // close the files
+    dataFileU.close();
+    dataFileV.close();
+    dataFileW.close();
 }
 
 void VectorFieldHandler::draw(Mainview& shaderManager) {
