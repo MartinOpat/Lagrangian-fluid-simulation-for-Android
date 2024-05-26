@@ -237,4 +237,13 @@ extern "C" {
         env->ReleaseFloatArrayElements(xArray, xTemp, 0);
         env->ReleaseFloatArrayElements(yArray, yTemp, 0);
     }
+
+    JNIEXPORT void JNICALL
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_onDestroyNative(JNIEnv *env, jobject thiz) {
+        delete shaderManager;
+        delete particlesHandler;
+        delete vectorFieldHandler;
+        delete physics;
+        delete touchHandler;
+    }
 } // extern "C"
