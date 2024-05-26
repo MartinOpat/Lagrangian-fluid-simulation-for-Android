@@ -16,7 +16,6 @@ Mainview::Mainview(AAssetManager* assetManager)
 Mainview::~Mainview() {
     glDeleteProgram(shaderLinesProgram);
     glDeleteProgram(shaderPointsProgram);
-    glDeleteTextures(1, &textureID);
 }
 
 void Mainview::setRotation(float rotateX, float rotateY, float rotateZ) {
@@ -50,18 +49,6 @@ std::string Mainview::loadShaderFile(const char* fileName) {
     AAsset_close(asset);
 
     return buffer;
-}
-
-void Mainview::createTexture(const ImageData& texData) {
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texData.width, texData.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData.data.data());
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 void Mainview::compileAndLinkShaders() {

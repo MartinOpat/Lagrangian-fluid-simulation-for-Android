@@ -24,7 +24,6 @@ public:
     ~Mainview();
 
     std::string loadShaderFile(const char* fileName);
-    void createTexture(const ImageData& texData);
     void compileAndLinkShaders();
     void setFrame();
     void setupGraphics();
