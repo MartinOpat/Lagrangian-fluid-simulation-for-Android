@@ -16,6 +16,15 @@ Mainview::Mainview(AAssetManager* assetManager)
 Mainview::~Mainview() {
     glDeleteProgram(shaderLinesProgram);
     glDeleteProgram(shaderPointsProgram);
+    glDeleteProgram(shaderComputeProgram);
+
+    glDeleteBuffers(1, &particleVBO);
+    glDeleteBuffers(1, &vectorFieldVBO);
+    glDeleteBuffers(1, &computeVectorField0SSBO);
+    glDeleteBuffers(1, &computeVectorField1SSBO);
+
+    glDeleteVertexArrays(1, &particleVAO);
+    glDeleteVertexArrays(1, &vectorFieldVAO);
 }
 
 void Mainview::setRotation(float rotateX, float rotateY, float rotateZ) {
@@ -217,6 +226,12 @@ void Mainview::setupGraphics() {
         LOGE("OpenGL setup error: %x", err);
     }
 
+    // Cleanup
+    vertexShaderSource.clear();
+    fragmentShaderSource.clear();
+    geometryLinesShaderSource.clear();
+    geometryPointsShaderSource.clear();
+    computeShaderSource.clear();
 }
 
 void Mainview::createParticlesBuffer(std::vector<float>& particlesPos) {
