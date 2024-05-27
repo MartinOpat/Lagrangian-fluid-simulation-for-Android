@@ -6,7 +6,7 @@
 
 
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :
-physics(physics), num(num), pool(std::thread::hardware_concurrency()), pool2(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
+physics(physics), num(num), pool2(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
     initParticles(type);
 }
 
@@ -60,7 +60,6 @@ void ParticlesHandler::initParticles(InitType type) {
 }
 
 ParticlesHandler::~ParticlesHandler() {
-    pool.purge();  // TODO: Check if this is necessary
 }
 
 void ParticlesHandler::bindPosition(Particle& particle) {
@@ -130,24 +129,6 @@ void ParticlesHandler::updateParticlesParallel() {
     }
 }
 
-void ParticlesHandler::updateParticlesPool() {
-    size_t num_particles = particles.size();
-    size_t batch_size = std::max(num_particles / pool.get_thread_count(), 1ul);  // Ensure non-zero batch size
-
-    for (size_t i = 0; i < num_particles; i += batch_size) {
-        pool.submit_task([this, i, batch_size, num_particles]() {
-            size_t end = std::min(i + batch_size, num_particles);
-            for (size_t j = i; j < end; ++j) {
-                physics.doStep(particles[j]);
-                bindPosition(particles[j]);
-                size_t index = j * 3;
-                particlesPos[index] = particles[j].position.x;
-                particlesPos[index + 1] = particles[j].position.y;
-                particlesPos[index + 2] = particles[j].position.z;
-            }
-        });
-    }
-}
 
 void ParticlesHandler::updateParticlesPool2() {
     size_t num_particles = particles.size();

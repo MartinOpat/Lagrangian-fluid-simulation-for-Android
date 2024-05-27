@@ -11,7 +11,6 @@
 #include "vector_field_handler.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "BS_thread_pool.hpp"
 #include "ThreadPool.h"
 
 #include <stdio.h>
@@ -54,7 +53,6 @@ private:
     Physics& physics;
 
     size_t thread_count;
-    BS::thread_pool pool;
     ThreadPool pool2;
 
 };

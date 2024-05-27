@@ -3,6 +3,7 @@
 ## Android side
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
+- Sort out references from used code
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names.
