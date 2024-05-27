@@ -196,6 +196,8 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     // close the files
     dataFileU.close();
     dataFileV.close();
+    std::remove(fileUPath.c_str());
+    std::remove(fileVPath.c_str());
 }
 
 void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
@@ -226,6 +228,9 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     dataFileU.close();
     dataFileV.close();
     dataFileW.close();
+    std::remove(fileUPath.c_str());
+    std::remove(fileVPath.c_str());
+    std::remove(fileWPath.c_str());
 }
 
 void VectorFieldHandler::draw(Mainview& shaderManager) {

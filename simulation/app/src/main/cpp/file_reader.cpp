@@ -37,7 +37,6 @@ std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilen
     }
 
     close(tempFd);
-    std::remove(tempFilePath.c_str());
 
     return tempFilePath;
 }
