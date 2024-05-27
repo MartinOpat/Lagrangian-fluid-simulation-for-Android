@@ -18,7 +18,7 @@ std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilen
     // Create and open the temporary file
     int tempFd = open(tempFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
     if (tempFd == -1) {
-        __android_log_print(ANDROID_LOG_ERROR, "native-lib", "Failed to open temporary file for writing");
+        LOGE("file_reader", "Failed to open temporary file for writing");
         return "";
     }
 
@@ -30,12 +30,13 @@ std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilen
     ssize_t bytesRead;
     while ((bytesRead = read(fd, buffer, sizeof(buffer))) > 0) {
         if (write(tempFd, buffer, bytesRead) != bytesRead) {
-            __android_log_print(ANDROID_LOG_ERROR, "native-lib", "Failed to write all bytes to temporary file");
+            LOGE("file_reader", "Failed to write all bytes to temporary file");
             close(tempFd);
             return "";
         }
     }
 
     close(tempFd);
+
     return tempFilePath;
 }

@@ -15,7 +15,16 @@ Mainview::Mainview(AAssetManager* assetManager)
 
 Mainview::~Mainview() {
     glDeleteProgram(shaderLinesProgram);
-    glDeleteTextures(1, &textureID);
+    glDeleteProgram(shaderPointsProgram);
+    glDeleteProgram(shaderComputeProgram);
+
+    glDeleteBuffers(1, &particleVBO);
+    glDeleteBuffers(1, &vectorFieldVBO);
+    glDeleteBuffers(1, &computeVectorField0SSBO);
+    glDeleteBuffers(1, &computeVectorField1SSBO);
+
+    glDeleteVertexArrays(1, &particleVAO);
+    glDeleteVertexArrays(1, &vectorFieldVAO);
 }
 
 void Mainview::setRotation(float rotateX, float rotateY, float rotateZ) {
@@ -51,18 +60,6 @@ std::string Mainview::loadShaderFile(const char* fileName) {
     return buffer;
 }
 
-void Mainview::createTexture(const ImageData& texData) {
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texData.width, texData.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData.data.data());
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-}
-
 void Mainview::compileAndLinkShaders() {
     GLint compileSuccess = 0;
     GLint linkSuccess = 0;
@@ -76,7 +73,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Compile fragment shader
@@ -87,7 +84,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Compile lines geometry shader
@@ -98,7 +95,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(geometryLinesShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(geometryLinesShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::GEOMETRY::LINE::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::GEOMETRY::LINE::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Compile points geometry shader
@@ -109,7 +106,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(geometryPointsShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(geometryPointsShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::GEOMETRY::POINT::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::GEOMETRY::POINT::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Link shaders
@@ -122,7 +119,7 @@ void Mainview::compileAndLinkShaders() {
     glGetProgramiv(shaderLinesProgram, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderLinesProgram, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
 
     }
     glDetachShader(shaderLinesProgram, vertexShader);
@@ -138,7 +135,7 @@ void Mainview::compileAndLinkShaders() {
     glGetProgramiv(shaderPointsProgram, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderPointsProgram, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
 
     glDetachShader(shaderPointsProgram, vertexShader);
@@ -149,6 +146,27 @@ void Mainview::compileAndLinkShaders() {
     glDeleteShader(geometryPointsShader);
     glDeleteShader(geometryLinesShader);
     glDeleteShader(fragmentShader);
+
+    // Compute shader
+    computeShader = glCreateShader(GL_COMPUTE_SHADER);
+    const char* computeShaderSourceCStr = computeShaderSource.c_str();
+    glShaderSource(computeShader, 1, &computeShaderSourceCStr, NULL);
+    glCompileShader(computeShader);
+    glGetShaderiv(computeShader, GL_COMPILE_STATUS, &compileSuccess);
+    if (!compileSuccess) {
+        glGetShaderInfoLog(computeShader, 512, NULL, infoLog);
+        LOGE("mainview", "ERROR::SHADER::COMPUTE::COMPILATION_FAILED\n%s", infoLog);
+    }
+    shaderComputeProgram = glCreateProgram();
+    glAttachShader(shaderComputeProgram, computeShader);
+    glLinkProgram(shaderComputeProgram);
+    glGetProgramiv(shaderComputeProgram, GL_LINK_STATUS, &linkSuccess);
+    if (!linkSuccess) {
+        glGetProgramInfoLog(shaderComputeProgram, 512, NULL, infoLog);
+        LOGE("mainview", "ERROR::SHADER::COMPUTE::PROGRAM::LINKING_FAILED\n%s", infoLog);
+    }
+    glDetachShader(shaderComputeProgram, computeShader);
+    glDeleteShader(computeShader);
 }
 
 
@@ -168,6 +186,7 @@ void Mainview::setupGraphics() {
     fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
     geometryLinesShaderSource = loadShaderFile("geometry_lines_shader.glsl");
     geometryPointsShaderSource = loadShaderFile("geometry_points_shader.glsl");
+    computeShaderSource = loadShaderFile("compute_shader.glsl");
 
     // Compile and link shaders
     compileAndLinkShaders();
@@ -178,7 +197,7 @@ void Mainview::setupGraphics() {
     if (!linked) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderLinesProgram, sizeof(linkLog), NULL, linkLog);
-        LOGE("Shader Program Link Error: %s", linkLog);
+        LOGE("mainview", "Shader Program Link Error: %s", linkLog);
     }
 
     GLint linkedPoints;
@@ -186,7 +205,7 @@ void Mainview::setupGraphics() {
     if (!linkedPoints) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderPointsProgram, sizeof(linkLog), NULL, linkLog);
-        LOGE("Shader Program Link Error: %s", linkLog);
+        LOGE("mainview", "Shader Program Link Error: %s", linkLog);
     }
 
 
@@ -204,16 +223,22 @@ void Mainview::setupGraphics() {
 
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {
-        LOGE("OpenGL setup error: %x", err);
+        LOGE("mainview", "OpenGL setup error: %x", err);
     }
 
+    // Cleanup
+    vertexShaderSource.clear();
+    fragmentShaderSource.clear();
+    geometryLinesShaderSource.clear();
+    geometryPointsShaderSource.clear();
+    computeShaderSource.clear();
 }
 
-void Mainview::createParticlesBuffer(std::vector<float> particlesPos) {
+void Mainview::createParticlesBuffer(std::vector<float>& particlesPos) {
     glUseProgram(shaderPointsProgram);
     glGenBuffers(1, &particleVBO);
     glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
-    glBufferData(GL_ARRAY_BUFFER, particlesPos.size() * sizeof(float), particlesPos.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, particlesPos.size() * sizeof(float), particlesPos.data(), GL_STREAM_DRAW);
 
     glGenVertexArrays(1, &particleVAO);
     glBindVertexArray(particleVAO);
@@ -225,14 +250,16 @@ void Mainview::createParticlesBuffer(std::vector<float> particlesPos) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);  // Unbind VBO
 }
 
-void Mainview::loadParticlesData(std::vector<float> particlesPos) {
+void Mainview::loadParticlesData(std::vector<float>& particlesPos) {
     glUseProgram(shaderPointsProgram);
     glBindBuffer(GL_ARRAY_BUFFER, particleVBO);
-    glBufferData(GL_ARRAY_BUFFER, particlesPos.size() * sizeof(float), particlesPos.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, particlesPos.size() * sizeof(float), particlesPos.data(), GL_STREAM_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Mainview::drawParticles(int size) {
+    glUseProgram(shaderPointsProgram);  // TODO: Possibly temporary
+
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocationPoints, 1);
     glUniform1f(pointSize, 15.0f);
@@ -245,11 +272,11 @@ void Mainview::drawParticles(int size) {
     glBindVertexArray(0);
 }
 
-void Mainview::createVectorFieldBuffer(std::vector<float> vertices) {
+void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
     glUseProgram(shaderLinesProgram);
     glGenBuffers(1, &vectorFieldVBO);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STREAM_DRAW);
 
     glGenVertexArrays(1, &vectorFieldVAO);
     glBindVertexArray(vectorFieldVAO);
@@ -261,10 +288,10 @@ void Mainview::createVectorFieldBuffer(std::vector<float> vertices) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);  // Unbind VBO
 }
 
-void Mainview::loadVectorFieldData(std::vector<float> vertices) {
+void Mainview::loadVectorFieldData(std::vector<float>& vertices) {
     glUseProgram(shaderLinesProgram);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STREAM_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -278,4 +305,44 @@ void Mainview::drawVectorField(int size) {
     glDrawArrays(GL_LINES, 0, size / 3);
 
     glBindVertexArray(0);
+}
+
+// Create Buffers
+void Mainview::createComputeBuffer(std::vector<float>& vector_field_vertices) {
+    glGenBuffers(1, &computeVectorField0SSBO);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField0SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field_vertices.size() * sizeof(float), vector_field_vertices.data(), GL_DYNAMIC_DRAW);
+
+    glGenBuffers(1, &computeVectorField1SSBO);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field_vertices.size() * sizeof(float), vector_field_vertices.data(), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
+
+void Mainview::loadComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1) {
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField0SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field0.size() * sizeof(float), vector_field0.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
+
+// Dispatch Compute Shader
+void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth) {
+    glUseProgram(shaderComputeProgram);
+
+    glUniform1i(glGetUniformLocation(shaderComputeProgram, "width"), width);
+    glUniform1i(glGetUniformLocation(shaderComputeProgram, "height"), height);
+    glUniform1i(glGetUniformLocation(shaderComputeProgram, "depth"), depth);
+    glUniform1f(glGetUniformLocation(shaderComputeProgram, "global_time_in_step"), global_time_in_step);
+    glUniform1f(glGetUniformLocation(shaderComputeProgram, "TIME_STEP_IN_SECONDS"), (float) TIME_STEP_IN_SECONDS);
+    glUniform1f(glGetUniformLocation(shaderComputeProgram, "dt"), dt);
+
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, particleVBO); // Bind VBO as SSBO
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, computeVectorField0SSBO);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, computeVectorField1SSBO);
+
+    glDispatchCompute((NUM_PARTICLES+127) / 128, 1, 1);
+    glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT); // Ensure vertex shader sees the updates
 }

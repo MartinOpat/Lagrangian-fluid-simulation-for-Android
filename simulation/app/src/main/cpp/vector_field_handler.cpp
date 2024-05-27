@@ -10,22 +10,17 @@
 VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
 
 void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
-    int fineness = 1;  // TODO: Remove once definitely not needed
-    int adjWidth = width / fineness;
-    int adjHeight = height / fineness;
-    int adjDepth = 0;
-
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
-    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * adjWidth);
-    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * adjHeight);
-    int gridZ = (int)((position.z / 100.0f + 1.0) / 2 * adjDepth);
+    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * width);
+    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * height);
+    int gridZ = (int)((position.z / 50.0f + 1.0) / 2 * depth);
 
     // Ensure indices are within bounds
-    gridX = std::max(0, std::min(gridX, adjWidth - 1));
-    gridY = std::max(0, std::min(gridY, adjHeight - 1));
-    gridZ = std::max(0, std::min(gridZ, adjHeight - 1));
+    gridX = std::max(0, std::min(gridX, width - 1));
+    gridY = std::max(0, std::min(gridY, height - 1));
+    gridZ = std::max(0, std::min(gridZ, depth - 1));
 
-    int idx = gridZ* adjWidth * adjHeight + gridY * adjWidth + gridX;
+    int idx = gridZ* width * height + gridY * width + gridX;
 
     float x0 = allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6];
     float y0 = allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1];
@@ -96,7 +91,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     std::vector<float> vertices;
     std::vector<float> tempDisplayVertices;
 
-    LOGI("3d");
+    LOGI("vector_field_handler", "3d");
 
     float maxU = *std::max_element(uData.begin(), uData.end());
     float minU = *std::min_element(uData.begin(), uData.end());
@@ -152,11 +147,11 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     }
 
     if (allVertices.size() == 3) {
-        LOGI("Loading new vertices");
+        LOGI("vector_field_handler", "Loading new vertices");
         allVertices[2] = vertices;
         displayVertices[2] = tempDisplayVertices;
     } else {
-        LOGI("Vertices not yet filled, pushing");
+        LOGI("vector_field_handler", "Vertices not yet filled, pushing");
         allVertices.push_back(vertices);
         displayVertices.push_back(tempDisplayVertices);
     }
@@ -178,7 +173,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     netCDF::NcFile dataFileU(fileUPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
 
-    LOGI("NetCDF files opened");
+    LOGI("vector_field_handler", "NetCDF files opened");
 
     size_t numTimeSteps = dataFileU.getDim("time_counter").getSize();
 
@@ -194,9 +189,15 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         width = countp[3];
         height = countp[2];
         depth = 1;
-        LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
+        LOGI("vector_field_handler", "Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData);
     }
+
+    // close the files
+    dataFileU.close();
+    dataFileV.close();
+    std::remove(fileUPath.c_str());
+    std::remove(fileVPath.c_str());
 }
 
 void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
@@ -204,11 +205,11 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileW(fileWPath, netCDF::NcFile::read);
 
-    LOGI("NetCDF files opened");
+    LOGI("vector_field_handler", "NetCDF files opened");
 
     for (size_t i = 0; i < 1; i++) {
-        std::vector<size_t> startp = {i, 1, 0, 0};  // Start index for time, depth, y, x
-        std::vector<size_t> countp = {1, dataFileU.getDim("depth").getSize()-1, dataFileU.getDim("lat").getSize(), dataFileU.getDim("lon").getSize()};  // Read one time step, all depths, all y, all x
+        std::vector<size_t> startp = {i, 0, 0, 0};  // Start index for time, depth, y, x
+        std::vector<size_t> countp = {1, dataFileU.getDim("depth").getSize(), dataFileU.getDim("lat").getSize(), dataFileU.getDim("lon").getSize()};  // Read one time step, all depths, all y, all x
         std::vector<float> uData( countp[1] * countp[2] * countp[3]), vData(countp[1] * countp[2] * countp[3]), wData(countp[1] * countp[2] * countp[3]);
         // Prepare vertex data for OpenGL from uData and vData, and store in allVertices[i]
         width = countp[3];
@@ -219,9 +220,17 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         dataFileV.getVar("v").getVar(startp, countp, vData.data());
         dataFileW.getVar("w").getVar(startp, countp, wData.data());
 
-        LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
+        LOGI("vector_field_handler", "Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData);
     }
+
+    // close the files
+    dataFileU.close();
+    dataFileV.close();
+    dataFileW.close();
+    std::remove(fileUPath.c_str());
+    std::remove(fileVPath.c_str());
+    std::remove(fileWPath.c_str());
 }
 
 void VectorFieldHandler::draw(Mainview& shaderManager) {

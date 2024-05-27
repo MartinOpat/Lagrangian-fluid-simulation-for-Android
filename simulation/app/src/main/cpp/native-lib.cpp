@@ -45,24 +45,24 @@ void loadStepHelper(int fdU, int fdV, int fdW) {
     std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
 
     if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
-        LOGE("Failed to create temporary files.");
+        LOGE("native-lib", "Failed to create temporary files.");
         return;
     }
 
     if (vectorFieldHandler == nullptr) {
-        LOGE("Vector field handler not initialized");
+        LOGE("native-lib", "Vector field handler not initialized");
     }
     vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
 }
 
 void loadStep(int frame) {
-    LOGI("Loading step %d", frame);
+    LOGI("native-lib", "Loading step %d", frame);
     loadStepHelper(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
 }
 
 void loadInitStep() {
     if (numFrames == 0) {
-        LOGE("No frames loaded");
+        LOGE("native-lib", "No frames loaded");
         return;
     } else if (numFrames == 1) {
         loadStep(0);
@@ -89,18 +89,19 @@ void update() {
 
     static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
-    global_time_in_step += std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall).count() / 1000.0f;
+    global_time_in_step += physics->dt;
     lastCall = now;
 
-    if (now - lastUpdate >= updateInterval) {
+    if (global_time_in_step >= TIME_STEP_IN_SECONDS) {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
         if (loadThread.joinable()) {
-            LOGI("Joining thread");
+            LOGI("native-lib", "Joining thread");
             loadThread.join();
         }
         vectorFieldHandler->updateTimeStep();
+        shaderManager->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
 
         currentFrame = (currentFrame + 1) % numFrames;
 
@@ -111,7 +112,7 @@ void update() {
     }
     if (now - fpsLastUpdate >= fpsUpdateInterval) {
         fpsLastUpdate = now;
-        LOGI("FPS: %d", fps);
+        LOGI("native-lib", "FPS: %d", fps);
         fps = 0;
     } else {
         fps++;
@@ -122,7 +123,9 @@ void init() {
     vectorFieldHandler = new VectorFieldHandler();
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics, NUM_PARTICLES);
-    LOGI("init complete");
+    shaderManager->loadParticlesData(particlesHandler->getParticlesPositions());
+
+    LOGI("native-lib", "init complete");
 }
 
 extern "C" {
@@ -131,6 +134,7 @@ extern "C" {
         shaderManager->setFrame();
         vectorFieldHandler->draw(*shaderManager);
 
+        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
         particlesHandler->drawParticles(*shaderManager);
     }
 
@@ -139,7 +143,7 @@ extern "C" {
         shaderManager->setupGraphics();
 
         touchHandler = new TouchHandler(*shaderManager);
-        LOGI("Graphics setup complete");
+        LOGI("native-lib", "Graphics setup complete");
     }
 
     JNIEXPORT void JNICALL
@@ -151,22 +155,22 @@ extern "C" {
         std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
 
         if (tempFileU.empty() || tempFileV.empty()) {
-            LOGE("Failed to create temporary files.");
+            LOGE("native-lib", "Failed to create temporary files.");
             return;
         }
 
         vectorFieldHandler->loadTimeStep(tempFileU, tempFileV);
 
-        LOGI("Particles initialized");
+        LOGI("native-lib", "Particles initialized");
     }
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
                 JNIEnv* env, jobject /* this */, jintArray jfds) {
-        LOGI("Loading file descriptors");
+        LOGI("native-lib", "Loading file descriptors");
         jsize len = env->GetArrayLength(jfds);
         numFrames = len / 3;
-        LOGI("Number of frames: %d", numFrames);
+        LOGI("native-lib", "Number of frames: %d", numFrames);
 
         jint* fds = env->GetIntArrayElements(jfds, nullptr);
         fileDescriptors.clear();
@@ -175,10 +179,10 @@ extern "C" {
         }
 
         env->ReleaseIntArrayElements(jfds, fds, 0);
-        LOGI("File descriptors loaded");
+        LOGI("native-lib", "File descriptors loaded");
         init();
         loadInitStep();
-        LOGI("Initial step loaded");
+        LOGI("native-lib", "Initial step loaded");
     }
 
 
@@ -192,26 +196,27 @@ extern "C" {
         std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
 
         if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
-            LOGE("Failed to create temporary files.");
+            LOGE("native-lib", "Failed to create temporary files.");
             return;
         }
 
 
         vectorFieldHandler = new VectorFieldHandler();
         vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
-        LOGI("NetCDF files loaded");
+        LOGI("native-lib", "NetCDF files loaded");
 
         physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
         particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
-        LOGI("Particles initialized");
+        LOGI("native-lib", "Particles initialized");
     }
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
-        shaderManager->createVectorFieldBuffer(vectorFieldHandler->getAllVertices());
+        shaderManager->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
         shaderManager->createParticlesBuffer(particlesHandler->getParticlesPositions());
-        LOGI("Buffers created");
+        shaderManager->createComputeBuffer(vectorFieldHandler->getOldVertices());
+        LOGI("native-lib", "Buffers created");
     }
 
     JNIEXPORT void JNICALL
@@ -227,9 +232,18 @@ extern "C" {
             touchHandler->handleDoubleTouch(x, y, action);
         }
 
-        LOGI("Touch event: %d", action);
+        LOGI("native-lib", "Touch event: %d", action);
 
         env->ReleaseFloatArrayElements(xArray, xTemp, 0);
         env->ReleaseFloatArrayElements(yArray, yTemp, 0);
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_onDestroyNative(JNIEnv *env, jobject thiz) {
+        delete shaderManager;
+        delete particlesHandler;
+        delete vectorFieldHandler;
+        delete physics;
+        delete touchHandler;
     }
 } // extern "C"

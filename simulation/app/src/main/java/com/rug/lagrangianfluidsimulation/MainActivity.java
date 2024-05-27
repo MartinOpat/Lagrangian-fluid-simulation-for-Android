@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
     private native void setupGraphics(AssetManager assetManager);
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
+    public native void onDestroyNative();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +155,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        onDestroyNative();
         fileAccessHelper.shutdown();
     }
 

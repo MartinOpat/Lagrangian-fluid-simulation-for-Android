@@ -26,7 +26,7 @@ void NetCDFReader::loadAssetManager(AAssetManager* assetManager) {
 
 void NetCDFReader::loadFile(const std::string& filename) {
     if (mAssetManager == nullptr) {
-        LOGE("Asset manager not loaded");
+        LOGE("netcdf-reader", "Asset manager not loaded");
         return;
     }
 
@@ -64,7 +64,7 @@ void NetCDFReader::printVariableNames() const {
 
     std::cout << "Variables in the NetCDF file:" << std::endl;
     if (variableNames.empty()) {
-        LOGE("No variables found or no file loaded!");
+        LOGE("netcdf-reader", "No variables found or no file loaded!");
         return;
     }
     for (const auto& varName : variableNames) {
