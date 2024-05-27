@@ -17,7 +17,7 @@ glm::vec3 Physics::dvdt(glm::vec3 pos, glm::vec3 vel) {
 glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
     glm::vec3 velField;
     if (args.size() < 1) {
-        LOGE("Physics::dvdt: args must contain at least the position of the particle");
+        LOGE("physics", "Physics::dvdt: args must contain at least the position of the particle");
         return glm::vec3(0.0f);
     }
 

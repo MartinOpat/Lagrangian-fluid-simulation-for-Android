@@ -73,7 +73,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Compile fragment shader
@@ -84,7 +84,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Compile lines geometry shader
@@ -95,7 +95,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(geometryLinesShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(geometryLinesShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::GEOMETRY::LINE::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::GEOMETRY::LINE::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Compile points geometry shader
@@ -106,7 +106,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(geometryPointsShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(geometryPointsShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::GEOMETRY::POINT::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::GEOMETRY::POINT::COMPILATION_FAILED\n%s", infoLog);
     }
 
     // Link shaders
@@ -119,7 +119,7 @@ void Mainview::compileAndLinkShaders() {
     glGetProgramiv(shaderLinesProgram, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderLinesProgram, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
 
     }
     glDetachShader(shaderLinesProgram, vertexShader);
@@ -135,7 +135,7 @@ void Mainview::compileAndLinkShaders() {
     glGetProgramiv(shaderPointsProgram, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderPointsProgram, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
 
     glDetachShader(shaderPointsProgram, vertexShader);
@@ -155,7 +155,7 @@ void Mainview::compileAndLinkShaders() {
     glGetShaderiv(computeShader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(computeShader, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::COMPUTE::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::COMPUTE::COMPILATION_FAILED\n%s", infoLog);
     }
     shaderComputeProgram = glCreateProgram();
     glAttachShader(shaderComputeProgram, computeShader);
@@ -163,7 +163,7 @@ void Mainview::compileAndLinkShaders() {
     glGetProgramiv(shaderComputeProgram, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderComputeProgram, 512, NULL, infoLog);
-        LOGE("ERROR::SHADER::COMPUTE::PROGRAM::LINKING_FAILED\n%s", infoLog);
+        LOGE("mainview", "ERROR::SHADER::COMPUTE::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
     glDetachShader(shaderComputeProgram, computeShader);
     glDeleteShader(computeShader);
@@ -197,7 +197,7 @@ void Mainview::setupGraphics() {
     if (!linked) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderLinesProgram, sizeof(linkLog), NULL, linkLog);
-        LOGE("Shader Program Link Error: %s", linkLog);
+        LOGE("mainview", "Shader Program Link Error: %s", linkLog);
     }
 
     GLint linkedPoints;
@@ -205,7 +205,7 @@ void Mainview::setupGraphics() {
     if (!linkedPoints) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderPointsProgram, sizeof(linkLog), NULL, linkLog);
-        LOGE("Shader Program Link Error: %s", linkLog);
+        LOGE("mainview", "Shader Program Link Error: %s", linkLog);
     }
 
 
@@ -223,7 +223,7 @@ void Mainview::setupGraphics() {
 
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {
-        LOGE("OpenGL setup error: %x", err);
+        LOGE("mainview", "OpenGL setup error: %x", err);
     }
 
     // Cleanup

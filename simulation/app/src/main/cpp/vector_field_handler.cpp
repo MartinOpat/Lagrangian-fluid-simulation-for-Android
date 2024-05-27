@@ -91,7 +91,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     std::vector<float> vertices;
     std::vector<float> tempDisplayVertices;
 
-    LOGI("3d");
+    LOGI("vector_field_handler", "3d");
 
     float maxU = *std::max_element(uData.begin(), uData.end());
     float minU = *std::min_element(uData.begin(), uData.end());
@@ -147,11 +147,11 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     }
 
     if (allVertices.size() == 3) {
-        LOGI("Loading new vertices");
+        LOGI("vector_field_handler", "Loading new vertices");
         allVertices[2] = vertices;
         displayVertices[2] = tempDisplayVertices;
     } else {
-        LOGI("Vertices not yet filled, pushing");
+        LOGI("vector_field_handler", "Vertices not yet filled, pushing");
         allVertices.push_back(vertices);
         displayVertices.push_back(tempDisplayVertices);
     }
@@ -173,7 +173,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     netCDF::NcFile dataFileU(fileUPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
 
-    LOGI("NetCDF files opened");
+    LOGI("vector_field_handler", "NetCDF files opened");
 
     size_t numTimeSteps = dataFileU.getDim("time_counter").getSize();
 
@@ -189,7 +189,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         width = countp[3];
         height = countp[2];
         depth = 1;
-        LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
+        LOGI("vector_field_handler", "Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData);
     }
 
@@ -203,7 +203,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileW(fileWPath, netCDF::NcFile::read);
 
-    LOGI("NetCDF files opened");
+    LOGI("vector_field_handler", "NetCDF files opened");
 
     for (size_t i = 0; i < 1; i++) {
         std::vector<size_t> startp = {i, 0, 0, 0};  // Start index for time, depth, y, x
@@ -218,7 +218,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
         dataFileV.getVar("v").getVar(startp, countp, vData.data());
         dataFileW.getVar("w").getVar(startp, countp, wData.data());
 
-        LOGI("Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
+        LOGI("vector_field_handler", "Data loaded with width: %d, height: %d, depth: %d", width, height, depth);
         prepareVertexData(uData, vData, wData);
     }
 

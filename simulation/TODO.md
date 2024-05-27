@@ -5,7 +5,6 @@
 - Add/check error handling
 
 ## Native side
-- Fix logs always saying `native-lib`
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Refactor transformations from `mainview` (into class or such)
 - Make sure ALL buffers are properly cleaned up
