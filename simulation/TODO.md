@@ -7,12 +7,9 @@
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names.
 - Refactor transformations from `mainview` (into class or such)
-- Make sure ALL buffers are properly cleaned up
-- Make sure ALL no longer necessary temp files get deleted
 - Refactor the functions in `Mainview` into shorter functions 
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Refactor fps counter for (physical) devices
-- Split the fragment shader
 - Take into account the device screen's aspect ratio
 - Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
@@ -32,6 +29,7 @@
 - Figure out what to do about performance going to shit over time
 - Remove `emojiCompat` native class
 - Check whether to close AssetManager immediately after use (see `png_loader`)
+- Shaders+source in `mainview` do not need to be a class-scoped variables
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
