@@ -16,9 +16,11 @@ public:
 
     void setRotation(float rotateX, float rotateY, float rotateZ);
     void setScale(float scale);
+    void setAspectRatio(float aspectRatio);
 
     glm::vec3 getRotation() { return rotation; }
     float getScale() { return scale; }
+
 
 
     glm::mat4 modelTransform;
@@ -30,6 +32,7 @@ private:
 
     glm::vec3 rotation;
     float scale;
+    float aspectRatio;
 };
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_TRANSFORMS_H

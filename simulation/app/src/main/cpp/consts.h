@@ -8,6 +8,7 @@
 #define FIELD_WIDTH 100.0f
 #define FIELD_HEIGHT 100.0f
 #define FIELD_DEPTH 50.0f
+#define NEAR_FAR 100.0f
 
 #define NUM_PARTICLES 250000
 

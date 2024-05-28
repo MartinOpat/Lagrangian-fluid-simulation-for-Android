@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -40,13 +41,25 @@ public class MainActivity extends Activity {
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
     public native void onDestroyNative();
+    public native void loadDeviceInfo(double aspectRatio);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getAspectRatio();
         setupGLSurfaceView();
         setContentView(glSurfaceView);
         fileAccessHelper.checkAndRequestPermissions();
+    }
+
+    private void getAspectRatio() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int widthPixels = displayMetrics.widthPixels;
+        int heightPixels = displayMetrics.heightPixels;
+        double aspectRatio = (double) widthPixels / heightPixels;
+        Log.i("MainActivity", "Detected aspect ratio: " + aspectRatio);
+        loadDeviceInfo(aspectRatio);
     }
 
     private void setupGLSurfaceView() {

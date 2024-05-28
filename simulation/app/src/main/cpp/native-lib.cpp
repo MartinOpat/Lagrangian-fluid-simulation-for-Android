@@ -33,7 +33,7 @@ Physics* physics;
 
 int currentFrame = 0;
 int numFrames = 0;
-
+float aspectRatio = 1.0f;
 int fps = 0;
 
 float global_time_in_step = 0.0f;
@@ -141,6 +141,7 @@ extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
         mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
         mainview->setupGraphics();
+        mainview->getTransforms().setAspectRatio(aspectRatio);
 
         touchHandler = new TouchHandler(mainview->getTransforms());
         LOGI("native-lib", "Graphics setup complete");
@@ -245,5 +246,10 @@ extern "C" {
         delete vectorFieldHandler;
         delete physics;
         delete touchHandler;
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_loadDeviceInfo(JNIEnv *env, jobject thiz, jdouble jaspectRatio) {
+        aspectRatio = (float) jaspectRatio;
     }
 } // extern "C"

@@ -11,7 +11,6 @@
 - Make file loaders load variables and use those instead of hardcoding the variable names (?)
 - Make sure the particle color doesn't interfere with the vector field color (i.e. ask supervisor if good or to give specific reference)
 - Refactor fps counter for (physical) devices?
-- Take into account the device screen's aspect ratio 
 - Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
 - Add `physics object` or some other hierarchy to the physics engine
@@ -30,6 +29,7 @@
 - Check whether to close AssetManager immediately after use (see `png_loader`)
 - Shaders+source in `mainview` do not need to be a class-scoped variables
 - Check for hardcoded field dimensions
+- Refactor initial transforms in `transforms.cpp`
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
