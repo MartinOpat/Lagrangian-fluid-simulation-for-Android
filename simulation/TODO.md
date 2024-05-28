@@ -4,12 +4,14 @@
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
 - Sort out references from used code
+- Do not reset at screen rotation?
+- Particles stop after focusing out and back in - fix ?
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names (?)
 - Make sure the particle color doesn't interfere with the vector field color (i.e. ask supervisor if good or to give specific reference)
-- Refactor fps counter for (physical) devices
-- Take into account the device screen's aspect ratio
+- Refactor fps counter for (physical) devices?
+- Take into account the device screen's aspect ratio 
 - Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
 - Add `physics object` or some other hierarchy to the physics engine
@@ -21,14 +23,13 @@
 - Add/check error handling
 - Still a small lag when switching time steps
 - Make particle size a uniform (fragment shader)
-- Put glm into libs folder ?
-- Choose which threadpool library to use
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Play around with the number of groups in the compute shader
 - Figure out what to do about performance going to shit over time
 - Remove `emojiCompat` native class
 - Check whether to close AssetManager immediately after use (see `png_loader`)
 - Shaders+source in `mainview` do not need to be a class-scoped variables
+- Check for hardcoded field dimensions
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
