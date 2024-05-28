@@ -22,7 +22,6 @@ public:
     Mainview(AAssetManager* assetManager);
     ~Mainview();
 
-    std::string loadShaderFile(const char* fileName);
     void compileAndLinkShaders();
     void setFrame();
     void setupGraphics();
@@ -47,6 +46,19 @@ public:
     std::chrono::steady_clock::time_point startTime;
 
 private:
+    std::string loadShaderFile(const char* fileName);
+
+    void compileVertexShader();
+    void compileFragmentShader();
+    void compileLinesGeometryShader();
+    void compilePointsGeometryShader();
+    void compileComputeShaders();
+    void createLinesProgram();
+    void createPointsProgram();
+    void createShaderProgram();
+    void detachShaders();
+    void deleteShaders();
+
     AAssetManager* assetManager;
     GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader, computeShader;
 
@@ -66,7 +78,6 @@ private:
     GLint modelLocationPoints;
     GLint viewLocationPoints;
     GLint projectionLocationPoints;
-
 
     // Buffers
     GLuint particleVBO;

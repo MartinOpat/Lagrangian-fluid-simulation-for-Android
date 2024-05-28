@@ -34,12 +34,9 @@ std::string Mainview::loadShaderFile(const char* fileName) {
     return buffer;
 }
 
-void Mainview::compileAndLinkShaders() {
+void Mainview::compileVertexShader() {
     GLint compileSuccess = 0;
-    GLint linkSuccess = 0;
     GLchar infoLog[512];
-
-    // Compile vertex shader
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vertexShaderSourceCStr = vertexShaderSource.c_str();
     glShaderSource(vertexShader, 1, &vertexShaderSourceCStr, NULL);
@@ -49,8 +46,11 @@ void Mainview::compileAndLinkShaders() {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
     }
+}
 
-    // Compile fragment shader
+void Mainview::compileFragmentShader() {
+    GLint compileSuccess = 0;
+    GLchar infoLog[512];
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     const char* fragmentShaderSourceCStr = fragmentShaderSource.c_str();
     glShaderSource(fragmentShader, 1, &fragmentShaderSourceCStr, NULL);
@@ -60,8 +60,11 @@ void Mainview::compileAndLinkShaders() {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
     }
+}
 
-    // Compile lines geometry shader
+void Mainview::compileLinesGeometryShader() {
+    GLint compileSuccess = 0;
+    GLchar infoLog[512];
     geometryLinesShader = glCreateShader(GL_GEOMETRY_SHADER);
     const char* geometryShaderSourceCStr = geometryLinesShaderSource.c_str();
     glShaderSource(geometryLinesShader, 1, &geometryShaderSourceCStr, NULL);
@@ -71,8 +74,11 @@ void Mainview::compileAndLinkShaders() {
         glGetShaderInfoLog(geometryLinesShader, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::GEOMETRY::LINE::COMPILATION_FAILED\n%s", infoLog);
     }
+}
 
-    // Compile points geometry shader
+void Mainview::compilePointsGeometryShader() {
+    GLint compileSuccess = 0;
+    GLchar infoLog[512];
     geometryPointsShader = glCreateShader(GL_GEOMETRY_SHADER);
     const char* geometryPointsShaderSourceCStr = geometryPointsShaderSource.c_str();
     glShaderSource(geometryPointsShader, 1, &geometryPointsShaderSourceCStr, NULL);
@@ -82,8 +88,26 @@ void Mainview::compileAndLinkShaders() {
         glGetShaderInfoLog(geometryPointsShader, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::GEOMETRY::POINT::COMPILATION_FAILED\n%s", infoLog);
     }
+}
 
-    // Link shaders
+void Mainview::compileComputeShaders() {
+    GLint compileSuccess = 0;
+    GLint linkSuccess = 0;
+    GLchar infoLog[512];
+    computeShader = glCreateShader(GL_COMPUTE_SHADER);
+    const char* computeShaderSourceCStr = computeShaderSource.c_str();
+    glShaderSource(computeShader, 1, &computeShaderSourceCStr, NULL);
+    glCompileShader(computeShader);
+    glGetShaderiv(computeShader, GL_COMPILE_STATUS, &compileSuccess);
+    if (!compileSuccess) {
+        glGetShaderInfoLog(computeShader, 512, NULL, infoLog);
+        LOGE("mainview", "ERROR::SHADER::COMPUTE::COMPILATION_FAILED\n%s", infoLog);
+    }
+}
+
+void Mainview::createLinesProgram() {
+    GLint linkSuccess = 0;
+    GLchar infoLog[512];
     shaderLinesProgram = glCreateProgram();
     glAttachShader(shaderLinesProgram, vertexShader);
     glAttachShader(shaderLinesProgram, geometryLinesShader);
@@ -94,12 +118,12 @@ void Mainview::compileAndLinkShaders() {
     if (!linkSuccess) {
         glGetProgramInfoLog(shaderLinesProgram, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
-
     }
-    glDetachShader(shaderLinesProgram, vertexShader);
-    glDetachShader(shaderLinesProgram, geometryLinesShader);
-    glDetachShader(shaderLinesProgram, fragmentShader);
+}
 
+void Mainview::createPointsProgram() {
+    GLint linkSuccess = 0;
+    GLchar infoLog[512];
     shaderPointsProgram = glCreateProgram();
     glAttachShader(shaderPointsProgram, vertexShader);
     glAttachShader(shaderPointsProgram, geometryPointsShader);
@@ -111,26 +135,11 @@ void Mainview::compileAndLinkShaders() {
         glGetProgramInfoLog(shaderPointsProgram, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
+}
 
-    glDetachShader(shaderPointsProgram, vertexShader);
-    glDetachShader(shaderPointsProgram, geometryPointsShader);
-    glDetachShader(shaderPointsProgram, fragmentShader);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(geometryPointsShader);
-    glDeleteShader(geometryLinesShader);
-    glDeleteShader(fragmentShader);
-
-    // Compute shader
-    computeShader = glCreateShader(GL_COMPUTE_SHADER);
-    const char* computeShaderSourceCStr = computeShaderSource.c_str();
-    glShaderSource(computeShader, 1, &computeShaderSourceCStr, NULL);
-    glCompileShader(computeShader);
-    glGetShaderiv(computeShader, GL_COMPILE_STATUS, &compileSuccess);
-    if (!compileSuccess) {
-        glGetShaderInfoLog(computeShader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::COMPUTE::COMPILATION_FAILED\n%s", infoLog);
-    }
+void Mainview::createShaderProgram() {
+    GLint linkSuccess = 0;
+    GLchar infoLog[512];
     shaderComputeProgram = glCreateProgram();
     glAttachShader(shaderComputeProgram, computeShader);
     glLinkProgram(shaderComputeProgram);
@@ -139,8 +148,40 @@ void Mainview::compileAndLinkShaders() {
         glGetProgramInfoLog(shaderComputeProgram, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::COMPUTE::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
+}
+
+void Mainview::detachShaders() {
+    glDetachShader(shaderLinesProgram, vertexShader);
+    glDetachShader(shaderLinesProgram, geometryLinesShader);
+    glDetachShader(shaderLinesProgram, fragmentShader);
+    glDetachShader(shaderPointsProgram, vertexShader);
+    glDetachShader(shaderPointsProgram, geometryPointsShader);
+    glDetachShader(shaderPointsProgram, fragmentShader);
     glDetachShader(shaderComputeProgram, computeShader);
+}
+
+void Mainview::deleteShaders() {
+    glDeleteShader(vertexShader);
+    glDeleteShader(geometryPointsShader);
+    glDeleteShader(geometryLinesShader);
+    glDeleteShader(fragmentShader);
     glDeleteShader(computeShader);
+}
+
+
+void Mainview::compileAndLinkShaders() {
+    compileVertexShader();
+    compileFragmentShader();
+    compileLinesGeometryShader();
+    compilePointsGeometryShader();
+    compileComputeShaders();
+
+    createLinesProgram();
+    createPointsProgram();
+    createShaderProgram();
+
+    detachShaders();
+    deleteShaders();
 }
 
 
