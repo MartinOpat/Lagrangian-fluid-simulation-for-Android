@@ -25,7 +25,7 @@
 bool started = false;
 std::vector<int> fileDescriptors;
 
-Mainview* shaderManager;
+Mainview* mainview;
 ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
@@ -101,7 +101,7 @@ void update() {
             loadThread.join();
         }
         vectorFieldHandler->updateTimeStep();
-        shaderManager->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
+        mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
 
         currentFrame = (currentFrame + 1) % numFrames;
 
@@ -123,7 +123,7 @@ void init() {
     vectorFieldHandler = new VectorFieldHandler();
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics, NUM_PARTICLES);
-    shaderManager->loadParticlesData(particlesHandler->getParticlesPositions());
+    mainview->loadParticlesData(particlesHandler->getParticlesPositions());
 
     LOGI("native-lib", "init complete");
 }
@@ -131,18 +131,18 @@ void init() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         update();
-        shaderManager->setFrame();
-        vectorFieldHandler->draw(*shaderManager);
+        mainview->setFrame();
+        vectorFieldHandler->draw(*mainview);
 
-        shaderManager->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
-        particlesHandler->drawParticles(*shaderManager);
+        mainview->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
+        particlesHandler->drawParticles(*mainview);
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
-        shaderManager = new Mainview(AAssetManager_fromJava(env, assetManager));
-        shaderManager->setupGraphics();
+        mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
+        mainview->setupGraphics();
 
-        touchHandler = new TouchHandler(shaderManager->getTransforms());
+        touchHandler = new TouchHandler(mainview->getTransforms());
         LOGI("native-lib", "Graphics setup complete");
     }
 
@@ -213,9 +213,9 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
-        shaderManager->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
-        shaderManager->createParticlesBuffer(particlesHandler->getParticlesPositions());
-        shaderManager->createComputeBuffer(vectorFieldHandler->getOldVertices());
+        mainview->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
+        mainview->createParticlesBuffer(particlesHandler->getParticlesPositions());
+        mainview->createComputeBuffer(vectorFieldHandler->getOldVertices());
         LOGI("native-lib", "Buffers created");
     }
 
@@ -240,7 +240,7 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_onDestroyNative(JNIEnv *env, jobject thiz) {
-        delete shaderManager;
+        delete mainview;
         delete particlesHandler;
         delete vectorFieldHandler;
         delete physics;
