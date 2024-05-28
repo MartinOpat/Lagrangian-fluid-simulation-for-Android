@@ -105,49 +105,35 @@ void Mainview::compileComputeShaders() {
     }
 }
 
-void Mainview::createLinesProgram() {
+void createProgramHelper(GLuint& program, GLuint shaders[]) {
     GLint linkSuccess = 0;
     GLchar infoLog[512];
-    shaderLinesProgram = glCreateProgram();
-    glAttachShader(shaderLinesProgram, vertexShader);
-    glAttachShader(shaderLinesProgram, geometryLinesShader);
-    glAttachShader(shaderLinesProgram, fragmentShader);
-    glBindAttribLocation(shaderLinesProgram, 0, "vPosition");
-    glLinkProgram(shaderLinesProgram);
-    glGetProgramiv(shaderLinesProgram, GL_LINK_STATUS, &linkSuccess);
+    program = glCreateProgram();
+
+    while (*shaders) {
+        glAttachShader(program, *shaders);
+        shaders++;
+    }
+
+    glBindAttribLocation(program, 0, "vPosition");
+    glLinkProgram(program);
+    glGetProgramiv(program, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
-        glGetProgramInfoLog(shaderLinesProgram, 512, NULL, infoLog);
+        glGetProgramInfoLog(program, 512, NULL, infoLog);
         LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
+}
+
+void Mainview::createLinesProgram() {
+    createProgramHelper(shaderLinesProgram, (GLuint[]) {vertexShader, geometryLinesShader, fragmentShader, 0});
 }
 
 void Mainview::createPointsProgram() {
-    GLint linkSuccess = 0;
-    GLchar infoLog[512];
-    shaderPointsProgram = glCreateProgram();
-    glAttachShader(shaderPointsProgram, vertexShader);
-    glAttachShader(shaderPointsProgram, geometryPointsShader);
-    glAttachShader(shaderPointsProgram, fragmentShader);
-    glBindAttribLocation(shaderPointsProgram, 0, "vPosition");
-    glLinkProgram(shaderPointsProgram);
-    glGetProgramiv(shaderPointsProgram, GL_LINK_STATUS, &linkSuccess);
-    if (!linkSuccess) {
-        glGetProgramInfoLog(shaderPointsProgram, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
-    }
+    createProgramHelper(shaderPointsProgram, (GLuint[]) {vertexShader, geometryPointsShader, fragmentShader, 0});
 }
 
 void Mainview::createShaderProgram() {
-    GLint linkSuccess = 0;
-    GLchar infoLog[512];
-    shaderComputeProgram = glCreateProgram();
-    glAttachShader(shaderComputeProgram, computeShader);
-    glLinkProgram(shaderComputeProgram);
-    glGetProgramiv(shaderComputeProgram, GL_LINK_STATUS, &linkSuccess);
-    if (!linkSuccess) {
-        glGetProgramInfoLog(shaderComputeProgram, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::COMPUTE::PROGRAM::LINKING_FAILED\n%s", infoLog);
-    }
+    createProgramHelper(shaderComputeProgram, (GLuint[]) {computeShader, 0});
 }
 
 void Mainview::detachShaders() {
