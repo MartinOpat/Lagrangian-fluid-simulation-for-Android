@@ -7,8 +7,7 @@
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names (?)
-- Refactor the functions in `Mainview` into shorter functions 
-- Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
+- Make sure the particle color doesn't interfere with the vector field color (i.e. ask supervisor if good or to give specific reference)
 - Refactor fps counter for (physical) devices
 - Take into account the device screen's aspect ratio
 - Implement parallelism (for the vector field)
