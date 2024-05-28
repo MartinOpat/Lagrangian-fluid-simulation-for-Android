@@ -34,75 +34,38 @@ std::string Mainview::loadShaderFile(const char* fileName) {
     return buffer;
 }
 
-void Mainview::compileVertexShader() {
+void compileShaderHelper(GLuint& shader, const std::string& shaderSource, GLenum type) {
     GLint compileSuccess = 0;
     GLchar infoLog[512];
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    const char* vertexShaderSourceCStr = vertexShaderSource.c_str();
-    glShaderSource(vertexShader, 1, &vertexShaderSourceCStr, NULL);
-    glCompileShader(vertexShader);
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compileSuccess);
+    shader = glCreateShader(type);
+    const char* vertexShaderSourceCStr = shaderSource.c_str();
+    glShaderSource(shader, 1, &vertexShaderSourceCStr, NULL);
+    glCompileShader(shader);
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s", infoLog);
+        glGetShaderInfoLog(shader, 512, NULL, infoLog);
+        LOGE("mainview", "ERROR::SHADER::COMPILATION_FAILED\n%s", infoLog);
     }
+}
+
+void Mainview::compileVertexShader() {
+    compileShaderHelper(vertexShader, vertexShaderSource, GL_VERTEX_SHADER);
 }
 
 void Mainview::compileFragmentShader() {
-    GLint compileSuccess = 0;
-    GLchar infoLog[512];
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char* fragmentShaderSourceCStr = fragmentShaderSource.c_str();
-    glShaderSource(fragmentShader, 1, &fragmentShaderSourceCStr, NULL);
-    glCompileShader(fragmentShader);
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compileSuccess);
-    if (!compileSuccess) {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s", infoLog);
-    }
+    compileShaderHelper(fragmentShader, fragmentShaderSource, GL_FRAGMENT_SHADER);
 }
 
 void Mainview::compileLinesGeometryShader() {
-    GLint compileSuccess = 0;
-    GLchar infoLog[512];
-    geometryLinesShader = glCreateShader(GL_GEOMETRY_SHADER);
-    const char* geometryShaderSourceCStr = geometryLinesShaderSource.c_str();
-    glShaderSource(geometryLinesShader, 1, &geometryShaderSourceCStr, NULL);
-    glCompileShader(geometryLinesShader);
-    glGetShaderiv(geometryLinesShader, GL_COMPILE_STATUS, &compileSuccess);
-    if (!compileSuccess) {
-        glGetShaderInfoLog(geometryLinesShader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::GEOMETRY::LINE::COMPILATION_FAILED\n%s", infoLog);
-    }
+    compileShaderHelper(geometryLinesShader, geometryLinesShaderSource, GL_GEOMETRY_SHADER);
 }
 
 void Mainview::compilePointsGeometryShader() {
-    GLint compileSuccess = 0;
-    GLchar infoLog[512];
-    geometryPointsShader = glCreateShader(GL_GEOMETRY_SHADER);
-    const char* geometryPointsShaderSourceCStr = geometryPointsShaderSource.c_str();
-    glShaderSource(geometryPointsShader, 1, &geometryPointsShaderSourceCStr, NULL);
-    glCompileShader(geometryPointsShader);
-    glGetShaderiv(geometryPointsShader, GL_COMPILE_STATUS, &compileSuccess);
-    if (!compileSuccess) {
-        glGetShaderInfoLog(geometryPointsShader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::GEOMETRY::POINT::COMPILATION_FAILED\n%s", infoLog);
-    }
+    compileShaderHelper(geometryPointsShader, geometryPointsShaderSource, GL_GEOMETRY_SHADER);
 }
 
 void Mainview::compileComputeShaders() {
-    GLint compileSuccess = 0;
-    GLint linkSuccess = 0;
-    GLchar infoLog[512];
-    computeShader = glCreateShader(GL_COMPUTE_SHADER);
-    const char* computeShaderSourceCStr = computeShaderSource.c_str();
-    glShaderSource(computeShader, 1, &computeShaderSourceCStr, NULL);
-    glCompileShader(computeShader);
-    glGetShaderiv(computeShader, GL_COMPILE_STATUS, &compileSuccess);
-    if (!compileSuccess) {
-        glGetShaderInfoLog(computeShader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::COMPUTE::COMPILATION_FAILED\n%s", infoLog);
-    }
+    compileShaderHelper(computeShader, computeShaderSource, GL_COMPUTE_SHADER);
 }
 
 void createProgramHelper(GLuint& program, GLuint shaders[]) {
