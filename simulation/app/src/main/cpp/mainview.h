@@ -12,9 +12,8 @@
 
 #include "android_logging.h"
 #include "png_loader.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 #include "consts.h"
+#include "transforms.h"
 
 
 
@@ -36,16 +35,11 @@ public:
     void loadParticlesData(std::vector<float>& particlesPos);
     void drawParticles(int size);
 
-    void setRotation(float rotateX, float rotateY, float rotateZ);
-    void setScale(float scale);
-    void updateTransformations();
-
-    glm::vec3 getRotation() { return rotation; }
-    float getScale() { return scale; }
-
     void createComputeBuffer(std::vector<float>& vector_field_vertices);
     void loadComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1);
     void dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth);
+
+    Transforms& getTransforms() { return *transforms; }
 
     GLuint shaderLinesProgram;
     GLuint shaderPointsProgram;
@@ -55,7 +49,6 @@ public:
 private:
     AAssetManager* assetManager;
     GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader, computeShader;
-    GLuint textureID;
 
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
@@ -85,12 +78,8 @@ private:
     GLuint computeVectorField0SSBO;
     GLuint computeVectorField1SSBO;
 
-    // Transformations
-    float scale;
-    glm::vec3 rotation;
-    glm::mat4 modelTransform;
-    glm::mat4 projectionTransform;
-    glm::mat4 viewTransform;
+    // Transforms
+    Transforms *transforms;
 };
 
 #endif // GL_SHADER_MANAGER_H

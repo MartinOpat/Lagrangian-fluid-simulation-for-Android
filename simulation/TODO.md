@@ -6,8 +6,7 @@
 - Sort out references from used code
 
 ## Native side
-- Make file loaders load variables and use those instead of hardcoding the variable names.
-- Refactor transformations from `mainview` (into class or such)
+- Make file loaders load variables and use those instead of hardcoding the variable names (?)
 - Refactor the functions in `Mainview` into shorter functions 
 - Make sure the particle color doesn't interfere with the vector field color (i.e. make sure they are different)
 - Refactor fps counter for (physical) devices

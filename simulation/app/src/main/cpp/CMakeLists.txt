@@ -59,6 +59,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         particles_handler.cpp
         touch_handler.cpp
         physics.cpp
+        transforms.cpp
 )
 
 

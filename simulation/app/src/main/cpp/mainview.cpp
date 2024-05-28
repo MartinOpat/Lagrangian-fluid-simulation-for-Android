@@ -1,16 +1,9 @@
 #include "mainview.h"
 
 Mainview::Mainview(AAssetManager* assetManager)
-        : assetManager(assetManager), shaderLinesProgram(0), vertexShader(0), fragmentShader(0), textureID(0) {
+        : assetManager(assetManager), shaderLinesProgram(0), vertexShader(0), fragmentShader(0) {
     startTime = std::chrono::steady_clock::now();
-    modelTransform = glm::identity<glm::mat4>();
-    projectionTransform = glm::identity<glm::mat4>();
-    float max_dim = std::max(FIELD_WIDTH, std::max(FIELD_HEIGHT, FIELD_DEPTH));
-    projectionTransform = glm::ortho(-max_dim, max_dim, -max_dim, max_dim, -max_dim, max_dim);
-    viewTransform = glm::identity<glm::mat4>();
-    setRotation(0.0f, 0.0f, M_PI/2.0f);
-    setScale(0.5f);
-    updateTransformations();
+    transforms = new Transforms();
 }
 
 Mainview::~Mainview() {
@@ -25,28 +18,9 @@ Mainview::~Mainview() {
 
     glDeleteVertexArrays(1, &particleVAO);
     glDeleteVertexArrays(1, &vectorFieldVAO);
+
+    delete transforms;
 }
-
-void Mainview::setRotation(float rotateX, float rotateY, float rotateZ) {
-    this->rotation = glm::vec3(rotateX, rotateY, rotateZ);
-    updateTransformations();
-}
-
-void Mainview::setScale(float scale) {
-    this->scale = scale;
-    updateTransformations();
-}
-
-void Mainview::updateTransformations() {
-    modelTransform = glm::identity<glm::mat4>();
-    modelTransform = glm::scale(modelTransform, glm::vec3(scale, scale, scale));
-
-    // Rotation behaviour is order dependent
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-}
-
 
 std::string Mainview::loadShaderFile(const char* fileName) {
     AAsset* asset = AAssetManager_open(assetManager, fileName, AASSET_MODE_BUFFER);
@@ -263,9 +237,9 @@ void Mainview::drawParticles(int size) {
     glBindVertexArray(particleVAO);
     glUniform1i(isPointLocationPoints, 1);
     glUniform1f(pointSize, 15.0f);
-    glUniformMatrix4fv(modelLocationPoints, 1, GL_TRUE, &modelTransform[0][0]);
-    glUniformMatrix4fv(projectionLocationPoints, 1, GL_TRUE, &projectionTransform[0][0]);
-    glUniformMatrix4fv(viewLocationPoints, 1, GL_TRUE, &viewTransform[0][0]);
+    glUniformMatrix4fv(modelLocationPoints, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
+    glUniformMatrix4fv(projectionLocationPoints, 1, GL_TRUE, &(transforms->projectionTransform)[0][0]);
+    glUniformMatrix4fv(viewLocationPoints, 1, GL_TRUE, &(transforms->viewTransform)[0][0]);
 
     glDrawArrays(GL_POINTS, 0, size / 3);
 
@@ -298,9 +272,9 @@ void Mainview::loadVectorFieldData(std::vector<float>& vertices) {
 void Mainview::drawVectorField(int size) {
     glBindVertexArray(vectorFieldVAO);
     glUniform1i(isPointLocationLines, 0);
-    glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &modelTransform[0][0]);
-    glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &projectionTransform[0][0]);
-    glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &viewTransform[0][0]);
+    glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
+    glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &transforms->projectionTransform[0][0]);
+    glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &transforms->viewTransform[0][0]);
 
     glDrawArrays(GL_LINES, 0, size / 3);
 

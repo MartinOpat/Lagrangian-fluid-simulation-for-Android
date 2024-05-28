@@ -142,7 +142,7 @@ extern "C" {
         shaderManager = new Mainview(AAssetManager_fromJava(env, assetManager));
         shaderManager->setupGraphics();
 
-        touchHandler = new TouchHandler(*shaderManager);
+        touchHandler = new TouchHandler(shaderManager->getTransforms());
         LOGI("native-lib", "Graphics setup complete");
     }
 

@@ -6,7 +6,7 @@
 
 bool isScaling = false;
 
-TouchHandler::TouchHandler(Mainview& shaderManager) : shaderManager(shaderManager), prevRot(glm::vec3(0, 0, 0)), prevScale(0.5f) {
+TouchHandler::TouchHandler(Transforms& transform) : transform(transform), prevRot(glm::vec3(0, 0, 0)), prevScale(0.5f) {
     tpScale1 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpScale2 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpRot = {0.0f, 0.0f, 0.0f, 0.0f};
@@ -34,7 +34,7 @@ void TouchHandler::handleSingleTouch(float x, float y, int action) {
         tpRot.startY = y;
         tpRot.currentX = x;
         tpRot.currentY = y;
-        prevRot = shaderManager.getRotation();
+        prevRot = transform.getRotation();
     } else if (action == 1) {
         tpRot.startX = 0.0f;
         tpRot.startY = 0.0f;
@@ -47,7 +47,7 @@ void TouchHandler::handleSingleTouch(float x, float y, int action) {
         float rotSensitivity = 0.001f;
         float dx = tpRot.currentX - tpRot.startX;
         float dy = tpRot.currentY - tpRot.startY;
-        shaderManager.setRotation(rotSensitivity*dx + prevRot.x, rotSensitivity*dy + prevRot.y, prevRot.z);
+        transform.setRotation(rotSensitivity*dx + prevRot.x, rotSensitivity*dy + prevRot.y, prevRot.z);
     }
 }
 
@@ -62,7 +62,7 @@ void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
         tpScale2.startY = y[1];
         tpScale2.currentX = x[1];
         tpScale2.currentY = y[1];
-        prevScale = shaderManager.getScale();
+        prevScale = transform.getScale();
     } else if (action == 6) {
         tpScale1.startX = 0.0f;
         tpScale1.startY = 0.0f;
@@ -84,7 +84,7 @@ void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
         float initDist = (tpScale1.startX - tpScale2.startX)*(tpScale1.startX - tpScale2.startX) +
                          (tpScale1.startY - tpScale2.startY)*(tpScale1.startY - tpScale2.startY);
         float scale = sqrt(currDist / initDist);
-        shaderManager.setScale(scale * prevScale);
+        transform.setScale(scale * prevScale);
     }
 }
 
