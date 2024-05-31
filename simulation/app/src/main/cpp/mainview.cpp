@@ -306,6 +306,6 @@ void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int wi
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, computeVectorField0SSBO);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, computeVectorField1SSBO);
 
-    glDispatchCompute((NUM_PARTICLES+127) / 128, 1, 1);
+    glDispatchCompute((NUM_PARTICLES+255) / 256, 1, 1);
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT); // Ensure vertex shader sees the updates
 }

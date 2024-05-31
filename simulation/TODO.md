@@ -17,7 +17,6 @@
 - Add/check error handling
 - Still a small lag when switching time steps
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
-- Play around with the number of groups in the compute shader
 - Remove `emojiCompat` native class
 - Check whether to close AssetManager immediately after use (see `png_loader`)
 - Shaders+source in `mainview` do not need to be a class-scoped variables
@@ -27,7 +26,7 @@
 - Look at timestep (dt etc.) before starting measuring
 
 ## Current bottlenecks
-- Memory management (sisgev at large number of particles) in parallel approach
+
 
 ## Stuff to research
 - Instanced rendering, details
