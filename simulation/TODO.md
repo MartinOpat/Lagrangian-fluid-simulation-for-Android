@@ -16,10 +16,8 @@
 - Refactor class includes
 - Add/check error handling
 - Still a small lag when switching time steps
-- Make particle size a uniform (fragment shader)
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Play around with the number of groups in the compute shader
-- Figure out what to do about performance going to shit over time
 - Remove `emojiCompat` native class
 - Check whether to close AssetManager immediately after use (see `png_loader`)
 - Shaders+source in `mainview` do not need to be a class-scoped variables
@@ -32,6 +30,7 @@
 - Memory management (sisgev at large number of particles) in parallel approach
 
 ## Stuff to research
+- Instanced rendering, details
 - best color wheel for scientific visualization of the direction of a 2d vector field
 - Try cubicles after all
 - Direct volume rendering / volume ray casting
@@ -46,8 +45,10 @@
 - Move diagrams to uml
 - Sort out references from used code
 - Figure out why lines are not continues (i.e. have gaps) - boundary conditions? float precision? fix?
+- Loading initial positions from file
 
 ## Next meeting points
+- Decreased between time steps loading lag significantly but still there cause need to load data to GPU
 
 ### Progress
 - 10'000 particles:
