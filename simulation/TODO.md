@@ -45,6 +45,7 @@
 - Document the code
 - Move diagrams to uml
 - Sort out references from used code
+- Figure out why lines are not continues (i.e. have gaps) - boundary conditions? float precision? fix?
 
 ## Next meeting points
 
