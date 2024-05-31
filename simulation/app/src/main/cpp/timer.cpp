@@ -49,13 +49,12 @@ void Timer::logElapsedTime() {
 
 void Timer::measure() {
     if (isStarted()) {
+        numMeasurements++;
         if (getElapsedTime() > displayFrequency) {
             stop();
             logFPS();
             logElapsedTime();
             start();
-        } else {
-            numMeasurements++;
         }
     } else {
         start();
