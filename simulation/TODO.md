@@ -3,11 +3,8 @@
 ## Android side
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
-~~- Do not reset at screen rotation?~~ Activity gets destroyed and recreated on rotation, not important enough
 
 ## Native side
-- Make file loaders load variables and use those instead of hardcoding the variable names (?)
-- Make sure the particle color doesn't interfere with the vector field color (i.e. ask supervisor if good or to give specific reference)
 - Refactor fps counter for (physical) devices?
 - Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
@@ -28,6 +25,7 @@
 - Shaders+source in `mainview` do not need to be a class-scoped variables
 - Check for hardcoded field dimensions
 - Refactor initial transforms in `transforms.cpp`
+- Refactor the placement of `.cpp` and `.h`/`.hpp` files
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
