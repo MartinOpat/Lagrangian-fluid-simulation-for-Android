@@ -8,7 +8,7 @@ out vec4 fragColor;
 void main() {
     if (uIsPoint) {
         vec2 center = vec2(0.5, 0.5);
-        float radius = 0.2;
+        float radius = 0.1;
         float dist = length(gl_PointCoord - center);
 
         if (dist > radius) {
