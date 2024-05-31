@@ -159,13 +159,14 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 
 void VectorFieldHandler::updateTimeStep() {
     if (allVertices.size() > 2) {
-        allVertices[0] = std::move(allVertices[1]);
-        displayVertices[0] = std::move(displayVertices[1]);
-        allVertices[1] = std::move(allVertices[2]);
-        displayVertices[1] = std::move(displayVertices[2]);
+        std::swap(allVertices[0], allVertices[1]);
+        std::swap(displayVertices[0], displayVertices[1]);
+        std::swap(allVertices[1], allVertices[2]);
+        std::swap(displayVertices[1], displayVertices[2]);
     } else if (allVertices.size() > 1) {
-        allVertices[0] = std::move(allVertices[1]);
-        displayVertices[0] = std::move(displayVertices[1]);
+        std::swap(allVertices[0], allVertices[1]);
+        std::swap(displayVertices[0], displayVertices[1]);
+
     }
 }
 
