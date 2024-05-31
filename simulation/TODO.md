@@ -48,7 +48,6 @@
 - Add comments
 - Document the code
 - Add flow diagrams mayhaps
-- SHARE THE CODE!
 
 ## Next meeting points
 
