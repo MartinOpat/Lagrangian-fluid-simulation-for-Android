@@ -3,9 +3,7 @@
 ## Android side
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
-- Sort out references from used code
 ~~- Do not reset at screen rotation?~~ Activity gets destroyed and recreated on rotation, not important enough
-- Particles stop after focusing out and back in - fix ?
 
 ## Native side
 - Make file loaders load variables and use those instead of hardcoding the variable names (?)
@@ -33,7 +31,6 @@
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
-- Memory leaks, i.e. not everything getting freed -> app gets slower on re-runs
 
 ## Stuff to research
 - best color wheel for scientific visualization of the direction of a 2d vector field
@@ -47,19 +44,15 @@
 ## General project
 - Add comments
 - Document the code
-- Add flow diagrams mayhaps
+- Move diagrams to uml
+- Sort out references from used code
 
 ## Next meeting points
 
 ### Progress
-- Color wheel changed
-- Dynamic vector field file loading
-- Fluid vector field not static anymore
-- Added initial processing of files to be done in parallel
-- Added vector field time linear interpolation
 - 10'000 particles:
   - Sequential: 30 fps
   - Parallel: 60 fps
   - Pool of threads: 100 fps
   
-- Compute shaders: 90 fps for 250'000 particles
+- Compute shaders: 100 fps for 250'000 particles
