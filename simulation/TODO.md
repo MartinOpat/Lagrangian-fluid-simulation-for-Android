@@ -26,6 +26,7 @@
 - Check for hardcoded field dimensions
 - Refactor initial transforms in `transforms.cpp`
 - Refactor the placement of `.cpp` and `.h`/`.hpp` files
+- Look at timestep (dt etc.) before starting measuring
 
 ## Current bottlenecks
 - Memory management (sisgev at large number of particles) in parallel approach
