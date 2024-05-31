@@ -37,12 +37,18 @@
 
 ## Stuff to research
 - best color wheel for scientific visualization of the direction of a 2d vector field
+- Try cubicles after all
+- Direct volume rendering / volume ray casting
+- speed up paper Kehl (read, speed up + graphing log-log)
+- Compare with older option
+- time measurements
+
 
 ## General project
 - Add comments
 - Document the code
 - Add flow diagrams mayhaps
-- PREPARE FOR MIDTERM MEETING!!!
+- SHARE THE CODE!
 
 ## Next meeting points
 
