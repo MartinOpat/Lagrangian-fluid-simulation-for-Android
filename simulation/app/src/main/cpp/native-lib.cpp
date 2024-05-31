@@ -20,9 +20,9 @@
 #include "particles_handler.h"
 #include "vector_field_handler.h"
 #include "touch_handler.h"
+#include "timer.h"
 
 
-bool started = false;
 std::vector<int> fileDescriptors;
 
 Mainview* mainview;
@@ -30,11 +30,11 @@ ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
+Timer* timer;
 
 int currentFrame = 0;
 int numFrames = 0;
 float aspectRatio = 1.0f;
-int fps = 0;
 
 float global_time_in_step = 0.0f;
 
@@ -82,10 +82,6 @@ void update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
     static const std::chrono::seconds updateInterval(TIME_STEP_IN_SECONDS);
     static std::thread loadThread;
-//    static std::atomic<bool> isLoading(false);
-
-    static const std::chrono::seconds fpsUpdateInterval(1);
-    static auto fpsLastUpdate = std::chrono::steady_clock::now();
 
     static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
@@ -105,18 +101,12 @@ void update() {
 
         currentFrame = (currentFrame + 1) % numFrames;
 
-//        isLoading.store(true);
         loadThread = std::thread([frame = currentFrame]() {
             loadStep(frame);  // Should be thread safe due to how vectorfieldhandler is implemented
         });
     }
-    if (now - fpsLastUpdate >= fpsUpdateInterval) {
-        fpsLastUpdate = now;
-        LOGI("native-lib", "FPS: %d", fps);
-        fps = 0;
-    } else {
-        fps++;
-    }
+
+    timer->measure();
 }
 
 void init() {
@@ -124,6 +114,7 @@ void init() {
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics, NUM_PARTICLES);
     mainview->loadParticlesData(particlesHandler->getParticlesPositions());
+    timer = new Timer();
 
     LOGI("native-lib", "init complete");
 }
@@ -246,6 +237,7 @@ extern "C" {
         delete vectorFieldHandler;
         delete physics;
         delete touchHandler;
+        delete timer;
     }
 
     JNIEXPORT void JNICALL

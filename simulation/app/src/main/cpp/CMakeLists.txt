@@ -60,6 +60,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         touch_handler.cpp
         physics.cpp
         transforms.cpp
+        timer.cpp
 )
 
 
