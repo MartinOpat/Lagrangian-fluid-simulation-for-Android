@@ -207,7 +207,7 @@ extern "C" {
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         mainview->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
         mainview->createParticlesBuffer(particlesHandler->getParticlesPositions());
-        mainview->createComputeBuffer(vectorFieldHandler->getOldVertices());
+        mainview->createComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices(), vectorFieldHandler->getFutureVertices());
         LOGI("native-lib", "Buffers created");
     }
 

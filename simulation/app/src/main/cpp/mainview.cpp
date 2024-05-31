@@ -272,14 +272,14 @@ void Mainview::drawVectorField(int size) {
 }
 
 // Create Buffers
-void Mainview::createComputeBuffer(std::vector<float>& vector_field_vertices) {
+void Mainview::createComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1, std::vector<float>& vector_field2) {
     glGenBuffers(1, &computeVectorField0SSBO);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField0SSBO);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field_vertices.size() * sizeof(float), vector_field_vertices.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field0.size() * sizeof(float), vector_field0.data(), GL_DYNAMIC_DRAW);
 
     glGenBuffers(1, &computeVectorField1SSBO);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field_vertices.size() * sizeof(float), vector_field_vertices.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }

@@ -28,6 +28,8 @@ public:
 
     std::vector<float>& getOldVertices() {return allVertices[0];};
     std::vector<float>& getNewVertices() {return allVertices[1];};
+    std::vector<float>& getFutureVertices() {return allVertices[2];};
+
     int getWidth() {return width;};
     int getHeight() {return height;};
     int getDepth() {return depth;};
