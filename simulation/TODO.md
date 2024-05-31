@@ -4,7 +4,7 @@
 - Reactor the file picking - the separation of concerns is not really separating
 - Add/check error handling
 - Sort out references from used code
-- Do not reset at screen rotation?
+~~- Do not reset at screen rotation?~~ Activity gets destroyed and recreated on rotation, not important enough
 - Particles stop after focusing out and back in - fix ?
 
 ## Native side
