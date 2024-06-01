@@ -5,7 +5,6 @@
 - Add/check error handling
 
 ## Native side
-- Refactor fps counter for (physical) devices?
 - Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
 - Add `physics object` or some other hierarchy to the physics engine
@@ -18,7 +17,6 @@
 - Still a small lag when switching time steps
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Remove `emojiCompat` native class
-- Check whether to close AssetManager immediately after use (see `png_loader`)
 - Shaders+source in `mainview` do not need to be a class-scoped variables
 - Check for hardcoded field dimensions
 - Refactor initial transforms in `transforms.cpp`
