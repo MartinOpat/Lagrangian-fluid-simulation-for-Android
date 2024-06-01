@@ -89,18 +89,15 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("MainActivity", "Request code: " + requestCode + ", Result code: " + resultCode);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileAccessHelper.REQUEST_CODE_PICK_FILES && resultCode == RESULT_OK) {
-            Uri uriU = data.getClipData().getItemAt(0).getUri();
-            Uri uriV = data.getClipData().getItemAt(1).getUri();
-            try {
-                Uri uriW = data.getClipData().getItemAt(2).getUri();
-                Log.i("MainActivity", "3D mode");
-                fileAccessHelper.loadNetCDFData(uriU, uriV, uriW);
-            } catch (IndexOutOfBoundsException e) {
-                Log.i("MainActivity", "2D mode");
-                fileAccessHelper.loadNetCDFData(uriU, uriV);
-            }
+            Log.d("MainActivity", "Files picked");
+
+            Uri uriPos = data.getData();
+            fileAccessHelper.loadInitialPositions(uriPos);
+            fileAccessHelper.openDirectoryPicker();
+
         } else if (requestCode == FileAccessHelper.REQUEST_CODE_PICK_DIRECTORY && resultCode == RESULT_OK) {
             // Extract the uri of all files from directory
             Uri uri = data.getData();
@@ -144,7 +141,7 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.d("Permissions", "Request code: " + requestCode);
         if (requestCode == FileAccessHelper.REQUEST_CODE_READ_STORAGE) {
-                fileAccessHelper.openDirectoryPicker();
+                fileAccessHelper.openFilePicker();
         }
     }
 

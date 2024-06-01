@@ -8,7 +8,14 @@
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :
 physics(physics), num(num), pool2(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
     initParticles(type);
+    isInitialized = true;
 }
+
+ParticlesHandler::ParticlesHandler(Physics& physics, int num) :
+        physics(physics), num(num), pool2(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
+    isInitialized = false;
+}
+
 
 void ParticlesHandler::initParticles(InitType type) {
     particles.clear();
@@ -157,5 +164,34 @@ void ParticlesHandler::bindParticlesPositions() {
     for (auto& particle : particles) {
         bindPosition(particle);
     }
+}
+
+void ParticlesHandler::loadPositionsFromFile(const std::string &filePath) {
+    netCDF::NcFile file(filePath, netCDF::NcFile::read);
+
+    size_t numParticles = file.getDim("particle").getSize();
+
+    // Read latitude, longitude, and depth
+    std::vector<float> lats(numParticles), lons(numParticles), depths(numParticles);
+
+    file.getVar("lat").getVar(lats.data());
+    file.getVar("lon").getVar(lons.data());
+    file.getVar("depth").getVar(depths.data());
+
+    float maxLat, maxLon, maxDepth;
+    file.getAtt("max_lat").getValues(&maxLat);
+    file.getAtt("max_lon").getValues(&maxLon);
+    file.getAtt("max_depth").getValues(&maxDepth);
+
+
+    particlesPos.resize(numParticles * 3);
+    for (size_t i = 0; i < numParticles; i++) {
+        particlesPos[3 * i] = FIELD_WIDTH * ((lons[i] / maxLon) * 2 - 1);       // X (longitude)
+        particlesPos[3 * i + 1] = FIELD_HEIGHT *  ((lats[i] / maxLat) * 2 - 1);   // Y (latitude)
+        particlesPos[3 * i + 2] = FIELD_DEPTH *  ((depths[i] / maxDepth) * 2 - 1); // Z (depth)
+    }
+
+    file.close();
+    std::remove(filePath.c_str());
 }
 

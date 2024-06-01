@@ -18,6 +18,9 @@
 #include <algorithm>
 #include <thread>
 
+#include "netcdf_reader.h"
+
+
 class ParticlesHandler {
 public:
     enum class InitType {
@@ -27,6 +30,7 @@ public:
     };
 
     ParticlesHandler(InitType type, Physics& physics, int num = 100);
+    ParticlesHandler(Physics& physics, int num = 100);
     ~ParticlesHandler();
 
     void initParticles(InitType type);
@@ -46,6 +50,10 @@ public:
     void bindPosition(Particle& particle);
     void bindParticlesPositions();
 
+    void loadPositionsFromFile(const std::string& filePath);
+
+    bool areParticlesInitialized() { return isInitialized; }
+
 private:
     int num;  // Number of particles
     std::vector<Particle> particles;
@@ -54,6 +62,8 @@ private:
 
     size_t thread_count;
     ThreadPool pool2;
+
+    bool isInitialized;
 
 };
 

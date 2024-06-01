@@ -24,6 +24,7 @@
 - Refactor initial transforms in `transforms.cpp`
 - Refactor the placement of `.cpp` and `.h`/`.hpp` files
 - Look at timestep (dt etc.) before starting measuring
+- `loadTimeStep` and `loadPositionFromFile` are similar and could be refactored
 
 ## Current bottlenecks
 
@@ -48,6 +49,7 @@
 
 ## Next meeting points
 - Decreased between time steps loading lag significantly but still there cause need to load data to GPU
+- Loading init. positions from a file implemented, but won't be used for taking the measurements
 
 ### Progress
 - 10'000 particles:

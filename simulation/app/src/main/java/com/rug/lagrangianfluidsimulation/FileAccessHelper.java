@@ -34,6 +34,7 @@ public class FileAccessHelper {
     public native void loadNetCDFData(int fdU, int fdV);
     public native void loadNetCDFData3D(int fdU, int fdV, int fdW);
     public native void loadFilesFDs(int[] fds);
+    public native void loadInitialPositions(int fd);
 
     // Constructor
     public FileAccessHelper(MainActivity mainActivity) {
@@ -64,6 +65,7 @@ public class FileAccessHelper {
             ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
         } else {
             Log.d("Permissions", "Permission already granted, opening picker");
+            openFilePicker();
             openDirectoryPicker();
         }
     }
@@ -88,6 +90,15 @@ public class FileAccessHelper {
                 loadNetCDFData3D(fdU, fdV, fdW);
             }
             mainActivity.runOnUiThread(mainActivity::onDataLoaded);
+        });
+    }
+
+    public void loadInitialPositions(Uri uri) {
+        executor.submit(() -> {
+            int fd = getFileDescriptor(uri);
+            if (fd != -1) {
+                loadInitialPositions(fd);
+            }
         });
     }
 

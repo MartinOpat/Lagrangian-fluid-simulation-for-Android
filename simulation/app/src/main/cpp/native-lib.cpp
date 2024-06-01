@@ -110,10 +110,13 @@ void update() {
 }
 
 void init() {
+    touchHandler = new TouchHandler(mainview->getTransforms());
     vectorFieldHandler = new VectorFieldHandler();
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics, NUM_PARTICLES);
-    mainview->loadParticlesData(particlesHandler->getParticlesPositions());
+
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line ,*physics, NUM_PARTICLES);  // Code-wise initialization
+//    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
+
     timer = new Timer();
 
     LOGI("native-lib", "init complete");
@@ -134,7 +137,7 @@ extern "C" {
         mainview->setupGraphics();
         mainview->getTransforms().setAspectRatio(aspectRatio);
 
-        touchHandler = new TouchHandler(mainview->getTransforms());
+        init();
         LOGI("native-lib", "Graphics setup complete");
     }
 
@@ -172,7 +175,6 @@ extern "C" {
 
         env->ReleaseIntArrayElements(jfds, fds, 0);
         LOGI("native-lib", "File descriptors loaded");
-        init();
         loadInitStep();
         LOGI("native-lib", "Initial step loaded");
     }
@@ -243,5 +245,25 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_loadDeviceInfo(JNIEnv *env, jobject thiz, jdouble jaspectRatio) {
         aspectRatio = (float) jaspectRatio;
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadInitialPositions(JNIEnv *env, jobject thiz, jint fd) {
+        if (particlesHandler->areParticlesInitialized()) {
+            LOGI("native-lib", "Particles already initialized");
+            return;
+        }
+        LOGI("native-lib", "Loading initial positions");
+        NetCDFReader reader;
+        std::string tempFile = reader.writeTempFileFromFD(fd, "temp.nc");
+
+        if (tempFile.empty()) {
+            LOGE("native-lib", "Failed to create temporary file.");
+            return;
+        }
+
+        particlesHandler->loadPositionsFromFile(tempFile);
+        mainview->loadParticlesData(particlesHandler->getParticlesPositions());
+        LOGI("native-lib", "Particles initialized");
     }
 } // extern "C"
