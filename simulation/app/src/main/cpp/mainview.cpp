@@ -142,20 +142,15 @@ void Mainview::setFrame() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Mainview::setupGraphics() {
-
-
-    // Load shader source code
+void Mainview::loadShaderSources() {
     vertexShaderSource = loadShaderFile("vertex_shader.glsl");
     fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
     geometryLinesShaderSource = loadShaderFile("geometry_lines_shader.glsl");
     geometryPointsShaderSource = loadShaderFile("geometry_points_shader.glsl");
     computeShaderSource = loadShaderFile("compute_shader.glsl");
+}
 
-    // Compile and link shaders
-    compileAndLinkShaders();
-
-    // Check shader program link status
+void Mainview::checkShaderProgramLinkStatus(){
     GLint linked;
     glGetProgramiv(shaderLinesProgram, GL_LINK_STATUS, &linked);
     if (!linked) {
@@ -172,8 +167,13 @@ void Mainview::setupGraphics() {
         LOGE("mainview", "Shader Program Link Error: %s", linkLog);
     }
 
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        LOGE("mainview", "OpenGL setup error: %x", err);
+    }
+}
 
-    // Query uniform locations
+void Mainview::loadUniforms() {
     this->isPointLocationPoints = glGetUniformLocation(shaderPointsProgram, "uIsPoint");
     this->pointSize = glGetUniformLocation(shaderPointsProgram, "uPointSize");
     this->modelLocationPoints = glGetUniformLocation(shaderPointsProgram, "modelTransform");
@@ -184,18 +184,22 @@ void Mainview::setupGraphics() {
     this->modelLocationLines = glGetUniformLocation(shaderLinesProgram, "modelTransform");
     this->projectionLocationLines = glGetUniformLocation(shaderLinesProgram, "projectionTransform");
     this->viewLocationLines = glGetUniformLocation(shaderLinesProgram, "viewTransform");
+}
 
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        LOGE("mainview", "OpenGL setup error: %x", err);
-    }
-
-    // Cleanup
+void Mainview::cleanShaderSources() {
     vertexShaderSource.clear();
     fragmentShaderSource.clear();
     geometryLinesShaderSource.clear();
     geometryPointsShaderSource.clear();
     computeShaderSource.clear();
+}
+
+void Mainview::setupGraphics() {
+    loadShaderSources();
+    compileAndLinkShaders();
+    checkShaderProgramLinkStatus();
+    loadUniforms();
+    cleanShaderSources();
 }
 
 void Mainview::createParticlesBuffer(std::vector<float>& particlesPos) {

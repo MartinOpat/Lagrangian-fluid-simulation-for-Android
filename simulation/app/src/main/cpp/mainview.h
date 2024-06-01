@@ -50,6 +50,9 @@ public:
 private:
     std::string loadShaderFile(const char* fileName);
 
+    void loadShaderSources();
+    void checkShaderProgramLinkStatus();
+    void loadUniforms();
     void compileVertexShader();
     void compileFragmentShader();
     void compileLinesGeometryShader();
@@ -60,6 +63,7 @@ private:
     void createShaderProgram();
     void detachShaders();
     void deleteShaders();
+    void cleanShaderSources();
 
     AAssetManager* assetManager;
     GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader, computeShader;
