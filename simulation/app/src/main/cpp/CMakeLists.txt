@@ -60,6 +60,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         physics.cpp
         transforms.cpp
         timer.cpp
+        task_scheduler.cpp
 )
 
 

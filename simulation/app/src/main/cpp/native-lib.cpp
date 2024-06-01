@@ -21,6 +21,8 @@
 #include "vector_field_handler.h"
 #include "touch_handler.h"
 #include "timer.h"
+#include "task_scheduler.h"
+#include "ThreadPool.h"
 
 
 std::vector<int> fileDescriptors;
@@ -31,6 +33,9 @@ VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
 Timer* timer;
+TaskScheduler *taskScheduler;
+ThreadPool *threadPool;
+
 
 int currentFrame = 0;
 int numFrames = 0;
@@ -81,7 +86,6 @@ void loadInitStep() {
 void update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
     static const std::chrono::seconds updateInterval(TIME_STEP_IN_SECONDS);
-    static std::thread loadThread;
 
     static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
@@ -92,22 +96,39 @@ void update() {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
-        if (loadThread.joinable()) {
-            LOGI("native-lib", "Joining thread");
-            loadThread.join();
-        }
+        auto start = std::chrono::steady_clock::now();
+
+//        if (loadThread.joinable()) {
+//            LOGI("native-lib", "Joining thread");
+//            loadThread.join();
+//        }
+        auto end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Joining thread took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+        start = std::chrono::steady_clock::now();
         vectorFieldHandler->updateTimeStep();
+        end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Updating vector field took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+        start = std::chrono::steady_clock::now();
         mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
+        end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Loading compute buffer took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
 
         currentFrame = (currentFrame + 1) % numFrames;
 
-        loadThread = std::thread([frame = currentFrame]() {
-            loadStep(frame);  // Should be thread safe due to how vectorfieldhandler is implemented
+        start = std::chrono::steady_clock::now();
+//        taskScheduler->scheduleTask([frame = currentFrame]() {
+//            loadStep(frame);
+//        });
+        threadPool->enqueue([frame = currentFrame]() {
+            loadStep(frame);
         });
+        end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Loading thread took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
     }
 
     timer->measure();
 }
+
 
 void init() {
     touchHandler = new TouchHandler(mainview->getTransforms());
@@ -118,6 +139,8 @@ void init() {
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer();
+    taskScheduler = new TaskScheduler();
+    threadPool = new ThreadPool(1);
 
     LOGI("native-lib", "init complete");
 }
@@ -240,6 +263,10 @@ extern "C" {
         delete physics;
         delete touchHandler;
         delete timer;
+        delete threadPool;
+
+        taskScheduler->terminateWorkerThread();
+        delete taskScheduler;
     }
 
     JNIEXPORT void JNICALL
