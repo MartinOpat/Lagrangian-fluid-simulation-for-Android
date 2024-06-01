@@ -8,20 +8,17 @@
 - Implement parallelism (for the vector field)
 - Separate vector_field's functionality into display and physics
 - Add `physics object` or some other hierarchy to the physics engine
-- Do not forget the interpolation for vertices - Is simply splitting between cubes sufficient ? -> Maybe ask this
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
-- Delete (old) 2D functions ?
+- Delete (old) functions ? - 2d, before compute shaders etc...
 - Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Remove `emojiCompat` native class
-- Shaders+source in `mainview` do not need to be a class-scoped variables
 - Check for hardcoded field dimensions
 - Refactor initial transforms in `transforms.cpp`
 - Refactor the placement of `.cpp` and `.h`/`.hpp` files
 - Look at timestep (dt etc.) before starting measuring
-- `loadTimeStepHelper` and `loadPositionFromFile` are similar and could be refactored
 
 ## Current bottlenecks
 
@@ -47,6 +44,7 @@
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))
 - Loading init. positions from a file implemented, but won't be used for taking the measurements
+- Refactoring done
 
 ### Progress
 - 10'000 particles:
