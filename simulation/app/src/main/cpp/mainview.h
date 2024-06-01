@@ -9,9 +9,9 @@
 #include <android/asset_manager.h>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 #include "android_logging.h"
-#include "png_loader.h"
 #include "consts.h"
 #include "transforms.h"
 
