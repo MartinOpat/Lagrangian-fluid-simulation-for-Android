@@ -15,6 +15,7 @@
 #include "android_logging.h"
 #include "consts.h"
 #include "transforms.h"
+#include "shaderManager.h"
 
 
 
@@ -23,7 +24,6 @@ public:
     Mainview(AAssetManager* assetManager);
     ~Mainview();
 
-    void compileAndLinkShaders();
     void setFrame();
     void setupGraphics();
 
@@ -42,39 +42,15 @@ public:
 
     Transforms& getTransforms() { return *transforms; }
 
-    GLuint shaderLinesProgram;
-    GLuint shaderPointsProgram;
-    GLuint shaderComputeProgram;
     std::chrono::steady_clock::time_point startTime;
 
 private:
-    std::string loadShaderFile(const char* fileName);
-
-    void loadShaderSources();
-    void checkShaderProgramLinkStatus();
-    void loadUniforms();
-    void compileVertexShader();
-    void compileFragmentShader();
-    void compileLinesGeometryShader();
-    void compilePointsGeometryShader();
-    void compileComputeShaders();
-    void createLinesProgram();
-    void createPointsProgram();
-    void createShaderProgram();
-    void detachShaders();
-    void deleteShaders();
-    void cleanShaderSources();
-
-    AAssetManager* assetManager;
-    GLuint vertexShader, fragmentShader, geometryLinesShader, geometryPointsShader, computeShader;
-
-    std::string vertexShaderSource;
-    std::string fragmentShaderSource;
-    std::string geometryLinesShaderSource;
-    std::string geometryPointsShaderSource;
-    std::string computeShaderSource;
+    // Shaders
+    ShaderManager *shaderManager;
 
     // Uniforms
+    void loadUniforms();
+
     GLint isPointLocationLines;
     GLint isPointLocationPoints;
     GLfloat pointSize;  // TODO: This can (and probably should) be a GLint

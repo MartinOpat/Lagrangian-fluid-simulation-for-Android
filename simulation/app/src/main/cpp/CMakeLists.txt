@@ -61,6 +61,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         transforms.cpp
         timer.cpp
         EGLContextManager.cpp
+        shaderManager.cpp
 )
 
 
