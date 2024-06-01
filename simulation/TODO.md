@@ -10,9 +10,7 @@
 - Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
-- Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Remove `emojiCompat` native class
-- Check for hardcoded field dimensions
 - Refactor initial transforms in `transforms.cpp`
 - Refactor the placement of `.cpp` and `.h`/`.hpp` files
 - Look at timestep (dt etc.) before starting measuring
