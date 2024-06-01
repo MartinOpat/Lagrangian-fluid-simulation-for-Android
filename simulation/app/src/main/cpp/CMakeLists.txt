@@ -50,7 +50,6 @@ set_target_properties(libc++_shared PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
         native-lib.cpp
-        png_loader.cpp
         mainview.cpp
         file_reader.cpp
         netcdf_reader.cpp
