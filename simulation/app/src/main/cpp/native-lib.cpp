@@ -21,28 +21,7 @@
 #include "touch_handler.h"
 #include "timer.h"
 #include "ThreadPool.h"
-
-EGLDisplay storedEglDisplay;
-EGLContext storedEglContext;
-
-const EGLint contextAttributes[] = {
-        EGL_CONTEXT_CLIENT_VERSION, 3,  // Targeting OpenGL ES 3.0
-        EGL_NONE
-};
-EGLContext sharedContext;
-EGLConfig config;
-EGLint numConfigs;
-
-const EGLint configAttributes[] = {
-        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT_KHR,
-        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_RED_SIZE, 8,
-        EGL_GREEN_SIZE, 8,
-        EGL_BLUE_SIZE, 8,
-        EGL_ALPHA_SIZE, 8,
-        EGL_DEPTH_SIZE, 24,
-        EGL_NONE
-};
+#include "EGLContextManager.h"
 
 std::vector<int> fileDescriptors;
 
@@ -53,6 +32,7 @@ TouchHandler* touchHandler;
 Physics* physics;
 Timer* timer;
 ThreadPool *threadPool;
+EGLContextManager *eglContextManager;
 
 std::atomic<GLsync> globalFence{nullptr};
 
@@ -103,7 +83,26 @@ void loadInitStep() {
     }
 }
 
-void update() {
+void syncEGLContext() {
+    GLsync fence = globalFence.load(std::memory_order_acquire);
+    if (fence != nullptr) {
+        GLenum result = glClientWaitSync(fence, GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000);
+        if (result == GL_TIMEOUT_EXPIRED || result == GL_WAIT_FAILED) {
+            LOGI("native-lib", "Fence wait failed");
+        }
+        glDeleteSync(fence); // Clean up the fence object
+        globalFence.store(nullptr, std::memory_order_release);
+    } else {
+        threadPool->enqueue([]() {
+            if (!eglMakeCurrent(eglContextManager->getDisplay(), EGL_NO_SURFACE, EGL_NO_SURFACE, eglContextManager->getSharedContext())) {
+                LOGE("native-lib", "Failed to make context current on thread");
+                return;
+            }
+        });
+    }
+}
+
+void check_update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
     static const std::chrono::seconds updateInterval(TIME_STEP_IN_SECONDS);
 
@@ -116,28 +115,12 @@ void update() {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
-        GLsync fence = globalFence.load(std::memory_order_acquire);
-        if (fence != nullptr) {
-            LOGI("native-lib", "Waiting for fence");
-            GLenum result = glClientWaitSync(fence, GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000);
-            if (result == GL_TIMEOUT_EXPIRED || result == GL_WAIT_FAILED) {
-                LOGI("native-lib", "Fence wait failed");
-            }
-            glDeleteSync(fence); // Clean up the fence object
-            globalFence.store(nullptr, std::memory_order_release);
-        } else {
-            LOGI("native-lib", "Passing context to loader thread");
-            threadPool->enqueue([]() {
-                if (!eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, sharedContext)) {
-                    LOGE("native-lib", "Failed to make context current on thread");
-                    return;
-                }
-            });
-        }
+        syncEGLContext();
+
         vectorFieldHandler->updateTimeStep();
         mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
-
         currentFrame = (currentFrame + 1) % numFrames;
+
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
             mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), globalFence);
@@ -158,13 +141,14 @@ void init() {
 
     timer = new Timer();
     threadPool = new ThreadPool(1);
+    eglContextManager = new EGLContextManager();
 
     LOGI("native-lib", "init complete");
 }
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
-        update();
+        check_update();
         mainview->setFrame();
         vectorFieldHandler->draw(*mainview);
 
@@ -178,17 +162,8 @@ extern "C" {
         mainview->getTransforms().setAspectRatio(aspectRatio);
 
         init();
+        eglContextManager->initContext();
         LOGI("native-lib", "Graphics setup complete");
-
-        storedEglDisplay = eglGetCurrentDisplay();
-        storedEglContext = eglGetCurrentContext();
-
-        if (!eglChooseConfig(storedEglDisplay, configAttributes, &config, 1, &numConfigs)) {
-            LOGE("native-lib", "Failed to choose config");
-            return;
-        }
-
-        sharedContext = eglCreateContext(storedEglDisplay, config, storedEglContext, contextAttributes);
     }
 
     JNIEXPORT void JNICALL
