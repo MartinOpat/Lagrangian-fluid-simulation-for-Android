@@ -7,18 +7,26 @@
 
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
+#include <GLES3/gl32.h>
+#include <thread>
+#include <atomic>
+#include <functional>
 
 #include "android_logging.h"
+#include "ThreadPool.h"
 
 class EGLContextManager {
 public:
     EGLContextManager();
 
     void initContext();
+    void syncEGLContext(ThreadPool *threadPool);
 
     EGLDisplay& getDisplay() { return storedEglDisplay; }
     EGLContext& getContext() { return storedEglContext; }
     EGLContext& getSharedContext() { return sharedContext; }
+
+    std::atomic<GLsync> globalFence{nullptr};
 
 private:
     EGLDisplay storedEglDisplay;

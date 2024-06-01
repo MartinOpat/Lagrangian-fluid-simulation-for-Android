@@ -23,9 +23,28 @@ void EGLContextManager::initContext() {
     storedEglContext = eglGetCurrentContext();
 
     if (!eglChooseConfig(storedEglDisplay, configAttributes, &config, 1, &numConfigs)) {
-        LOGE("native-lib", "Failed to choose config");
+        LOGE("EGLContextManager", "Failed to choose config");
         return;
     }
 
     sharedContext = eglCreateContext(storedEglDisplay, config, storedEglContext, contextAttributes);
+}
+
+void EGLContextManager::syncEGLContext(ThreadPool *threadPool) {
+    GLsync fence = globalFence.load(std::memory_order_acquire);
+    if (fence != nullptr) {
+        GLenum result = glClientWaitSync(fence, GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000);
+        if (result == GL_TIMEOUT_EXPIRED || result == GL_WAIT_FAILED) {
+            LOGI("EGLContextManager", "Fence wait failed");
+        }
+        glDeleteSync(fence); // Clean up the fence object
+        globalFence.store(nullptr, std::memory_order_release);
+    } else {
+        threadPool->enqueue([this]() {
+            if (!eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, sharedContext)) {
+                LOGE("EGLContextManager", "Failed to make context current on thread");
+                return;
+            }
+        });
+    }
 }

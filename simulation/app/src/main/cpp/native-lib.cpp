@@ -34,8 +34,6 @@ Timer* timer;
 ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
 
-std::atomic<GLsync> globalFence{nullptr};
-
 
 int currentFrame = 0;
 int numFrames = 0;
@@ -83,24 +81,6 @@ void loadInitStep() {
     }
 }
 
-void syncEGLContext() {
-    GLsync fence = globalFence.load(std::memory_order_acquire);
-    if (fence != nullptr) {
-        GLenum result = glClientWaitSync(fence, GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000);
-        if (result == GL_TIMEOUT_EXPIRED || result == GL_WAIT_FAILED) {
-            LOGI("native-lib", "Fence wait failed");
-        }
-        glDeleteSync(fence); // Clean up the fence object
-        globalFence.store(nullptr, std::memory_order_release);
-    } else {
-        threadPool->enqueue([]() {
-            if (!eglMakeCurrent(eglContextManager->getDisplay(), EGL_NO_SURFACE, EGL_NO_SURFACE, eglContextManager->getSharedContext())) {
-                LOGE("native-lib", "Failed to make context current on thread");
-                return;
-            }
-        });
-    }
-}
 
 void check_update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
@@ -115,7 +95,7 @@ void check_update() {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
-        syncEGLContext();
+        eglContextManager->syncEGLContext(threadPool);
 
         vectorFieldHandler->updateTimeStep();
         mainview->loadComputeBuffer();
@@ -123,7 +103,7 @@ void check_update() {
 
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
-            mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), globalFence);
+            mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), eglContextManager->globalFence);
         });
     }
 
