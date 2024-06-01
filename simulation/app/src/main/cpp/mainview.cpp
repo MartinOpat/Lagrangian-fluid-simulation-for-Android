@@ -298,12 +298,9 @@ void Mainview::preloadComputeBuffer(std::vector<float>& vector_field, std::atomi
     globalFence.store(fence, std::memory_order_release);
 }
 
-void Mainview::loadComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1) {
+void Mainview::loadComputeBuffer() {
     std::swap(computeVectorField0SSBO, computeVectorField1SSBO);
     std::swap(computeVectorField1SSBO, computeVectorField2SSBO);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_DYNAMIC_DRAW);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 // Dispatch Compute Shader

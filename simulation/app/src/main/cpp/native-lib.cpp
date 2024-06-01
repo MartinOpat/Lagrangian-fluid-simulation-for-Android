@@ -118,7 +118,7 @@ void check_update() {
         syncEGLContext();
 
         vectorFieldHandler->updateTimeStep();
-        mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
+        mainview->loadComputeBuffer();
         currentFrame = (currentFrame + 1) % numFrames;
 
         threadPool->enqueue([frame = currentFrame]() {
