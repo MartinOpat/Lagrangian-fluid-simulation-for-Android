@@ -14,7 +14,6 @@
 - Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
-- Still a small lag when switching time steps
 - Refactor `dispatchComputeShader`, it has too much dependency on VectorField
 - Remove `emojiCompat` native class
 - Shaders+source in `mainview` do not need to be a class-scoped variables
@@ -46,7 +45,7 @@
 - Loading initial positions from file
 
 ## Next meeting points
-- Decreased between time steps loading lag significantly but still there cause need to load data to GPU
+- No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))
 - Loading init. positions from a file implemented, but won't be used for taking the measurements
 
 ### Progress
