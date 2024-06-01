@@ -35,7 +35,7 @@ void compileShaderHelper(GLuint& shader, const std::string& shaderSource, GLenum
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compileSuccess);
     if (!compileSuccess) {
         glGetShaderInfoLog(shader, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::COMPILATION_FAILED\n%s", infoLog);
+        LOGE("shaderManager", "ERROR::SHADER::COMPILATION_FAILED\n%s", infoLog);
     }
 }
 
@@ -74,7 +74,7 @@ void createProgramHelper(GLuint& program, GLuint shaders[]) {
     glGetProgramiv(program, GL_LINK_STATUS, &linkSuccess);
     if (!linkSuccess) {
         glGetProgramInfoLog(program, 512, NULL, infoLog);
-        LOGE("mainview", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
+        LOGE("shaderManager", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
     }
 }
 
@@ -139,7 +139,7 @@ void ShaderManager::checkShaderProgramLinkStatus(){
     if (!linked) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderLinesProgram, sizeof(linkLog), NULL, linkLog);
-        LOGE("mainview", "Shader Program Link Error: %s", linkLog);
+        LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
     }
 
     GLint linkedPoints;
@@ -147,12 +147,12 @@ void ShaderManager::checkShaderProgramLinkStatus(){
     if (!linkedPoints) {
         GLchar linkLog[1024];
         glGetProgramInfoLog(shaderPointsProgram, sizeof(linkLog), NULL, linkLog);
-        LOGE("mainview", "Shader Program Link Error: %s", linkLog);
+        LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
     }
 
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {
-        LOGE("mainview", "OpenGL setup error: %x", err);
+        LOGE("shaderManager", "OpenGL setup error: %x", err);
     }
 }
 
