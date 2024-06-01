@@ -127,7 +127,13 @@ void update() {
             glDeleteSync(fence); // Clean up the fence object
             globalFence.store(nullptr, std::memory_order_release);
         } else {
-            LOGI("native-lib", "No fence to wait for - oyoy");
+            LOGI("native-lib", "Passing context to loader thread");
+            threadPool->enqueue([]() {
+                if (!eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, sharedContext)) {
+                    LOGE("native-lib", "Failed to make context current on thread");
+                    return;
+                }
+            });
         }
         auto end = std::chrono::steady_clock::now();
         LOGI("native-lib", "Time to wait for fence: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
@@ -144,12 +150,7 @@ void update() {
         currentFrame = (currentFrame + 1) % numFrames;
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
-            if (!eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, sharedContext)) {
-                LOGE("native-lib", "Failed to make context current on thread");
-                return;
-            }
             mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), globalFence);
-            eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
         });
         end = std::chrono::steady_clock::now();
         LOGI("native-lib", "Time to load step: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
