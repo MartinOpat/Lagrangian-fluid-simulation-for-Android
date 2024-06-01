@@ -21,7 +21,6 @@
 #include "vector_field_handler.h"
 #include "touch_handler.h"
 #include "timer.h"
-#include "task_scheduler.h"
 #include "ThreadPool.h"
 
 
@@ -33,7 +32,6 @@ VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
 Timer* timer;
-TaskScheduler *taskScheduler;
 ThreadPool *threadPool;
 
 
@@ -96,34 +94,13 @@ void update() {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
-        auto start = std::chrono::steady_clock::now();
-
-//        if (loadThread.joinable()) {
-//            LOGI("native-lib", "Joining thread");
-//            loadThread.join();
-//        }
-        auto end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Joining thread took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
-        start = std::chrono::steady_clock::now();
         vectorFieldHandler->updateTimeStep();
-        end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Updating vector field took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
-        start = std::chrono::steady_clock::now();
         mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
-        end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Loading compute buffer took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
 
         currentFrame = (currentFrame + 1) % numFrames;
-
-        start = std::chrono::steady_clock::now();
-//        taskScheduler->scheduleTask([frame = currentFrame]() {
-//            loadStep(frame);
-//        });
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
         });
-        end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Loading thread took %lld ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
     }
 
     timer->measure();
@@ -139,7 +116,6 @@ void init() {
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer();
-    taskScheduler = new TaskScheduler();
     threadPool = new ThreadPool(1);
 
     LOGI("native-lib", "init complete");
@@ -264,9 +240,6 @@ extern "C" {
         delete touchHandler;
         delete timer;
         delete threadPool;
-
-        taskScheduler->terminateWorkerThread();
-        delete taskScheduler;
     }
 
     JNIEXPORT void JNICALL
