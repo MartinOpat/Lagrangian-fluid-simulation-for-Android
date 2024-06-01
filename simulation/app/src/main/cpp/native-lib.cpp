@@ -8,7 +8,6 @@
 #include <assert.h>
 #include <GLES3/gl32.h>
 #include <EGL/egl.h>
-#include <EGL/eglext.h>
 #include <thread>
 #include <atomic>
 #include <functional>
@@ -23,6 +22,27 @@
 #include "timer.h"
 #include "ThreadPool.h"
 
+EGLDisplay storedEglDisplay;
+EGLContext storedEglContext;
+
+const EGLint contextAttributes[] = {
+        EGL_CONTEXT_CLIENT_VERSION, 3,  // Targeting OpenGL ES 3.0
+        EGL_NONE
+};
+EGLContext sharedContext;
+EGLConfig config;
+EGLint numConfigs;
+
+const EGLint configAttributes[] = {
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT_KHR,
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_RED_SIZE, 8,
+        EGL_GREEN_SIZE, 8,
+        EGL_BLUE_SIZE, 8,
+        EGL_ALPHA_SIZE, 8,
+        EGL_DEPTH_SIZE, 24,
+        EGL_NONE
+};
 
 std::vector<int> fileDescriptors;
 
@@ -33,6 +53,8 @@ TouchHandler* touchHandler;
 Physics* physics;
 Timer* timer;
 ThreadPool *threadPool;
+
+std::atomic<GLsync> globalFence{nullptr};
 
 
 int currentFrame = 0;
@@ -94,13 +116,43 @@ void update() {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
+        auto start = std::chrono::steady_clock::now();
+        GLsync fence = globalFence.load(std::memory_order_acquire);
+        if (fence != nullptr) {
+            LOGI("native-lib", "Waiting for fence");
+            GLenum result = glClientWaitSync(fence, GL_SYNC_FLUSH_COMMANDS_BIT, 1000000000);
+            if (result == GL_TIMEOUT_EXPIRED || result == GL_WAIT_FAILED) {
+                LOGI("native-lib", "Fence wait failed");
+            }
+            glDeleteSync(fence); // Clean up the fence object
+            globalFence.store(nullptr, std::memory_order_release);
+        } else {
+            LOGI("native-lib", "No fence to wait for - oyoy");
+        }
+        auto end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Time to wait for fence: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+        start = std::chrono::steady_clock::now();
         vectorFieldHandler->updateTimeStep();
+        end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Time to update vector field: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+        start = std::chrono::steady_clock::now();
         mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
+        end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Time to load compute buffer: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+        start = std::chrono::steady_clock::now();
 
         currentFrame = (currentFrame + 1) % numFrames;
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
+            if (!eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, sharedContext)) {
+                LOGE("native-lib", "Failed to make context current on thread");
+                return;
+            }
+            mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), globalFence);
+            eglMakeCurrent(storedEglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
         });
+        end = std::chrono::steady_clock::now();
+        LOGI("native-lib", "Time to load step: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
     }
 
     timer->measure();
@@ -138,6 +190,16 @@ extern "C" {
 
         init();
         LOGI("native-lib", "Graphics setup complete");
+
+        storedEglDisplay = eglGetCurrentDisplay();
+        storedEglContext = eglGetCurrentContext();
+
+        if (!eglChooseConfig(storedEglDisplay, configAttributes, &config, 1, &numConfigs)) {
+            LOGE("native-lib", "Failed to choose config");
+            return;
+        }
+
+        sharedContext = eglCreateContext(storedEglDisplay, config, storedEglContext, contextAttributes);
     }
 
     JNIEXPORT void JNICALL

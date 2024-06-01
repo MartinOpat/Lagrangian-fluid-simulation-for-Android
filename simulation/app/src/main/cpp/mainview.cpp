@@ -281,14 +281,29 @@ void Mainview::createComputeBuffer(std::vector<float>& vector_field0, std::vecto
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
     glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_DYNAMIC_DRAW);
 
+    glGenBuffers(1, &computeVectorField2SSBO);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField2SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field2.size() * sizeof(float), vector_field2.data(), GL_DYNAMIC_DRAW);
+
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
+
+void Mainview::preloadComputeBuffer(std::vector<float>& vector_field, std::atomic<GLsync>& globalFence) {
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField2SSBO);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field.size() * sizeof(float), vector_field.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+    GLsync fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
+    glFlush();
+    globalFence.store(fence, std::memory_order_release);
 }
 
 void Mainview::loadComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1) {
     std::swap(computeVectorField0SSBO, computeVectorField1SSBO);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_DYNAMIC_DRAW);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+    std::swap(computeVectorField1SSBO, computeVectorField2SSBO);
+//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField1SSBO);
+//    glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field1.size() * sizeof(float), vector_field1.data(), GL_DYNAMIC_DRAW);
+//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 // Dispatch Compute Shader

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <atomic>
 
 #include "android_logging.h"
 #include "consts.h"
@@ -35,6 +36,7 @@ public:
     void drawParticles(int size);
 
     void createComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1, std::vector<float>& vector_field2);
+    void preloadComputeBuffer(std::vector<float>& vector_field, std::atomic<GLsync>& globalFence);
     void loadComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1);
     void dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth);
 
@@ -88,6 +90,7 @@ private:
 
     GLuint computeVectorField0SSBO;
     GLuint computeVectorField1SSBO;
+    GLuint computeVectorField2SSBO;
 
     // Transforms
     Transforms *transforms;
