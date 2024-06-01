@@ -116,7 +116,6 @@ void update() {
         lastUpdate = now;
         global_time_in_step = 0.0f;
 
-        auto start = std::chrono::steady_clock::now();
         GLsync fence = globalFence.load(std::memory_order_acquire);
         if (fence != nullptr) {
             LOGI("native-lib", "Waiting for fence");
@@ -135,25 +134,14 @@ void update() {
                 }
             });
         }
-        auto end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Time to wait for fence: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
-        start = std::chrono::steady_clock::now();
         vectorFieldHandler->updateTimeStep();
-        end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Time to update vector field: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
-        start = std::chrono::steady_clock::now();
         mainview->loadComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices());
-        end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Time to load compute buffer: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
-        start = std::chrono::steady_clock::now();
 
         currentFrame = (currentFrame + 1) % numFrames;
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
             mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), globalFence);
         });
-        end = std::chrono::steady_clock::now();
-        LOGI("native-lib", "Time to load step: %lld", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
     }
 
     timer->measure();
