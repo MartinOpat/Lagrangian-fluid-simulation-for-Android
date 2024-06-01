@@ -201,7 +201,7 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     std::remove(fileVPath.c_str());
 }
 
-void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
+void VectorFieldHandler::loadTimeStepHelper(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath) {
     netCDF::NcFile dataFileU(fileUPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileV(fileVPath, netCDF::NcFile::read);
     netCDF::NcFile dataFileW(fileWPath, netCDF::NcFile::read);
@@ -232,6 +232,19 @@ void VectorFieldHandler::loadTimeStep(const std::string& fileUPath, const std::s
     std::remove(fileUPath.c_str());
     std::remove(fileVPath.c_str());
     std::remove(fileWPath.c_str());
+}
+
+void VectorFieldHandler::loadTimeStep(int fdU, int fdV, int fdW) {
+    NetCDFReader reader;
+    std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
+    std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
+    std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
+
+    if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
+        LOGE("native-lib", "Failed to create temporary files.");
+        return;
+    }
+    loadTimeStepHelper(tempFileU, tempFileV, tempFileW);
 }
 
 void VectorFieldHandler::draw(Mainview& shaderManager) {

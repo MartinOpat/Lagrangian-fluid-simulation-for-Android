@@ -21,7 +21,7 @@
 - Refactor initial transforms in `transforms.cpp`
 - Refactor the placement of `.cpp` and `.h`/`.hpp` files
 - Look at timestep (dt etc.) before starting measuring
-- `loadTimeStep` and `loadPositionFromFile` are similar and could be refactored
+- `loadTimeStepHelper` and `loadPositionFromFile` are similar and could be refactored
 
 ## Current bottlenecks
 

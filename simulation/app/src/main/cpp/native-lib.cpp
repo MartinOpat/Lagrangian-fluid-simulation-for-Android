@@ -41,26 +41,9 @@ float aspectRatio = 1.0f;
 
 float global_time_in_step = 0.0f;
 
-void loadStepHelper(int fdU, int fdV, int fdW) {
-    NetCDFReader reader;
-    std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
-    std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
-    std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
-
-    if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
-        LOGE("native-lib", "Failed to create temporary files.");
-        return;
-    }
-
-    if (vectorFieldHandler == nullptr) {
-        LOGE("native-lib", "Vector field handler not initialized");
-    }
-    vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
-}
-
 void loadStep(int frame) {
     LOGI("native-lib", "Loading step %d", frame);
-    loadStepHelper(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
+    vectorFieldHandler->loadTimeStep(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
 }
 
 void loadInitStep() {
@@ -201,7 +184,7 @@ extern "C" {
 
 
         vectorFieldHandler = new VectorFieldHandler();
-        vectorFieldHandler->loadTimeStep(tempFileU, tempFileV, tempFileW);
+        vectorFieldHandler->loadTimeStepHelper(tempFileU, tempFileV, tempFileW);
         LOGI("native-lib", "NetCDF files loaded");
 
         physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);

@@ -20,7 +20,8 @@ public:
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
 
     void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath);
-    void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath);
+    void loadTimeStepHelper(const std::string& fileUPath, const std::string& fileVPath, const std::string& fileWPath);
+    void loadTimeStep(int fdU, int fdV, int fdW);
 
     void updateTimeStep();
 
