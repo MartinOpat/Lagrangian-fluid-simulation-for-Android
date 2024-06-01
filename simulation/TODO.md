@@ -1,13 +1,10 @@
 # Things that need to be done that are not immediately obvious.
 
 ## Android side
-- Reactor the file picking - the separation of concerns is not really separating
+- Remove old functions
 - Add/check error handling
 
 ## Native side
-- Implement parallelism (for the vector field)
-- Separate vector_field's functionality into display and physics
-- Add `physics object` or some other hierarchy to the physics engine
 - Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 - Delete (old) functions ? - 2d, before compute shaders etc...
 - Check them float checks for zero (just to be sure)
@@ -39,7 +36,7 @@
 - Move diagrams to uml
 - Sort out references from used code
 - Figure out why lines are not continues (i.e. have gaps) - float precision? fix?
-- Loading initial positions from file
+- **Fork previous versions (sequential, pool of threads) into separate branches**
 
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))

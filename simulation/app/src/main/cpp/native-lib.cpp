@@ -115,7 +115,7 @@ extern "C" {
         mainview->setFrame();
         vectorFieldHandler->draw(*mainview);
 
-        mainview->dispatchComputeShader(physics->dt, global_time_in_step, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
+        mainview->dispatchComputeShader();
         particlesHandler->drawParticles(*mainview);
     }
 
@@ -198,6 +198,7 @@ extern "C" {
         mainview->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
         mainview->createParticlesBuffer(particlesHandler->getParticlesPositions());
         mainview->createComputeBuffer(vectorFieldHandler->getOldVertices(), vectorFieldHandler->getNewVertices(), vectorFieldHandler->getFutureVertices());
+        mainview->loadConstUniforms(physics->dt, vectorFieldHandler->getWidth(), vectorFieldHandler->getHeight(), vectorFieldHandler->getDepth());
         LOGI("native-lib", "Buffers created");
     }
 

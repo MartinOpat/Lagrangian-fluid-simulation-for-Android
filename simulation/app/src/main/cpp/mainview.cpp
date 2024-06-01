@@ -41,6 +41,8 @@ void Mainview::loadUniforms() {
     this->modelLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "modelTransform");
     this->projectionLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "projectionTransform");
     this->viewLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "viewTransform");
+
+    this->globalTimeInStepLocation = glGetUniformLocation(shaderManager->shaderComputeProgram, "global_time_in_step");
 }
 
 
@@ -140,6 +142,18 @@ void Mainview::createComputeBuffer(std::vector<float>& vector_field0, std::vecto
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
+void Mainview::loadConstUniforms(float dt, int width, int height, int depth) {
+    glUseProgram(shaderManager->shaderComputeProgram);
+    glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "width"), width);
+    glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "height"), height);
+    glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "depth"), depth);
+    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "TIME_STEP_IN_SECONDS"), (float) TIME_STEP_IN_SECONDS);
+    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "dt"), dt);
+    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "max_width"), (float)FIELD_WIDTH);
+    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "max_height"), (float)FIELD_HEIGHT);
+    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "max_depth"), (float)FIELD_DEPTH);
+}
+
 void Mainview::preloadComputeBuffer(std::vector<float>& vector_field, std::atomic<GLsync>& globalFence) {
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, computeVectorField2SSBO);
     glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field.size() * sizeof(float), vector_field.data(), GL_DYNAMIC_DRAW);
@@ -156,15 +170,9 @@ void Mainview::loadComputeBuffer() {
 }
 
 // Dispatch Compute Shader
-void Mainview::dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth) {
+void Mainview::dispatchComputeShader() {
     glUseProgram(shaderManager->shaderComputeProgram);
-
-    glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "width"), width);
-    glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "height"), height);
-    glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "depth"), depth);
-    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "global_time_in_step"), global_time_in_step);
-    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "TIME_STEP_IN_SECONDS"), (float) TIME_STEP_IN_SECONDS);
-    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "dt"), dt);
+    glUniform1f(globalTimeInStepLocation, global_time_in_step);
 
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, particleVBO); // Bind VBO as SSBO
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, computeVectorField0SSBO);

@@ -36,9 +36,10 @@ public:
     void drawParticles(int size);
 
     void createComputeBuffer(std::vector<float>& vector_field0, std::vector<float>& vector_field1, std::vector<float>& vector_field2);
+    void loadConstUniforms(float dt, int width, int height, int depth);
     void preloadComputeBuffer(std::vector<float>& vector_field, std::atomic<GLsync>& globalFence);
     void loadComputeBuffer();
-    void dispatchComputeShader(float dt, float global_time_in_step, int width, int height, int depth);
+    void dispatchComputeShader();
 
     Transforms& getTransforms() { return *transforms; }
 
@@ -53,13 +54,14 @@ private:
 
     GLint isPointLocationLines;
     GLint isPointLocationPoints;
-    GLfloat pointSize;  // TODO: This can (and probably should) be a GLint
+    GLint pointSize;
     GLint modelLocationLines;
     GLint viewLocationLines;
     GLint projectionLocationLines;
     GLint modelLocationPoints;
     GLint viewLocationPoints;
     GLint projectionLocationPoints;
+    GLint globalTimeInStepLocation;
 
     // Buffers
     GLuint particleVBO;

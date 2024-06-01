@@ -8,6 +8,9 @@ uniform int depth;
 uniform float global_time_in_step;
 uniform float TIME_STEP_IN_SECONDS;
 uniform float dt;
+uniform float max_width;
+uniform float max_height;
+uniform float max_depth;
 
 layout(std430, binding = 0) buffer Particles {
     float particles[]; // x, y, z positions of particles
@@ -23,9 +26,9 @@ layout(std430, binding = 2) buffer VectorField1 {
 
 vec3 getVelocity(vec3 position) {
     // Transform position to grid indices
-    int gridX = int((position.x / 100.0f + 1.0f) / 2.0f * float(width));
-    int gridY = int((position.y / 100.0f + 1.0f) / 2.0f * float(height));
-    int gridZ = int((position.z / 50.0f + 1.0f) / 2.0f * float(depth));
+    int gridX = int((position.x / max_width + 1.0f) / 2.0f * float(width));
+    int gridY = int((position.y / max_height + 1.0f) / 2.0f * float(height));
+    int gridZ = int((position.z / max_depth + 1.0f) / 2.0f * float(depth));
 
     gridX = clamp(gridX, 0, width - 1);
     gridY = clamp(gridY, 0, height - 1);
@@ -49,9 +52,9 @@ vec3 getVelocity(vec3 position) {
 }
 
 vec3 bindPosition(vec3 position) {
-    return vec3(clamp(position.x, -100.0f, 100.0f),
-    clamp(position.y, -100.0f, 100.0f),
-    clamp(position.z, -50.0f, 50.0f));
+    return vec3(clamp(position.x, -max_width, max_width),
+    clamp(position.y, -max_height, max_height),
+    clamp(position.z, -max_depth, max_depth));
 }
 
 vec3 advectionStep(vec3 position, float dt) {
