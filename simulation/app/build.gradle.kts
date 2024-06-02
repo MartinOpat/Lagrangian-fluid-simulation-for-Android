@@ -25,10 +25,23 @@ android {
         }
     }
 
+    tasks.withType<JavaCompile> {
+        options.compilerArgs.add("-Xlint:deprecation")
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = "key0"
+            keyPassword = "Tomasko5"
+            storeFile = file("../../keys/my-release-key.jks")
+            storePassword = "Tomasko5"
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -62,4 +75,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+configurations.all {
+    exclude(group = "androidx.emoji2", module = "emoji2")
+    exclude(group = "androidx.emoji2", module = "emoji2-views-helper")
 }
