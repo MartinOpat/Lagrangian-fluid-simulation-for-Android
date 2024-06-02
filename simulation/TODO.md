@@ -16,7 +16,6 @@
 
 
 ## Stuff to research
-- Instanced rendering, details
 - best color wheel for scientific visualization of the direction of a 2d vector field
 - Try cubicles after all
 - Direct volume rendering / volume ray casting
@@ -37,6 +36,7 @@
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))
 - Loading init. positions from a file implemented, but won't be used for taking the measurements
+- Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering
 - Refactoring done
 
 ### Progress
