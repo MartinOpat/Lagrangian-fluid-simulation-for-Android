@@ -2,7 +2,7 @@
 // Created by martin on 31-05-2024.
 //
 
-#include "timer.h"
+#include "include/timer.h"
 
 Timer::Timer() {
     started = false;

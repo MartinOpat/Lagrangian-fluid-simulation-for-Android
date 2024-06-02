@@ -2,7 +2,7 @@
 // Created by martin on 08-05-2024.
 //
 
-#include "particles_handler.h"
+#include "include/particles_handler.h"
 
 
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :

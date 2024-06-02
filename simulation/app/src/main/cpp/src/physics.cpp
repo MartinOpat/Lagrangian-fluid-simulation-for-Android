@@ -2,7 +2,7 @@
 // Created by martin on 12-05-2024.
 //
 
-#include "physics.h"
+#include "include/physics.h"
 
 
 Physics::Physics(VectorFieldHandler& vectorFieldHandler, Physics::Model model): vectorFieldHandler(vectorFieldHandler), model(model) {}

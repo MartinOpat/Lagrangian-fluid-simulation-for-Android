@@ -49,19 +49,19 @@ add_library(libc++_shared SHARED IMPORTED)
 set_target_properties(libc++_shared PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libc++_shared.so)
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
-        native-lib.cpp
-        mainview.cpp
-        file_reader.cpp
-        netcdf_reader.cpp
-        vector_field_handler.cpp
-        particle.cpp
-        particles_handler.cpp
-        touch_handler.cpp
-        physics.cpp
-        transforms.cpp
-        timer.cpp
-        EGLContextManager.cpp
-        shaderManager.cpp
+        src/native-lib.cpp
+        src/mainview.cpp
+        src/file_reader.cpp
+        src/netcdf_reader.cpp
+        src/vector_field_handler.cpp
+        src/particle.cpp
+        src/particles_handler.cpp
+        src/touch_handler.cpp
+        src/physics.cpp
+        src/transforms.cpp
+        src/timer.cpp
+        src/EGLContextManager.cpp
+        src/shaderManager.cpp
 )
 
 

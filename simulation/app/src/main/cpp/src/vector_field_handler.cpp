@@ -2,10 +2,10 @@
 // Created by martin on 08-05-2024.
 //
 
-#include "vector_field_handler.h"
-#include "android_logging.h"
-#include "netcdf_reader.h"
-#include "consts.h"
+#include "include/vector_field_handler.h"
+#include "include/android_logging.h"
+#include "include/netcdf_reader.h"
+#include "include/consts.h"
 
 VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
 

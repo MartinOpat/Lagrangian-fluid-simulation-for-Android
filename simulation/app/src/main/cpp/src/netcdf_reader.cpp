@@ -10,8 +10,8 @@
 #include <sys/types.h>
 
 
-#include "netcdf_reader.h"
-#include "android_logging.h"
+#include "include/netcdf_reader.h"
+#include "include/android_logging.h"
 
 
 NetCDFReader::NetCDFReader() {

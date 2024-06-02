@@ -2,7 +2,7 @@
 // Created by martin on 01-06-2024.
 //
 
-#include "EGLContextManager.h"
+#include "include/EGLContextManager.h"
 
 EGLContextManager::EGLContextManager():
     contextAttributes{EGL_CONTEXT_CLIENT_VERSION, 3,

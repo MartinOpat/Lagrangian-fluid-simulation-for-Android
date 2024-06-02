@@ -2,7 +2,7 @@
 // Created by martin on 01-06-2024.
 //
 
-#include "shaderManager.h"
+#include "include/shaderManager.h"
 
 ShaderManager::ShaderManager(AAssetManager *assetManager): assetManager(assetManager) {}
 

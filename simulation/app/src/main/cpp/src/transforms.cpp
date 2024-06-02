@@ -2,7 +2,7 @@
 // Created by martin on 5/28/24.
 //
 
-#include "transforms.h"
+#include "include/transforms.h"
 
 Transforms::Transforms() : scale(1.0f), rotation(glm::vec3(0.0f, 0.0f, 0.0f)) {
     modelTransform = glm::identity<glm::mat4>();

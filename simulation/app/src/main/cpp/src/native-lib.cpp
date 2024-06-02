@@ -12,16 +12,16 @@
 #include <atomic>
 #include <functional>
 
-#include "android_logging.h"
-#include "netcdf_reader.h"
-#include "mainview.h"
-#include "particle.h"
-#include "particles_handler.h"
-#include "vector_field_handler.h"
-#include "touch_handler.h"
-#include "timer.h"
-#include "ThreadPool.h"
-#include "EGLContextManager.h"
+#include "include/android_logging.h"
+#include "include/netcdf_reader.h"
+#include "include/mainview.h"
+#include "include/particle.h"
+#include "include/particles_handler.h"
+#include "include/vector_field_handler.h"
+#include "include/touch_handler.h"
+#include "include/timer.h"
+#include "include/ThreadPool.h"
+#include "include/EGLContextManager.h"
 
 std::vector<int> fileDescriptors;
 

@@ -2,8 +2,8 @@
 // Created by martin on 08-05-2024.
 //
 
-#include "file_reader.h"
-#include "android_logging.h"
+#include "include/file_reader.h"
+#include "include/android_logging.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>

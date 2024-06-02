@@ -1,4 +1,4 @@
-#include "mainview.h"
+#include "include/mainview.h"
 
 Mainview::Mainview(AAssetManager* assetManager) {
     startTime = std::chrono::steady_clock::now();
