@@ -19,17 +19,8 @@ vec3 hsv2rgb(vec3 c) {
 }
 
 vec3 angleToRGB(float angle) {
-//    float hue = (angle + PI) / (2.0 * PI);
-//    return hsv2rgb(vec3(hue, 1.0, 1.0));
-
-//    float normalized = mod(angle / (2.0 * 3.14159265), 1.0);
-//    float r = 0.5 + 0.5 * sin(normalized * 2.0 * PI + 0.0);
-//    float g = 0.5 + 0.5 * sin(normalized * 2.0 * PI + 2.0 * PI / 3.0);
-//    float b = 0.5 + 0.5 * sin(normalized * 2.0 * PI + 4.0 * PI / 3.0);
-//    return vec3(r, g, b);
-
     float normalized = mod(angle / (2.0 * PI), 1.0);
-    float r = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 0.0);           // Red component
+    float r = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 0.0);            // Red component
     float g = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 2.0 * PI / 3.0); // Green component
     float b = 0.5 + 0.3 * sin(normalized * 2.0 * PI + 4.0 * PI / 3.0); // Blue component
     float saturation = 0.75;  // Reduce saturation for less intense colors
@@ -40,19 +31,22 @@ vec3 angleToRGB(float angle) {
 }
 
 void main() {
+    // Get position
     vec3 startPosition = pos[0];
     vec3 endPosition = pos[1];
 
+    // Transform position
     vec4 worldStartPos = modelTransform * vec4(startPosition, 1.0);
     vec4 worldEndPos = modelTransform * vec4(endPosition, 1.0);
 
+    // Get angle
     vec3 v = normalize(endPosition - startPosition);
     float angle = atan(v.y, v.x);
 
+    // Get color
     col = vec4(angleToRGB(angle), 1.0);
 
-
-    // Output the transformed vertices and pass color to fragment shader
+    // Emit vertices
     gl_Position = projectionTransform * viewTransform * worldStartPos;
     EmitVertex();
 
