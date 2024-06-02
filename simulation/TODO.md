@@ -9,7 +9,6 @@
 - Refactor class includes
 - Add/check error handling
 - Refactor initial transforms in `transforms.cpp`
-- Look at timestep (dt etc.) before starting measuring
 
 ## Current bottlenecks
 

@@ -3,10 +3,6 @@
 //
 
 #include "include/file_reader.h"
-#include "include/android_logging.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
 
 std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilename) {
     // Generate path for the temporary file in the app's internal storage
@@ -22,7 +18,7 @@ std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilen
         return "";
     }
 
-    // Rewind the source descriptor to ensure it's read from the start
+    // Rewind the source descriptor
     lseek(fd, 0, SEEK_SET);
 
     // Copy data from the file descriptor to the temporary file
