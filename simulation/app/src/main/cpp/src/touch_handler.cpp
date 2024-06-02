@@ -30,17 +30,20 @@ void TouchHandler::handleSingleTouch(float x, float y, int action) {
     }
 
     if (action == 0) {
+        // Initial touch
         tpRot.startX = x;
         tpRot.startY = y;
         tpRot.currentX = x;
         tpRot.currentY = y;
         prevRot = transform.getRotation();
     } else if (action == 1) {
+        // Release
         tpRot.startX = 0.0f;
         tpRot.startY = 0.0f;
         tpRot.currentX = 0.0f;
         tpRot.currentY = 0.0f;
     } else if (action == 2) {
+        // Move
         tpRot.currentX = x;
         tpRot.currentY = y;
 
@@ -54,6 +57,7 @@ void TouchHandler::handleSingleTouch(float x, float y, int action) {
 void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
     isScaling = true;
     if (action == 5) {
+        // Initial touch
         tpScale1.startX = x[0];
         tpScale1.startY = y[0];
         tpScale1.currentX = x[0];
@@ -64,6 +68,7 @@ void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
         tpScale2.currentY = y[1];
         prevScale = transform.getScale();
     } else if (action == 6) {
+        // Release
         tpScale1.startX = 0.0f;
         tpScale1.startY = 0.0f;
         tpScale1.currentX = 0.0f;
@@ -73,6 +78,7 @@ void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
         tpScale2.currentX = 0.0f;
         tpScale2.currentY = 0.0f;
     } else if (action == 2) {
+        // Move
         tpScale1.currentX = x[0];
         tpScale1.currentY = y[0];
 
