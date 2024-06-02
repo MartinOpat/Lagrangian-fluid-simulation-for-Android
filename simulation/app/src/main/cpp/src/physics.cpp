@@ -25,11 +25,13 @@ glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
     vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
     switch (model) {
         case Model::particles_simple: {
+            // Drag force
             glm::vec3 vel = args[1];
             return - b / m * (vel - velField);
         }
 
         case Model::particles: {
+            // Centripetal, buoyant, drag, gravity, drag, and added mass force
             glm::vec3 vel = args[1];
             glm::vec3 acc = args[2];
             glm::vec3 Fd = - b * (vel - velField);
@@ -49,6 +51,7 @@ glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
         }
 
         case Model::particles_advection: {
+            // Advection equation for particles
             return velField;
         }
     }
