@@ -15,29 +15,40 @@
 #include "android_logging.h"
 #include "ThreadPool.h"
 
+/**
+ * @class EGLContextManager
+ * @brief Class to manage the EGL context and shared context
+ */
 class EGLContextManager {
 public:
+
+    /**
+     * @brief Constructor
+     */
     EGLContextManager();
 
+    /**
+     * @brief Initializes EGL context and fill the member variables
+     */
     void initContext();
+
+    /**
+     * @brief Synchronizes the EGL context between threads
+     * @param threadPool A pointer to the ThreadPool to synchronize the context with
+     */
     void syncEGLContext(ThreadPool *threadPool);
 
-    EGLDisplay& getDisplay() { return storedEglDisplay; }
-    EGLContext& getContext() { return storedEglContext; }
-    EGLContext& getSharedContext() { return sharedContext; }
-
-    std::atomic<GLsync> globalFence{nullptr};
+    std::atomic<GLsync> globalFence{nullptr};  // Atomic GLsync object for global fence synchronization.
 
 private:
     EGLDisplay storedEglDisplay;
     EGLContext storedEglContext;
 
-    const EGLint contextAttributes[3];
-
     EGLContext sharedContext;
     EGLConfig config;
     EGLint numConfigs;
 
+    const EGLint contextAttributes[3];
     const EGLint configAttributes[15];
 };
 
