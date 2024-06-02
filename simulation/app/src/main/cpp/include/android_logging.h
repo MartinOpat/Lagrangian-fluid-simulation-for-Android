@@ -1,3 +1,8 @@
+//
+// Created by martin on 08-05-2024.
+//
+
+
 #ifndef ANDROID_LOGGING_H
 #define ANDROID_LOGGING_H
 

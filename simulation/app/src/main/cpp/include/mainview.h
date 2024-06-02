@@ -1,3 +1,8 @@
+//
+// Created by martin on 08-05-2024.
+//
+
+
 #ifndef GL_SHADER_MANAGER_H
 #define GL_SHADER_MANAGER_H
 
