@@ -42,7 +42,6 @@ float aspectRatio = 1.0f;
 float global_time_in_step = 0.0f;
 
 void loadStep(int frame) {
-    LOGI("native-lib", "Loading step %d", frame);
     vectorFieldHandler->loadTimeStep(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
 }
 
@@ -84,6 +83,7 @@ void check_update() {
         mainview->loadComputeBuffer();
         currentFrame = (currentFrame + 1) % numFrames;
 
+        LOGI("native-lib", "Loading step %d", currentFrame);
         threadPool->enqueue([frame = currentFrame]() {
             loadStep(frame);
             mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), eglContextManager->globalFence);

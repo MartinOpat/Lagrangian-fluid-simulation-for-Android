@@ -5,9 +5,7 @@
 - Add/check error handling
 
 ## Native side
-- Looked into why all init function are getting called twice (something with onSurfaceCreated probs.)
 - Delete (old) functions ? - 2d, before compute shaders etc...
-- Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
 - Refactor initial transforms in `transforms.cpp`
