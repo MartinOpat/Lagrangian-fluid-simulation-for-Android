@@ -25,6 +25,7 @@ std::string ShaderManager::loadShaderFile(const char* fileName) {
     return buffer;
 }
 
+// Helper function to compile a shader from a `.glsl` file
 void compileShaderHelper(GLuint& shader, const std::string& shaderSource, GLenum type) {
     GLint compileSuccess = 0;
     GLchar infoLog[512];
@@ -64,14 +65,18 @@ void createProgramHelper(GLuint& program, GLuint shaders[]) {
     GLchar infoLog[512];
     program = glCreateProgram();
 
+    // Attach all shaders to the program
     while (*shaders) {
         glAttachShader(program, *shaders);
         shaders++;
     }
 
+    // Link the program
     glBindAttribLocation(program, 0, "vPosition");
     glLinkProgram(program);
     glGetProgramiv(program, GL_LINK_STATUS, &linkSuccess);
+
+    // Check for linking errors
     if (!linkSuccess) {
         glGetProgramInfoLog(program, 512, NULL, infoLog);
         LOGE("shaderManager", "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s", infoLog);
@@ -133,7 +138,8 @@ void ShaderManager::loadShaderSources() {
     computeShaderSource = loadShaderFile("compute_shader.glsl");
 }
 
-void ShaderManager::checkShaderProgramLinkStatus(){
+void ShaderManager::checkShaderProgramLinkStatus() {
+    // Check if the shader program linked successfully
     GLint linked;
     glGetProgramiv(shaderLinesProgram, GL_LINK_STATUS, &linked);
     if (!linked) {
@@ -142,6 +148,7 @@ void ShaderManager::checkShaderProgramLinkStatus(){
         LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
     }
 
+    // Check if the shader program linked successfully
     GLint linkedPoints;
     glGetProgramiv(shaderPointsProgram, GL_LINK_STATUS, &linkedPoints);
     if (!linkedPoints) {
@@ -150,6 +157,7 @@ void ShaderManager::checkShaderProgramLinkStatus(){
         LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
     }
 
+    // Check for any other OpenGL errors
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {
         LOGE("shaderManager", "OpenGL setup error: %x", err);
