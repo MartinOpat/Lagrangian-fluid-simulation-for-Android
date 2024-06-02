@@ -6,13 +6,13 @@
 
 
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :
-physics(physics), num(num), pool2(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
+        physics(physics), num(num), pool(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
     initParticles(type);
     isInitialized = true;
 }
 
 ParticlesHandler::ParticlesHandler(Physics& physics, int num) :
-        physics(physics), num(num), pool2(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
+        physics(physics), num(num), pool(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
     isInitialized = false;
 }
 
@@ -58,15 +58,14 @@ void ParticlesHandler::initParticles(InitType type) {
             }
             break;
     }
+
+    // Populate particlesPos used for rendering
     particlesPos.clear();
     for (auto& particle : particles) {
         particlesPos.push_back(particle.position.x);
         particlesPos.push_back(particle.position.y);
         particlesPos.push_back(particle.position.z);
     }
-}
-
-ParticlesHandler::~ParticlesHandler() {
 }
 
 void ParticlesHandler::bindPosition(Particle& particle) {
@@ -107,10 +106,12 @@ void ParticlesHandler::updateParticles() {
 }
 
 void ParticlesHandler::updateParticlesParallel() {
+    // setup threads
     int num_threads = std::thread::hardware_concurrency();
     std::vector<std::thread> threads(num_threads);
     auto chunk_size = particles.size() / num_threads;
 
+    // worker function
     auto worker = [this](auto begin, auto end, size_t start_index) {
         size_t i = start_index;
         for (auto it = begin; it != end; ++it) {
@@ -122,6 +123,7 @@ void ParticlesHandler::updateParticlesParallel() {
         }
     };
 
+    // Distribute work among threads
     size_t start_index = 0;
     auto begin = particles.begin();
     for (unsigned int i = 0; i < num_threads; i++) {
@@ -131,18 +133,19 @@ void ParticlesHandler::updateParticlesParallel() {
         start_index += chunk_size * 3;
     }
 
+    // Join threads
     for (auto& thread : threads) {
         thread.join();
     }
 }
 
 
-void ParticlesHandler::updateParticlesPool2() {
+void ParticlesHandler::updateParticlesPool() {
     size_t num_particles = particles.size();
     size_t batch_size = std::max(num_particles / thread_count, 1ul);  // Ensure non-zero batch size
 
     for (size_t i = 0; i < num_particles; i += batch_size) {
-        pool2.enqueue([this, i, batch_size, num_particles]() {
+        pool.enqueue([this, i, batch_size, num_particles]() {
             size_t end = std::min(i + batch_size, num_particles);
             for (size_t j = i; j < end; ++j) {
                 physics.doStep(particles[j]);
@@ -156,8 +159,8 @@ void ParticlesHandler::updateParticlesPool2() {
     }
 }
 
-void ParticlesHandler::drawParticles(Mainview& shaderManager) {
-    shaderManager.drawParticles(particlesPos.size());
+void ParticlesHandler::drawParticles(Mainview& mainview) {
+    mainview.drawParticles(particlesPos.size());
 }
 
 void ParticlesHandler::bindParticlesPositions() {
@@ -174,16 +177,19 @@ void ParticlesHandler::loadPositionsFromFile(const std::string &filePath) {
     // Read latitude, longitude, and depth
     std::vector<float> lats(numParticles), lons(numParticles), depths(numParticles);
 
+    // Get the variables
     file.getVar("lat").getVar(lats.data());
     file.getVar("lon").getVar(lons.data());
     file.getVar("depth").getVar(depths.data());
 
+
+    // Get the max values
     float maxLat, maxLon, maxDepth;
     file.getAtt("max_lat").getValues(&maxLat);
     file.getAtt("max_lon").getValues(&maxLon);
     file.getAtt("max_depth").getValues(&maxDepth);
 
-
+    // Populate
     particlesPos.resize(numParticles * 3);
     for (size_t i = 0; i < numParticles; i++) {
         particlesPos[3 * i] = FIELD_WIDTH * ((lons[i] / maxLon) * 2 - 1);       // X (longitude)
@@ -191,6 +197,7 @@ void ParticlesHandler::loadPositionsFromFile(const std::string &filePath) {
         particlesPos[3 * i + 2] = FIELD_DEPTH *  ((depths[i] / maxDepth) * 2 - 1); // Z (depth)
     }
 
+    // Cleanup
     file.close();
     std::remove(filePath.c_str());
 }
