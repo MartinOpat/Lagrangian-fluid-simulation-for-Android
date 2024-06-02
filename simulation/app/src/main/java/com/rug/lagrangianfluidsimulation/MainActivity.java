@@ -47,9 +47,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getAspectRatio();
+        fileAccessHelper.checkAndRequestPermissions();
         setupGLSurfaceView();
         setContentView(glSurfaceView);
-        fileAccessHelper.checkAndRequestPermissions();
     }
 
     private void getAspectRatio() {
@@ -157,6 +157,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (glSurfaceView != null) {
+            glSurfaceView.onPause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         if (glSurfaceView != null) {
             glSurfaceView.onPause();
         }
