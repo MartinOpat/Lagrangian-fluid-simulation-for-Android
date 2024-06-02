@@ -66,7 +66,6 @@ void loadInitStep() {
 
 void check_update() {
     static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
-    static const std::chrono::seconds updateInterval(TIME_STEP_IN_SECONDS);
 
     static auto lastCall = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();
