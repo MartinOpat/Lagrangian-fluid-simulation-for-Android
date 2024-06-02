@@ -10,7 +10,6 @@
 - Check them float checks for zero (just to be sure)
 - Refactor class includes
 - Add/check error handling
-- Remove `emojiCompat` native class
 - Refactor initial transforms in `transforms.cpp`
 - Refactor the placement of `.cpp` and `.h`/`.hpp` files
 - Look at timestep (dt etc.) before starting measuring
@@ -35,6 +34,7 @@
 - Sort out references from used code
 - Figure out why lines are not continues (i.e. have gaps) - float precision? fix?
 - **Fork previous versions (sequential, pool of threads) into separate branches**
+
 
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))
