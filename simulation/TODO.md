@@ -6,7 +6,6 @@
 
 ## Native side
 - Delete (old) functions ? - 2d, before compute shaders etc...
-- Refactor class includes
 - Add/check error handling
 - Refactor initial transforms in `transforms.cpp`
 
@@ -23,12 +22,11 @@
 
 
 ## General project
-- Add comments
-- Document the code
 - Move diagrams to uml
 - Sort out references from used code
 - Figure out why lines are not continues (i.e. have gaps) - float precision? fix?
 - **Fork previous versions (sequential, pool of threads) into separate branches**
+- Make sure to use same case
 
 
 ## Next meeting points
