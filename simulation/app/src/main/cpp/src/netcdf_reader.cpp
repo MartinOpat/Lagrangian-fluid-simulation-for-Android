@@ -1,4 +1,7 @@
-// NetCDFReader.cpp
+//
+// Created by martin on 28-5-/24.
+//
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -61,7 +64,6 @@ void NetCDFReader::loadFile(const std::string& filename) {
 }
 
 void NetCDFReader::printVariableNames() const {
-
     std::cout << "Variables in the NetCDF file:" << std::endl;
     if (variableNames.empty()) {
         LOGE("netcdf-reader", "No variables found or no file loaded!");
