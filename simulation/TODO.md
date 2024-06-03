@@ -19,7 +19,7 @@
 - Move diagrams to uml
 - Sort out references from used code
 - Figure out why lines are not continues (i.e. have gaps) - float precision? fix?
-- Make sure to use same case
+- Make sure to use same case (e.g. camelCase)
 
 
 ## Next meeting points
