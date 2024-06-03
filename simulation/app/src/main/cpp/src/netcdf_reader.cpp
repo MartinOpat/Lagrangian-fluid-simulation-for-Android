@@ -33,6 +33,8 @@ void NetCDFReader::loadFile(const std::string& filename) {
         return;
     }
 
+    mFilename = filename;
+
     AAsset* asset = AAssetManager_open(mAssetManager, mFilename.c_str(), AASSET_MODE_UNKNOWN);
     if (!asset) {
         std::cerr << "Failed to open asset: " << mFilename << std::endl;

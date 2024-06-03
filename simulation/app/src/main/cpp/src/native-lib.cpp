@@ -150,32 +150,6 @@ extern "C" {
         LOGI("native-lib", "Initial step loaded");
     }
 
-
-    JNIEXPORT void JNICALL
-    Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadNetCDFData3D(
-            JNIEnv* env, jobject /* this */, jint fdU, jint fdV, jint fdW) {
-
-        NetCDFReader reader;
-        std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
-        std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
-        std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");
-
-        if (tempFileU.empty() || tempFileV.empty() || tempFileW.empty()) {
-            LOGE("native-lib", "Failed to create temporary files.");
-            return;
-        }
-
-
-        vectorFieldHandler = new VectorFieldHandler();
-        vectorFieldHandler->loadTimeStepHelper(tempFileU, tempFileV, tempFileW);
-        LOGI("native-lib", "NetCDF files loaded");
-
-        physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
-
-        particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *physics);
-        LOGI("native-lib", "Particles initialized");
-    }
-
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         mainview->createVectorFieldBuffer(vectorFieldHandler->getOldVertices());
