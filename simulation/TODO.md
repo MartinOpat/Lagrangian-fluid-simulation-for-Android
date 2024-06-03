@@ -31,6 +31,7 @@
 - Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering
 - Refactoring done
 - Added mode enum. for easy switching between sequential, parallel, and compute shaders modes
+- Implemented unit tests
 
 ### Progress
 - 10'000 particles:

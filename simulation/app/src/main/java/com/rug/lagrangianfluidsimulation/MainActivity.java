@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -21,7 +23,6 @@ import java.util.Map;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
 
 public class MainActivity extends Activity {
     static {
@@ -32,10 +33,12 @@ public class MainActivity extends Activity {
 
 
     // Attributes
-    private GLSurfaceView glSurfaceView;
-    private final FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
+    protected GLSurfaceView glSurfaceView;
+    protected FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
+
+
     private native void drawFrame();
-    private native void setupGraphics(AssetManager assetManager);
+    public native void setupGraphics(AssetManager assetManager);
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
     public native void onDestroyNative();
@@ -136,7 +139,9 @@ public class MainActivity extends Activity {
 
     public void onDataLoaded() {
         runOnUiThread(() -> fileAccessHelper.setDataReady(true));
-        glSurfaceView.queueEvent(this::createBuffers);
+        glSurfaceView.queueEvent(() -> {
+            createBuffers();
+        });
     }
 
 
@@ -197,6 +202,22 @@ public class MainActivity extends Activity {
         nativeSendTouchEvent(pointerCount, x, y, action);
 
         return true;
+    }
+
+    public View getView() {
+        return glSurfaceView;
+    }
+
+    public void setView(GLSurfaceView glSurfaceView) {
+        this.glSurfaceView = glSurfaceView;
+    }
+
+    public FileAccessHelper getFileAccessHelper() {
+        return fileAccessHelper;
+    }
+
+    public void setFileAccessHelper(FileAccessHelper fileAccessHelper) {
+        this.fileAccessHelper = fileAccessHelper;
     }
 
 }
