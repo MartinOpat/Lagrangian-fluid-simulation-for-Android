@@ -37,27 +37,6 @@ public class MainActivityTest {
         });
     }
 
-//    @Test
-//    public void testOnCreate_initialization() {
-//        FakeFileAccessHelper fakeHelper = new FakeFileAccessHelper(null);
-//        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
-//        scenario.onActivity(activity -> {
-//            activity.setFileAccessHelper(fakeHelper);
-//
-//            // Check if libraries are loaded, implicitly checked by not crashing or throwing.
-//            assertNotNull("GLSurfaceView should be initialized", activity.getView());
-//
-//            // Verify that setContentView was called with the correct view.
-//            View contentView = activity.getView();
-//            assertTrue("Content view should be GLSurfaceView", contentView instanceof GLSurfaceView);
-//
-//            // Check that `fileAccessHelper.checkAndRequestPermissions();` was called in onCreate
-//            activity.onCreate(null);
-//            assertNotNull("FileAccessHelper should be initialized", fakeHelper);
-//            assertTrue("Permissions should be checked", fakeHelper.permissionsChecked);
-//        });
-//    }
-
 
     @Test
     public void testDataLoadingViaFilePicker() {
@@ -118,19 +97,16 @@ public class MainActivityTest {
     @Test
     public void testGLSurfaceViewCallbacks() {
 
-        activityRule.getScenario().onActivity(new ActivityScenario.ActivityAction<MainActivity>() {
-            @Override
-            public void perform(MainActivity activity) {
-                MainActivity spyMainActivity = Mockito.spy(activity);
-                // Override the createBuffers method
-                Mockito.doNothing().when(spyMainActivity).createBuffers();
+        activityRule.getScenario().onActivity(activity -> {
+            MainActivity spyMainActivity = Mockito.spy(activity);
+            // Override the createBuffers method
+            Mockito.doNothing().when(spyMainActivity).createBuffers();
 
-                // Call the method to test
-                spyMainActivity.createBuffers();
+            // Call the method to test
+            spyMainActivity.createBuffers();
 
-                // Verify that createBuffers was called
-                Mockito.verify(spyMainActivity).createBuffers();
-            }
+            // Verify that createBuffers was called
+            Mockito.verify(spyMainActivity).createBuffers();
         });
     }
 
