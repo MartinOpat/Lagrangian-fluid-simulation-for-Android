@@ -1,11 +1,9 @@
 # Things that need to be done that are not immediately obvious.
 
 ## Android side
-- Add/check error handling
 - Unit tests
 
 ## Native side
-- Add/check error handling
 - Unit tests ?
 
 ## Current bottlenecks
