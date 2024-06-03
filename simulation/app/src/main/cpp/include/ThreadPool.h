@@ -1,5 +1,6 @@
 //
 // Created: https://github.com/progschj/ThreadPool
+// Modified by: Martin K. Mwila
 //
 #ifndef THREAD_POOL_H
 #define THREAD_POOL_H
@@ -21,6 +22,7 @@ public:
     auto enqueue(F&& f, Args&&... args)
     -> std::future<typename std::result_of<F(Args...)>::type>;
     ~ThreadPool();
+    void waitForAll();
 private:
     // need to keep track of threads so we can join them
     std::vector< std::thread > workers;
@@ -31,6 +33,9 @@ private:
     std::mutex queue_mutex;
     std::condition_variable condition;
     bool stop;
+
+    std::atomic<size_t> tasks_count{0};
+    std::condition_variable all_tasks_done;
 };
 
 // the constructor just launches some amount of workers
@@ -56,6 +61,9 @@ inline ThreadPool::ThreadPool(size_t threads)
                         }
 
                         task();
+                        if (--tasks_count == 0) {
+                            all_tasks_done.notify_all();
+                        }
                     }
                 }
         );
@@ -81,6 +89,7 @@ auto ThreadPool::enqueue(F&& f, Args&&... args)
             throw std::runtime_error("enqueue on stopped ThreadPool");
 
         tasks.emplace([task](){ (*task)(); });
+        ++tasks_count;
     }
     condition.notify_one();
     return res;
@@ -96,6 +105,11 @@ inline ThreadPool::~ThreadPool()
     condition.notify_all();
     for(std::thread &worker: workers)
         worker.join();
+}
+
+inline void ThreadPool::waitForAll() {
+    std::unique_lock<std::mutex> lock(queue_mutex);
+    all_tasks_done.wait(lock, [this](){ return tasks_count == 0 && tasks.empty(); });
 }
 
 #endif
