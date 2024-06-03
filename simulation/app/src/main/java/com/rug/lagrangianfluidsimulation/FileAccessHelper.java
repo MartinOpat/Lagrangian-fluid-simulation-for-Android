@@ -11,7 +11,7 @@ import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +31,6 @@ public class FileAccessHelper {
     public static final int REQUEST_CODE_PICK_FILES = 101;
     public static final int REQUEST_CODE_PICK_DIRECTORY = 102;
 
-    public native void loadNetCDFData3D(int fdU, int fdV, int fdW);
     public native void loadFilesFDs(int[] fds);
     public native void loadInitialPositions(int fd);
 
@@ -68,19 +67,6 @@ public class FileAccessHelper {
             openDirectoryPicker();
         }
     }
-
-    public void loadNetCDFData(Uri uriU, Uri uriV, Uri uriW) {
-        executor.submit(() -> {
-            int fdU = getFileDescriptor(uriU);
-            int fdV = getFileDescriptor(uriV);
-            int fdW = getFileDescriptor(uriW);
-            if (fdU != -1 && fdV != -1 && fdW != -1) {
-                loadNetCDFData3D(fdU, fdV, fdW);
-            }
-            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
-        });
-    }
-
     public void loadInitialPositions(Uri uri) {
         executor.submit(() -> {
             int fd = getFileDescriptor(uri);
@@ -100,7 +86,10 @@ public class FileAccessHelper {
             }
             executor.shutdown();
             try {
-                executor.awaitTermination(1, TimeUnit.MINUTES); // Wait for all tasks to finish
+                boolean res = executor.awaitTermination(1, TimeUnit.MINUTES); // Wait for all tasks to finish
+                if (!res) {
+                    Log.e("MainActivity", "Executor service timed out");
+                }
             } catch (InterruptedException e) {
                 Log.e("MainActivity", "Executor service interrupted", e);
             }
@@ -121,13 +110,12 @@ public class FileAccessHelper {
 
 
     public int getFileDescriptor(Uri uri) {
-        try {
-            ParcelFileDescriptor pfd = mainActivity.getContentResolver().openFileDescriptor(uri, "r");
+        try (ParcelFileDescriptor pfd = mainActivity.getContentResolver().openFileDescriptor(uri, "r")) {
             if (pfd != null) {
                 return pfd.detachFd(); // Detach the file descriptor to pass it to native code
             }
-        } catch (FileNotFoundException e) {
-            Log.e("MainActivity", "File not found.", e);
+        } catch (IOException e) {
+            Log.e("MainActivity", "File descriptor for file not found.", e);
         }
         return -1; // Return an invalid file descriptor in case of error
     }
