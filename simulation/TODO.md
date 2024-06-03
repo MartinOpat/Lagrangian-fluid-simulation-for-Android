@@ -7,7 +7,6 @@
 
 ## Native side
 - Add/check error handling
-- Refactor initial transforms in `transforms.cpp`
 - Unit tests ?
 
 ## Current bottlenecks

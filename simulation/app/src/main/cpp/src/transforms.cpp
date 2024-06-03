@@ -6,13 +6,17 @@
 
 Transforms::Transforms() : scale(1.0f), rotation(glm::vec3(0.0f, 0.0f, 0.0f)) {
     modelTransform = glm::identity<glm::mat4>();
+
     projectionTransform = glm::identity<glm::mat4>();
     float max_dim = std::max(FIELD_WIDTH, std::max(FIELD_HEIGHT, FIELD_DEPTH));
     projectionTransform = glm::ortho(-max_dim, max_dim, -max_dim, max_dim, -NEAR_FAR, NEAR_FAR);
+
     viewTransform = glm::identity<glm::mat4>();
+
     setRotation(0.0f, 0.0f, M_PI/2.0f);
-    setScale(0.5f);
+    setScale(0.7f);
     setAspectRatio(0.5f);
+
     updateTransformations();
 }
 
