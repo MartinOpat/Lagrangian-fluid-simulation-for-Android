@@ -34,12 +34,15 @@ Timer* timer;
 ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
 
+// From consts.h
+float global_time_in_step = 0.0f;
+Mode mode = Mode::parallel;
 
+// Rendering vars.
 int currentFrame = 0;
 int numFrames = 0;
 float aspectRatio = 1.0f;
 
-float global_time_in_step = 0.0f;
 
 void loadStep(int frame) {
     vectorFieldHandler->loadTimeStep(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
@@ -114,7 +117,6 @@ extern "C" {
         mainview->setFrame();
         vectorFieldHandler->draw(*mainview);
 
-        mainview->dispatchComputeShader();
         particlesHandler->drawParticles(*mainview);
     }
 
@@ -239,7 +241,6 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadInitialPositions(JNIEnv *env, jobject thiz, jint fd) {
         if (particlesHandler->areParticlesInitialized()) {
-            LOGI("native-lib", "Particles already initialized");
             return;
         }
         LOGI("native-lib", "Loading initial positions");

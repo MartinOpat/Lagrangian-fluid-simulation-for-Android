@@ -86,7 +86,7 @@ void Mainview::loadParticlesData(std::vector<float>& particlesPos) {
 }
 
 void Mainview::drawParticles(int size) {
-    glUseProgram(shaderManager->shaderPointsProgram);  // TODO: Possibly temporary
+    glUseProgram(shaderManager->shaderPointsProgram);
 
     // Load VAO
     glBindVertexArray(particleVAO);

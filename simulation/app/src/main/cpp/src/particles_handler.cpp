@@ -157,9 +157,24 @@ void ParticlesHandler::updateParticlesPool() {
             }
         });
     }
+
+    // Make sure all jobs are done
+    pool.waitForAll();
 }
 
 void ParticlesHandler::drawParticles(Mainview& mainview) {
+    // Update positions based on mode
+    if (mode == Mode::sequential) {
+        updateParticles();
+        mainview.loadParticlesData(particlesPos);
+    } else if (mode == Mode::parallel) {
+        updateParticlesPool();
+        mainview.loadParticlesData(particlesPos);
+    } else if (mode == Mode::computeShaders) {
+        mainview.dispatchComputeShader();
+    }
+
+    // Draw call
     mainview.drawParticles(particlesPos.size());
 }
 
@@ -170,6 +185,11 @@ void ParticlesHandler::bindParticlesPositions() {
 }
 
 void ParticlesHandler::loadPositionsFromFile(const std::string &filePath) {
+    if (isInitialized) {
+        LOGE("particles_handler", "Particles have already been initialized, ignoring file load.");
+        std::remove(filePath.c_str());
+        return;
+    }
     netCDF::NcFile file(filePath, netCDF::NcFile::read);
 
     size_t numParticles = file.getDim("particle").getSize();
