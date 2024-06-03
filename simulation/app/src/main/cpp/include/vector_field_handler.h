@@ -120,9 +120,9 @@ public:
 
 private:
     // Dimensions of the loaded vector field
-    int width = 0;
-    int height = 0;
-    int depth = 0;
+    int width ;
+    int height;
+    int depth ;
 
     // Defines how many vertices to omit for rendering (higher value = less vertices)
     int finenessXY;
