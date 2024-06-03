@@ -1,7 +1,6 @@
 # Things that need to be done that are not immediately obvious.
 
 ## Android side
-- Remove old functions
 - Add/check error handling
 - Unit tests
 

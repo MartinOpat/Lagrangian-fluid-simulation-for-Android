@@ -34,8 +34,6 @@ public class MainActivity extends Activity {
     // Attributes
     private GLSurfaceView glSurfaceView;
     private final FileAccessHelper fileAccessHelper = new FileAccessHelper(this);
-    private Uri[] uris;
-
     private native void drawFrame();
     private native void setupGraphics(AssetManager assetManager);
     public native void createBuffers();
@@ -101,8 +99,11 @@ public class MainActivity extends Activity {
         } else if (requestCode == FileAccessHelper.REQUEST_CODE_PICK_DIRECTORY && resultCode == RESULT_OK) {
             // Extract the uri of all files from directory
             Uri uri = data.getData();
+            assert uri != null;
 
             DocumentFile directory = DocumentFile.fromTreeUri(this, uri);
+            assert directory != null;
+
             Log.i("MainActivity", "Directory picked: "  + directory.getName());
             DocumentFile[] files = directory.listFiles();
 
@@ -114,12 +115,15 @@ public class MainActivity extends Activity {
 
             DocumentFile[] sortedFiles = Arrays.stream(files)
                     .parallel()
-                    .sorted(Comparator.comparing(nameCache::get))
+                    .sorted(Comparator.comparing(file -> {
+                        String name = nameCache.get(file);
+                        return (name != null) ? name : "";
+                    }))
                     .toArray(DocumentFile[]::new);
 
 
             Log.i("MainActivity", "Files loaded: " + sortedFiles.length);
-            uris = new Uri[sortedFiles.length];
+            Uri[] uris = new Uri[sortedFiles.length];
             for (int i = 0; i < sortedFiles.length; i++) {
                 uris[i] = sortedFiles[i].getUri();
             }
