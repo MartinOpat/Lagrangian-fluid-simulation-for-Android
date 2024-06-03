@@ -36,7 +36,7 @@ EGLContextManager *eglContextManager;
 
 // From consts.h
 float global_time_in_step = 0.0f;
-Mode mode = Mode::parallel;
+Mode mode = Mode::computeShaders;
 
 // Rendering vars.
 int currentFrame = 0;

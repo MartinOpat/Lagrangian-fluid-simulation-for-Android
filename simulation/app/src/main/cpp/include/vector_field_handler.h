@@ -37,15 +37,6 @@ public:
 
 
     /**
-     * @brief Prepares the vertex data with the given u and v data.
-     *
-     * @param uData The u data.
-     * @param vData The v data.
-     * @deprecated
-     */
-    void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData);
-
-    /**
      * @brief Prepares the vertex data with the given u, v, and w data.
      *
      * @param uData The u data.
@@ -54,15 +45,6 @@ public:
      */
     void prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
 
-
-    /**
-     * @brief Loads a time step with the given file paths for u and v data.
-     *
-     * @param fileUPath The file path for the u data.
-     * @param fileVPath The file path for the v data.
-     * @deprecated
-     */
-    void loadTimeStep(const std::string& fileUPath, const std::string& fileVPath);
 
     /**
      * @brief Helper method for loading a time step with the given file paths for u, v, and w data.

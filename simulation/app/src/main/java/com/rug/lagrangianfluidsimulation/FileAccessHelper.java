@@ -31,7 +31,6 @@ public class FileAccessHelper {
     public static final int REQUEST_CODE_PICK_FILES = 101;
     public static final int REQUEST_CODE_PICK_DIRECTORY = 102;
 
-    public native void loadNetCDFData(int fdU, int fdV);
     public native void loadNetCDFData3D(int fdU, int fdV, int fdW);
     public native void loadFilesFDs(int[] fds);
     public native void loadInitialPositions(int fd);
@@ -68,17 +67,6 @@ public class FileAccessHelper {
             openFilePicker();
             openDirectoryPicker();
         }
-    }
-
-    public void loadNetCDFData(Uri uriU, Uri uriV) {
-        executor.submit(() -> {
-            int fdU = getFileDescriptor(uriU);
-            int fdV = getFileDescriptor(uriV);
-            if (fdU != -1 && fdV != -1) {
-                loadNetCDFData(fdU, fdV);
-            }
-            mainActivity.runOnUiThread(mainActivity::onDataLoaded);
-        });
     }
 
     public void loadNetCDFData(Uri uriU, Uri uriV, Uri uriW) {

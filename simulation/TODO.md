@@ -6,7 +6,6 @@
 - Unit tests
 
 ## Native side
-- Delete (old) functions ? - 2d, before compute shaders etc...
 - Add/check error handling
 - Refactor initial transforms in `transforms.cpp`
 - Unit tests ?
