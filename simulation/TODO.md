@@ -27,7 +27,6 @@
 - Move diagrams to uml
 - Sort out references from used code
 - Figure out why lines are not continues (i.e. have gaps) - float precision? fix?
-- **Fork previous versions (sequential, pool of threads) into separate branches**
 - Make sure to use same case
 
 
@@ -36,6 +35,7 @@
 - Loading init. positions from a file implemented, but won't be used for taking the measurements
 - Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering
 - Refactoring done
+- Added mode enum. for easy switching between sequential, parallel, and compute shaders modes
 
 ### Progress
 - 10'000 particles:
