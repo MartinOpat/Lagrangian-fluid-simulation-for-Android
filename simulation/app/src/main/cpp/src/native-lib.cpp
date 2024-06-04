@@ -172,8 +172,6 @@ extern "C" {
             touchHandler->handleDoubleTouch(x, y, action);
         }
 
-        LOGI("native-lib", "Touch event: %d", action);
-
         env->ReleaseFloatArrayElements(xArray, xTemp, 0);
         env->ReleaseFloatArrayElements(yArray, yTemp, 0);
     }

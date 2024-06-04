@@ -5,7 +5,6 @@
 
 ## Native side
 - Somehow disable rotation anywhere near double touch
-- Reduce logging in later part of app
 
 ## Current bottlenecks
 
