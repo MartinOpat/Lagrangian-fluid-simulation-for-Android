@@ -1,6 +1,6 @@
 #version 320 es
 precision mediump float;
-uniform bool uIsPoint; // Uniform to tell if we're rendering a point or triangle
+uniform bool uIsPoint; // Uniform to tell if we're rendering a point or not
 
 flat in vec4 col;
 out vec4 fragColor;
@@ -14,7 +14,7 @@ void main() {
         if (dist > radius) {
             discard;
         } else {
-            fragColor = vec4(1.0, 0, 0, 1.0);  // Red for now
+            fragColor = vec4(1.0, 0, 0, 1.0);  // Red
         }
     } else {
         fragColor = col;
