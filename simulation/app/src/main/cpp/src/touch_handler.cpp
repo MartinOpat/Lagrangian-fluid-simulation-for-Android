@@ -4,12 +4,12 @@
 
 #include "include/touch_handler.h"
 
-bool isScaling = false;
 
 TouchHandler::TouchHandler(Transforms& transform) : transform(transform), prevRot(glm::vec3(0, 0, 0)), prevScale(0.5f) {
     tpScale1 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpScale2 = {0.0f, 0.0f, 0.0f, 0.0f};
     tpRot = {0.0f, 0.0f, 0.0f, 0.0f};
+    lastDoubleTouch = std::chrono::steady_clock::now();
 }
 
 void TouchHandler::handleTouch(float x[2], float y[2], int action, int pointerCount) {
@@ -24,8 +24,7 @@ void TouchHandler::handleTouch(float x[2], float y[2], int action, int pointerCo
 }
 
 void TouchHandler::handleSingleTouch(float x, float y, int action) {
-    if (isScaling) {
-        isScaling = false;
+    if (std::chrono::steady_clock::now() - lastDoubleTouch < rotationLockTime) {
         return;
     }
 
@@ -55,7 +54,6 @@ void TouchHandler::handleSingleTouch(float x, float y, int action) {
 }
 
 void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
-    isScaling = true;
     if (action == 5) {
         // Initial touch
         tpScale1.startX = x[0];
@@ -92,6 +90,7 @@ void TouchHandler::handleDoubleTouch(float x[2], float y[2], int action) {
         float scale = sqrt(currDist / initDist);
         transform.setScale(scale * prevScale);
     }
+    lastDoubleTouch = std::chrono::steady_clock::now();
 }
 
 

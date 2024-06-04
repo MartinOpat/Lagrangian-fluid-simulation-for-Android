@@ -4,7 +4,6 @@
 - Refactor unit tests ?
 
 ## Native side
-- Somehow disable rotation anywhere near double touch
 
 ## Current bottlenecks
 

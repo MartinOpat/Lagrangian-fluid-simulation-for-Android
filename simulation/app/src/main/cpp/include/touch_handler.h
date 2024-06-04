@@ -10,6 +10,8 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include <chrono>
+
 /**
  * @struct TouchPoint
  * @brief This struct represents a point of touch in the application.
@@ -73,6 +75,10 @@ private:
     TouchPoint tpRot;
     glm::vec3 prevRot;
     Transforms& transform;
+
+    // Rotation lock
+    std::chrono::time_point<std::chrono::steady_clock> lastDoubleTouch;
+    std::chrono::seconds rotationLockTime = std::chrono::seconds(1);
 };
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_TOUCH_HANDLER_H
