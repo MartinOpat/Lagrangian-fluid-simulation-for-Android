@@ -25,10 +25,11 @@
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))
 - Loading init. positions from a file implemented, but won't be used for taking the measurements
-- Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering
+- Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering - it is actually less efficient
 - Refactoring done
 - Added mode enum. for easy switching between sequential, parallel, and compute shaders modes
 - Implemented unit tests
+- Question: How much of the proposal am I expected to re-use for the thesis / is acceptable? (abstract, intro., ...)
 
 ### Progress
 - 10'000 particles:
