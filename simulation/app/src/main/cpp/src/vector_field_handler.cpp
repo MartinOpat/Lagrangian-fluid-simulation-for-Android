@@ -7,31 +7,61 @@
 VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
 
 void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
-    // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices
-    int gridX = (int)((position.x / 100.0f + 1.0) / 2 * width);
-    int gridY = (int)((position.y / 100.0f + 1.0) / 2 * height);
-    int gridZ = (int)((position.z / 50.0f + 1.0) / 2 * depth);
+    // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices as floating point
+    float fGridX = ((position.x / (float)FIELD_WIDTH + 1.0) / 2 * width);
+    float fGridY = ((position.y / (float)FIELD_HEIGHT + 1.0) / 2 * height);
+    float fGridZ = ((position.z / (float)FIELD_DEPTH + 1.0) / 2 * depth);
 
-    // Ensure indices are within bounds
-    gridX = std::max(0, std::min(gridX, width - 1));
-    gridY = std::max(0, std::min(gridY, height - 1));
-    gridZ = std::max(0, std::min(gridZ, depth - 1));
+    // Calculate base indices by casting to int
+    int baseGridX = (int)fGridX;
+    int baseGridY = (int)fGridY;
+    int baseGridZ = (int)fGridZ;
 
-    int idx = gridZ* width * height + gridY * width + gridX;
+    // Ensure base indices are within bounds
+    baseGridX = std::max(0, std::min(baseGridX, width - 2));
+    baseGridY = std::max(0, std::min(baseGridY, height - 2));
+    baseGridZ = std::max(0, std::min(baseGridZ, depth - 2));
 
-    float x0 = allVertices[0][idx * 6 + 3] - allVertices[0][idx * 6];
-    float y0 = allVertices[0][idx * 6 + 4] - allVertices[0][idx * 6 + 1];
-    float z0 = allVertices[0][idx * 6 + 5] - allVertices[0][idx * 6 + 2];
+    // Compute interpolation weights
+    float w_x = fGridX - baseGridX;
+    float w_y = fGridY - baseGridY;
+    float w_z = fGridZ - baseGridZ;
 
-    float x1 = allVertices[1][idx * 6 + 3] - allVertices[1][idx * 6];
-    float y1 = allVertices[1][idx * 6 + 4] - allVertices[1][idx * 6 + 1];
-    float z1 = allVertices[1][idx * 6 + 5] - allVertices[1][idx * 6 + 2];
+    // Helper function to calculate velocity vector at a given index
+    auto getVelocity = [&](int x, int y, int z, int timeIndex) {
+        int idx = z * width * height + y * width + x;
+        float dx = allVertices[timeIndex][idx * 6 + 3] - allVertices[timeIndex][idx * 6];
+        float dy = allVertices[timeIndex][idx * 6 + 4] - allVertices[timeIndex][idx * 6 + 1];
+        float dz = allVertices[timeIndex][idx * 6 + 5] - allVertices[timeIndex][idx * 6 + 2];
+        return glm::vec3(dx, dy, dz);
+    };
 
-    velocity = glm::vec3(x0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (x1 - x0),
-                         y0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (y1 - y0),
-                         z0 + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (z1 - z0)
-    );
+    // Interpolate for each time index and then across time
+    glm::vec3 interpolatedVelocity[2];
+    for (int t = 0; t < 2; ++t) {
+        glm::vec3 c000 = getVelocity(baseGridX,     baseGridY,     baseGridZ, t);
+        glm::vec3 c100 = getVelocity(baseGridX + 1, baseGridY,     baseGridZ, t);
+        glm::vec3 c010 = getVelocity(baseGridX,     baseGridY + 1, baseGridZ, t);
+        glm::vec3 c110 = getVelocity(baseGridX + 1, baseGridY + 1, baseGridZ, t);
+        glm::vec3 c001 = getVelocity(baseGridX,     baseGridY,     baseGridZ + 1, t);
+        glm::vec3 c101 = getVelocity(baseGridX + 1, baseGridY,     baseGridZ + 1, t);
+        glm::vec3 c011 = getVelocity(baseGridX,     baseGridY + 1, baseGridZ + 1, t);
+        glm::vec3 c111 = getVelocity(baseGridX + 1, baseGridY + 1, baseGridZ + 1, t);
+
+        glm::vec3 c00 = glm::mix(c000, c100, w_x);
+        glm::vec3 c01 = glm::mix(c001, c101, w_x);
+        glm::vec3 c10 = glm::mix(c010, c110, w_x);
+        glm::vec3 c11 = glm::mix(c011, c111, w_x);
+
+        glm::vec3 c0 = glm::mix(c00, c10, w_y);
+        glm::vec3 c1 = glm::mix(c01, c11, w_y);
+
+        interpolatedVelocity[t] = glm::mix(c0, c1, w_z);
+    }
+
+    velocity = glm::mix(interpolatedVelocity[0], interpolatedVelocity[1], global_time_in_step / (float)TIME_STEP_IN_SECONDS);
 }
+
 
 void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData) {
 
