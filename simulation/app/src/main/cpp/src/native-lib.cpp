@@ -98,7 +98,7 @@ void check_update() {
 
 void init() {
     touchHandler = new TouchHandler(mainview->getTransforms());
-    vectorFieldHandler = new VectorFieldHandler();
+    vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line ,*physics, NUM_PARTICLES);  // Code-wise initialization

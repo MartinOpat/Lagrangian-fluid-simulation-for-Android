@@ -25,7 +25,7 @@ public:
      * @param finenessXY The fineness of the vector field in the X and Y axes.
      * @param finenessZ The fineness of the vector field in the Z-axis.
      */
-    VectorFieldHandler(int finenessXY = 15, int finenessZ = 5);
+    VectorFieldHandler(int finenessXY = 1, int finenessZ = 1);
 
     /**
      * @brief Gets the velocity field at the given position.
