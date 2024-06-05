@@ -30,7 +30,8 @@ ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
-Timer* timer;
+Timer<std::chrono::high_resolution_clock >* timer_fps;
+Timer<std::chrono::steady_clock>* timer;
 ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
 
@@ -68,15 +69,9 @@ void loadInitStep() {
 
 
 void check_update() {
-    static auto lastUpdate = std::chrono::steady_clock::now(); // Last update time
-
-    static auto lastCall = std::chrono::steady_clock::now();
-    auto now = std::chrono::steady_clock::now();
     global_time_in_step += physics->dt;
-    lastCall = now;
 
     if (global_time_in_step >= TIME_STEP_IN_SECONDS) {
-        lastUpdate = now;
         global_time_in_step = 0.0f;
 
         eglContextManager->syncEGLContext(threadPool);
@@ -106,7 +101,10 @@ void init() {
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
-    timer = new Timer();
+    timer_fps = new Timer<std::chrono::high_resolution_clock>();
+    timer_fps->start();
+    timer = new Timer<std::chrono::steady_clock>();
+
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
 
@@ -116,9 +114,10 @@ void init() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         check_update();
+        particlesHandler->simulateParticles(*mainview);
         mainview->setFrame();
-        vectorFieldHandler->draw(*mainview);
 
+        vectorFieldHandler->draw(*mainview);
         particlesHandler->drawParticles(*mainview);
     }
 
@@ -186,8 +185,10 @@ extern "C" {
         delete vectorFieldHandler;
         delete physics;
         delete touchHandler;
+        delete timer_fps;
         delete timer;
         delete threadPool;
+        delete eglContextManager;
     }
 
     JNIEXPORT void JNICALL

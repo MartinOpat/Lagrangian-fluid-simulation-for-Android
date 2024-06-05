@@ -13,80 +13,97 @@
 
 /**
  * @class Timer
- * @brief This class provides utilities for timing and logging in the application.
+ * @brief Templated class providing utilities for timing and logging in the application.
  *
+ * @tparam ClockType The type of clock to use for timing.
  */
+template<typename ClockType>
 class Timer {
 public:
-    /**
-     * @brief Constructor.
-     */
     Timer();
 
-    /**
-     * @brief Starts the timer.
-     */
     void start();
-
-    /**
-     * @brief Stops the timer.
-     */
     void stop();
+    float getElapsedTimeInSeconds();
+    std::chrono::milliseconds getElapsedTime();
 
-    /**
-     * @brief Getter for the elapsed time in seconds.
-     *
-     * @return The elapsed time in seconds as a float.
-     */
-    float getSteadyElapsedTimeInSeconds();
-    float getHighResElapsedTimeInSeconds();
-    float getCpuElapsedTimeInSeconds();
-
-    /**
-     * @brief Logs the frames per second (FPS).
-     */
     void logFPS();
-
-    /**
-     * @brief Logs the elapsed time.
-     */
     void logElapsedTime();
 
-    /**
-     * @brief Checks if the timer is started.
-     *
-     * @return True if the timer is started, false otherwise.
-     */
-    bool isStarted() {return started;};
+    bool isStarted();
 
-    /**
-     * @brief Utility function that measures the time since its last calls and logs
-     * the FPS and elapsed time (logging happens at most every `displayFrequency` seconds).
-     */
     void measure();
 
 private:
-    bool started;  // Is timer started?
-
-    std::chrono::time_point<std::chrono::steady_clock> startTimeSteady;
-    std::chrono::time_point<std::chrono::high_resolution_clock> startTimeHighRes;
-    std::clock_t startTimeCpu;
-
-    std::chrono::time_point<std::chrono::steady_clock> stopTimeSteady;
-    std::chrono::time_point<std::chrono::high_resolution_clock> stopTimeHighRes;
-    std::clock_t stopTimeCpu;
-
-    /**
-     * @brief Gets the elapsed time.
-
-     * @return The elapsed time as a chrono::seconds object.
-     */
-    std::chrono::seconds getSteadyElapsedTime();
-    std::chrono::seconds getHighResElapsedTime();
-    std::clock_t getCpuElapsedTime();
-
-    int numMeasurements;  // Number of measurements performed by `measure()` since last log.
-    std::chrono::seconds displayFrequency;  // The max. allowed frequency of logging measurements.
+    bool started;
+    std::chrono::time_point<ClockType> startTime, stopTime;
+    int numMeasurements;
+    std::chrono::milliseconds displayFrequency;
 };
+
+// Definitions are below the class declaration, but still in the header
+
+template<typename ClockType>
+inline Timer<ClockType>::Timer()
+        : started(false), numMeasurements(0), displayFrequency(std::chrono::milliseconds(1000)) {}
+
+template<typename ClockType>
+inline void Timer<ClockType>::start() {
+    started = true;
+    numMeasurements = 0;
+    startTime = ClockType::now();
+}
+
+template<typename ClockType>
+inline void Timer<ClockType>::stop() {
+    started = false;
+    stopTime = ClockType::now();
+}
+
+template<typename ClockType>
+inline float Timer<ClockType>::getElapsedTimeInSeconds() {
+    auto elapsedTime = ClockType::now() - startTime;
+    std::chrono::duration<float> seconds = elapsedTime;
+    return seconds.count();
+}
+
+template<typename ClockType>
+inline std::chrono::milliseconds Timer<ClockType>::getElapsedTime() {
+    auto elapsedTime = ClockType::now() - startTime;
+    return std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime);
+}
+
+template<typename ClockType>
+inline void Timer<ClockType>::logFPS() {
+    float elapsedTime = getElapsedTimeInSeconds();
+    float fps = numMeasurements / elapsedTime;
+    LOGI("Timer", "FPS: %f", fps);
+}
+
+template<typename ClockType>
+inline void Timer<ClockType>::logElapsedTime() {
+    float elapsedTime = getElapsedTimeInSeconds() * 1000 / numMeasurements;  // Convert to milliseconds
+    LOGI("Timer", "Elapsed time: %f ms", elapsedTime);
+}
+
+template<typename ClockType>
+inline bool Timer<ClockType>::isStarted() {
+    return started;
+}
+
+template<typename ClockType>
+inline void Timer<ClockType>::measure() {
+    if (isStarted()) {
+        numMeasurements++;
+        if (getElapsedTime() >= displayFrequency) {
+            stop();
+            logFPS();
+            logElapsedTime();
+            start();
+        }
+    } else {
+        start();
+    }
+}
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_TIMER_H

@@ -59,7 +59,6 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         src/touch_handler.cpp
         src/physics.cpp
         src/transforms.cpp
-        src/timer.cpp
         src/EGLContextManager.cpp
         src/shaderManager.cpp
 )
