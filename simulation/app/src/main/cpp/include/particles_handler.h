@@ -33,7 +33,8 @@ public:
     enum class InitType {
         line,       // A single diagonal line
         two_lines,      // Two diagonal lines
-        explosion   // Explosion of particles
+        explosion,   // Explosion of particles
+        uniform     // Uniform distribution of particles
     };
 
     /**

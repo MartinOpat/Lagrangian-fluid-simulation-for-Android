@@ -57,6 +57,18 @@ void ParticlesHandler::initParticles(InitType type) {
                 particles.push_back(Particle(initialPos, initialVel));
             }
             break;
+        case InitType::uniform:
+            for (int i = 0; i < num; i++) {
+                // Randomly distribute particles uniformly over the 3D space
+
+                float xPos = FIELD_WIDTH * (2 * (rand() / (float)RAND_MAX) - 1);
+                float yPos = FIELD_HEIGHT * (2 * (rand() / (float)RAND_MAX) - 1);
+                float zPos = FIELD_DEPTH * (2 * (rand() / (float)RAND_MAX) - 1);
+
+                glm::vec3 initialPos(xPos, yPos, zPos);
+                particles.push_back(Particle(initialPos, glm::vec3(0.0f, 0.0f, 0.0f)));
+            }
+            break;
     }
 
     // Populate particlesPos used for rendering
