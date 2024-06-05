@@ -4,12 +4,19 @@
 - Refactor unit tests ?
 
 ## Native side
+- Check for functions which could be inline
+- Check if loops cannot be optimized
+
+- Define dt in terms of simulation time or suchs (hours, days, ...)
+- Fix time measurements
+- Find function-call bottlenecks
 
 ## Current bottlenecks
 
 
 ## Stuff to research
-- speed up paper Kehl (read, speed up + graphing log-log)
+- speed up paper Kehl (read, speed up + graphing log-log); Relevant pages: 10, 
+- Vectorized CPU instructions for the, well, vector field - ba dum ts
 - time measurements for all three modes
 
 - Try cubicles after all
@@ -30,6 +37,7 @@
 - Implemented unit tests
 - Question: How much of the proposal am I expected to re-use for the thesis / is acceptable? (abstract, intro., ...)
 - Figured out why lines were not continuous (Julian question) - "bug" in grid interpolation (it was wrong)
+- Read the timing-relevant papers (mainly the speedup  one)
 
 ### Perlin stuff
 - Particle are moving in the z direction so app works (triple checked)
