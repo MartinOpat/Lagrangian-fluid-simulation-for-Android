@@ -7,6 +7,8 @@
 - Check for functions which could be inline
 - Check if loops cannot be optimized
 
+- Consider decoupling the simulation from the rendering
+
 - Define dt in terms of simulation time or suchs (hours, days, ...)
 - Fix time measurements
 - Find function-call bottlenecks
