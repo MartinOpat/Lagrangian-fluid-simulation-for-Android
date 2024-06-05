@@ -30,7 +30,6 @@ ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
-Timer<std::chrono::high_resolution_clock >* timer_fps;
 Timer<std::chrono::steady_clock>* timer;
 ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
@@ -101,8 +100,6 @@ void init() {
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
-    timer_fps = new Timer<std::chrono::high_resolution_clock>();
-    timer_fps->start();
     timer = new Timer<std::chrono::steady_clock>();
 
     threadPool = new ThreadPool(1);
@@ -185,7 +182,6 @@ extern "C" {
         delete vectorFieldHandler;
         delete physics;
         delete touchHandler;
-        delete timer_fps;
         delete timer;
         delete threadPool;
         delete eglContextManager;
