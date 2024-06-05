@@ -102,21 +102,21 @@ public:
      *
      * @return The width.
      */
-    int getWidth() {return width / finenessXY+1;};
+    int getWidth() {return (width + finenessXY - 1) / finenessXY;};
 
     /**
      * @brief Getter for the height.
      *
      * @return The height.
      */
-    int getHeight() {return height / finenessXY+1;};
+    int getHeight() {return (height + finenessXY - 1) / finenessXY;};
 
     /**
      * @brief Getter for the depth.
      *
      * @return The depth.
      */
-    int getDepth() {return depth / finenessZ+1;};
+    int getDepth() {return (depth + finenessZ - 1) / finenessZ;};
 
 private:
     // Dimensions of the loaded vector field
