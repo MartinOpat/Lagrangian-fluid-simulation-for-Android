@@ -4,8 +4,6 @@
 - Refactor unit tests ?
 
 ## Native side
-- Solve performance dependant on particle shape
-
 - Check for functions which could be inline
 - Check if loops cannot be optimized
 
@@ -13,8 +11,6 @@
 - Consider keeping the drawing to steady 60 fps -> more simulation steps per rendering cycle
 
 - Define dt in terms of simulation time or suchs (hours, days, ...)
-- Fix time measurements
-- Find function-call bottlenecks
 
 ## Current bottlenecks
 For a lot of particles, or randomly distributed particles in a dense grid, the bottleneck is
