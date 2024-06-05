@@ -137,33 +137,6 @@ vec3 getVelocity(vec3 position) {
     return v;
 }
 
-vec3 getVelocityOld(vec3 position) {
-    // Transform position to grid indices
-    int gridX = int((position.x / max_width + 1.0f) / 2.0f * float(width));
-    int gridY = int((position.y / max_height + 1.0f) / 2.0f * float(height));
-    int gridZ = int((position.z / max_depth + 1.0f) / 2.0f * float(depth));
-
-    gridX = clamp(gridX, 0, width - 1);
-    gridY = clamp(gridY, 0, height - 1);
-    gridZ = clamp(gridZ, 0, depth - 1);
-
-    int idx = gridZ * width * height + gridY * width + gridX;
-
-    // Compute velocity based on vector field data
-    vec3 v0 = vec3(vectorData0[idx * 6 + 3] - vectorData0[idx * 6],
-    vectorData0[idx * 6 + 4] - vectorData0[idx * 6 + 1],
-    vectorData0[idx * 6 + 5] - vectorData0[idx * 6 + 2]);
-
-    vec3 v1 = vec3(vectorData1[idx * 6 + 3] - vectorData1[idx * 6],
-    vectorData1[idx * 6 + 4] - vectorData1[idx * 6 + 1],
-    vectorData1[idx * 6 + 5] - vectorData1[idx * 6 + 2]);
-
-    // Linear interpolation based on time step
-    vec3 v = v0 + global_time_in_step / TIME_STEP_IN_SECONDS * (v1 - v0);
-
-    return v;
-}
-
 
 vec3 bindPosition(vec3 position) {
     return vec3(clamp(position.x, -max_width, max_width),
