@@ -9,6 +9,7 @@ ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :
         physics(physics), num(num), pool(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
     initParticles(type);
     isInitialized = true;
+    srand(112358);  // Set rand() seed for reproducibility
 }
 
 ParticlesHandler::ParticlesHandler(Physics& physics, int num) :
@@ -19,7 +20,9 @@ ParticlesHandler::ParticlesHandler(Physics& physics, int num) :
 
 void ParticlesHandler::initParticles(InitType type) {
     particles.clear();
+    particles.reserve(num);
     particlesPos.clear();
+    particlesPos.reserve(num * 3);
     switch (type) {
         case InitType::line:
             for (int i = 0; i < num; i++) {
@@ -80,31 +83,12 @@ void ParticlesHandler::initParticles(InitType type) {
     }
 }
 
-void ParticlesHandler::bindPosition(Particle& particle) {
-    if (particle.position.x < -FIELD_WIDTH) {
-        particle.position.x = -FIELD_WIDTH;
-        particle.velocity.x = 0;
-    } else if (particle.position.x > FIELD_WIDTH) {
-        particle.position.x = FIELD_WIDTH;
-        particle.velocity.x = 0;
-    }
-
-    if (particle.position.y < -FIELD_HEIGHT) {
-        particle.position.y = -FIELD_HEIGHT;
-        particle.velocity.y = 0;
-    } else if (particle.position.y > FIELD_HEIGHT) {
-        particle.position.y = FIELD_HEIGHT;
-        particle.velocity.y = 0;
-    }
-
-    if (particle.position.z < -FIELD_DEPTH) {
-        particle.position.z = -FIELD_DEPTH;
-        particle.velocity.z = 0;
-    } else if (particle.position.z > FIELD_DEPTH) {
-        particle.position.z = FIELD_DEPTH;
-        particle.velocity.z = 0;
-    }
+inline void ParticlesHandler::bindPosition(Particle& particle) {
+    particle.position.x = std::clamp(particle.position.x, -FIELD_WIDTH, FIELD_WIDTH);
+    particle.position.y = std::clamp(particle.position.y, -FIELD_HEIGHT, FIELD_HEIGHT);
+    particle.position.z = std::clamp(particle.position.z, -FIELD_DEPTH, FIELD_DEPTH);
 }
+
 
 void ParticlesHandler::updateParticles() {
     int i = 0;

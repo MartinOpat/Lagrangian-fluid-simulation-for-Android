@@ -9,6 +9,13 @@
 #include "vector_field_handler.h"
 #include "particle.h"
 
+struct ParticleState {
+    glm::vec3 pos;
+    glm::vec3 vel;
+    glm::vec3 acc;
+};
+
+
 /**
  * @class Physics
  * @brief This class handles the physics of a particle simulation.
@@ -38,21 +45,10 @@ public:
      * For advection: returns the fluid velocity at the particle's position.
      * For other models: returns the acceleration of the particle.
      *
-     * @param pos The position of the particle.
-     * @param vel The velocity of the particle.
-     * @return The quantity are defined above.
-     */
-    glm::vec3 dvdt(glm::vec3 pos, glm::vec3 vel);
-
-    /**
-     * @brief Calculates the derivative of the simulated quantity.
-     * For advection: returns the fluid velocity at the particle's position.
-     * For other models: returns the acceleration of the particle.
-     *
      * @param args The arguments for the calculation (at least particle position).
      * @return The quantity are defined above.
      */
-    glm::vec3 dvdt(std::vector<glm::vec3> args);
+    glm::vec3 dvdt(const ParticleState& state);
 
     /**
      * @brief Performs an Euler integration step.

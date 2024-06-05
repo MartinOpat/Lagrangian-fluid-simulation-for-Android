@@ -37,6 +37,7 @@ void Transforms::setAspectRatio(float aspectRatio) {
 }
 
 void Transforms::updateTransformations() {
+    // Update model matrix
     modelTransform = glm::identity<glm::mat4>();
     modelTransform = glm::scale(modelTransform, glm::vec3(scale, scale, scale));
 
@@ -46,6 +47,7 @@ void Transforms::updateTransformations() {
     modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
 
+    // Update the projection matrix according to the new aspect ratio
     float width = FIELD_WIDTH / 0.5f;
     float height = FIELD_HEIGHT;
     if (aspectRatio > 0.5f) {
@@ -53,7 +55,5 @@ void Transforms::updateTransformations() {
     } else {
         width /= aspectRatio;
     }
-
-    // Update the projection matrix according to the new aspect ratio
     projectionTransform = glm::ortho(-width, width, -height, height, -NEAR_FAR, NEAR_FAR);
 }

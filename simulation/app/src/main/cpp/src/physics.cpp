@@ -7,33 +7,23 @@
 
 Physics::Physics(VectorFieldHandler& vectorFieldHandler, Physics::Model model): vectorFieldHandler(vectorFieldHandler), model(model) {}
 
-glm::vec3 Physics::dvdt(glm::vec3 pos, glm::vec3 vel) {
-    glm::vec3 velField;
-    vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
-    return - b / m * (vel - velField);
-}
-
 // args can contain any arguments, but at least the position
-glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
+glm::vec3 Physics::dvdt(const ParticleState& state) {
     glm::vec3 velField;
-    if (args.size() < 1) {
-        LOGE("physics", "Physics::dvdt: args must contain at least the position of the particle");
-        return glm::vec3(0.0f);
-    }
 
-    glm::vec3 pos = args[0];
+    glm::vec3 pos = state.pos;
     vectorFieldHandler.velocityField(pos, velField); // Fluid velocity at particle's position
     switch (model) {
         case Model::particles_simple: {
             // Drag force
-            glm::vec3 vel = args[1];
+            glm::vec3 vel = state.vel;
             return - b / m * (vel - velField);
         }
 
         case Model::particles: {
             // Centripetal, buoyant, drag, gravity, drag, and added mass force
-            glm::vec3 vel = args[1];
-            glm::vec3 acc = args[2];
+            glm::vec3 vel = state.vel;
+            glm::vec3 acc = state.acc;
             glm::vec3 Fd = - b * (vel - velField);
             glm::vec3 Fc;
             if (std::abs(acc.x) < 0.0001f && std::abs(acc.y) < 0.0001f && std::abs(acc.z) < 0.0001f) {
@@ -58,7 +48,7 @@ glm::vec3 Physics::dvdt(std::vector<glm::vec3> args) {
 }
 
 void Physics::eulerStep(Particle& particle) {
-    particle.acceleration = dvdt(particle.position, particle.velocity);
+    particle.acceleration = dvdt({particle.position, particle.velocity});
     particle.velocity += particle.acceleration * dt;
     particle.position += particle.velocity * dt;
 }

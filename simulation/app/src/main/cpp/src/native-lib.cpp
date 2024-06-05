@@ -44,7 +44,7 @@ int numFrames = 0;
 float aspectRatio = 1.0f;
 
 
-void loadStep(int frame) {
+inline void loadStep(int frame) {
     vectorFieldHandler->loadTimeStep(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
 }
 
@@ -142,6 +142,7 @@ extern "C" {
 
         jint* fds = env->GetIntArrayElements(jfds, nullptr);
         fileDescriptors.clear();
+        fileDescriptors.reserve(len);
         for (int i = 0; i < len; i++) {
             fileDescriptors.push_back(fds[i]);
         }

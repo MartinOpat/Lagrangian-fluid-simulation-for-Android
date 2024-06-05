@@ -4,9 +4,6 @@
 - Refactor unit tests ?
 
 ## Native side
-- Check for functions which could be inline
-- Check if loops cannot be optimized
-
 - Consider decoupling the simulation from the rendering
 - Consider keeping the drawing to steady 60 fps -> more simulation steps per rendering cycle
 

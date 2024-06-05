@@ -64,16 +64,17 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
 
 
 void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData) {
-
     std::vector<float> vertices;
+    vertices.reserve(width * height * depth * 6);
     std::vector<float> tempDisplayVertices;
+    tempDisplayVertices.reserve(getWidth() * getHeight() * getDepth() * 6);
 
-    float maxU = *std::max_element(uData.begin(), uData.end());
-    float minU = *std::min_element(uData.begin(), uData.end());
-    float maxV = *std::max_element(vData.begin(), vData.end());
-    float minV = *std::min_element(vData.begin(), vData.end());
-    float maxW = *std::max_element(wData.begin(), wData.end());
-    float minW = *std::min_element(wData.begin(), wData.end());
+    const float maxU = *std::max_element(uData.begin(), uData.end());
+    const float minU = *std::min_element(uData.begin(), uData.end());
+    const float maxV = *std::max_element(vData.begin(), vData.end());
+    const float minV = *std::min_element(vData.begin(), vData.end());
+    const float maxW = *std::max_element(wData.begin(), wData.end());
+    const float minW = *std::min_element(wData.begin(), wData.end());
 
     for (int z = 0; z < depth; z++) {
         for (int y = 0; y < height; y++) {
