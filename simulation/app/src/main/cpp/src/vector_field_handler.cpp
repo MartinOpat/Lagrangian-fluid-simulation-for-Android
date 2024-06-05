@@ -38,7 +38,7 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
 
     // Interpolate for each time index and then across time
     glm::vec3 interpolatedVelocity[2];
-    for (int t = 0; t < 2; ++t) {
+    for (int t = 0; t < 2; t++) {
         glm::vec3 c000 = getVelocity(baseGridX,     baseGridY,     baseGridZ, t);
         glm::vec3 c100 = getVelocity(baseGridX + 1, baseGridY,     baseGridZ, t);
         glm::vec3 c010 = getVelocity(baseGridX,     baseGridY + 1, baseGridZ, t);

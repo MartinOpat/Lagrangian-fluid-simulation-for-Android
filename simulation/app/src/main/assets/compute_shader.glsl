@@ -27,17 +27,19 @@ layout(std430, binding = 2) buffer VectorField1 {
 // Helper functions to calculate velocity vector at a given index
 vec3 computeVelocity0(int x, int y, int z) {
     int idx = z * width * height + y * width + x;
-    float dx = vectorData0[idx * 6 + 3] - vectorData0[idx * 6];
-    float dy = vectorData0[idx * 6 + 4] - vectorData0[idx * 6 + 1];
-    float dz = vectorData0[idx * 6 + 5] - vectorData0[idx * 6 + 2];
-    return vec3(dx, dy, dz);
+    return vec3(
+        vectorData0[idx * 6 + 3] - vectorData0[idx * 6],
+        vectorData0[idx * 6 + 4] - vectorData0[idx * 6 + 1],
+        vectorData0[idx * 6 + 5] - vectorData0[idx * 6 + 2]
+    );
 }
 vec3 computeVelocity1(int x, int y, int z) {
     int idx = z * width * height + y * width + x;
-    float dx = vectorData1[idx * 6 + 3] - vectorData1[idx * 6];
-    float dy = vectorData1[idx * 6 + 4] - vectorData1[idx * 6 + 1];
-    float dz = vectorData1[idx * 6 + 5] - vectorData1[idx * 6 + 2];
-    return vec3(dx, dy, dz);
+    return vec3(
+        vectorData1[idx * 6 + 3] - vectorData1[idx * 6],
+        vectorData1[idx * 6 + 4] - vectorData1[idx * 6 + 1],
+        vectorData1[idx * 6 + 5] - vectorData1[idx * 6 + 2]
+    );
 }
 
 // Helper functions to interpolate velocity vectors
@@ -133,8 +135,7 @@ vec3 getVelocity(vec3 position) {
     vec3 v1 = interpolateV1(baseGridX, baseGridY, baseGridZ, w_x, w_y, w_z);
 
     // Linear interpolation based on time step
-    vec3 v = mix(v0, v1, global_time_in_step / TIME_STEP_IN_SECONDS);
-    return v;
+    return mix(v0, v1, global_time_in_step / TIME_STEP_IN_SECONDS);
 }
 
 
