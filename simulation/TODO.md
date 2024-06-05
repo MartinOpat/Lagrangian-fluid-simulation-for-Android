@@ -4,16 +4,23 @@
 - Refactor unit tests ?
 
 ## Native side
+- Solve performance dependant on particle shape
+
 - Check for functions which could be inline
 - Check if loops cannot be optimized
 
 - Consider decoupling the simulation from the rendering
+- Consider keeping the drawing to steady 60 fps -> more simulation steps per rendering cycle
 
 - Define dt in terms of simulation time or suchs (hours, days, ...)
 - Fix time measurements
 - Find function-call bottlenecks
 
 ## Current bottlenecks
+For a lot of particles, or randomly distributed particles in a dense grid, the bottleneck is
+the grid interpolation, as a lot of different vertices are being accessed, causing cache misses
+and lowering throughput. The compute shaders (best) approach might benefit from a dynamic
+grid-wise parallelization.
 
 
 ## Stuff to research
