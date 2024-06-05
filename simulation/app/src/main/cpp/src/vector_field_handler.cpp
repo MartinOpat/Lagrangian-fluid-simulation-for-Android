@@ -68,8 +68,6 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     std::vector<float> vertices;
     std::vector<float> tempDisplayVertices;
 
-    LOGI("vector_field_handler", "3d");
-
     float maxU = *std::max_element(uData.begin(), uData.end());
     float minU = *std::min_element(uData.begin(), uData.end());
     float maxV = *std::max_element(vData.begin(), vData.end());
