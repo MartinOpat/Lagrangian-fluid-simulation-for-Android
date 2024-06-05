@@ -36,7 +36,7 @@ EGLContextManager *eglContextManager;
 
 // From consts.h
 float global_time_in_step = 0.0f;
-Mode mode = Mode::computeShaders;
+Mode mode;
 
 // Rendering vars.
 int currentFrame = 0;
@@ -97,11 +97,13 @@ void check_update() {
 
 
 void init() {
+    mode = Mode::computeShaders;
+
     touchHandler = new TouchHandler(mainview->getTransforms());
     vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line ,*physics, NUM_PARTICLES);  // Code-wise initialization
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer();
