@@ -13,44 +13,90 @@ Timer::Timer() {
 void Timer::start() {
     started = true;
     numMeasurements = 0;
-    startTime = std::chrono::steady_clock::now();
+    startTimeSteady = std::chrono::steady_clock::now();
+    startTimeHighRes = std::chrono::high_resolution_clock::now();
+    startTimeCpu = std::clock();
 }
 
 void Timer::stop() {
     started = false;
-    stopTime = std::chrono::steady_clock::now();
+    stopTimeSteady = std::chrono::steady_clock::now();
+    stopTimeHighRes = std::chrono::high_resolution_clock::now();
+    stopTimeCpu = std::clock();
 }
 
-std::chrono::seconds Timer::getElapsedTime() {
-    stopTime = std::chrono::steady_clock::now();
-    auto elapsedTime = stopTime - startTime;
+std::chrono::seconds Timer::getSteadyElapsedTime() {
+    stopTimeSteady = std::chrono::steady_clock::now();
+    auto elapsedTime = stopTimeSteady - startTimeSteady;
     return std::chrono::duration_cast<std::chrono::seconds>(elapsedTime);
 }
 
-float Timer::getElapsedTimeInSeconds() {
+std::chrono::seconds Timer::getHighResElapsedTime() {
+    stopTimeHighRes = std::chrono::high_resolution_clock::now();
+    auto elapsedTime = stopTimeHighRes - startTimeHighRes;
+    return std::chrono::duration_cast<std::chrono::seconds>(elapsedTime);
+}
+
+std::clock_t Timer::getCpuElapsedTime() {
+    stopTimeCpu = std::clock();
+    return stopTimeCpu - startTimeCpu;
+}
+
+float Timer::getSteadyElapsedTimeInSeconds() {
     if (started) {
-        stopTime = std::chrono::steady_clock::now();
+        stopTimeSteady = std::chrono::steady_clock::now();
     }
-    std::chrono::duration<float> elapsedTime = stopTime - startTime;
+    std::chrono::duration<float> elapsedTime = stopTimeSteady - startTimeSteady;
     return elapsedTime.count();
 }
 
+float Timer::getHighResElapsedTimeInSeconds() {
+    if (started) {
+        stopTimeHighRes = std::chrono::high_resolution_clock::now();
+    }
+    std::chrono::duration<float> elapsedTime = stopTimeHighRes - startTimeHighRes;
+    return elapsedTime.count();
+}
+
+float Timer::getCpuElapsedTimeInSeconds() {
+    if (started) {
+        stopTimeCpu = std::clock();
+    }
+    return (stopTimeCpu - startTimeCpu) / (float) CLOCKS_PER_SEC;
+}
+
 void Timer::logFPS() {
-    float elapsedTime = getElapsedTimeInSeconds();
+    float elapsedTime = getSteadyElapsedTimeInSeconds();
     float elapsedTimePerMeasurement = elapsedTime / numMeasurements;
-    LOGI("timer", "FPS: %f", 1.0f / elapsedTimePerMeasurement);
+    LOGI("timer", "steady FPS: %f", 1.0f / elapsedTimePerMeasurement);
+
+    elapsedTime = getHighResElapsedTimeInSeconds();
+    elapsedTimePerMeasurement = elapsedTime / numMeasurements;
+    LOGI("timer", "high res FPS: %f", 1.0f / elapsedTimePerMeasurement);
+
+    elapsedTime = getCpuElapsedTimeInSeconds();
+    elapsedTimePerMeasurement = elapsedTime / numMeasurements;
+    LOGI("timer", "CPU FPS: %f", 1.0f / elapsedTimePerMeasurement);
 }
 
 void Timer::logElapsedTime() {
-    float elapsedTime = getElapsedTimeInSeconds();
+    float elapsedTime = getSteadyElapsedTimeInSeconds();
     float elapsedTimePerMeasurement = elapsedTime / numMeasurements;
-    LOGI("timer", "Elapsed time: %f ms", 1000*elapsedTimePerMeasurement);
+    LOGI("timer", "steady Elapsed time: %f ms", 1000*elapsedTimePerMeasurement);
+
+    elapsedTime = getHighResElapsedTimeInSeconds();
+    elapsedTimePerMeasurement = elapsedTime / numMeasurements;
+    LOGI("timer", "high res Elapsed time: %f ms", 1000*elapsedTimePerMeasurement);
+
+    elapsedTime = getCpuElapsedTimeInSeconds();
+    elapsedTimePerMeasurement = elapsedTime / numMeasurements;
+    LOGI("timer", "CPU Elapsed time: %f ms", 1000*elapsedTimePerMeasurement);
 }
 
 void Timer::measure() {
     if (isStarted()) {
         numMeasurements++;
-        if (getElapsedTime() > displayFrequency) {
+        if (getSteadyElapsedTime() > displayFrequency) {
             stop();
             logFPS();
             logElapsedTime();

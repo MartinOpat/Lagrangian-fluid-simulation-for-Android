@@ -6,6 +6,7 @@
 #define LAGRANGIAN_FLUID_SIMULATION_TIMER_H
 
 #include <chrono>
+#include <ctime>
 
 #include "consts.h"
 #include "android_logging.h"
@@ -37,7 +38,9 @@ public:
      *
      * @return The elapsed time in seconds as a float.
      */
-    float getElapsedTimeInSeconds();
+    float getSteadyElapsedTimeInSeconds();
+    float getHighResElapsedTimeInSeconds();
+    float getCpuElapsedTimeInSeconds();
 
     /**
      * @brief Logs the frames per second (FPS).
@@ -65,15 +68,22 @@ public:
 private:
     bool started;  // Is timer started?
 
-    std::chrono::time_point<std::chrono::steady_clock> startTime;
-    std::chrono::time_point<std::chrono::steady_clock> stopTime;
+    std::chrono::time_point<std::chrono::steady_clock> startTimeSteady;
+    std::chrono::time_point<std::chrono::high_resolution_clock> startTimeHighRes;
+    std::clock_t startTimeCpu;
+
+    std::chrono::time_point<std::chrono::steady_clock> stopTimeSteady;
+    std::chrono::time_point<std::chrono::high_resolution_clock> stopTimeHighRes;
+    std::clock_t stopTimeCpu;
 
     /**
      * @brief Gets the elapsed time.
 
      * @return The elapsed time as a chrono::seconds object.
      */
-    std::chrono::seconds getElapsedTime();
+    std::chrono::seconds getSteadyElapsedTime();
+    std::chrono::seconds getHighResElapsedTime();
+    std::clock_t getCpuElapsedTime();
 
     int numMeasurements;  // Number of measurements performed by `measure()` since last log.
     std::chrono::seconds displayFrequency;  // The max. allowed frequency of logging measurements.
