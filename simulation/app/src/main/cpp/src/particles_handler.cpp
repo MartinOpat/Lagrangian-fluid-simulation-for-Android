@@ -158,8 +158,7 @@ void ParticlesHandler::updateParticlesPool() {
     pool.waitForAll();
 }
 
-void ParticlesHandler::drawParticles(Mainview& mainview) {
-    // Update positions based on mode
+void ParticlesHandler::simulateParticles(Mainview& mainview) {
     if (mode == Mode::sequential) {
         updateParticles();
         mainview.loadParticlesData(particlesPos);
@@ -169,8 +168,9 @@ void ParticlesHandler::drawParticles(Mainview& mainview) {
     } else if (mode == Mode::computeShaders) {
         mainview.dispatchComputeShader();
     }
+}
 
-    // Draw call
+void ParticlesHandler::drawParticles(Mainview& mainview) {
     mainview.drawParticles(particlesPos.size());
 }
 

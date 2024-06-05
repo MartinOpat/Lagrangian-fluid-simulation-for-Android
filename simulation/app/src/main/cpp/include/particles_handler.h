@@ -77,6 +77,11 @@ public:
     void updateParticlesPool();
 
     /**
+     * @brief Simulates the particles.
+     */
+    void simulateParticles(Mainview& mainview);
+
+    /**
      * @brief Draws the particles.
      *
      * @param mainview A reference to the view to render in.
