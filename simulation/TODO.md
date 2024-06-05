@@ -4,10 +4,6 @@
 - Refactor unit tests ?
 
 ## Native side
-- Consider decoupling the simulation from the rendering
-- Consider keeping the drawing to steady 60 fps -> more simulation steps per rendering cycle
-
-- Define dt in terms of simulation time or suchs (hours, days, ...)
 
 ## Current bottlenecks
 For a lot of particles, or randomly distributed particles in a dense grid, the bottleneck is

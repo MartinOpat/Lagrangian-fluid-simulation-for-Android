@@ -59,7 +59,7 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
         interpolatedVelocity[t] = glm::mix(c0, c1, w_z);
     }
 
-    velocity = glm::mix(interpolatedVelocity[0], interpolatedVelocity[1], global_time_in_step / (float)TIME_STEP_IN_SECONDS);
+    velocity = glm::mix(interpolatedVelocity[0], interpolatedVelocity[1], global_time_in_step / (float)TIME_STEP);
 }
 
 
@@ -195,7 +195,7 @@ void VectorFieldHandler::draw(Mainview& mainview) {
     // y = [0] + t / T * ([0]-[1])
     std::vector<float> vertices(displayVertices[0].size());
     for (int i = 0; i < displayVertices[0].size(); i++) {
-        vertices[i] = displayVertices[0][i] + global_time_in_step / (float) TIME_STEP_IN_SECONDS * (displayVertices[1][i] - displayVertices[0][i]);
+        vertices[i] = displayVertices[0][i] + global_time_in_step / (float) TIME_STEP * (displayVertices[1][i] - displayVertices[0][i]);
     }
 
     // Load the data into the shader and draw

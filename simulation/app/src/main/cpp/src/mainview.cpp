@@ -178,7 +178,7 @@ void Mainview::loadConstUniforms(float dt, int width, int height, int depth) {
     glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "width"), width);
     glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "height"), height);
     glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "depth"), depth);
-    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "TIME_STEP_IN_SECONDS"), (float) TIME_STEP_IN_SECONDS);
+    glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "TIME_STEP"), (float) TIME_STEP);
     glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "dt"), dt);
     glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "max_width"), (float)FIELD_WIDTH);
     glUniform1f(glGetUniformLocation(shaderManager->shaderComputeProgram, "max_height"), (float)FIELD_HEIGHT);

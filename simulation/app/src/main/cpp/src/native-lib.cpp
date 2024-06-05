@@ -70,7 +70,7 @@ void loadInitStep() {
 void check_update() {
     global_time_in_step += physics->dt;
 
-    if (global_time_in_step >= TIME_STEP_IN_SECONDS) {
+    if (global_time_in_step >= TIME_STEP) {
         global_time_in_step = 0.0f;
 
         eglContextManager->syncEGLContext(threadPool);
