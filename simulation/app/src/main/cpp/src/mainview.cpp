@@ -214,7 +214,7 @@ void Mainview::dispatchComputeShader() {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, computeVectorField1SSBO);
 
     // Dispatch
-    glDispatchCompute((NUM_PARTICLES+255) / 256, 1, 1);
+    glDispatchCompute((num_particles + 255) / 256, 1, 1);
 
     // Ensure vertex shader sees the updates
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);

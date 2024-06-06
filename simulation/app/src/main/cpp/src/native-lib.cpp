@@ -11,6 +11,7 @@
 #include <thread>
 #include <atomic>
 #include <functional>
+#include <cstdlib>
 
 #include "include/android_logging.h"
 #include "include/netcdf_reader.h"
@@ -36,6 +37,7 @@ EGLContextManager *eglContextManager;
 
 // From consts.h
 float global_time_in_step = 0.0f;
+int num_particles;
 Mode mode;
 
 // Rendering vars.
@@ -91,13 +93,24 @@ void check_update() {
 
 
 void init() {
-    mode = Mode::computeShaders;
+//    mode = Mode::computeShaders;
+//    num_particles = 250000;
+    const char *mode_str = getenv("NUM_PARTICLES");
+    const char *num_particles_str = getenv("NUM_PARTICLES");
+
+    num_particles = (num_particles_str != nullptr) ? std::stoi(num_particles_str) : 250000;
+    if (mode_str != nullptr) {
+        std::string modeString(mode_str);
+        if (modeString == "computeShaders") mode = Mode::computeShaders;
+        else if (modeString == "sequential") mode = Mode::sequential;
+        else if (modeString == "parallel") mode = Mode::parallel;
+    }
 
     touchHandler = new TouchHandler(mainview->getTransforms());
-    vectorFieldHandler = new VectorFieldHandler(1, 1);
+    vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Code-wise initialization
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform , *physics, num_particles);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer<std::chrono::steady_clock>();
