@@ -14,8 +14,11 @@ grid-wise parallelization.
 
 ## Stuff to research
 - speed up paper Kehl (read, speed up + graphing log-log); Relevant pages: 10, 
-- Vectorized CPU instructions for the, well, vector field - ba dum ts
-- time measurements for all three modes
+- Retake measurements:
+  - sequential:
+    - 420'000+ 
+  - Parallel:
+    - 2'200'000+
 
 - Try cubicles after all
 - Direct volume rendering / volume ray casting
