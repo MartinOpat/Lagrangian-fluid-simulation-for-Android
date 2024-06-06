@@ -97,7 +97,7 @@ inline void Timer<ClockType>::measure() {
         numMeasurements++;
         if (getElapsedTime() >= displayFrequency) {
             stop();
-            logFPS();
+//            logFPS();
             logElapsedTime();
             start();
         }

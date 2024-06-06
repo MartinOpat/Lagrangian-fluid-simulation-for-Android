@@ -6,7 +6,7 @@ uniform int width;
 uniform int height;
 uniform int depth;
 uniform float global_time_in_step;
-uniform float TIME_STEP_IN_SECONDS;
+uniform float TIME_STEP;
 uniform float dt;
 uniform float max_width;
 uniform float max_height;
@@ -135,7 +135,7 @@ vec3 getVelocity(vec3 position) {
     vec3 v1 = interpolateV1(baseGridX, baseGridY, baseGridZ, w_x, w_y, w_z);
 
     // Linear interpolation based on time step
-    return mix(v0, v1, global_time_in_step / TIME_STEP_IN_SECONDS);
+    return mix(v0, v1, global_time_in_step / TIME_STEP);
 }
 
 

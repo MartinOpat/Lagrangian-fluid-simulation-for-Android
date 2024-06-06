@@ -170,7 +170,7 @@ void ParticlesHandler::simulateParticles(Mainview& mainview) {
     }
 }
 
-void ParticlesHandler::drawParticles(Mainview& mainview) {
+void ParticlesHandler::draw(Mainview& mainview) {
     mainview.drawParticles(particlesPos.size());
 }
 

@@ -86,7 +86,7 @@ public:
      *
      * @param mainview A reference to the view to render in.
      */
-    void drawParticles(Mainview& mainview);
+    void draw(Mainview& mainview);
 
     /**
      * @brief Getter for the positions of the particles.
