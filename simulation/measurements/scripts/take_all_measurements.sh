@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Define configurations
-#declare -a modes=("computeShaders" "sequential" "parallel")
-declare -a modes=("sequential" "computeShaders")
-#declare -a particleCounts=(1500 3500 7500 17000 37000 85000 190000 420000 950000 2200000 5000000)
-declare -a particleCounts=(10 10000)
+declare -a modes=("computeShaders" "sequential" "parallel")
+#declare -a modes=("sequential" "computeShaders")
+declare -a particleCounts=(1500 3500 7500 17000 37000 85000 190000 420000 950000 2200000 5000000)
+#declare -a particleCounts=(10 10000)
 
 
 
