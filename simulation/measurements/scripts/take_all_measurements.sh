@@ -2,9 +2,9 @@
 
 # Define configurations
 #declare -a modes=("computeShaders" "sequential" "parallel")
-declare -a modes=("computeShaders")
+declare -a modes=("sequential" "computeShaders")
 #declare -a particleCounts=(1500 3500 7500 17000 37000 85000 190000 420000 950000 2200000 5000000)
-declare -a particleCounts=(1500)
+declare -a particleCounts=(10 10000)
 
 
 
@@ -18,14 +18,12 @@ for mode in "${modes[@]}"; do
         export MODE=$mode
 
         # Build the production APK
-        ./start_app.sh
+        ./measurements/scripts/start_app.sh $num $mode
 
         # Measure the logs
-        ./capture_fps.sh
+        ./measurements/scripts/capture_logs.sh $num $mode
 
-        # Let app run for 5 mins
-        sleep 300
-        adb shell am force-stop com.rug.lagrangianfluidsimulation  # Stop the app
-
+        # Stop the app
+        adb shell am force-stop com.rug.lagrangianfluidsimulation
     done
 done

@@ -95,22 +95,12 @@ void check_update() {
 void init() {
 //    mode = Mode::computeShaders;
 //    num_particles = 250000;
-    const char *mode_str = getenv("NUM_PARTICLES");
-    const char *num_particles_str = getenv("NUM_PARTICLES");
-
-    num_particles = (num_particles_str != nullptr) ? std::stoi(num_particles_str) : 250000;
-    if (mode_str != nullptr) {
-        std::string modeString(mode_str);
-        if (modeString == "computeShaders") mode = Mode::computeShaders;
-        else if (modeString == "sequential") mode = Mode::sequential;
-        else if (modeString == "parallel") mode = Mode::parallel;
-    }
 
     touchHandler = new TouchHandler(mainview->getTransforms());
     vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform , *physics, num_particles);  // Code-wise initialization
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *physics, num_particles);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer<std::chrono::steady_clock>();
@@ -201,8 +191,24 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_rug_lagrangianfluidsimulation_MainActivity_loadDeviceInfo(JNIEnv *env, jobject thiz, jdouble jaspectRatio) {
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_loadDeviceInfo(JNIEnv *env, jobject thiz, jdouble jaspectRatio, jstring jnumParticlesStr, jstring jmodeStr) {
         aspectRatio = (float) jaspectRatio;
+
+        const char *numParticlesStr = env->GetStringUTFChars(jnumParticlesStr, nullptr);
+        const char *modeStr = env->GetStringUTFChars(jmodeStr, nullptr);
+
+        LOGI("native-lib", "Mode: %s, Num particles: %s", modeStr, numParticlesStr);
+
+        num_particles = (numParticlesStr != nullptr) ? std::stoi(numParticlesStr) : 250000;
+        if (modeStr != nullptr) {
+            std::string modeString(modeStr);
+            if (modeString == "computeShaders") mode = Mode::computeShaders;
+            else if (modeString == "sequential") mode = Mode::sequential;
+            else if (modeString == "parallel") mode = Mode::parallel;
+        }
+
+        LOGI("native-lib", "Mode: %d, Num particles: %d", mode==Mode::sequential, num_particles);
+
     }
 
     JNIEXPORT void JNICALL

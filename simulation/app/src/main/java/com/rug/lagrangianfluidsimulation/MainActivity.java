@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
     public native void onDestroyNative();
-    public native void loadDeviceInfo(double aspectRatio);
+    public native void loadDeviceInfo(double aspectRatio, String numParticles, String mode);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,12 @@ public class MainActivity extends Activity {
         int heightPixels = displayMetrics.heightPixels;
         double aspectRatio = (double) widthPixels / heightPixels;
         Log.i("MainActivity", "Detected aspect ratio: " + aspectRatio);
-        loadDeviceInfo(aspectRatio);
+
+        Intent intent = getIntent();
+        String numParticles = intent.getStringExtra("NUM_PARTICLES");
+        String mode = intent.getStringExtra("MODE");
+
+        loadDeviceInfo(aspectRatio, numParticles, mode);
     }
 
     private void setupGLSurfaceView() {

@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Extract NUM_PARTICLES and mode from native files
-SOURCE_FILE="app/src/main/cpp/src/native-lib.cpp"
-NUM_PARTICLES=$(awk '/#define NUM_PARTICLES/ {print $3}' "$HEADER_FILE")
-MODE=$(awk -F'::' '/mode = Mode::/ {print $2; exit}' "$SOURCE_FILE" | tr -d ' ;')
+NUM_PARTICLES=$1
+MODE=$2
 
+cd measurements/files
 
 # Construct log file name based on the extracted values
 BASE_LOGFILE="logs_${NUM_PARTICLES}_${MODE}.txt"
@@ -16,13 +15,6 @@ while [[ -f $LOGFILE ]]; do
 done
 echo "Logging to $LOGFILE"
 
-# Function to handle script termination
-cleanup() {
-    echo "Caught interrupt signal. Cleaning up..."
-    sync
-    exit 0
-}
-trap cleanup SIGINT
 
 # Check if adb is connected
 if ! adb devices | grep -q device; then
@@ -32,9 +24,25 @@ fi
 echo "Device is connected. Starting to capture logs..."
 
 # Clear the current logs and start capturing logs
+set -m
 adb logcat -c
 adb logcat | grep -E 'Timer\s*: Elapsed time: [0-9]+\.[0-9]+' >> $LOGFILE &
 ADB_PID=$!
+set +m
 
-# Wait indefinitely until the script is killed
-wait $ADB_PID
+echo "Logging for 5 minutes..."
+sleep 300
+
+echo "Time is up, killing logging process..."
+
+kill -- -$ADB_PID
+echo "Logs captured and saved to $LOGFILE"
+sleep 5  # I am trying to be nice here
+if kill -0 $ADB_PID 2>/dev/null; then
+    echo "Process did not terminate, sending SIGKILL..."
+    kill -9 $ADB_PID
+fi
+wait $ADB_PID 2>/dev/null
+
+echo "exiting..."
+cd ../..
