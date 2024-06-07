@@ -30,15 +30,28 @@ grid-wise parallelization.
 
 
 ## Next meeting points
-- No lag (correctly switching buffers in cpu now, GPU loading happens in a second thread (p.i.t.a.))
-- Loading init. positions from a file implemented, but won't be used for taking the measurements
-- Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering - it is actually less efficient
+- No lag (correctly switching buffers in cpu now + GPU buffer loading happens in a second thread (p.i.t.a.))
+- Loading init. positions from a file implemented, but wasn't used be used for taking the measurements
+- Current opengl setup (with fancy off thread buffer loading etc.) does not benefit from instanced rendering - it would actually be less efficient
+- 
 - Refactoring done
 - Added mode enum. for easy switching between sequential, parallel, and compute shaders modes
 - Implemented unit tests
-- Question: How much of the proposal am I expected to re-use for the thesis / is acceptable? (abstract, intro., ...)
-- Figured out why lines were not continuous (Julian question) - "bug" in grid interpolation (it was wrong)
+- 
+- Figured out why lines were not continuous (Julian question) - "bug" in grid interpolation (it was not)
+-
+- Bring up the newly discovered bottleneck...
+- 
 - Read the timing-relevant papers (mainly the speedup  one)
+- Implemented an automated bash script that takes all the measurements
+- Ran it for 3 hours to get the measurements => graphs
+- 
+- Question: How much of the proposal am I expected / is acceptable to re-use for the thesis? (abstract, intro., ...)
+- Question: Should I also measure for < 1500 particles to "measure overhead"?
+- Question: The logs for sequential - lot of particles are sparse cause it takes 30 seconds to do a single time step, do something about that ?
+- Question: Frame-rate is capped at 120 fps because of v-sync, and it is seems quite annoying to try to bypass, is it an issue ?
+- Question: Simulation step is always called just before rendering, thus I measure time between draw() calls, is that okay ?
+- Question: Since a lot of the app is asynchronous, for compute shaders especially cause lot of GPU time, is it okay to just limit (unrelated) background processes and measure the wall-clock time?
 
 ### Perlin stuff
 - Particle are moving in the z direction so app works (triple checked)
