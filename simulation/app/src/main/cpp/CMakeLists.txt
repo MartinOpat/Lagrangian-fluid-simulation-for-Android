@@ -61,6 +61,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         src/transforms.cpp
         src/EGLContextManager.cpp
         src/shaderManager.cpp
+        src/png_loader.cpp
 )
 
 

@@ -21,6 +21,7 @@
 #include "consts.h"
 #include "transforms.h"
 #include "shaderManager.h"
+#include "png_loader.h"
 
 
 /**
@@ -139,6 +140,8 @@ public:
      */
     Transforms& getTransforms() { return *transforms; }
 
+    void setupTexture();
+
 private:
     /**
      * @brief Loads the uniforms.
@@ -168,6 +171,10 @@ private:
     GLuint computeVectorField0SSBO;
     GLuint computeVectorField1SSBO;
     GLuint computeVectorField2SSBO;
+
+    // Textures
+    GLuint texID;
+    GLuint vectorFieldTexture;
 };
 
 #endif // GL_SHADER_MANAGER_H

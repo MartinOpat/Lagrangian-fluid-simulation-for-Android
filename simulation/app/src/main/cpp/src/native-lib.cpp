@@ -94,7 +94,7 @@ void init() {
     mode = Mode::computeShaders;
 
     touchHandler = new TouchHandler(mainview->getTransforms());
-    vectorFieldHandler = new VectorFieldHandler(1, 1);
+    vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Code-wise initialization
@@ -111,11 +111,10 @@ void init() {
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
         check_update();
-        particlesHandler->simulateParticles(*mainview);
+//        particlesHandler->simulateParticles(*mainview);
         mainview->setFrame();
-
         vectorFieldHandler->draw(*mainview);
-        particlesHandler->draw(*mainview);
+//        particlesHandler->draw(*mainview);
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {

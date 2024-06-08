@@ -42,8 +42,8 @@ public:
      */
     void createShaderPrograms();
 
-private:
     AAssetManager *assetManager;
+private:
 
     /**
      * @brief Loads a shader file with the given filename.
@@ -126,6 +126,7 @@ private:
     // Shader sources
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
+    std::string fragmentShaderLisSource;
     std::string geometryLinesShaderSource;
     std::string geometryPointsShaderSource;
     std::string computeShaderSource;
@@ -133,6 +134,7 @@ private:
     // Shaders
     GLuint vertexShader;
     GLuint fragmentShader;
+    GLuint fragmentShaderLis;
     GLuint geometryLinesShader;
     GLuint geometryPointsShader;
     GLuint computeShader;

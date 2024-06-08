@@ -14,7 +14,7 @@
 #define NEAR_FAR 100.0f
 
 // Number of particles (only used when not specifying positions from file)
-#define NUM_PARTICLES 250000
+#define NUM_PARTICLES 1
 
 // Number of simulation time between time steps (two files interpolation) == 1 day
 #define TIME_STEP 10

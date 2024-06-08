@@ -46,6 +46,7 @@ void ShaderManager::compileVertexShader() {
 
 void ShaderManager::compileFragmentShader() {
     compileShaderHelper(fragmentShader, fragmentShaderSource, GL_FRAGMENT_SHADER);
+    compileShaderHelper(fragmentShaderLis, fragmentShaderLisSource, GL_FRAGMENT_SHADER);
 }
 
 void ShaderManager::compileLinesGeometryShader() {
@@ -84,7 +85,7 @@ void createProgramHelper(GLuint& program, GLuint shaders[]) {
 }
 
 void ShaderManager::createLinesProgram() {
-    createProgramHelper(shaderLinesProgram, (GLuint[]) {vertexShader, geometryLinesShader, fragmentShader, 0});
+    createProgramHelper(shaderLinesProgram, (GLuint[]) {vertexShader, fragmentShaderLis, 0});
 }
 
 void ShaderManager::createPointsProgram() {
@@ -97,8 +98,9 @@ void ShaderManager::createShaderProgram() {
 
 void ShaderManager::detachShaders() {
     glDetachShader(shaderLinesProgram, vertexShader);
-    glDetachShader(shaderLinesProgram, geometryLinesShader);
-    glDetachShader(shaderLinesProgram, fragmentShader);
+//    glDetachShader(shaderLinesProgram, geometryLinesShader);
+//    glDetachShader(shaderLinesProgram, fragmentShader);
+    glDetachShader(shaderLinesProgram, fragmentShaderLis);
     glDetachShader(shaderPointsProgram, vertexShader);
     glDetachShader(shaderPointsProgram, geometryPointsShader);
     glDetachShader(shaderPointsProgram, fragmentShader);
@@ -110,6 +112,7 @@ void ShaderManager::deleteShaders() {
     glDeleteShader(geometryPointsShader);
     glDeleteShader(geometryLinesShader);
     glDeleteShader(fragmentShader);
+    glDeleteShader(fragmentShaderLis);
     glDeleteShader(computeShader);
 }
 
@@ -133,6 +136,7 @@ void ShaderManager::compileAndLinkShaders() {
 void ShaderManager::loadShaderSources() {
     vertexShaderSource = loadShaderFile("vertex_shader.glsl");
     fragmentShaderSource = loadShaderFile("fragment_shader.glsl");
+    fragmentShaderLisSource = loadShaderFile("fragment_shader_lis.glsl");
     geometryLinesShaderSource = loadShaderFile("geometry_lines_shader.glsl");
     geometryPointsShaderSource = loadShaderFile("geometry_points_shader.glsl");
     computeShaderSource = loadShaderFile("compute_shader.glsl");

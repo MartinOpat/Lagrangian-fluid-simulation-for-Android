@@ -53,6 +53,7 @@ void Mainview::loadUniforms() {
 
 void Mainview::setupGraphics() {
     shaderManager->createShaderPrograms();
+
     loadUniforms();
 }
 
@@ -108,47 +109,61 @@ void Mainview::drawParticles(int size) {
 void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
     glUseProgram(shaderManager->shaderLinesProgram);
 
-    // Create VBO
-    glGenBuffers(1, &vectorFieldVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STREAM_DRAW);
-
-    // Create VAO
-    glGenVertexArrays(1, &vectorFieldVAO);
-    glBindVertexArray(vectorFieldVAO);
-
     // Enable vertex attribute array
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)(3 * sizeof(float)));
 
-    // Unbind VAO and VBO
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // Also create relevant texture
+    setupTexture();
+
 }
 
 void Mainview::loadVectorFieldData(std::vector<float>& vertices) {
     glUseProgram(shaderManager->shaderLinesProgram);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STREAM_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    std::vector<glm::vec3> processedVectors(36 * 18 * 6 * 3);  // For RGB components only
+    for (int i = 0; i < (36 * 18 * 6); i++) {
+        processedVectors[i] = glm::vec3(transforms->projectionTransform * transforms->viewTransform * transforms->modelTransform * glm::vec4(
+                    (vertices[6*i + 3] - vertices[6*i + 0]),
+                    (vertices[6*i + 4] - vertices[6*i + 1]),
+                    (vertices[6*i + 5] - vertices[6*i + 2]),
+                    1.0f
+                ));
+    }
+    glBindTexture(GL_TEXTURE_3D, vectorFieldTexture);
+    glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, 36, 18, 6, GL_RGB, GL_FLOAT, processedVectors.data());
+    glBindTexture(GL_TEXTURE_3D, 0);
+
 }
 
 void Mainview::drawVectorField(int size) {
     // Load VAO
-    glBindVertexArray(vectorFieldVAO);
+
+    glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
+    glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &(transforms->projectionTransform)[0][0]);
+    glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &(transforms->viewTransform)[0][0]);
+
 
     // Load uniforms
     glUniform1i(isPointLocationLines, 0);
-    glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
-    glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &transforms->projectionTransform[0][0]);
-    glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &transforms->viewTransform[0][0]);
+
+    // Use texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    glUniform1i(glGetUniformLocation(shaderManager->shaderLinesProgram, "noiseTex"), 0);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_3D, vectorFieldTexture);
+    glUniform1i(glGetUniformLocation(shaderManager->shaderLinesProgram, "vectorFieldTex"), 1);
 
     // Draw
-    glDrawArrays(GL_LINES, 0, size / 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
     // Unbind
-    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_3D, 0);
 }
 
 // Create Buffers
@@ -174,6 +189,8 @@ void Mainview::createComputeBuffer(std::vector<float>& vector_field0, std::vecto
 
 void Mainview::loadConstUniforms(float dt, int width, int height, int depth) {
     glUseProgram(shaderManager->shaderComputeProgram);
+
+    LOGI("Mainview", "Loading uniforms: dt: %f, width: %d, height: %d, depth: %d", dt, width, height, depth);
 
     glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "width"), width);
     glUniform1i(glGetUniformLocation(shaderManager->shaderComputeProgram, "height"), height);
@@ -218,4 +235,41 @@ void Mainview::dispatchComputeShader() {
 
     // Ensure vertex shader sees the updates
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
+}
+
+void Mainview::setupTexture() {
+
+    ImageData texData = loadSimpleTGA(shaderManager->assetManager, "textures/noiseTexture.tga");
+
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+
+    // Set texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // Set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texData.width, texData.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData.data.data());
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+
+
+
+
+    glGenTextures(1, &vectorFieldTexture);
+    glBindTexture(GL_TEXTURE_3D, vectorFieldTexture);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+// Assuming your data is normalized between [0, 1]
+    glTexImage3D(GL_TEXTURE_3D, 0, GL_RGB32F, 36, 18, 6, 0, GL_RGB, GL_FLOAT, nullptr);
 }
