@@ -41,7 +41,7 @@ grid-wise parallelization.
 -
 - Figured out why lines were not continuous (Julian question) - "bug" in grid interpolation (it was not)
 -
-- Bring up the newly discovered bottleneck...
+- Bring up the newly discovered bottleneck... -> Should I make a measurement for that too if want to mention in thesis?
 -
 - Read the timing-relevant papers (mainly the speedup  one)
 - Implemented an automated bash script that takes all the measurements
