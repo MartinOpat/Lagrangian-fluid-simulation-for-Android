@@ -47,6 +47,9 @@ grid-wise parallelization.
 - Ran it for 3 hours to get the measurements => graphs
 -
 - Small research on alt. 3D vect. field render. techniques -> 3D extension of line integral convolution -> looked bad
+- Might try direct volume rendering / volume ray casting, but time be sparse
+- 
+- Started writing the thesis - so far mostly template and planning out sections
 -
 - Question: How much of the proposal am I expected / is acceptable to re-use for the thesis? (abstract, intro., ...)
 - Question: Should I also measure for < 1500 particles to "measure overhead"?
