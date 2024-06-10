@@ -46,6 +46,8 @@ grid-wise parallelization.
 - Implemented an automated bash script that takes all the measurements
 - Ran it for 3 hours to get the measurements => graphs
 -
+- Small research on alt. 3D vect. field render. techniques -> 3D extension of line integral convolution -> looked bad
+-
 - Question: How much of the proposal am I expected / is acceptable to re-use for the thesis? (abstract, intro., ...)
 - Question: Should I also measure for < 1500 particles to "measure overhead"?
 - Question: The logs for sequential - lot of particles are sparse cause it takes 30 seconds to do a single time step, do something about that ?
