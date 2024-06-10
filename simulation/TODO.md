@@ -37,6 +37,7 @@ grid-wise parallelization.
 - Refactoring done
 - Added mode enum. for easy switching between sequential, parallel, and compute shaders modes
 - Implemented unit tests
+- Started UML diagrams - will update them during thesis writing
 -
 - Figured out why lines were not continuous (Julian question) - "bug" in grid interpolation (it was not)
 -
