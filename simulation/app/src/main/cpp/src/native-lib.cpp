@@ -94,7 +94,7 @@ void init() {
     mode = Mode::computeShaders;
 
     touchHandler = new TouchHandler(mainview->getTransforms());
-    vectorFieldHandler = new VectorFieldHandler(15, 5);
+    vectorFieldHandler = new VectorFieldHandler(1, 1);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
     particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Code-wise initialization
