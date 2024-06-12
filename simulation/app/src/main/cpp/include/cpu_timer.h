@@ -8,6 +8,7 @@
 #include "android_logging.h"
 
 #include <algorithm>
+#include <chrono>
 
 class CpuTimer {
 public:
@@ -23,11 +24,12 @@ private:
     bool started;
     std::clock_t startTime, stopTime;
     int numMeasurements;
-    double displayFrequency;
+    std::chrono::time_point<std::chrono::steady_clock> startWallTime, stopWallTime;
+    std::chrono::milliseconds displayFrequency;
 };
 
 inline CpuTimer::CpuTimer()
-        : started(false), numMeasurements(0), displayFrequency(1000.0) {}
+        : started(false), numMeasurements(0), displayFrequency(std::chrono::milliseconds(1000)) {}
 
 inline void CpuTimer::start() {
     started = true;
@@ -54,10 +56,12 @@ inline void CpuTimer::logElapsedTime() {
 inline void CpuTimer::measure() {
     if (started) {
         numMeasurements++;
-        if (elapsed_milliseconds() >= displayFrequency) {
+        auto elapsedWallTime = std::chrono::steady_clock::now() - startWallTime;
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(elapsedWallTime) >= displayFrequency) {
             stop();
             logElapsedTime();
             start();
+            startWallTime = std::chrono::steady_clock::now();
         }
     } else {
         start();

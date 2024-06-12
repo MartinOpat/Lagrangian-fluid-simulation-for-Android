@@ -20,10 +20,11 @@
 #include "include/particles_handler.h"
 #include "include/vector_field_handler.h"
 #include "include/touch_handler.h"
-#include "include/timer.h"
 #include "include/ThreadPool.h"
 #include "include/EGLContextManager.h"
+#include "include/timer.h"
 #include "include/cpu_timer.h"
+#include "include/gpu_timer.h"
 
 std::vector<int> fileDescriptors;
 
@@ -37,6 +38,7 @@ EGLContextManager *eglContextManager;
 
 Timer<std::chrono::steady_clock>* timer;
 CpuTimer* cpuTimer;
+GpuTimer* gpuTimer;
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -109,6 +111,7 @@ void init() {
 
     timer = new Timer<std::chrono::steady_clock>();
     cpuTimer = new CpuTimer();
+    gpuTimer = new GpuTimer();
 
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
@@ -122,8 +125,21 @@ extern "C" {
         particlesHandler->simulateParticles(*mainview);
         mainview->setFrame();
 
+        static std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
+
+        gpuTimer->start();
+        ///////////////////////////////////////////////// Measured bit
         vectorFieldHandler->draw(*mainview);
         particlesHandler->draw(*mainview);
+        /////////////////////////////////////////////////
+        gpuTimer->stop();
+        gpuTimer->countMeasurement();
+
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime).count() > 1000) {
+            lastTime = std::chrono::steady_clock::now();
+            gpuTimer->logElapsedTime();
+            gpuTimer->reset();
+        }
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
@@ -192,6 +208,7 @@ extern "C" {
         delete touchHandler;
         delete timer;
         delete cpuTimer;
+        delete gpuTimer;
         delete threadPool;
         delete eglContextManager;
     }
