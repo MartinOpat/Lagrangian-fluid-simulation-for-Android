@@ -18,8 +18,7 @@ grid-wise parallelization.
   - sequential:
     - 
   - Parallel:
-    - 3'500
-    - 1'500
+    -
 
 - Try cubicles after all
 - Direct volume rendering / volume ray casting

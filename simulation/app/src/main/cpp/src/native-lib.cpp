@@ -23,6 +23,7 @@
 #include "include/timer.h"
 #include "include/ThreadPool.h"
 #include "include/EGLContextManager.h"
+#include "include/cpu_timer.h"
 
 std::vector<int> fileDescriptors;
 
@@ -31,9 +32,11 @@ ParticlesHandler* particlesHandler;
 VectorFieldHandler* vectorFieldHandler;
 TouchHandler* touchHandler;
 Physics* physics;
-Timer<std::chrono::steady_clock>* timer;
 ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
+
+Timer<std::chrono::steady_clock>* timer;
+CpuTimer* cpuTimer;
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -89,6 +92,7 @@ void check_update() {
     }
 
     timer->measure();
+    cpuTimer->measure();
 }
 
 
@@ -104,6 +108,7 @@ void init() {
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer<std::chrono::steady_clock>();
+    cpuTimer = new CpuTimer();
 
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
@@ -186,6 +191,7 @@ extern "C" {
         delete physics;
         delete touchHandler;
         delete timer;
+        delete cpuTimer;
         delete threadPool;
         delete eglContextManager;
     }
