@@ -8,7 +8,8 @@ MODE=$2
 #./gradlew assembleDebug
 ./gradlew assembleRelease
 
-# Install and start
+# Uninstall old, install new, and start
+adb uninstall com.rug.lagrangianfluidsimulation
 #adb install -r ./app/build/outputs/apk/debug/app-debug.apk
 adb install -r ./app/build/outputs/apk/release/app-release.apk
 adb shell am start -n com.rug.lagrangianfluidsimulation/.MainActivity \

@@ -16,9 +16,10 @@ grid-wise parallelization.
 - speed up paper Kehl (read, speed up + graphing log-log); Relevant pages: 10, 
 - Retake measurements:
   - sequential:
-    - 420'000+ 
+    - 
   - Parallel:
-    - 2'200'000+
+    - 3'500
+    - 1'500
 
 - Try cubicles after all
 - Direct volume rendering / volume ray casting
