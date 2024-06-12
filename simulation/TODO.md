@@ -2,6 +2,7 @@
 
 ## Android side
 - Refactor unit tests ?
+- Try a combination of more particles updated less often and no GL_CLEAR between frames
 
 ## Native side
 - Create a common super class for timers
@@ -21,7 +22,7 @@ grid-wise parallelization.
   - sequential:
     - 
   - Parallel:
-    -
+    - 1'500
 
 - Try cubicles after all
 - Direct volume rendering / volume ray casting
@@ -30,7 +31,15 @@ grid-wise parallelization.
 - Move diagrams to uml
 - Sort out references from used code
 - Make sure to use same case (e.g. camelCase)
-
+- See what's is up with the parallel implementation for low particles:
+```logcat
+2024-06-12 19:48:02.773 23479-23479 libc++abi               com.rug.lagrangianfluidsimulation    E  terminating with uncaught exception of type netCDF::exceptions::NcHdfErr: NetCDF: HDF error
+                                                                                                    file: ncFile.cpp  line:88
+2024-06-12 19:48:02.773 23479-23479 libc                    com.rug.lagrangianfluidsimulation    A  Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 23479 (fluidsimulation), pid 23479 (fluidsimulation)
+2024-06-12 19:48:02.903  1477-1477  audit                   auditd                               E  type=1400 audit(1718214482.901:755): avc:  denied  { read } for  pid=25388 comm="crash_dump64" path="/data/data/com.rug.lagrangianfluidsimulation/tmp/tempU.nc" dev="dm-58" ino=245228 scontext=u:r:crash_dump:s0:c157,c257,c512,c768 tcontext=u:object_r:app_data_file:s0:c157,c257,c512,c768 tclass=file permissive=0 SEPF_SM-S918B_13_0001 audit_filtered
+2024-06-12 19:48:02.904  1477-1477  audit                   auditd                               E  type=1400 audit(1718214482.901:756): avc:  denied  { write } for  pid=25388 comm="crash_dump64" path="/data/data/com.rug.lagrangianfluidsimulation/tmp/tempV.nc" dev="dm-58" ino=381919 scontext=u:r:crash_dump:s0:c157,c257,c512,c768 tcontext=u:object_r:app_data_file:s0:c157,c257,c512,c768 tclass=file permissive=0 SEPF_SM-S918B_13_0001 audit_filtered
+```
+- Update the main TODO.md from the new entries from this branche's TODO.md
 
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now + GPU buffer loading happens in a second thread (p.i.t.a.))
