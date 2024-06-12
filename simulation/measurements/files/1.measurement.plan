@@ -1,4 +1,4 @@
-0 -> wall clock time, no cache clean
-1 -> wall clock time, cache clean
-2 -> CPU / GPU time, cache clean
-3 -> CPU / GPU time, cache, clean, small numbers
+0 -> wall clock time, no cache clean -> continous 0, 1
+1 -> wall clock time, cache clean -> continous 2
+2 -> CPU / GPU time, cache clean -> continous 3
+0 (5^x) -> CPU / GPU time, cache, clean, small numbers -> continous 4

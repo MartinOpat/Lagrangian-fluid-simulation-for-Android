@@ -14,6 +14,7 @@ the grid interpolation, as a lot of different vertices are being accessed, causi
 and lowering throughput. The compute shaders (best) approach might benefit from a dynamic
 grid-wise parallelization.
 - Rendering is the biggest bottleneck
+- For thread pool parallel - Small number of particles cause crashes 
 
 
 ## Stuff to research
@@ -22,7 +23,9 @@ grid-wise parallelization.
   - sequential:
     - 
   - Parallel:
-    - 1'500
+    - 5
+    - 25
+    - 625
 
 - Try cubicles after all
 - Direct volume rendering / volume ray casting
