@@ -2,7 +2,6 @@
 
 ## Android side
 - Refactor unit tests ?
-- Try a combination of more particles updated less often and no GL_CLEAR between frames
 
 ## Native side
 - Create a common super class for timers
