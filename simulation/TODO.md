@@ -4,12 +4,15 @@
 - Refactor unit tests ?
 
 ## Native side
+- Create a common super class for timers
+- Add timers to main
 
 ## Current bottlenecks
 For a lot of particles, or randomly distributed particles in a dense grid, the bottleneck is
 the grid interpolation, as a lot of different vertices are being accessed, causing cache misses
 and lowering throughput. The compute shaders (best) approach might benefit from a dynamic
 grid-wise parallelization.
+- Rendering is the biggest bottleneck
 
 
 ## Stuff to research

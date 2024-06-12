@@ -18,7 +18,7 @@ public:
     void start();
     void stop();
     double elapsedMilliseconds();
-    void logElapsedTime();
+    void logElapsedTime(std::string tag="");
     void countMeasurement();
     void reset();
 
@@ -66,8 +66,8 @@ inline double GpuTimer::elapsedMilliseconds() {
     return t;
 }
 
-inline void GpuTimer::logElapsedTime() {
-    LOGI("GpuTimer", "Elapsed time: %f ms", elapsedMilliseconds() / numMeasurements);
+inline void GpuTimer::logElapsedTime(std::string tag) {
+    LOGI(std::string("GpuTimer").append(tag).c_str(), "Elapsed time: %f ms", elapsedMilliseconds() / numMeasurements);
 }
 
 inline void GpuTimer::countMeasurement() {

@@ -27,6 +27,10 @@ echo "Device is connected. Starting to capture logs..."
 set -m
 adb logcat -c
 adb logcat | grep -E 'Timer\s*: Elapsed time: [0-9]+\.[0-9]+' >> $LOGFILE &
+adb logcat | grep -E 'CpuTimer\s*: Elapsed time: [0-9]+\.[0-9]+' >> $LOGFILE &
+adb logcat | grep -E 'GpuTimerRender\s*: Elapsed time: [0-9]+\.[0-9]+' >> $LOGFILE &
+adb logcat | grep -E 'GpuTimerCompute\s*: Elapsed time: [0-9]+\.[0-9]+' >> $LOGFILE &
+adb logcat | grep -E 'CpuTimerLoader\s*: Elapsed time: [0-9]+\.[0-9]+' >> $LOGFILE &
 ADB_PID=$!
 set +m
 

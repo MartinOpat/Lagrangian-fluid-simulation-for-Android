@@ -38,7 +38,9 @@ EGLContextManager *eglContextManager;
 
 Timer<std::chrono::steady_clock>* timer;
 CpuTimer* cpuTimer;
-GpuTimer* gpuTimer;
+CpuTimer* cpuLoaderTimer;
+GpuTimer* gpuRenderTimer;
+GpuTimer* gpuComputeTimer;
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -88,8 +90,15 @@ void check_update() {
 
         LOGI("native-lib", "Loading step %d", currentFrame);
         threadPool->enqueue([frame = currentFrame]() {
+            cpuLoaderTimer->start();
+            ///////////////////////////////////////////////// Measured section
             loadStep(frame);
             mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), eglContextManager->globalFence);
+            /////////////////////////////////////////////////
+            cpuLoaderTimer->stop();
+            cpuLoaderTimer->countMeasurement();
+            cpuLoaderTimer->logElapsedTime("Loader");
+            cpuLoaderTimer->reset();
         });
     }
 
@@ -111,7 +120,9 @@ void init() {
 
     timer = new Timer<std::chrono::steady_clock>();
     cpuTimer = new CpuTimer();
-    gpuTimer = new GpuTimer();
+    gpuRenderTimer = new GpuTimer();
+    gpuComputeTimer = new GpuTimer();
+    cpuLoaderTimer = new CpuTimer();
 
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
@@ -121,24 +132,36 @@ void init() {
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
-        check_update();
-        particlesHandler->simulateParticles(*mainview);
-        mainview->setFrame();
-
         static std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
+        static std::chrono::steady_clock::time_point lastTime2 = std::chrono::steady_clock::now();
+        check_update();
 
-        gpuTimer->start();
-        ///////////////////////////////////////////////// Measured bit
+        gpuComputeTimer->start();
+        ///////////////////////////////////////////////// Measured section
+        particlesHandler->simulateParticles(*mainview);
+        /////////////////////////////////////////////////
+        gpuComputeTimer->stop();
+        gpuComputeTimer->countMeasurement();
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+            gpuComputeTimer->logElapsedTime("Compute");
+            gpuComputeTimer->reset();
+            lastTime2 = std::chrono::steady_clock::now();
+        }
+
+
+        gpuRenderTimer->start();
+        ///////////////////////////////////////////////// Measured section
+        mainview->setFrame();
         vectorFieldHandler->draw(*mainview);
         particlesHandler->draw(*mainview);
         /////////////////////////////////////////////////
-        gpuTimer->stop();
-        gpuTimer->countMeasurement();
+        gpuRenderTimer->stop();
+        gpuRenderTimer->countMeasurement();
 
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime).count() > 1000) {
+            gpuRenderTimer->logElapsedTime("Render");
+            gpuRenderTimer->reset();
             lastTime = std::chrono::steady_clock::now();
-            gpuTimer->logElapsedTime();
-            gpuTimer->reset();
         }
     }
 
@@ -208,7 +231,9 @@ extern "C" {
         delete touchHandler;
         delete timer;
         delete cpuTimer;
-        delete gpuTimer;
+        delete cpuLoaderTimer;
+        delete gpuRenderTimer;
+        delete gpuComputeTimer;
         delete threadPool;
         delete eglContextManager;
     }
