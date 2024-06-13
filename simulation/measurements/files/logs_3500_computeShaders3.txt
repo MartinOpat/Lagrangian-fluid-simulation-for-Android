@@ -1,0 +1,1399 @@
+06-13 15:52:09.010 26680 26714 I CpuTimer: Elapsed time: 2.229000 ms
+06-13 15:52:10.001 26680 26714 I CpuTimerCompute: Elapsed time: 0.098000 ms
+06-13 15:52:10.001 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:10.002 26680 26714 I GpuTimerRender: Elapsed time: 0.348333 ms
+06-13 15:52:10.002 26680 26714 I Timer   : Elapsed time: 8.385896 ms
+06-13 15:52:10.019 26680 26714 I CpuTimer: Elapsed time: 0.670636 ms
+06-13 15:52:11.009 26680 26714 I CpuTimerCompute: Elapsed time: 0.182000 ms
+06-13 15:52:11.009 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:11.010 26680 26714 I GpuTimerRender: Elapsed time: 0.353750 ms
+06-13 15:52:11.010 26680 26714 I Timer   : Elapsed time: 8.331051 ms
+06-13 15:52:11.027 26680 26714 I CpuTimer: Elapsed time: 0.683554 ms
+06-13 15:52:12.017 26680 26714 I CpuTimerCompute: Elapsed time: 0.275000 ms
+06-13 15:52:12.017 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:12.018 26680 26714 I GpuTimerRender: Elapsed time: 0.348802 ms
+06-13 15:52:12.019 26680 26714 I Timer   : Elapsed time: 8.332063 ms
+06-13 15:52:12.035 26680 26714 I CpuTimer: Elapsed time: 0.694165 ms
+06-13 15:52:13.025 26680 26714 I CpuTimerCompute: Elapsed time: 0.114000 ms
+06-13 15:52:13.025 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:13.026 26680 26714 I GpuTimerRender: Elapsed time: 0.340781 ms
+06-13 15:52:13.027 26680 26714 I Timer   : Elapsed time: 8.329394 ms
+06-13 15:52:13.043 26680 26714 I CpuTimer: Elapsed time: 0.700405 ms
+06-13 15:52:13.733 26680 26741 I CpuTimerLoader: Elapsed time: 488.669000 ms
+06-13 15:52:14.033 26680 26714 I CpuTimerCompute: Elapsed time: 0.107000 ms
+06-13 15:52:14.033 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:14.035 26680 26714 I GpuTimerRender: Elapsed time: 0.367240 ms
+06-13 15:52:14.035 26680 26714 I Timer   : Elapsed time: 19.030985 ms
+06-13 15:52:14.051 26680 26714 I CpuTimer: Elapsed time: 9.987509 ms
+06-13 15:52:15.041 26680 26714 I CpuTimerCompute: Elapsed time: 0.131000 ms
+06-13 15:52:15.041 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:15.043 26680 26714 I GpuTimerRender: Elapsed time: 0.350885 ms
+06-13 15:52:15.043 26680 26714 I Timer   : Elapsed time: 8.331619 ms
+06-13 15:52:15.059 26680 26714 I CpuTimer: Elapsed time: 0.696744 ms
+06-13 15:52:16.049 26680 26714 I CpuTimerCompute: Elapsed time: 0.479000 ms
+06-13 15:52:16.049 26680 26714 I GpuTimerCompute: Elapsed time: 0.000781 ms
+06-13 15:52:16.050 26680 26714 I GpuTimerRender: Elapsed time: 0.331979 ms
+06-13 15:52:16.051 26680 26714 I Timer   : Elapsed time: 8.326167 ms
+06-13 15:52:16.059 26680 26714 I CpuTimer: Elapsed time: 1.540383 ms
+06-13 15:52:17.052 26680 26714 I Timer   : Elapsed time: 8.338886 ms
+06-13 15:52:17.058 26680 26714 I CpuTimerCompute: Elapsed time: 0.363000 ms
+06-13 15:52:17.058 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:17.060 26680 26714 I GpuTimerRender: Elapsed time: 0.360052 ms
+06-13 15:52:17.060 26680 26714 I CpuTimer: Elapsed time: 1.748275 ms
+06-13 15:52:18.456 26680 26741 I CpuTimerLoader: Elapsed time: 513.816000 ms
+06-13 15:52:18.456 26680 26714 I Timer   : Elapsed time: 13.906673 ms
+06-13 15:52:18.456 26680 26714 I CpuTimer: Elapsed time: 6.846790 ms
+06-13 15:52:18.467 26680 26714 I CpuTimerCompute: Elapsed time: 0.635000 ms
+06-13 15:52:18.467 26680 26714 I GpuTimerCompute: Elapsed time: 0.002084 ms
+06-13 15:52:18.468 26680 26714 I GpuTimerRender: Elapsed time: 0.342760 ms
+06-13 15:52:19.460 26680 26714 I Timer   : Elapsed time: 8.291793 ms
+06-13 15:52:19.460 26680 26714 I CpuTimer: Elapsed time: 1.626942 ms
+06-13 15:52:19.475 26680 26714 I CpuTimerCompute: Elapsed time: 0.269000 ms
+06-13 15:52:19.475 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:52:19.476 26680 26714 I GpuTimerRender: Elapsed time: 0.364219 ms
+06-13 15:52:20.468 26680 26714 I Timer   : Elapsed time: 8.331798 ms
+06-13 15:52:20.468 26680 26714 I CpuTimer: Elapsed time: 1.765107 ms
+06-13 15:52:20.483 26680 26714 I CpuTimerCompute: Elapsed time: 0.343000 ms
+06-13 15:52:20.483 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:20.484 26680 26714 I GpuTimerRender: Elapsed time: 0.356875 ms
+06-13 15:52:21.476 26680 26714 I Timer   : Elapsed time: 8.330045 ms
+06-13 15:52:21.476 26680 26714 I CpuTimer: Elapsed time: 1.694033 ms
+06-13 15:52:21.491 26680 26714 I CpuTimerCompute: Elapsed time: 0.269000 ms
+06-13 15:52:21.491 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:21.492 26680 26714 I GpuTimerRender: Elapsed time: 0.358645 ms
+06-13 15:52:22.484 26680 26714 I Timer   : Elapsed time: 8.329631 ms
+06-13 15:52:22.484 26680 26714 I CpuTimer: Elapsed time: 1.794240 ms
+06-13 15:52:22.499 26680 26714 I CpuTimerCompute: Elapsed time: 0.506000 ms
+06-13 15:52:22.499 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:52:22.500 26680 26714 I GpuTimerRender: Elapsed time: 0.355989 ms
+06-13 15:52:23.189 26680 26741 I CpuTimerLoader: Elapsed time: 510.354000 ms
+06-13 15:52:23.492 26680 26714 I Timer   : Elapsed time: 19.015360 ms
+06-13 15:52:23.492 26680 26714 I CpuTimer: Elapsed time: 11.194302 ms
+06-13 15:52:23.507 26680 26714 I CpuTimerCompute: Elapsed time: 0.209000 ms
+06-13 15:52:23.507 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:52:23.509 26680 26714 I GpuTimerRender: Elapsed time: 0.395833 ms
+06-13 15:52:24.493 26680 26714 I Timer   : Elapsed time: 8.336721 ms
+06-13 15:52:24.493 26680 26714 I CpuTimer: Elapsed time: 1.776150 ms
+06-13 15:52:24.515 26680 26714 I CpuTimerCompute: Elapsed time: 1.277000 ms
+06-13 15:52:24.515 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:24.517 26680 26714 I GpuTimerRender: Elapsed time: 0.362448 ms
+06-13 15:52:25.501 26680 26714 I Timer   : Elapsed time: 8.328351 ms
+06-13 15:52:25.501 26680 26714 I CpuTimer: Elapsed time: 1.787702 ms
+06-13 15:52:25.524 26680 26714 I CpuTimerCompute: Elapsed time: 0.265000 ms
+06-13 15:52:25.524 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:25.525 26680 26714 I GpuTimerRender: Elapsed time: 0.349948 ms
+06-13 15:52:26.509 26680 26714 I Timer   : Elapsed time: 8.329129 ms
+06-13 15:52:26.509 26680 26714 I CpuTimer: Elapsed time: 1.689818 ms
+06-13 15:52:26.532 26680 26714 I CpuTimerCompute: Elapsed time: 0.290000 ms
+06-13 15:52:26.532 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:26.534 26680 26714 I GpuTimerRender: Elapsed time: 0.337448 ms
+06-13 15:52:27.901 26680 26741 I CpuTimerLoader: Elapsed time: 494.502000 ms
+06-13 15:52:27.901 26680 26714 I Timer   : Elapsed time: 13.780385 ms
+06-13 15:52:27.901 26680 26714 I CpuTimer: Elapsed time: 6.593396 ms
+06-13 15:52:27.910 26680 26714 I CpuTimerCompute: Elapsed time: 0.401000 ms
+06-13 15:52:27.910 26680 26714 I GpuTimerCompute: Elapsed time: 0.001406 ms
+06-13 15:52:27.912 26680 26714 I GpuTimerRender: Elapsed time: 0.339895 ms
+06-13 15:52:28.908 26680 26714 I Timer   : Elapsed time: 8.259083 ms
+06-13 15:52:28.908 26680 26714 I CpuTimer: Elapsed time: 1.639221 ms
+06-13 15:52:28.915 26680 26714 I CpuTimerCompute: Elapsed time: 0.280000 ms
+06-13 15:52:28.915 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:28.916 26680 26714 I GpuTimerRender: Elapsed time: 0.369947 ms
+06-13 15:52:29.917 26680 26714 I Timer   : Elapsed time: 8.330523 ms
+06-13 15:52:29.917 26680 26714 I CpuTimer: Elapsed time: 1.770917 ms
+06-13 15:52:29.923 26680 26714 I CpuTimerCompute: Elapsed time: 0.256000 ms
+06-13 15:52:29.923 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:52:29.924 26680 26714 I GpuTimerRender: Elapsed time: 0.376354 ms
+06-13 15:52:30.925 26680 26714 I Timer   : Elapsed time: 8.332644 ms
+06-13 15:52:30.925 26680 26714 I CpuTimer: Elapsed time: 1.674612 ms
+06-13 15:52:30.931 26680 26714 I CpuTimerCompute: Elapsed time: 0.537000 ms
+06-13 15:52:30.931 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:30.933 26680 26714 I GpuTimerRender: Elapsed time: 0.359948 ms
+06-13 15:52:31.933 26680 26714 I Timer   : Elapsed time: 8.330231 ms
+06-13 15:52:31.933 26680 26714 I CpuTimer: Elapsed time: 1.771694 ms
+06-13 15:52:31.939 26680 26714 I CpuTimerCompute: Elapsed time: 0.328000 ms
+06-13 15:52:31.939 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:31.941 26680 26714 I GpuTimerRender: Elapsed time: 0.362760 ms
+06-13 15:52:32.638 26680 26741 I CpuTimerLoader: Elapsed time: 503.644000 ms
+06-13 15:52:32.941 26680 26714 I Timer   : Elapsed time: 19.385435 ms
+06-13 15:52:32.941 26680 26714 I CpuTimer: Elapsed time: 11.182769 ms
+06-13 15:52:32.948 26680 26714 I CpuTimerCompute: Elapsed time: 0.228000 ms
+06-13 15:52:32.948 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:32.949 26680 26714 I GpuTimerRender: Elapsed time: 0.388541 ms
+06-13 15:52:33.941 26680 26714 I Timer   : Elapsed time: 8.333949 ms
+06-13 15:52:33.942 26680 26714 I CpuTimer: Elapsed time: 1.777317 ms
+06-13 15:52:33.956 26680 26714 I CpuTimerCompute: Elapsed time: 0.307000 ms
+06-13 15:52:33.956 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:33.958 26680 26714 I GpuTimerRender: Elapsed time: 0.377864 ms
+06-13 15:52:34.950 26680 26714 I Timer   : Elapsed time: 8.330370 ms
+06-13 15:52:34.950 26680 26714 I CpuTimer: Elapsed time: 1.736860 ms
+06-13 15:52:34.964 26680 26714 I CpuTimerCompute: Elapsed time: 0.271000 ms
+06-13 15:52:34.964 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:34.966 26680 26714 I GpuTimerRender: Elapsed time: 0.362760 ms
+06-13 15:52:35.958 26680 26714 I Timer   : Elapsed time: 8.332135 ms
+06-13 15:52:35.958 26680 26714 I CpuTimer: Elapsed time: 1.770463 ms
+06-13 15:52:35.973 26680 26714 I CpuTimerCompute: Elapsed time: 0.262000 ms
+06-13 15:52:35.973 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:35.974 26680 26714 I GpuTimerRender: Elapsed time: 0.374636 ms
+06-13 15:52:37.374 26680 26741 I CpuTimerLoader: Elapsed time: 496.358000 ms
+06-13 15:52:37.375 26680 26714 I Timer   : Elapsed time: 14.024433 ms
+06-13 15:52:37.375 26680 26714 I CpuTimer: Elapsed time: 6.651743 ms
+06-13 15:52:37.385 26680 26714 I CpuTimerCompute: Elapsed time: 0.811000 ms
+06-13 15:52:37.385 26680 26714 I GpuTimerCompute: Elapsed time: 0.001302 ms
+06-13 15:52:37.387 26680 26714 I GpuTimerRender: Elapsed time: 0.372343 ms
+06-13 15:52:38.383 26680 26714 I Timer   : Elapsed time: 8.331964 ms
+06-13 15:52:38.383 26680 26714 I CpuTimer: Elapsed time: 1.620306 ms
+06-13 15:52:38.389 26680 26714 I CpuTimerCompute: Elapsed time: 0.471000 ms
+06-13 15:52:38.389 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:38.392 26680 26714 I GpuTimerRender: Elapsed time: 0.363281 ms
+06-13 15:52:39.391 26680 26714 I Timer   : Elapsed time: 8.334513 ms
+06-13 15:52:39.392 26680 26714 I CpuTimer: Elapsed time: 1.664843 ms
+06-13 15:52:39.398 26680 26714 I CpuTimerCompute: Elapsed time: 0.623000 ms
+06-13 15:52:39.398 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:39.400 26680 26714 I GpuTimerRender: Elapsed time: 0.362761 ms
+06-13 15:52:40.399 26680 26714 I Timer   : Elapsed time: 8.324543 ms
+06-13 15:52:40.399 26680 26714 I CpuTimer: Elapsed time: 1.698372 ms
+06-13 15:52:40.405 26680 26714 I CpuTimerCompute: Elapsed time: 0.638000 ms
+06-13 15:52:40.406 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:40.407 26680 26714 I GpuTimerRender: Elapsed time: 0.346198 ms
+06-13 15:52:41.408 26680 26714 I Timer   : Elapsed time: 8.333561 ms
+06-13 15:52:41.408 26680 26714 I CpuTimer: Elapsed time: 1.710438 ms
+06-13 15:52:41.413 26680 26714 I CpuTimerCompute: Elapsed time: 0.421000 ms
+06-13 15:52:41.413 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:41.415 26680 26714 I GpuTimerRender: Elapsed time: 0.351250 ms
+06-13 15:52:42.125 26680 26741 I CpuTimerLoader: Elapsed time: 500.038000 ms
+06-13 15:52:42.415 26680 26714 I Timer   : Elapsed time: 20.153883 ms
+06-13 15:52:42.416 26680 26714 I CpuTimer: Elapsed time: 11.530300 ms
+06-13 15:52:42.422 26680 26714 I CpuTimerCompute: Elapsed time: 0.596000 ms
+06-13 15:52:42.422 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:52:42.423 26680 26714 I GpuTimerRender: Elapsed time: 0.388385 ms
+06-13 15:52:43.424 26680 26714 I Timer   : Elapsed time: 8.331356 ms
+06-13 15:52:43.424 26680 26714 I CpuTimer: Elapsed time: 1.722446 ms
+06-13 15:52:43.430 26680 26714 I CpuTimerCompute: Elapsed time: 0.598000 ms
+06-13 15:52:43.430 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:52:43.433 26680 26714 I GpuTimerRender: Elapsed time: 0.365781 ms
+06-13 15:52:44.432 26680 26714 I Timer   : Elapsed time: 8.330922 ms
+06-13 15:52:44.432 26680 26714 I CpuTimer: Elapsed time: 1.765793 ms
+06-13 15:52:44.438 26680 26714 I CpuTimerCompute: Elapsed time: 0.621000 ms
+06-13 15:52:44.438 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:44.440 26680 26714 I GpuTimerRender: Elapsed time: 0.355677 ms
+06-13 15:52:45.440 26680 26714 I Timer   : Elapsed time: 8.330621 ms
+06-13 15:52:45.440 26680 26714 I CpuTimer: Elapsed time: 1.665785 ms
+06-13 15:52:45.446 26680 26714 I CpuTimerCompute: Elapsed time: 0.462000 ms
+06-13 15:52:45.446 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:52:45.451 26680 26714 I GpuTimerRender: Elapsed time: 0.344011 ms
+06-13 15:52:46.890 26680 26741 I CpuTimerLoader: Elapsed time: 510.782000 ms
+06-13 15:52:46.890 26680 26714 I Timer   : Elapsed time: 14.077565 ms
+06-13 15:52:46.890 26680 26714 I CpuTimer: Elapsed time: 6.626689 ms
+06-13 15:52:46.902 26680 26714 I CpuTimerCompute: Elapsed time: 0.281000 ms
+06-13 15:52:46.902 26680 26714 I GpuTimerCompute: Elapsed time: 0.002396 ms
+06-13 15:52:46.903 26680 26714 I GpuTimerRender: Elapsed time: 0.347188 ms
+06-13 15:52:47.893 26680 26714 I Timer   : Elapsed time: 8.283628 ms
+06-13 15:52:47.893 26680 26714 I CpuTimer: Elapsed time: 1.698810 ms
+06-13 15:52:47.905 26680 26714 I CpuTimerCompute: Elapsed time: 0.295000 ms
+06-13 15:52:47.905 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:47.906 26680 26714 I GpuTimerRender: Elapsed time: 0.368178 ms
+06-13 15:52:48.898 26680 26714 I Timer   : Elapsed time: 8.311061 ms
+06-13 15:52:48.898 26680 26714 I CpuTimer: Elapsed time: 1.768017 ms
+06-13 15:52:48.913 26680 26714 I CpuTimerCompute: Elapsed time: 0.256000 ms
+06-13 15:52:48.913 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:48.914 26680 26714 I GpuTimerRender: Elapsed time: 0.361198 ms
+06-13 15:52:49.907 26680 26714 I Timer   : Elapsed time: 8.330475 ms
+06-13 15:52:49.907 26680 26714 I CpuTimer: Elapsed time: 1.840207 ms
+06-13 15:52:49.921 26680 26714 I CpuTimerCompute: Elapsed time: 0.276000 ms
+06-13 15:52:49.921 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:49.923 26680 26714 I GpuTimerRender: Elapsed time: 0.362656 ms
+06-13 15:52:50.907 26680 26714 I Timer   : Elapsed time: 8.334167 ms
+06-13 15:52:50.907 26680 26714 I CpuTimer: Elapsed time: 1.829900 ms
+06-13 15:52:50.929 26680 26714 I CpuTimerCompute: Elapsed time: 0.302000 ms
+06-13 15:52:50.930 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:50.931 26680 26714 I GpuTimerRender: Elapsed time: 0.352187 ms
+06-13 15:52:51.625 26680 26741 I CpuTimerLoader: Elapsed time: 502.169000 ms
+06-13 15:52:51.915 26680 26714 I Timer   : Elapsed time: 19.761892 ms
+06-13 15:52:51.915 26680 26714 I CpuTimer: Elapsed time: 11.466961 ms
+06-13 15:52:51.938 26680 26714 I CpuTimerCompute: Elapsed time: 0.496000 ms
+06-13 15:52:51.938 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:52:51.939 26680 26714 I GpuTimerRender: Elapsed time: 0.383386 ms
+06-13 15:52:52.923 26680 26714 I Timer   : Elapsed time: 8.330637 ms
+06-13 15:52:52.923 26680 26714 I CpuTimer: Elapsed time: 1.762380 ms
+06-13 15:52:52.946 26680 26714 I CpuTimerCompute: Elapsed time: 0.282000 ms
+06-13 15:52:52.946 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:52.948 26680 26714 I GpuTimerRender: Elapsed time: 0.372812 ms
+06-13 15:52:53.931 26680 26714 I Timer   : Elapsed time: 8.331419 ms
+06-13 15:52:53.931 26680 26714 I CpuTimer: Elapsed time: 1.722430 ms
+06-13 15:52:53.954 26680 26714 I CpuTimerCompute: Elapsed time: 0.281000 ms
+06-13 15:52:53.954 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:53.956 26680 26714 I GpuTimerRender: Elapsed time: 0.368178 ms
+06-13 15:52:54.940 26680 26714 I Timer   : Elapsed time: 8.332110 ms
+06-13 15:52:54.940 26680 26714 I CpuTimer: Elapsed time: 1.751802 ms
+06-13 15:52:54.962 26680 26714 I CpuTimerCompute: Elapsed time: 0.294000 ms
+06-13 15:52:54.963 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:54.964 26680 26714 I GpuTimerRender: Elapsed time: 0.373177 ms
+06-13 15:52:56.387 26680 26741 I CpuTimerLoader: Elapsed time: 502.500000 ms
+06-13 15:52:56.387 26680 26714 I Timer   : Elapsed time: 14.050797 ms
+06-13 15:52:56.387 26680 26714 I CpuTimer: Elapsed time: 6.560233 ms
+06-13 15:52:56.397 26680 26714 I CpuTimerCompute: Elapsed time: 0.330000 ms
+06-13 15:52:56.397 26680 26714 I GpuTimerCompute: Elapsed time: 0.002240 ms
+06-13 15:52:56.398 26680 26714 I GpuTimerRender: Elapsed time: 0.351458 ms
+06-13 15:52:57.399 26680 26714 I Timer   : Elapsed time: 8.361280 ms
+06-13 15:52:57.399 26680 26714 I CpuTimer: Elapsed time: 1.727793 ms
+06-13 15:52:57.400 26680 26714 I CpuTimerCompute: Elapsed time: 0.641000 ms
+06-13 15:52:57.400 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:52:57.402 26680 26714 I GpuTimerRender: Elapsed time: 0.370990 ms
+06-13 15:52:58.403 26680 26714 I CpuTimerCompute: Elapsed time: 0.415000 ms
+06-13 15:52:58.404 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:52:58.405 26680 26714 I GpuTimerRender: Elapsed time: 0.360990 ms
+06-13 15:52:58.406 26680 26714 I Timer   : Elapsed time: 8.252710 ms
+06-13 15:52:58.406 26680 26714 I CpuTimer: Elapsed time: 1.728508 ms
+06-13 15:52:59.412 26680 26714 I CpuTimerCompute: Elapsed time: 0.260000 ms
+06-13 15:52:59.412 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:52:59.413 26680 26714 I GpuTimerRender: Elapsed time: 0.363125 ms
+06-13 15:52:59.414 26680 26714 I Timer   : Elapsed time: 8.332461 ms
+06-13 15:52:59.414 26680 26714 I CpuTimer: Elapsed time: 1.700165 ms
+06-13 15:53:00.420 26680 26714 I CpuTimerCompute: Elapsed time: 0.256000 ms
+06-13 15:53:00.420 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:00.422 26680 26714 I GpuTimerRender: Elapsed time: 0.345208 ms
+06-13 15:53:00.422 26680 26714 I Timer   : Elapsed time: 8.330685 ms
+06-13 15:53:00.422 26680 26714 I CpuTimer: Elapsed time: 1.688248 ms
+06-13 15:53:01.137 26680 26741 I CpuTimerLoader: Elapsed time: 502.436000 ms
+06-13 15:53:01.428 26680 26714 I CpuTimerCompute: Elapsed time: 0.229000 ms
+06-13 15:53:01.428 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:01.430 26680 26714 I GpuTimerRender: Elapsed time: 0.385104 ms
+06-13 15:53:01.430 26680 26714 I Timer   : Elapsed time: 19.763176 ms
+06-13 15:53:01.430 26680 26714 I CpuTimer: Elapsed time: 11.304922 ms
+06-13 15:53:02.436 26680 26714 I CpuTimerCompute: Elapsed time: 0.355000 ms
+06-13 15:53:02.437 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:02.438 26680 26714 I GpuTimerRender: Elapsed time: 0.355677 ms
+06-13 15:53:02.439 26680 26714 I Timer   : Elapsed time: 8.335709 ms
+06-13 15:53:02.439 26680 26714 I CpuTimer: Elapsed time: 1.745488 ms
+06-13 15:53:03.445 26680 26714 I CpuTimerCompute: Elapsed time: 0.252000 ms
+06-13 15:53:03.445 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:03.447 26680 26714 I GpuTimerRender: Elapsed time: 0.356406 ms
+06-13 15:53:03.448 26680 26714 I Timer   : Elapsed time: 8.336750 ms
+06-13 15:53:03.448 26680 26714 I CpuTimer: Elapsed time: 1.731785 ms
+06-13 15:53:04.453 26680 26714 I CpuTimerCompute: Elapsed time: 0.262000 ms
+06-13 15:53:04.453 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:53:04.454 26680 26714 I GpuTimerRender: Elapsed time: 0.348646 ms
+06-13 15:53:04.455 26680 26714 I Timer   : Elapsed time: 8.320730 ms
+06-13 15:53:04.455 26680 26714 I CpuTimer: Elapsed time: 1.703603 ms
+06-13 15:53:05.877 26680 26741 I CpuTimerLoader: Elapsed time: 495.705000 ms
+06-13 15:53:05.877 26680 26714 I Timer   : Elapsed time: 14.080447 ms
+06-13 15:53:05.877 26680 26714 I CpuTimer: Elapsed time: 6.673851 ms
+06-13 15:53:05.888 26680 26714 I CpuTimerCompute: Elapsed time: 0.648000 ms
+06-13 15:53:05.888 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:05.890 26680 26714 I GpuTimerRender: Elapsed time: 0.350052 ms
+06-13 15:53:06.880 26680 26714 I Timer   : Elapsed time: 8.360438 ms
+06-13 15:53:06.880 26680 26714 I CpuTimer: Elapsed time: 1.637417 ms
+06-13 15:53:06.895 26680 26714 I CpuTimerCompute: Elapsed time: 0.532000 ms
+06-13 15:53:06.895 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:06.898 26680 26714 I GpuTimerRender: Elapsed time: 0.368958 ms
+06-13 15:53:07.888 26680 26714 I Timer   : Elapsed time: 8.326828 ms
+06-13 15:53:07.888 26680 26714 I CpuTimer: Elapsed time: 1.803339 ms
+06-13 15:53:07.903 26680 26714 I CpuTimerCompute: Elapsed time: 0.231000 ms
+06-13 15:53:07.903 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:07.904 26680 26714 I GpuTimerRender: Elapsed time: 0.365469 ms
+06-13 15:53:08.896 26680 26714 I Timer   : Elapsed time: 8.331515 ms
+06-13 15:53:08.896 26680 26714 I CpuTimer: Elapsed time: 1.691967 ms
+06-13 15:53:08.911 26680 26714 I CpuTimerCompute: Elapsed time: 0.275000 ms
+06-13 15:53:08.911 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:08.913 26680 26714 I GpuTimerRender: Elapsed time: 0.361250 ms
+06-13 15:53:09.904 26680 26714 I Timer   : Elapsed time: 8.330571 ms
+06-13 15:53:09.905 26680 26714 I CpuTimer: Elapsed time: 1.673041 ms
+06-13 15:53:09.919 26680 26714 I CpuTimerCompute: Elapsed time: 0.233000 ms
+06-13 15:53:09.919 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:09.921 26680 26714 I GpuTimerRender: Elapsed time: 0.359218 ms
+06-13 15:53:10.630 26680 26741 I CpuTimerLoader: Elapsed time: 493.218000 ms
+06-13 15:53:10.913 26680 26714 I Timer   : Elapsed time: 19.768448 ms
+06-13 15:53:10.913 26680 26714 I CpuTimer: Elapsed time: 11.242784 ms
+06-13 15:53:10.927 26680 26714 I CpuTimerCompute: Elapsed time: 0.202000 ms
+06-13 15:53:10.927 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:10.929 26680 26714 I GpuTimerRender: Elapsed time: 0.391823 ms
+06-13 15:53:11.913 26680 26714 I Timer   : Elapsed time: 8.334098 ms
+06-13 15:53:11.913 26680 26714 I CpuTimer: Elapsed time: 1.793733 ms
+06-13 15:53:11.936 26680 26714 I CpuTimerCompute: Elapsed time: 0.229000 ms
+06-13 15:53:11.936 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:11.937 26680 26714 I GpuTimerRender: Elapsed time: 0.379115 ms
+06-13 15:53:12.921 26680 26714 I Timer   : Elapsed time: 8.329512 ms
+06-13 15:53:12.921 26680 26714 I CpuTimer: Elapsed time: 1.753281 ms
+06-13 15:53:12.944 26680 26714 I CpuTimerCompute: Elapsed time: 0.329000 ms
+06-13 15:53:12.944 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:12.946 26680 26714 I GpuTimerRender: Elapsed time: 0.364792 ms
+06-13 15:53:13.929 26680 26714 I Timer   : Elapsed time: 8.329650 ms
+06-13 15:53:13.929 26680 26714 I CpuTimer: Elapsed time: 1.744950 ms
+06-13 15:53:13.952 26680 26714 I CpuTimerCompute: Elapsed time: 0.303000 ms
+06-13 15:53:13.952 26680 26714 I GpuTimerCompute: Elapsed time: 0.001302 ms
+06-13 15:53:13.954 26680 26714 I GpuTimerRender: Elapsed time: 0.354375 ms
+06-13 15:53:15.394 26680 26741 I CpuTimerLoader: Elapsed time: 507.230000 ms
+06-13 15:53:15.394 26680 26714 I Timer   : Elapsed time: 14.088770 ms
+06-13 15:53:15.395 26680 26714 I CpuTimer: Elapsed time: 6.604077 ms
+06-13 15:53:15.405 26680 26714 I CpuTimerCompute: Elapsed time: 0.710000 ms
+06-13 15:53:15.405 26680 26714 I GpuTimerCompute: Elapsed time: 0.002292 ms
+06-13 15:53:15.407 26680 26714 I GpuTimerRender: Elapsed time: 0.367552 ms
+06-13 15:53:16.396 26680 26714 I Timer   : Elapsed time: 8.272613 ms
+06-13 15:53:16.396 26680 26714 I CpuTimer: Elapsed time: 1.625983 ms
+06-13 15:53:16.413 26680 26714 I CpuTimerCompute: Elapsed time: 0.350000 ms
+06-13 15:53:16.413 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:16.414 26680 26714 I GpuTimerRender: Elapsed time: 0.400521 ms
+06-13 15:53:17.404 26680 26714 I Timer   : Elapsed time: 8.330878 ms
+06-13 15:53:17.404 26680 26714 I CpuTimer: Elapsed time: 1.805298 ms
+06-13 15:53:17.418 26680 26714 I CpuTimerCompute: Elapsed time: 0.264000 ms
+06-13 15:53:17.419 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:53:17.420 26680 26714 I GpuTimerRender: Elapsed time: 0.371146 ms
+06-13 15:53:18.412 26680 26714 I Timer   : Elapsed time: 8.328755 ms
+06-13 15:53:18.412 26680 26714 I CpuTimer: Elapsed time: 1.763942 ms
+06-13 15:53:18.427 26680 26714 I CpuTimerCompute: Elapsed time: 0.274000 ms
+06-13 15:53:18.427 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:18.429 26680 26714 I GpuTimerRender: Elapsed time: 0.360990 ms
+06-13 15:53:19.419 26680 26714 I Timer   : Elapsed time: 8.320502 ms
+06-13 15:53:19.419 26680 26714 I CpuTimer: Elapsed time: 0.757785 ms
+06-13 15:53:19.434 26680 26714 I CpuTimerCompute: Elapsed time: 0.091000 ms
+06-13 15:53:19.434 26680 26714 I GpuTimerCompute: Elapsed time: 0.000834 ms
+06-13 15:53:19.435 26680 26714 I GpuTimerRender: Elapsed time: 0.349584 ms
+06-13 15:53:20.121 26680 26741 I CpuTimerLoader: Elapsed time: 493.528000 ms
+06-13 15:53:20.427 26680 26714 I Timer   : Elapsed time: 18.678360 ms
+06-13 15:53:20.428 26680 26714 I CpuTimer: Elapsed time: 9.803926 ms
+06-13 15:53:20.443 26680 26714 I CpuTimerCompute: Elapsed time: 0.101000 ms
+06-13 15:53:20.443 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:20.444 26680 26714 I GpuTimerRender: Elapsed time: 0.374896 ms
+06-13 15:53:21.435 26680 26714 I Timer   : Elapsed time: 8.326066 ms
+06-13 15:53:21.435 26680 26714 I CpuTimer: Elapsed time: 0.776182 ms
+06-13 15:53:21.451 26680 26714 I CpuTimerCompute: Elapsed time: 0.150000 ms
+06-13 15:53:21.451 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:21.452 26680 26714 I GpuTimerRender: Elapsed time: 0.363802 ms
+06-13 15:53:22.437 26680 26714 I Timer   : Elapsed time: 8.346996 ms
+06-13 15:53:22.437 26680 26714 I CpuTimer: Elapsed time: 1.702592 ms
+06-13 15:53:22.460 26680 26714 I CpuTimerCompute: Elapsed time: 0.251000 ms
+06-13 15:53:22.460 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:22.461 26680 26714 I GpuTimerRender: Elapsed time: 0.378386 ms
+06-13 15:53:23.438 26680 26714 I Timer   : Elapsed time: 8.345103 ms
+06-13 15:53:23.438 26680 26714 I CpuTimer: Elapsed time: 1.764008 ms
+06-13 15:53:23.468 26680 26714 I CpuTimerCompute: Elapsed time: 0.297000 ms
+06-13 15:53:23.468 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:23.471 26680 26714 I GpuTimerRender: Elapsed time: 0.371979 ms
+06-13 15:53:24.824 26680 26741 I CpuTimerLoader: Elapsed time: 510.271000 ms
+06-13 15:53:24.824 26680 26714 I Timer   : Elapsed time: 13.722144 ms
+06-13 15:53:24.824 26680 26714 I CpuTimer: Elapsed time: 6.788040 ms
+06-13 15:53:24.833 26680 26714 I CpuTimerCompute: Elapsed time: 0.200000 ms
+06-13 15:53:24.833 26680 26714 I GpuTimerCompute: Elapsed time: 0.002292 ms
+06-13 15:53:24.834 26680 26714 I GpuTimerRender: Elapsed time: 0.360365 ms
+06-13 15:53:25.827 26680 26714 I Timer   : Elapsed time: 8.216084 ms
+06-13 15:53:25.827 26680 26714 I CpuTimer: Elapsed time: 0.700680 ms
+06-13 15:53:25.834 26680 26714 I CpuTimerCompute: Elapsed time: 0.129000 ms
+06-13 15:53:25.834 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:25.835 26680 26714 I GpuTimerRender: Elapsed time: 0.387187 ms
+06-13 15:53:26.835 26680 26714 I Timer   : Elapsed time: 8.331981 ms
+06-13 15:53:26.835 26680 26714 I CpuTimer: Elapsed time: 0.745909 ms
+06-13 15:53:26.842 26680 26714 I CpuTimerCompute: Elapsed time: 0.119000 ms
+06-13 15:53:26.842 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:26.843 26680 26714 I GpuTimerRender: Elapsed time: 0.382656 ms
+06-13 15:53:27.843 26680 26714 I Timer   : Elapsed time: 8.331179 ms
+06-13 15:53:27.843 26680 26714 I CpuTimer: Elapsed time: 0.674215 ms
+06-13 15:53:27.850 26680 26714 I CpuTimerCompute: Elapsed time: 0.111000 ms
+06-13 15:53:27.850 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:27.852 26680 26714 I GpuTimerRender: Elapsed time: 0.374635 ms
+06-13 15:53:28.844 26680 26714 I Timer   : Elapsed time: 8.342341 ms
+06-13 15:53:28.844 26680 26714 I CpuTimer: Elapsed time: 1.269500 ms
+06-13 15:53:28.859 26680 26714 I CpuTimerCompute: Elapsed time: 0.260000 ms
+06-13 15:53:28.859 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:28.861 26680 26714 I GpuTimerRender: Elapsed time: 0.369531 ms
+06-13 15:53:29.577 26680 26741 I CpuTimerLoader: Elapsed time: 504.835000 ms
+06-13 15:53:29.853 26680 26714 I Timer   : Elapsed time: 20.576591 ms
+06-13 15:53:29.853 26680 26714 I CpuTimer: Elapsed time: 11.831612 ms
+06-13 15:53:29.867 26680 26714 I CpuTimerCompute: Elapsed time: 0.463000 ms
+06-13 15:53:29.867 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:29.869 26680 26714 I GpuTimerRender: Elapsed time: 0.406615 ms
+06-13 15:53:30.853 26680 26714 I Timer   : Elapsed time: 8.333447 ms
+06-13 15:53:30.853 26680 26714 I CpuTimer: Elapsed time: 1.742650 ms
+06-13 15:53:30.876 26680 26714 I CpuTimerCompute: Elapsed time: 0.580000 ms
+06-13 15:53:30.876 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:30.878 26680 26714 I GpuTimerRender: Elapsed time: 0.379844 ms
+06-13 15:53:31.861 26680 26714 I Timer   : Elapsed time: 8.330693 ms
+06-13 15:53:31.861 26680 26714 I CpuTimer: Elapsed time: 1.736240 ms
+06-13 15:53:31.884 26680 26714 I CpuTimerCompute: Elapsed time: 0.785000 ms
+06-13 15:53:31.884 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:31.887 26680 26714 I GpuTimerRender: Elapsed time: 0.363698 ms
+06-13 15:53:32.869 26680 26714 I Timer   : Elapsed time: 8.324946 ms
+06-13 15:53:32.869 26680 26714 I CpuTimer: Elapsed time: 1.654579 ms
+06-13 15:53:32.892 26680 26714 I CpuTimerCompute: Elapsed time: 0.578000 ms
+06-13 15:53:32.892 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:32.895 26680 26714 I GpuTimerRender: Elapsed time: 0.358438 ms
+06-13 15:53:34.274 26680 26741 I CpuTimerLoader: Elapsed time: 495.833000 ms
+06-13 15:53:34.274 26680 26714 I Timer   : Elapsed time: 13.388541 ms
+06-13 15:53:34.274 26680 26714 I CpuTimer: Elapsed time: 6.397410 ms
+06-13 15:53:34.284 26680 26714 I CpuTimerCompute: Elapsed time: 0.207000 ms
+06-13 15:53:34.284 26680 26714 I GpuTimerCompute: Elapsed time: 0.000886 ms
+06-13 15:53:34.285 26680 26714 I GpuTimerRender: Elapsed time: 0.358334 ms
+06-13 15:53:35.275 26680 26714 I Timer   : Elapsed time: 8.271469 ms
+06-13 15:53:35.275 26680 26714 I CpuTimer: Elapsed time: 0.676983 ms
+06-13 15:53:35.291 26680 26714 I CpuTimerCompute: Elapsed time: 0.102000 ms
+06-13 15:53:35.291 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:35.292 26680 26714 I GpuTimerRender: Elapsed time: 0.380729 ms
+06-13 15:53:36.283 26680 26714 I Timer   : Elapsed time: 8.330751 ms
+06-13 15:53:36.284 26680 26714 I CpuTimer: Elapsed time: 0.696008 ms
+06-13 15:53:36.299 26680 26714 I CpuTimerCompute: Elapsed time: 0.224000 ms
+06-13 15:53:36.299 26680 26714 I GpuTimerCompute: Elapsed time: 0.000886 ms
+06-13 15:53:36.300 26680 26714 I GpuTimerRender: Elapsed time: 0.358490 ms
+06-13 15:53:37.292 26680 26714 I Timer   : Elapsed time: 8.330952 ms
+06-13 15:53:37.292 26680 26714 I CpuTimer: Elapsed time: 0.654818 ms
+06-13 15:53:37.307 26680 26714 I CpuTimerCompute: Elapsed time: 0.255000 ms
+06-13 15:53:37.307 26680 26714 I GpuTimerCompute: Elapsed time: 0.000885 ms
+06-13 15:53:37.308 26680 26714 I GpuTimerRender: Elapsed time: 0.359896 ms
+06-13 15:53:38.292 26680 26714 I Timer   : Elapsed time: 8.337626 ms
+06-13 15:53:38.292 26680 26714 I CpuTimer: Elapsed time: 0.669417 ms
+06-13 15:53:38.316 26680 26714 I CpuTimerCompute: Elapsed time: 0.121000 ms
+06-13 15:53:38.316 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:38.317 26680 26714 I GpuTimerRender: Elapsed time: 0.367916 ms
+06-13 15:53:39.009 26680 26741 I CpuTimerLoader: Elapsed time: 497.229000 ms
+06-13 15:53:39.292 26680 26714 I Timer   : Elapsed time: 19.232536 ms
+06-13 15:53:39.292 26680 26714 I CpuTimer: Elapsed time: 10.240423 ms
+06-13 15:53:39.324 26680 26714 I CpuTimerCompute: Elapsed time: 0.103000 ms
+06-13 15:53:39.324 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:39.325 26680 26714 I GpuTimerRender: Elapsed time: 0.384062 ms
+06-13 15:53:40.300 26680 26714 I Timer   : Elapsed time: 8.324270 ms
+06-13 15:53:40.300 26680 26714 I CpuTimer: Elapsed time: 0.728248 ms
+06-13 15:53:40.332 26680 26714 I CpuTimerCompute: Elapsed time: 0.112000 ms
+06-13 15:53:40.332 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:40.333 26680 26714 I GpuTimerRender: Elapsed time: 0.382188 ms
+06-13 15:53:41.301 26680 26714 I Timer   : Elapsed time: 8.341507 ms
+06-13 15:53:41.301 26680 26714 I CpuTimer: Elapsed time: 1.545408 ms
+06-13 15:53:41.340 26680 26714 I CpuTimerCompute: Elapsed time: 0.255000 ms
+06-13 15:53:41.340 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:41.342 26680 26714 I GpuTimerRender: Elapsed time: 0.364896 ms
+06-13 15:53:42.309 26680 26714 I Timer   : Elapsed time: 8.331031 ms
+06-13 15:53:42.309 26680 26714 I CpuTimer: Elapsed time: 1.714521 ms
+06-13 15:53:42.349 26680 26714 I CpuTimerCompute: Elapsed time: 0.340000 ms
+06-13 15:53:42.349 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:53:42.350 26680 26714 I GpuTimerRender: Elapsed time: 0.368906 ms
+06-13 15:53:43.749 26680 26741 I CpuTimerLoader: Elapsed time: 494.631000 ms
+06-13 15:53:43.749 26680 26714 I Timer   : Elapsed time: 13.983129 ms
+06-13 15:53:43.750 26680 26714 I CpuTimer: Elapsed time: 6.516262 ms
+06-13 15:53:43.761 26680 26714 I CpuTimerCompute: Elapsed time: 0.652000 ms
+06-13 15:53:43.762 26680 26714 I GpuTimerCompute: Elapsed time: 0.001719 ms
+06-13 15:53:43.763 26680 26714 I GpuTimerRender: Elapsed time: 0.364375 ms
+06-13 15:53:44.750 26680 26714 I Timer   : Elapsed time: 8.269573 ms
+06-13 15:53:44.750 26680 26714 I CpuTimer: Elapsed time: 1.637298 ms
+06-13 15:53:44.765 26680 26714 I CpuTimerCompute: Elapsed time: 0.231000 ms
+06-13 15:53:44.765 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:53:44.767 26680 26714 I GpuTimerRender: Elapsed time: 0.384584 ms
+06-13 15:53:45.757 26680 26714 I Timer   : Elapsed time: 8.321305 ms
+06-13 15:53:45.757 26680 26714 I CpuTimer: Elapsed time: 1.775967 ms
+06-13 15:53:45.773 26680 26714 I CpuTimerCompute: Elapsed time: 0.102000 ms
+06-13 15:53:45.773 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:45.776 26680 26714 I GpuTimerRender: Elapsed time: 0.391198 ms
+06-13 15:53:46.758 26680 26714 I Timer   : Elapsed time: 8.340952 ms
+06-13 15:53:46.758 26680 26714 I CpuTimer: Elapsed time: 1.681892 ms
+06-13 15:53:46.781 26680 26714 I CpuTimerCompute: Elapsed time: 0.276000 ms
+06-13 15:53:46.781 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:46.783 26680 26714 I GpuTimerRender: Elapsed time: 0.389948 ms
+06-13 15:53:47.758 26680 26714 I Timer   : Elapsed time: 8.333483 ms
+06-13 15:53:47.758 26680 26714 I CpuTimer: Elapsed time: 1.744550 ms
+06-13 15:53:47.789 26680 26714 I CpuTimerCompute: Elapsed time: 0.249000 ms
+06-13 15:53:47.790 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:53:47.792 26680 26714 I GpuTimerRender: Elapsed time: 0.382709 ms
+06-13 15:53:48.513 26680 26741 I CpuTimerLoader: Elapsed time: 522.828000 ms
+06-13 15:53:48.766 26680 26714 I Timer   : Elapsed time: 20.567327 ms
+06-13 15:53:48.766 26680 26714 I CpuTimer: Elapsed time: 12.227571 ms
+06-13 15:53:48.798 26680 26714 I CpuTimerCompute: Elapsed time: 0.220000 ms
+06-13 15:53:48.798 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:48.799 26680 26714 I GpuTimerRender: Elapsed time: 0.399011 ms
+06-13 15:53:49.767 26680 26714 I Timer   : Elapsed time: 8.335464 ms
+06-13 15:53:49.767 26680 26714 I CpuTimer: Elapsed time: 1.864992 ms
+06-13 15:53:49.806 26680 26714 I CpuTimerCompute: Elapsed time: 0.799000 ms
+06-13 15:53:49.806 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:49.808 26680 26714 I GpuTimerRender: Elapsed time: 0.368229 ms
+06-13 15:53:50.775 26680 26714 I Timer   : Elapsed time: 8.330045 ms
+06-13 15:53:50.775 26680 26714 I CpuTimer: Elapsed time: 1.770810 ms
+06-13 15:53:50.815 26680 26714 I CpuTimerCompute: Elapsed time: 0.287000 ms
+06-13 15:53:50.815 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:50.816 26680 26714 I GpuTimerRender: Elapsed time: 0.369219 ms
+06-13 15:53:51.783 26680 26714 I Timer   : Elapsed time: 8.329019 ms
+06-13 15:53:51.783 26680 26714 I CpuTimer: Elapsed time: 1.771570 ms
+06-13 15:53:51.823 26680 26714 I CpuTimerCompute: Elapsed time: 0.645000 ms
+06-13 15:53:51.823 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:51.824 26680 26714 I GpuTimerRender: Elapsed time: 0.367865 ms
+06-13 15:53:53.270 26680 26741 I CpuTimerLoader: Elapsed time: 495.128000 ms
+06-13 15:53:53.271 26680 26714 I Timer   : Elapsed time: 13.904921 ms
+06-13 15:53:53.271 26680 26714 I CpuTimer: Elapsed time: 6.371374 ms
+06-13 15:53:53.281 26680 26714 I CpuTimerCompute: Elapsed time: 0.815000 ms
+06-13 15:53:53.281 26680 26714 I GpuTimerCompute: Elapsed time: 0.002136 ms
+06-13 15:53:53.283 26680 26714 I GpuTimerRender: Elapsed time: 0.408593 ms
+06-13 15:53:54.273 26680 26714 I Timer   : Elapsed time: 8.286453 ms
+06-13 15:53:54.274 26680 26714 I CpuTimer: Elapsed time: 1.577107 ms
+06-13 15:53:54.289 26680 26714 I CpuTimerCompute: Elapsed time: 0.268000 ms
+06-13 15:53:54.289 26680 26714 I GpuTimerCompute: Elapsed time: 0.000886 ms
+06-13 15:53:54.291 26680 26714 I GpuTimerRender: Elapsed time: 0.370521 ms
+06-13 15:53:55.274 26680 26714 I Timer   : Elapsed time: 8.339673 ms
+06-13 15:53:55.275 26680 26714 I CpuTimer: Elapsed time: 2.101508 ms
+06-13 15:53:55.297 26680 26714 I CpuTimerCompute: Elapsed time: 1.218000 ms
+06-13 15:53:55.297 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:53:55.299 26680 26714 I GpuTimerRender: Elapsed time: 0.374427 ms
+06-13 15:53:56.282 26680 26714 I Timer   : Elapsed time: 8.329306 ms
+06-13 15:53:56.283 26680 26714 I CpuTimer: Elapsed time: 1.744521 ms
+06-13 15:53:56.306 26680 26714 I CpuTimerCompute: Elapsed time: 0.274000 ms
+06-13 15:53:56.306 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:56.307 26680 26714 I GpuTimerRender: Elapsed time: 0.369114 ms
+06-13 15:53:57.283 26680 26714 I Timer   : Elapsed time: 8.335045 ms
+06-13 15:53:57.283 26680 26714 I CpuTimer: Elapsed time: 1.778875 ms
+06-13 15:53:57.314 26680 26714 I CpuTimerCompute: Elapsed time: 0.266000 ms
+06-13 15:53:57.314 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:57.315 26680 26714 I GpuTimerRender: Elapsed time: 0.372240 ms
+06-13 15:53:58.015 26680 26741 I CpuTimerLoader: Elapsed time: 492.290000 ms
+06-13 15:53:58.291 26680 26714 I Timer   : Elapsed time: 19.760828 ms
+06-13 15:53:58.291 26680 26714 I CpuTimer: Elapsed time: 11.259745 ms
+06-13 15:53:58.322 26680 26714 I CpuTimerCompute: Elapsed time: 0.233000 ms
+06-13 15:53:58.322 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:53:58.324 26680 26714 I GpuTimerRender: Elapsed time: 0.409218 ms
+06-13 15:53:59.291 26680 26714 I Timer   : Elapsed time: 8.336662 ms
+06-13 15:53:59.291 26680 26714 I CpuTimer: Elapsed time: 1.725725 ms
+06-13 15:53:59.331 26680 26714 I CpuTimerCompute: Elapsed time: 0.261000 ms
+06-13 15:53:59.331 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:53:59.332 26680 26714 I GpuTimerRender: Elapsed time: 0.390313 ms
+06-13 15:54:00.299 26680 26714 I Timer   : Elapsed time: 8.327809 ms
+06-13 15:54:00.299 26680 26714 I CpuTimer: Elapsed time: 1.808992 ms
+06-13 15:54:00.339 26680 26714 I CpuTimerCompute: Elapsed time: 0.254000 ms
+06-13 15:54:00.339 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:00.340 26680 26714 I GpuTimerRender: Elapsed time: 0.373281 ms
+06-13 15:54:01.307 26680 26714 I Timer   : Elapsed time: 8.329595 ms
+06-13 15:54:01.307 26680 26714 I CpuTimer: Elapsed time: 1.718446 ms
+06-13 15:54:01.347 26680 26714 I CpuTimerCompute: Elapsed time: 0.287000 ms
+06-13 15:54:01.347 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:01.349 26680 26714 I GpuTimerRender: Elapsed time: 0.382917 ms
+06-13 15:54:02.762 26680 26741 I CpuTimerLoader: Elapsed time: 499.493000 ms
+06-13 15:54:02.762 26680 26714 I Timer   : Elapsed time: 13.859705 ms
+06-13 15:54:02.763 26680 26714 I CpuTimer: Elapsed time: 6.472676 ms
+06-13 15:54:02.774 26680 26714 I CpuTimerCompute: Elapsed time: 0.677000 ms
+06-13 15:54:02.774 26680 26714 I GpuTimerCompute: Elapsed time: 0.001770 ms
+06-13 15:54:02.775 26680 26714 I GpuTimerRender: Elapsed time: 0.386250 ms
+06-13 15:54:03.766 26680 26714 I Timer   : Elapsed time: 8.428003 ms
+06-13 15:54:03.766 26680 26714 I CpuTimer: Elapsed time: 1.577294 ms
+06-13 15:54:03.780 26680 26714 I CpuTimerCompute: Elapsed time: 0.452000 ms
+06-13 15:54:03.780 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:54:03.782 26680 26714 I GpuTimerRender: Elapsed time: 0.394427 ms
+06-13 15:54:04.774 26680 26714 I Timer   : Elapsed time: 8.331150 ms
+06-13 15:54:04.774 26680 26714 I CpuTimer: Elapsed time: 1.820694 ms
+06-13 15:54:04.789 26680 26714 I CpuTimerCompute: Elapsed time: 0.282000 ms
+06-13 15:54:04.789 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:04.790 26680 26714 I GpuTimerRender: Elapsed time: 0.390364 ms
+06-13 15:54:05.782 26680 26714 I Timer   : Elapsed time: 8.331203 ms
+06-13 15:54:05.782 26680 26714 I CpuTimer: Elapsed time: 1.785182 ms
+06-13 15:54:05.796 26680 26714 I CpuTimerCompute: Elapsed time: 0.266000 ms
+06-13 15:54:05.796 26680 26714 I GpuTimerCompute: Elapsed time: 0.000938 ms
+06-13 15:54:05.798 26680 26714 I GpuTimerRender: Elapsed time: 0.384218 ms
+06-13 15:54:06.790 26680 26714 I Timer   : Elapsed time: 8.332284 ms
+06-13 15:54:06.791 26680 26714 I CpuTimer: Elapsed time: 1.733025 ms
+06-13 15:54:06.805 26680 26714 I CpuTimerCompute: Elapsed time: 1.348000 ms
+06-13 15:54:06.805 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:06.807 26680 26714 I GpuTimerRender: Elapsed time: 0.387240 ms
+06-13 15:54:07.521 26680 26741 I CpuTimerLoader: Elapsed time: 496.533000 ms
+06-13 15:54:07.799 26680 26714 I Timer   : Elapsed time: 19.383829 ms
+06-13 15:54:07.799 26680 26714 I CpuTimer: Elapsed time: 11.208577 ms
+06-13 15:54:07.813 26680 26714 I CpuTimerCompute: Elapsed time: 0.195000 ms
+06-13 15:54:07.813 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:07.815 26680 26714 I GpuTimerRender: Elapsed time: 0.419584 ms
+06-13 15:54:08.807 26680 26714 I Timer   : Elapsed time: 8.333960 ms
+06-13 15:54:08.807 26680 26714 I CpuTimer: Elapsed time: 1.730347 ms
+06-13 15:54:08.822 26680 26714 I CpuTimerCompute: Elapsed time: 0.251000 ms
+06-13 15:54:08.822 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:08.823 26680 26714 I GpuTimerRender: Elapsed time: 0.392396 ms
+06-13 15:54:09.815 26680 26714 I Timer   : Elapsed time: 8.330562 ms
+06-13 15:54:09.815 26680 26714 I CpuTimer: Elapsed time: 1.726413 ms
+06-13 15:54:09.830 26680 26714 I CpuTimerCompute: Elapsed time: 0.243000 ms
+06-13 15:54:09.830 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:09.832 26680 26714 I GpuTimerRender: Elapsed time: 0.381771 ms
+06-13 15:54:10.824 26680 26714 I Timer   : Elapsed time: 8.331754 ms
+06-13 15:54:10.824 26680 26714 I CpuTimer: Elapsed time: 1.712000 ms
+06-13 15:54:10.838 26680 26714 I CpuTimerCompute: Elapsed time: 0.265000 ms
+06-13 15:54:10.838 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:10.840 26680 26714 I GpuTimerRender: Elapsed time: 0.378490 ms
+06-13 15:54:12.269 26680 26741 I CpuTimerLoader: Elapsed time: 519.703000 ms
+06-13 15:54:12.269 26680 26714 I Timer   : Elapsed time: 14.032811 ms
+06-13 15:54:12.269 26680 26714 I CpuTimer: Elapsed time: 6.751184 ms
+06-13 15:54:12.279 26680 26714 I CpuTimerCompute: Elapsed time: 0.430000 ms
+06-13 15:54:12.279 26680 26714 I GpuTimerCompute: Elapsed time: 0.001354 ms
+06-13 15:54:12.280 26680 26714 I GpuTimerRender: Elapsed time: 0.367604 ms
+06-13 15:54:13.274 26680 26714 I Timer   : Elapsed time: 8.300499 ms
+06-13 15:54:13.274 26680 26714 I CpuTimer: Elapsed time: 1.581223 ms
+06-13 15:54:13.280 26680 26714 I CpuTimerCompute: Elapsed time: 0.343000 ms
+06-13 15:54:13.280 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:13.282 26680 26714 I GpuTimerRender: Elapsed time: 0.394271 ms
+06-13 15:54:14.282 26680 26714 I Timer   : Elapsed time: 8.329694 ms
+06-13 15:54:14.282 26680 26714 I CpuTimer: Elapsed time: 1.819405 ms
+06-13 15:54:14.288 26680 26714 I CpuTimerCompute: Elapsed time: 0.280000 ms
+06-13 15:54:14.288 26680 26714 I GpuTimerCompute: Elapsed time: 0.000573 ms
+06-13 15:54:14.289 26680 26714 I GpuTimerRender: Elapsed time: 0.370521 ms
+06-13 15:54:15.290 26680 26714 I Timer   : Elapsed time: 8.332766 ms
+06-13 15:54:15.290 26680 26714 I CpuTimer: Elapsed time: 1.750603 ms
+06-13 15:54:15.296 26680 26714 I CpuTimerCompute: Elapsed time: 0.261000 ms
+06-13 15:54:15.297 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:15.298 26680 26714 I GpuTimerRender: Elapsed time: 0.379011 ms
+06-13 15:54:16.298 26680 26714 I Timer   : Elapsed time: 8.332678 ms
+06-13 15:54:16.299 26680 26714 I CpuTimer: Elapsed time: 1.748438 ms
+06-13 15:54:16.305 26680 26714 I CpuTimerCompute: Elapsed time: 0.242000 ms
+06-13 15:54:16.305 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:16.306 26680 26714 I GpuTimerRender: Elapsed time: 0.396197 ms
+06-13 15:54:17.025 26680 26741 I CpuTimerLoader: Elapsed time: 514.927000 ms
+06-13 15:54:17.307 26680 26714 I Timer   : Elapsed time: 19.765148 ms
+06-13 15:54:17.307 26680 26714 I CpuTimer: Elapsed time: 11.647059 ms
+06-13 15:54:17.313 26680 26714 I CpuTimerCompute: Elapsed time: 0.454000 ms
+06-13 15:54:17.313 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:17.314 26680 26714 I GpuTimerRender: Elapsed time: 0.409167 ms
+06-13 15:54:18.315 26680 26714 I Timer   : Elapsed time: 8.333648 ms
+06-13 15:54:18.315 26680 26714 I CpuTimer: Elapsed time: 1.772223 ms
+06-13 15:54:18.321 26680 26714 I CpuTimerCompute: Elapsed time: 1.033000 ms
+06-13 15:54:18.322 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:18.324 26680 26714 I GpuTimerRender: Elapsed time: 0.401094 ms
+06-13 15:54:19.323 26680 26714 I Timer   : Elapsed time: 8.331582 ms
+06-13 15:54:19.324 26680 26714 I CpuTimer: Elapsed time: 1.681760 ms
+06-13 15:54:19.330 26680 26714 I CpuTimerCompute: Elapsed time: 1.491000 ms
+06-13 15:54:19.330 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:19.331 26680 26714 I GpuTimerRender: Elapsed time: 0.395834 ms
+06-13 15:54:20.331 26680 26714 I Timer   : Elapsed time: 8.329477 ms
+06-13 15:54:20.332 26680 26714 I CpuTimer: Elapsed time: 1.766603 ms
+06-13 15:54:20.338 26680 26714 I CpuTimerCompute: Elapsed time: 0.290000 ms
+06-13 15:54:20.338 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:20.339 26680 26714 I GpuTimerRender: Elapsed time: 0.393334 ms
+06-13 15:54:21.765 26680 26741 I CpuTimerLoader: Elapsed time: 495.094000 ms
+06-13 15:54:21.765 26680 26714 I Timer   : Elapsed time: 14.056402 ms
+06-13 15:54:21.765 26680 26714 I CpuTimer: Elapsed time: 6.576706 ms
+06-13 15:54:21.776 26680 26714 I CpuTimerCompute: Elapsed time: 0.881000 ms
+06-13 15:54:21.777 26680 26714 I GpuTimerCompute: Elapsed time: 0.001875 ms
+06-13 15:54:21.778 26680 26714 I GpuTimerRender: Elapsed time: 0.402083 ms
+06-13 15:54:22.773 26680 26714 I Timer   : Elapsed time: 8.328279 ms
+06-13 15:54:22.773 26680 26714 I CpuTimer: Elapsed time: 1.586223 ms
+06-13 15:54:22.779 26680 26714 I CpuTimerCompute: Elapsed time: 0.750000 ms
+06-13 15:54:22.779 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:22.781 26680 26714 I GpuTimerRender: Elapsed time: 0.399114 ms
+06-13 15:54:23.781 26680 26714 I Timer   : Elapsed time: 8.396997 ms
+06-13 15:54:23.781 26680 26714 I CpuTimer: Elapsed time: 1.868917 ms
+06-13 15:54:23.787 26680 26714 I CpuTimerCompute: Elapsed time: 0.301000 ms
+06-13 15:54:23.787 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:23.789 26680 26714 I GpuTimerRender: Elapsed time: 0.386719 ms
+06-13 15:54:24.781 26680 26714 I Timer   : Elapsed time: 8.333397 ms
+06-13 15:54:24.781 26680 26714 I CpuTimer: Elapsed time: 1.763650 ms
+06-13 15:54:24.796 26680 26714 I CpuTimerCompute: Elapsed time: 0.252000 ms
+06-13 15:54:24.796 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:54:24.797 26680 26714 I GpuTimerRender: Elapsed time: 0.387500 ms
+06-13 15:54:25.789 26680 26714 I Timer   : Elapsed time: 8.328254 ms
+06-13 15:54:25.789 26680 26714 I CpuTimer: Elapsed time: 1.737959 ms
+06-13 15:54:25.804 26680 26714 I CpuTimerCompute: Elapsed time: 0.279000 ms
+06-13 15:54:25.804 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:54:25.805 26680 26714 I GpuTimerRender: Elapsed time: 0.383125 ms
+06-13 15:54:26.532 26680 26741 I CpuTimerLoader: Elapsed time: 513.968000 ms
+06-13 15:54:26.797 26680 26714 I Timer   : Elapsed time: 20.572382 ms
+06-13 15:54:26.797 26680 26714 I CpuTimer: Elapsed time: 12.161959 ms
+06-13 15:54:26.812 26680 26714 I CpuTimerCompute: Elapsed time: 0.476000 ms
+06-13 15:54:26.812 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:26.815 26680 26714 I GpuTimerRender: Elapsed time: 0.410833 ms
+06-13 15:54:27.806 26680 26714 I Timer   : Elapsed time: 8.333924 ms
+06-13 15:54:27.806 26680 26714 I CpuTimer: Elapsed time: 1.757306 ms
+06-13 15:54:27.820 26680 26714 I CpuTimerCompute: Elapsed time: 0.214000 ms
+06-13 15:54:27.820 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:54:27.822 26680 26714 I GpuTimerRender: Elapsed time: 0.403386 ms
+06-13 15:54:28.806 26680 26714 I Timer   : Elapsed time: 8.333516 ms
+06-13 15:54:28.806 26680 26714 I CpuTimer: Elapsed time: 2.319942 ms
+06-13 15:54:28.829 26680 26714 I CpuTimerCompute: Elapsed time: 0.352000 ms
+06-13 15:54:28.829 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:28.831 26680 26714 I GpuTimerRender: Elapsed time: 0.390990 ms
+06-13 15:54:29.814 26680 26714 I Timer   : Elapsed time: 8.326659 ms
+06-13 15:54:29.814 26680 26714 I CpuTimer: Elapsed time: 2.307810 ms
+06-13 15:54:29.837 26680 26714 I CpuTimerCompute: Elapsed time: 0.278000 ms
+06-13 15:54:29.837 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:29.838 26680 26714 I GpuTimerRender: Elapsed time: 0.390417 ms
+06-13 15:54:31.297 26680 26741 I CpuTimerLoader: Elapsed time: 504.454000 ms
+06-13 15:54:31.297 26680 26714 I Timer   : Elapsed time: 13.864519 ms
+06-13 15:54:31.297 26680 26714 I CpuTimer: Elapsed time: 6.455383 ms
+06-13 15:54:31.307 26680 26714 I CpuTimerCompute: Elapsed time: 0.234000 ms
+06-13 15:54:31.307 26680 26714 I GpuTimerCompute: Elapsed time: 0.002188 ms
+06-13 15:54:31.308 26680 26714 I GpuTimerRender: Elapsed time: 0.393073 ms
+06-13 15:54:32.305 26680 26714 I Timer   : Elapsed time: 8.261174 ms
+06-13 15:54:32.305 26680 26714 I CpuTimer: Elapsed time: 1.636098 ms
+06-13 15:54:32.312 26680 26714 I CpuTimerCompute: Elapsed time: 0.294000 ms
+06-13 15:54:32.312 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:32.313 26680 26714 I GpuTimerRender: Elapsed time: 0.419791 ms
+06-13 15:54:33.313 26680 26714 I Timer   : Elapsed time: 8.329460 ms
+06-13 15:54:33.313 26680 26714 I CpuTimer: Elapsed time: 1.892008 ms
+06-13 15:54:33.320 26680 26714 I CpuTimerCompute: Elapsed time: 0.776000 ms
+06-13 15:54:33.320 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:33.323 26680 26714 I GpuTimerRender: Elapsed time: 0.416510 ms
+06-13 15:54:34.322 26680 26714 I Timer   : Elapsed time: 8.331397 ms
+06-13 15:54:34.322 26680 26714 I CpuTimer: Elapsed time: 1.813281 ms
+06-13 15:54:34.328 26680 26714 I CpuTimerCompute: Elapsed time: 0.613000 ms
+06-13 15:54:34.328 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:34.330 26680 26714 I GpuTimerRender: Elapsed time: 0.403177 ms
+06-13 15:54:35.330 26680 26714 I Timer   : Elapsed time: 8.333282 ms
+06-13 15:54:35.330 26680 26714 I CpuTimer: Elapsed time: 1.913140 ms
+06-13 15:54:35.336 26680 26714 I CpuTimerCompute: Elapsed time: 0.282000 ms
+06-13 15:54:35.336 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:54:35.338 26680 26714 I GpuTimerRender: Elapsed time: 0.406250 ms
+06-13 15:54:36.066 26680 26741 I CpuTimerLoader: Elapsed time: 520.771000 ms
+06-13 15:54:36.338 26680 26714 I Timer   : Elapsed time: 20.563650 ms
+06-13 15:54:36.338 26680 26714 I CpuTimer: Elapsed time: 12.073449 ms
+06-13 15:54:36.344 26680 26714 I CpuTimerCompute: Elapsed time: 0.888000 ms
+06-13 15:54:36.344 26680 26714 I GpuTimerCompute: Elapsed time: 0.001302 ms
+06-13 15:54:36.346 26680 26714 I GpuTimerRender: Elapsed time: 0.390520 ms
+06-13 15:54:37.338 26680 26714 I Timer   : Elapsed time: 8.335188 ms
+06-13 15:54:37.338 26680 26714 I CpuTimer: Elapsed time: 1.739350 ms
+06-13 15:54:37.353 26680 26714 I CpuTimerCompute: Elapsed time: 0.252000 ms
+06-13 15:54:37.353 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:37.354 26680 26714 I GpuTimerRender: Elapsed time: 0.416563 ms
+06-13 15:54:38.346 26680 26714 I Timer   : Elapsed time: 8.331264 ms
+06-13 15:54:38.347 26680 26714 I CpuTimer: Elapsed time: 1.794058 ms
+06-13 15:54:38.361 26680 26714 I CpuTimerCompute: Elapsed time: 0.588000 ms
+06-13 15:54:38.361 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:38.363 26680 26714 I GpuTimerRender: Elapsed time: 0.411458 ms
+06-13 15:54:39.355 26680 26714 I Timer   : Elapsed time: 8.331326 ms
+06-13 15:54:39.355 26680 26714 I CpuTimer: Elapsed time: 1.738934 ms
+06-13 15:54:39.369 26680 26714 I CpuTimerCompute: Elapsed time: 0.247000 ms
+06-13 15:54:39.369 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:39.371 26680 26714 I GpuTimerRender: Elapsed time: 0.412865 ms
+06-13 15:54:40.823 26680 26741 I CpuTimerLoader: Elapsed time: 520.476000 ms
+06-13 15:54:40.823 26680 26714 I Timer   : Elapsed time: 14.111907 ms
+06-13 15:54:40.823 26680 26714 I CpuTimer: Elapsed time: 6.726087 ms
+06-13 15:54:40.835 26680 26714 I CpuTimerCompute: Elapsed time: 0.261000 ms
+06-13 15:54:40.835 26680 26714 I GpuTimerCompute: Elapsed time: 0.001667 ms
+06-13 15:54:40.836 26680 26714 I GpuTimerRender: Elapsed time: 0.402031 ms
+06-13 15:54:41.829 26680 26714 I Timer   : Elapsed time: 8.318043 ms
+06-13 15:54:41.829 26680 26714 I CpuTimer: Elapsed time: 1.585033 ms
+06-13 15:54:41.837 26680 26714 I GpuTimerRender: Elapsed time: 0.414636 ms
+06-13 15:54:41.844 26680 26714 I CpuTimerCompute: Elapsed time: 0.275000 ms
+06-13 15:54:41.844 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:42.829 26680 26714 I Timer   : Elapsed time: 8.333397 ms
+06-13 15:54:42.830 26680 26714 I CpuTimer: Elapsed time: 1.803100 ms
+06-13 15:54:42.845 26680 26714 I GpuTimerRender: Elapsed time: 0.402552 ms
+06-13 15:54:42.852 26680 26714 I CpuTimerCompute: Elapsed time: 0.254000 ms
+06-13 15:54:42.852 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:43.837 26680 26714 I Timer   : Elapsed time: 8.328216 ms
+06-13 15:54:43.837 26680 26714 I CpuTimer: Elapsed time: 1.722860 ms
+06-13 15:54:43.853 26680 26714 I GpuTimerRender: Elapsed time: 0.400416 ms
+06-13 15:54:43.860 26680 26714 I CpuTimerCompute: Elapsed time: 0.315000 ms
+06-13 15:54:43.861 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:44.846 26680 26714 I Timer   : Elapsed time: 8.332836 ms
+06-13 15:54:44.846 26680 26714 I CpuTimer: Elapsed time: 1.773587 ms
+06-13 15:54:44.862 26680 26714 I GpuTimerRender: Elapsed time: 0.399843 ms
+06-13 15:54:44.869 26680 26714 I CpuTimerCompute: Elapsed time: 0.246000 ms
+06-13 15:54:44.869 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:54:45.572 26680 26741 I CpuTimerLoader: Elapsed time: 511.609000 ms
+06-13 15:54:45.853 26680 26714 I Timer   : Elapsed time: 19.752565 ms
+06-13 15:54:45.853 26680 26714 I CpuTimer: Elapsed time: 11.594098 ms
+06-13 15:54:45.870 26680 26714 I GpuTimerRender: Elapsed time: 0.433281 ms
+06-13 15:54:45.877 26680 26714 I CpuTimerCompute: Elapsed time: 0.211000 ms
+06-13 15:54:45.877 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:54:46.854 26680 26714 I Timer   : Elapsed time: 8.343290 ms
+06-13 15:54:46.855 26680 26714 I CpuTimer: Elapsed time: 1.882600 ms
+06-13 15:54:46.879 26680 26714 I GpuTimerRender: Elapsed time: 0.403489 ms
+06-13 15:54:46.885 26680 26714 I CpuTimerCompute: Elapsed time: 0.368000 ms
+06-13 15:54:46.886 26680 26714 I GpuTimerCompute: Elapsed time: 0.001302 ms
+06-13 15:54:47.862 26680 26714 I Timer   : Elapsed time: 8.325862 ms
+06-13 15:54:47.862 26680 26714 I CpuTimer: Elapsed time: 1.811347 ms
+06-13 15:54:47.887 26680 26714 I GpuTimerRender: Elapsed time: 0.401458 ms
+06-13 15:54:47.893 26680 26714 I CpuTimerCompute: Elapsed time: 0.692000 ms
+06-13 15:54:47.894 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:48.870 26680 26714 I Timer   : Elapsed time: 8.331161 ms
+06-13 15:54:48.870 26680 26714 I CpuTimer: Elapsed time: 1.774157 ms
+06-13 15:54:48.895 26680 26714 I GpuTimerRender: Elapsed time: 0.391562 ms
+06-13 15:54:48.902 26680 26714 I CpuTimerCompute: Elapsed time: 0.657000 ms
+06-13 15:54:48.902 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:50.328 26680 26741 I CpuTimerLoader: Elapsed time: 499.734000 ms
+06-13 15:54:50.328 26680 26714 I Timer   : Elapsed time: 14.017971 ms
+06-13 15:54:50.328 26680 26714 I CpuTimer: Elapsed time: 6.568779 ms
+06-13 15:54:50.338 26680 26714 I CpuTimerCompute: Elapsed time: 0.678000 ms
+06-13 15:54:50.338 26680 26714 I GpuTimerCompute: Elapsed time: 0.000937 ms
+06-13 15:54:50.340 26680 26714 I GpuTimerRender: Elapsed time: 0.382760 ms
+06-13 15:54:51.329 26680 26714 I Timer   : Elapsed time: 8.266281 ms
+06-13 15:54:51.329 26680 26714 I CpuTimer: Elapsed time: 1.625215 ms
+06-13 15:54:51.343 26680 26714 I CpuTimerCompute: Elapsed time: 1.400000 ms
+06-13 15:54:51.343 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:51.345 26680 26714 I GpuTimerRender: Elapsed time: 0.415261 ms
+06-13 15:54:52.337 26680 26714 I Timer   : Elapsed time: 8.330965 ms
+06-13 15:54:52.337 26680 26714 I CpuTimer: Elapsed time: 1.932273 ms
+06-13 15:54:52.351 26680 26714 I CpuTimerCompute: Elapsed time: 0.260000 ms
+06-13 15:54:52.352 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:52.353 26680 26714 I GpuTimerRender: Elapsed time: 0.399010 ms
+06-13 15:54:53.345 26680 26714 I Timer   : Elapsed time: 8.331681 ms
+06-13 15:54:53.345 26680 26714 I CpuTimer: Elapsed time: 1.745851 ms
+06-13 15:54:53.360 26680 26714 I CpuTimerCompute: Elapsed time: 0.261000 ms
+06-13 15:54:53.360 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:54:53.361 26680 26714 I GpuTimerRender: Elapsed time: 0.403020 ms
+06-13 15:54:54.353 26680 26714 I Timer   : Elapsed time: 8.330090 ms
+06-13 15:54:54.353 26680 26714 I CpuTimer: Elapsed time: 1.754678 ms
+06-13 15:54:54.368 26680 26714 I CpuTimerCompute: Elapsed time: 0.264000 ms
+06-13 15:54:54.368 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:54.369 26680 26714 I GpuTimerRender: Elapsed time: 0.403646 ms
+06-13 15:54:55.070 26680 26741 I CpuTimerLoader: Elapsed time: 510.477000 ms
+06-13 15:54:55.361 26680 26714 I Timer   : Elapsed time: 19.382519 ms
+06-13 15:54:55.361 26680 26714 I CpuTimer: Elapsed time: 11.392846 ms
+06-13 15:54:55.376 26680 26714 I CpuTimerCompute: Elapsed time: 0.191000 ms
+06-13 15:54:55.376 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:55.377 26680 26714 I GpuTimerRender: Elapsed time: 0.435000 ms
+06-13 15:54:56.361 26680 26714 I Timer   : Elapsed time: 8.333525 ms
+06-13 15:54:56.362 26680 26714 I CpuTimer: Elapsed time: 1.779483 ms
+06-13 15:54:56.385 26680 26714 I CpuTimerCompute: Elapsed time: 1.178000 ms
+06-13 15:54:56.385 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:54:56.386 26680 26714 I GpuTimerRender: Elapsed time: 0.407135 ms
+06-13 15:54:57.370 26680 26714 I Timer   : Elapsed time: 8.330588 ms
+06-13 15:54:57.370 26680 26714 I CpuTimer: Elapsed time: 1.762603 ms
+06-13 15:54:57.393 26680 26714 I CpuTimerCompute: Elapsed time: 0.300000 ms
+06-13 15:54:57.393 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:57.394 26680 26714 I GpuTimerRender: Elapsed time: 0.403229 ms
+06-13 15:54:58.378 26680 26714 I Timer   : Elapsed time: 8.332048 ms
+06-13 15:54:58.378 26680 26714 I CpuTimer: Elapsed time: 1.789975 ms
+06-13 15:54:58.401 26680 26714 I CpuTimerCompute: Elapsed time: 2.065000 ms
+06-13 15:54:58.401 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:54:58.403 26680 26714 I GpuTimerRender: Elapsed time: 0.403021 ms
+06-13 15:54:59.825 26680 26741 I CpuTimerLoader: Elapsed time: 508.406000 ms
+06-13 15:54:59.825 26680 26714 I Timer   : Elapsed time: 14.187085 ms
+06-13 15:54:59.825 26680 26714 I CpuTimer: Elapsed time: 6.713814 ms
+06-13 15:54:59.837 26680 26714 I CpuTimerCompute: Elapsed time: 0.952000 ms
+06-13 15:54:59.837 26680 26714 I GpuTimerCompute: Elapsed time: 0.002448 ms
+06-13 15:54:59.839 26680 26714 I GpuTimerRender: Elapsed time: 0.441198 ms
+06-13 15:55:00.828 26680 26714 I Timer   : Elapsed time: 8.283846 ms
+06-13 15:55:00.828 26680 26714 I CpuTimer: Elapsed time: 1.622504 ms
+06-13 15:55:00.842 26680 26714 I CpuTimerCompute: Elapsed time: 0.253000 ms
+06-13 15:55:00.843 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:00.845 26680 26714 I GpuTimerRender: Elapsed time: 0.409843 ms
+06-13 15:55:01.836 26680 26714 I Timer   : Elapsed time: 8.328999 ms
+06-13 15:55:01.836 26680 26714 I CpuTimer: Elapsed time: 1.727760 ms
+06-13 15:55:01.851 26680 26714 I CpuTimerCompute: Elapsed time: 0.253000 ms
+06-13 15:55:01.851 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:01.852 26680 26714 I GpuTimerRender: Elapsed time: 0.427083 ms
+06-13 15:55:02.845 26680 26714 I Timer   : Elapsed time: 8.337133 ms
+06-13 15:55:02.845 26680 26714 I CpuTimer: Elapsed time: 1.807264 ms
+06-13 15:55:02.859 26680 26714 I CpuTimerCompute: Elapsed time: 0.247000 ms
+06-13 15:55:02.859 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:02.861 26680 26714 I GpuTimerRender: Elapsed time: 0.424844 ms
+06-13 15:55:03.853 26680 26714 I Timer   : Elapsed time: 8.327122 ms
+06-13 15:55:03.853 26680 26714 I CpuTimer: Elapsed time: 1.750339 ms
+06-13 15:55:03.867 26680 26714 I CpuTimerCompute: Elapsed time: 0.987000 ms
+06-13 15:55:03.867 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:03.868 26680 26714 I GpuTimerRender: Elapsed time: 0.422604 ms
+06-13 15:55:04.573 26680 26741 I CpuTimerLoader: Elapsed time: 516.853000 ms
+06-13 15:55:04.859 26680 26714 I Timer   : Elapsed time: 19.741215 ms
+06-13 15:55:04.860 26680 26714 I CpuTimer: Elapsed time: 11.154333 ms
+06-13 15:55:04.875 26680 26714 I CpuTimerCompute: Elapsed time: 0.100000 ms
+06-13 15:55:04.875 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:04.876 26680 26714 I GpuTimerRender: Elapsed time: 0.448386 ms
+06-13 15:55:05.860 26680 26714 I Timer   : Elapsed time: 8.335272 ms
+06-13 15:55:05.860 26680 26714 I CpuTimer: Elapsed time: 0.738267 ms
+06-13 15:55:05.883 26680 26714 I CpuTimerCompute: Elapsed time: 0.134000 ms
+06-13 15:55:05.883 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:05.885 26680 26714 I GpuTimerRender: Elapsed time: 0.440417 ms
+06-13 15:55:06.867 26680 26714 I Timer   : Elapsed time: 8.326580 ms
+06-13 15:55:06.868 26680 26714 I CpuTimer: Elapsed time: 0.680207 ms
+06-13 15:55:06.891 26680 26714 I CpuTimerCompute: Elapsed time: 0.107000 ms
+06-13 15:55:06.891 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:06.893 26680 26714 I GpuTimerRender: Elapsed time: 0.417239 ms
+06-13 15:55:07.876 26680 26714 I Timer   : Elapsed time: 8.331453 ms
+06-13 15:55:07.876 26680 26714 I CpuTimer: Elapsed time: 0.685479 ms
+06-13 15:55:07.900 26680 26714 I CpuTimerCompute: Elapsed time: 0.139000 ms
+06-13 15:55:07.900 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:55:07.901 26680 26714 I GpuTimerRender: Elapsed time: 0.423437 ms
+06-13 15:55:09.303 26680 26741 I CpuTimerLoader: Elapsed time: 495.567000 ms
+06-13 15:55:09.304 26680 26714 I Timer   : Elapsed time: 13.861925 ms
+06-13 15:55:09.304 26680 26714 I CpuTimer: Elapsed time: 5.491155 ms
+06-13 15:55:09.313 26680 26714 I CpuTimerCompute: Elapsed time: 0.182000 ms
+06-13 15:55:09.313 26680 26714 I GpuTimerCompute: Elapsed time: 0.001615 ms
+06-13 15:55:09.315 26680 26714 I GpuTimerRender: Elapsed time: 0.413802 ms
+06-13 15:55:10.309 26680 26714 I Timer   : Elapsed time: 8.243738 ms
+06-13 15:55:10.309 26680 26714 I CpuTimer: Elapsed time: 0.720041 ms
+06-13 15:55:10.316 26680 26714 I CpuTimerCompute: Elapsed time: 0.119000 ms
+06-13 15:55:10.316 26680 26714 I GpuTimerCompute: Elapsed time: 0.001302 ms
+06-13 15:55:10.317 26680 26714 I GpuTimerRender: Elapsed time: 0.431250 ms
+06-13 15:55:11.310 26680 26714 I Timer   : Elapsed time: 8.338836 ms
+06-13 15:55:11.310 26680 26714 I CpuTimer: Elapsed time: 1.279992 ms
+06-13 15:55:11.325 26680 26714 I CpuTimerCompute: Elapsed time: 1.863000 ms
+06-13 15:55:11.325 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:11.326 26680 26714 I GpuTimerRender: Elapsed time: 0.436354 ms
+06-13 15:55:12.318 26680 26714 I Timer   : Elapsed time: 8.330845 ms
+06-13 15:55:12.318 26680 26714 I CpuTimer: Elapsed time: 1.742983 ms
+06-13 15:55:12.333 26680 26714 I CpuTimerCompute: Elapsed time: 0.229000 ms
+06-13 15:55:12.333 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:55:12.335 26680 26714 I GpuTimerRender: Elapsed time: 0.429271 ms
+06-13 15:55:13.327 26680 26714 I Timer   : Elapsed time: 8.331805 ms
+06-13 15:55:13.327 26680 26714 I CpuTimer: Elapsed time: 1.727950 ms
+06-13 15:55:13.341 26680 26714 I CpuTimerCompute: Elapsed time: 0.284000 ms
+06-13 15:55:13.341 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:13.343 26680 26714 I GpuTimerRender: Elapsed time: 0.433385 ms
+06-13 15:55:14.046 26680 26741 I CpuTimerLoader: Elapsed time: 510.702000 ms
+06-13 15:55:14.334 26680 26714 I Timer   : Elapsed time: 19.760147 ms
+06-13 15:55:14.335 26680 26714 I CpuTimer: Elapsed time: 11.675333 ms
+06-13 15:55:14.350 26680 26714 I CpuTimerCompute: Elapsed time: 0.186000 ms
+06-13 15:55:14.350 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:14.351 26680 26714 I GpuTimerRender: Elapsed time: 0.457552 ms
+06-13 15:55:15.343 26680 26714 I Timer   : Elapsed time: 8.333745 ms
+06-13 15:55:15.343 26680 26714 I CpuTimer: Elapsed time: 1.759347 ms
+06-13 15:55:15.358 26680 26714 I CpuTimerCompute: Elapsed time: 0.305000 ms
+06-13 15:55:15.358 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:15.359 26680 26714 I GpuTimerRender: Elapsed time: 0.445989 ms
+06-13 15:55:16.351 26680 26714 I Timer   : Elapsed time: 8.327973 ms
+06-13 15:55:16.351 26680 26714 I CpuTimer: Elapsed time: 1.681058 ms
+06-13 15:55:16.366 26680 26714 I CpuTimerCompute: Elapsed time: 0.216000 ms
+06-13 15:55:16.366 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:16.367 26680 26714 I GpuTimerRender: Elapsed time: 0.445573 ms
+06-13 15:55:17.351 26680 26714 I Timer   : Elapsed time: 8.336576 ms
+06-13 15:55:17.351 26680 26714 I CpuTimer: Elapsed time: 1.764350 ms
+06-13 15:55:17.374 26680 26714 I CpuTimerCompute: Elapsed time: 0.236000 ms
+06-13 15:55:17.374 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:17.377 26680 26714 I GpuTimerRender: Elapsed time: 0.432969 ms
+06-13 15:55:18.802 26680 26741 I CpuTimerLoader: Elapsed time: 504.532000 ms
+06-13 15:55:18.802 26680 26714 I Timer   : Elapsed time: 14.081716 ms
+06-13 15:55:18.802 26680 26714 I CpuTimer: Elapsed time: 6.599068 ms
+06-13 15:55:18.811 26680 26714 I CpuTimerCompute: Elapsed time: 0.530000 ms
+06-13 15:55:18.811 26680 26714 I GpuTimerCompute: Elapsed time: 0.001354 ms
+06-13 15:55:18.813 26680 26714 I GpuTimerRender: Elapsed time: 0.426563 ms
+06-13 15:55:19.810 26680 26714 I Timer   : Elapsed time: 8.259413 ms
+06-13 15:55:19.810 26680 26714 I CpuTimer: Elapsed time: 1.629631 ms
+06-13 15:55:19.816 26680 26714 I CpuTimerCompute: Elapsed time: 0.279000 ms
+06-13 15:55:19.816 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:55:19.817 26680 26714 I GpuTimerRender: Elapsed time: 0.437813 ms
+06-13 15:55:20.818 26680 26714 I Timer   : Elapsed time: 8.330462 ms
+06-13 15:55:20.818 26680 26714 I CpuTimer: Elapsed time: 1.822587 ms
+06-13 15:55:20.824 26680 26714 I CpuTimerCompute: Elapsed time: 0.278000 ms
+06-13 15:55:20.824 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:55:20.825 26680 26714 I GpuTimerRender: Elapsed time: 0.411198 ms
+06-13 15:55:21.826 26680 26714 I Timer   : Elapsed time: 8.330262 ms
+06-13 15:55:21.826 26680 26714 I CpuTimer: Elapsed time: 1.726504 ms
+06-13 15:55:21.832 26680 26714 I CpuTimerCompute: Elapsed time: 0.857000 ms
+06-13 15:55:21.832 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:21.834 26680 26714 I GpuTimerRender: Elapsed time: 0.414010 ms
+06-13 15:55:22.834 26680 26714 I Timer   : Elapsed time: 8.333141 ms
+06-13 15:55:22.834 26680 26714 I CpuTimer: Elapsed time: 1.758719 ms
+06-13 15:55:22.841 26680 26714 I CpuTimerCompute: Elapsed time: 0.268000 ms
+06-13 15:55:22.841 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:22.843 26680 26714 I GpuTimerRender: Elapsed time: 0.415625 ms
+06-13 15:55:23.560 26680 26741 I CpuTimerLoader: Elapsed time: 506.658000 ms
+06-13 15:55:23.842 26680 26714 I Timer   : Elapsed time: 20.571568 ms
+06-13 15:55:23.843 26680 26714 I CpuTimer: Elapsed time: 11.806551 ms
+06-13 15:55:23.849 26680 26714 I CpuTimerCompute: Elapsed time: 0.489000 ms
+06-13 15:55:23.849 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:55:23.850 26680 26714 I GpuTimerRender: Elapsed time: 0.447656 ms
+06-13 15:55:24.843 26680 26714 I Timer   : Elapsed time: 8.333971 ms
+06-13 15:55:24.843 26680 26714 I CpuTimer: Elapsed time: 1.675158 ms
+06-13 15:55:24.857 26680 26714 I CpuTimerCompute: Elapsed time: 0.510000 ms
+06-13 15:55:24.857 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:24.859 26680 26714 I GpuTimerRender: Elapsed time: 0.410261 ms
+06-13 15:55:25.851 26680 26714 I Timer   : Elapsed time: 8.329807 ms
+06-13 15:55:25.851 26680 26714 I CpuTimer: Elapsed time: 1.707785 ms
+06-13 15:55:25.865 26680 26714 I CpuTimerCompute: Elapsed time: 0.416000 ms
+06-13 15:55:25.865 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:55:25.869 26680 26714 I GpuTimerRender: Elapsed time: 0.407500 ms
+06-13 15:55:26.859 26680 26714 I Timer   : Elapsed time: 8.331514 ms
+06-13 15:55:26.859 26680 26714 I CpuTimer: Elapsed time: 1.668620 ms
+06-13 15:55:26.874 26680 26714 I CpuTimerCompute: Elapsed time: 0.573000 ms
+06-13 15:55:26.874 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:26.875 26680 26714 I GpuTimerRender: Elapsed time: 0.409635 ms
+06-13 15:55:28.268 26680 26741 I CpuTimerLoader: Elapsed time: 513.426000 ms
+06-13 15:55:28.269 26680 26714 I Timer   : Elapsed time: 13.553777 ms
+06-13 15:55:28.269 26680 26714 I CpuTimer: Elapsed time: 6.597260 ms
+06-13 15:55:28.279 26680 26714 I CpuTimerCompute: Elapsed time: 0.673000 ms
+06-13 15:55:28.279 26680 26714 I GpuTimerCompute: Elapsed time: 0.001406 ms
+06-13 15:55:28.281 26680 26714 I GpuTimerRender: Elapsed time: 0.407917 ms
+06-13 15:55:29.276 26680 26714 I Timer   : Elapsed time: 8.251884 ms
+06-13 15:55:29.276 26680 26714 I CpuTimer: Elapsed time: 1.580656 ms
+06-13 15:55:29.282 26680 26714 I CpuTimerCompute: Elapsed time: 0.376000 ms
+06-13 15:55:29.282 26680 26714 I GpuTimerCompute: Elapsed time: 0.001511 ms
+06-13 15:55:29.284 26680 26714 I GpuTimerRender: Elapsed time: 0.440781 ms
+06-13 15:55:30.284 26680 26714 I Timer   : Elapsed time: 8.330285 ms
+06-13 15:55:30.284 26680 26714 I CpuTimer: Elapsed time: 1.891736 ms
+06-13 15:55:30.290 26680 26714 I CpuTimerCompute: Elapsed time: 0.369000 ms
+06-13 15:55:30.290 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:30.292 26680 26714 I GpuTimerRender: Elapsed time: 0.422239 ms
+06-13 15:55:31.292 26680 26714 I Timer   : Elapsed time: 8.334501 ms
+06-13 15:55:31.292 26680 26714 I CpuTimer: Elapsed time: 1.853868 ms
+06-13 15:55:31.298 26680 26714 I CpuTimerCompute: Elapsed time: 1.345000 ms
+06-13 15:55:31.298 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:31.301 26680 26714 I GpuTimerRender: Elapsed time: 0.419427 ms
+06-13 15:55:32.300 26680 26714 I Timer   : Elapsed time: 8.326347 ms
+06-13 15:55:32.300 26680 26714 I CpuTimer: Elapsed time: 1.840380 ms
+06-13 15:55:32.306 26680 26714 I CpuTimerCompute: Elapsed time: 0.279000 ms
+06-13 15:55:32.306 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:32.308 26680 26714 I GpuTimerRender: Elapsed time: 0.426145 ms
+06-13 15:55:33.015 26680 26741 I CpuTimerLoader: Elapsed time: 519.419000 ms
+06-13 15:55:33.308 26680 26714 I Timer   : Elapsed time: 19.765108 ms
+06-13 15:55:33.308 26680 26714 I CpuTimer: Elapsed time: 11.715706 ms
+06-13 15:55:33.314 26680 26714 I CpuTimerCompute: Elapsed time: 0.224000 ms
+06-13 15:55:33.315 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:55:33.316 26680 26714 I GpuTimerRender: Elapsed time: 0.444375 ms
+06-13 15:55:34.316 26680 26714 I Timer   : Elapsed time: 8.329055 ms
+06-13 15:55:34.316 26680 26714 I CpuTimer: Elapsed time: 1.768595 ms
+06-13 15:55:34.322 26680 26714 I CpuTimerCompute: Elapsed time: 0.276000 ms
+06-13 15:55:34.323 26680 26714 I GpuTimerCompute: Elapsed time: 0.000573 ms
+06-13 15:55:34.324 26680 26714 I GpuTimerRender: Elapsed time: 0.400625 ms
+06-13 15:55:35.316 26680 26714 I Timer   : Elapsed time: 8.334371 ms
+06-13 15:55:35.316 26680 26714 I CpuTimer: Elapsed time: 1.763458 ms
+06-13 15:55:35.331 26680 26714 I CpuTimerCompute: Elapsed time: 0.722000 ms
+06-13 15:55:35.331 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:55:35.335 26680 26714 I GpuTimerRender: Elapsed time: 0.419739 ms
+06-13 15:55:36.324 26680 26714 I Timer   : Elapsed time: 8.329414 ms
+06-13 15:55:36.325 26680 26714 I CpuTimer: Elapsed time: 1.774967 ms
+06-13 15:55:36.339 26680 26714 I CpuTimerCompute: Elapsed time: 0.310000 ms
+06-13 15:55:36.339 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:36.341 26680 26714 I GpuTimerRender: Elapsed time: 0.414010 ms
+06-13 15:55:37.756 26680 26741 I CpuTimerLoader: Elapsed time: 514.361000 ms
+06-13 15:55:37.756 26680 26714 I Timer   : Elapsed time: 14.037115 ms
+06-13 15:55:37.756 26680 26714 I CpuTimer: Elapsed time: 6.730539 ms
+06-13 15:55:37.766 26680 26714 I CpuTimerCompute: Elapsed time: 0.578000 ms
+06-13 15:55:37.766 26680 26714 I GpuTimerCompute: Elapsed time: 0.002292 ms
+06-13 15:55:37.768 26680 26714 I GpuTimerRender: Elapsed time: 0.410834 ms
+06-13 15:55:38.757 26680 26714 I Timer   : Elapsed time: 8.269554 ms
+06-13 15:55:38.757 26680 26714 I CpuTimer: Elapsed time: 1.692669 ms
+06-13 15:55:38.772 26680 26714 I CpuTimerCompute: Elapsed time: 0.329000 ms
+06-13 15:55:38.772 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:38.774 26680 26714 I GpuTimerRender: Elapsed time: 0.434635 ms
+06-13 15:55:39.765 26680 26714 I Timer   : Elapsed time: 8.330565 ms
+06-13 15:55:39.766 26680 26714 I CpuTimer: Elapsed time: 1.789017 ms
+06-13 15:55:39.780 26680 26714 I CpuTimerCompute: Elapsed time: 0.605000 ms
+06-13 15:55:39.780 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:55:39.782 26680 26714 I GpuTimerRender: Elapsed time: 0.418177 ms
+06-13 15:55:40.773 26680 26714 I Timer   : Elapsed time: 8.328755 ms
+06-13 15:55:40.774 26680 26714 I CpuTimer: Elapsed time: 1.753661 ms
+06-13 15:55:40.788 26680 26714 I CpuTimerCompute: Elapsed time: 1.072000 ms
+06-13 15:55:40.788 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:40.789 26680 26714 I GpuTimerRender: Elapsed time: 0.422292 ms
+06-13 15:55:41.782 26680 26714 I Timer   : Elapsed time: 8.331690 ms
+06-13 15:55:41.782 26680 26714 I CpuTimer: Elapsed time: 1.739479 ms
+06-13 15:55:41.796 26680 26714 I CpuTimerCompute: Elapsed time: 0.237000 ms
+06-13 15:55:41.796 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:41.798 26680 26714 I GpuTimerRender: Elapsed time: 0.425416 ms
+06-13 15:55:42.499 26680 26741 I CpuTimerLoader: Elapsed time: 503.688000 ms
+06-13 15:55:42.790 26680 26714 I Timer   : Elapsed time: 19.381563 ms
+06-13 15:55:42.790 26680 26714 I CpuTimer: Elapsed time: 11.213519 ms
+06-13 15:55:42.805 26680 26714 I CpuTimerCompute: Elapsed time: 1.561000 ms
+06-13 15:55:42.805 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:42.806 26680 26714 I GpuTimerRender: Elapsed time: 0.451562 ms
+06-13 15:55:43.790 26680 26714 I Timer   : Elapsed time: 8.335327 ms
+06-13 15:55:43.790 26680 26714 I CpuTimer: Elapsed time: 1.795050 ms
+06-13 15:55:43.813 26680 26714 I CpuTimerCompute: Elapsed time: 0.249000 ms
+06-13 15:55:43.813 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:43.815 26680 26714 I GpuTimerRender: Elapsed time: 0.429635 ms
+06-13 15:55:44.798 26680 26714 I Timer   : Elapsed time: 8.332174 ms
+06-13 15:55:44.799 26680 26714 I CpuTimer: Elapsed time: 1.751397 ms
+06-13 15:55:44.821 26680 26714 I CpuTimerCompute: Elapsed time: 0.273000 ms
+06-13 15:55:44.821 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:44.823 26680 26714 I GpuTimerRender: Elapsed time: 0.423646 ms
+06-13 15:55:45.806 26680 26714 I Timer   : Elapsed time: 8.329930 ms
+06-13 15:55:45.807 26680 26714 I CpuTimer: Elapsed time: 1.730289 ms
+06-13 15:55:45.830 26680 26714 I CpuTimerCompute: Elapsed time: 0.259000 ms
+06-13 15:55:45.830 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:45.831 26680 26714 I GpuTimerRender: Elapsed time: 0.423125 ms
+06-13 15:55:47.247 26680 26741 I CpuTimerLoader: Elapsed time: 510.319000 ms
+06-13 15:55:47.247 26680 26714 I Timer   : Elapsed time: 14.123340 ms
+06-13 15:55:47.247 26680 26714 I CpuTimer: Elapsed time: 6.753431 ms
+06-13 15:55:47.259 26680 26714 I CpuTimerCompute: Elapsed time: 0.861000 ms
+06-13 15:55:47.259 26680 26714 I GpuTimerCompute: Elapsed time: 0.001823 ms
+06-13 15:55:47.261 26680 26714 I GpuTimerRender: Elapsed time: 0.415886 ms
+06-13 15:55:48.249 26680 26714 I Timer   : Elapsed time: 8.343767 ms
+06-13 15:55:48.249 26680 26714 I CpuTimer: Elapsed time: 1.638825 ms
+06-13 15:55:48.263 26680 26714 I CpuTimerCompute: Elapsed time: 0.508000 ms
+06-13 15:55:48.263 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:48.266 26680 26714 I GpuTimerRender: Elapsed time: 0.434427 ms
+06-13 15:55:49.258 26680 26714 I Timer   : Elapsed time: 8.339942 ms
+06-13 15:55:49.258 26680 26714 I CpuTimer: Elapsed time: 1.670017 ms
+06-13 15:55:49.271 26680 26714 I CpuTimerCompute: Elapsed time: 0.517000 ms
+06-13 15:55:49.271 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:49.273 26680 26714 I GpuTimerRender: Elapsed time: 0.419531 ms
+06-13 15:55:50.265 26680 26714 I Timer   : Elapsed time: 8.320416 ms
+06-13 15:55:50.265 26680 26714 I CpuTimer: Elapsed time: 1.624380 ms
+06-13 15:55:50.279 26680 26714 I CpuTimerCompute: Elapsed time: 0.445000 ms
+06-13 15:55:50.279 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:50.281 26680 26714 I GpuTimerRender: Elapsed time: 0.422344 ms
+06-13 15:55:51.273 26680 26714 I Timer   : Elapsed time: 8.330098 ms
+06-13 15:55:51.273 26680 26714 I CpuTimer: Elapsed time: 1.687421 ms
+06-13 15:55:51.287 26680 26714 I CpuTimerCompute: Elapsed time: 0.635000 ms
+06-13 15:55:51.287 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:51.289 26680 26714 I GpuTimerRender: Elapsed time: 0.427396 ms
+06-13 15:55:52.000 26680 26741 I CpuTimerLoader: Elapsed time: 519.292000 ms
+06-13 15:55:52.281 26680 26714 I Timer   : Elapsed time: 19.757008 ms
+06-13 15:55:52.281 26680 26714 I CpuTimer: Elapsed time: 11.754510 ms
+06-13 15:55:52.295 26680 26714 I CpuTimerCompute: Elapsed time: 0.203000 ms
+06-13 15:55:52.295 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:55:52.297 26680 26714 I GpuTimerRender: Elapsed time: 0.455000 ms
+06-13 15:55:53.281 26680 26714 I Timer   : Elapsed time: 8.334217 ms
+06-13 15:55:53.281 26680 26714 I CpuTimer: Elapsed time: 1.771142 ms
+06-13 15:55:53.304 26680 26714 I CpuTimerCompute: Elapsed time: 0.268000 ms
+06-13 15:55:53.304 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:55:53.305 26680 26714 I GpuTimerRender: Elapsed time: 0.435416 ms
+06-13 15:55:54.289 26680 26714 I Timer   : Elapsed time: 8.326639 ms
+06-13 15:55:54.289 26680 26714 I CpuTimer: Elapsed time: 1.721959 ms
+06-13 15:55:54.312 26680 26714 I CpuTimerCompute: Elapsed time: 0.267000 ms
+06-13 15:55:54.312 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:54.314 26680 26714 I GpuTimerRender: Elapsed time: 0.432708 ms
+06-13 15:55:55.289 26680 26714 I Timer   : Elapsed time: 8.336576 ms
+06-13 15:55:55.289 26680 26714 I CpuTimer: Elapsed time: 1.745242 ms
+06-13 15:55:55.320 26680 26714 I CpuTimerCompute: Elapsed time: 1.849000 ms
+06-13 15:55:55.320 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:55.322 26680 26714 I GpuTimerRender: Elapsed time: 0.430261 ms
+06-13 15:55:56.743 26680 26741 I CpuTimerLoader: Elapsed time: 492.256000 ms
+06-13 15:55:56.743 26680 26714 I Timer   : Elapsed time: 13.845932 ms
+06-13 15:55:56.743 26680 26714 I CpuTimer: Elapsed time: 6.393095 ms
+06-13 15:55:56.755 26680 26714 I CpuTimerCompute: Elapsed time: 0.274000 ms
+06-13 15:55:56.755 26680 26714 I GpuTimerCompute: Elapsed time: 0.002656 ms
+06-13 15:55:56.756 26680 26714 I GpuTimerRender: Elapsed time: 0.421667 ms
+06-13 15:55:57.747 26680 26714 I Timer   : Elapsed time: 8.299147 ms
+06-13 15:55:57.747 26680 26714 I CpuTimer: Elapsed time: 1.676455 ms
+06-13 15:55:57.762 26680 26714 I CpuTimerCompute: Elapsed time: 1.882000 ms
+06-13 15:55:57.762 26680 26714 I GpuTimerCompute: Elapsed time: 0.001302 ms
+06-13 15:55:57.764 26680 26714 I GpuTimerRender: Elapsed time: 0.451718 ms
+06-13 15:55:58.755 26680 26714 I Timer   : Elapsed time: 8.330021 ms
+06-13 15:55:58.755 26680 26714 I CpuTimer: Elapsed time: 1.770446 ms
+06-13 15:55:58.770 26680 26714 I CpuTimerCompute: Elapsed time: 0.243000 ms
+06-13 15:55:58.770 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:58.772 26680 26714 I GpuTimerRender: Elapsed time: 0.422709 ms
+06-13 15:55:59.763 26680 26714 I Timer   : Elapsed time: 8.330439 ms
+06-13 15:55:59.764 26680 26714 I CpuTimer: Elapsed time: 1.776843 ms
+06-13 15:55:59.778 26680 26714 I CpuTimerCompute: Elapsed time: 0.351000 ms
+06-13 15:55:59.778 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:55:59.780 26680 26714 I GpuTimerRender: Elapsed time: 0.436303 ms
+06-13 15:56:00.764 26680 26714 I Timer   : Elapsed time: 8.334670 ms
+06-13 15:56:00.764 26680 26714 I CpuTimer: Elapsed time: 1.743550 ms
+06-13 15:56:00.786 26680 26714 I CpuTimerCompute: Elapsed time: 1.192000 ms
+06-13 15:56:00.787 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:00.788 26680 26714 I GpuTimerRender: Elapsed time: 0.432396 ms
+06-13 15:56:01.430 26680 26741 I CpuTimerLoader: Elapsed time: 489.938000 ms
+06-13 15:56:01.772 26680 26714 I Timer   : Elapsed time: 17.074759 ms
+06-13 15:56:01.772 26680 26714 I CpuTimer: Elapsed time: 9.908746 ms
+06-13 15:56:01.795 26680 26714 I CpuTimerCompute: Elapsed time: 0.189000 ms
+06-13 15:56:01.795 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:01.797 26680 26714 I GpuTimerRender: Elapsed time: 0.452187 ms
+06-13 15:56:02.772 26680 26714 I Timer   : Elapsed time: 8.333560 ms
+06-13 15:56:02.772 26680 26714 I CpuTimer: Elapsed time: 1.730850 ms
+06-13 15:56:02.803 26680 26714 I CpuTimerCompute: Elapsed time: 0.254000 ms
+06-13 15:56:02.803 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:02.805 26680 26714 I GpuTimerRender: Elapsed time: 0.432448 ms
+06-13 15:56:03.780 26680 26714 I Timer   : Elapsed time: 8.331797 ms
+06-13 15:56:03.780 26680 26714 I CpuTimer: Elapsed time: 1.918256 ms
+06-13 15:56:03.811 26680 26714 I CpuTimerCompute: Elapsed time: 0.305000 ms
+06-13 15:56:03.811 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:56:03.813 26680 26714 I GpuTimerRender: Elapsed time: 0.423750 ms
+06-13 15:56:04.788 26680 26714 I Timer   : Elapsed time: 8.329349 ms
+06-13 15:56:04.788 26680 26714 I CpuTimer: Elapsed time: 1.865455 ms
+06-13 15:56:04.819 26680 26714 I CpuTimerCompute: Elapsed time: 0.269000 ms
+06-13 15:56:04.819 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:04.821 26680 26714 I GpuTimerRender: Elapsed time: 0.430000 ms
+06-13 15:56:06.191 26680 26741 I CpuTimerLoader: Elapsed time: 515.130000 ms
+06-13 15:56:06.192 26680 26714 I Timer   : Elapsed time: 14.619105 ms
+06-13 15:56:06.192 26680 26714 I CpuTimer: Elapsed time: 7.094083 ms
+06-13 15:56:06.202 26680 26714 I CpuTimerCompute: Elapsed time: 0.682000 ms
+06-13 15:56:06.202 26680 26714 I GpuTimerCompute: Elapsed time: 0.002136 ms
+06-13 15:56:06.204 26680 26714 I GpuTimerRender: Elapsed time: 0.425000 ms
+06-13 15:56:07.196 26680 26714 I Timer   : Elapsed time: 8.299828 ms
+06-13 15:56:07.196 26680 26714 I CpuTimer: Elapsed time: 1.734025 ms
+06-13 15:56:07.211 26680 26714 I CpuTimerCompute: Elapsed time: 0.319000 ms
+06-13 15:56:07.211 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:07.212 26680 26714 I GpuTimerRender: Elapsed time: 0.445469 ms
+06-13 15:56:08.204 26680 26714 I Timer   : Elapsed time: 8.328851 ms
+06-13 15:56:08.204 26680 26714 I CpuTimer: Elapsed time: 1.731405 ms
+06-13 15:56:08.219 26680 26714 I CpuTimerCompute: Elapsed time: 0.275000 ms
+06-13 15:56:08.219 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:08.221 26680 26714 I GpuTimerRender: Elapsed time: 0.430521 ms
+06-13 15:56:09.204 26680 26714 I Timer   : Elapsed time: 8.333566 ms
+06-13 15:56:09.205 26680 26714 I CpuTimer: Elapsed time: 1.769958 ms
+06-13 15:56:09.227 26680 26714 I CpuTimerCompute: Elapsed time: 0.782000 ms
+06-13 15:56:09.227 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:09.229 26680 26714 I GpuTimerRender: Elapsed time: 0.430677 ms
+06-13 15:56:10.212 26680 26714 I Timer   : Elapsed time: 8.328131 ms
+06-13 15:56:10.212 26680 26714 I CpuTimer: Elapsed time: 1.699438 ms
+06-13 15:56:10.235 26680 26714 I CpuTimerCompute: Elapsed time: 0.384000 ms
+06-13 15:56:10.235 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:56:10.237 26680 26714 I GpuTimerRender: Elapsed time: 0.443021 ms
+06-13 15:56:10.942 26680 26741 I CpuTimerLoader: Elapsed time: 507.420000 ms
+06-13 15:56:11.220 26680 26714 I Timer   : Elapsed time: 19.763300 ms
+06-13 15:56:11.220 26680 26714 I CpuTimer: Elapsed time: 11.491196 ms
+06-13 15:56:11.244 26680 26714 I CpuTimerCompute: Elapsed time: 0.195000 ms
+06-13 15:56:11.244 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:56:11.245 26680 26714 I GpuTimerRender: Elapsed time: 0.464219 ms
+06-13 15:56:12.221 26680 26714 I Timer   : Elapsed time: 8.336600 ms
+06-13 15:56:12.221 26680 26714 I CpuTimer: Elapsed time: 1.888008 ms
+06-13 15:56:12.252 26680 26714 I CpuTimerCompute: Elapsed time: 0.275000 ms
+06-13 15:56:12.252 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:12.253 26680 26714 I GpuTimerRender: Elapsed time: 0.431042 ms
+06-13 15:56:13.229 26680 26714 I Timer   : Elapsed time: 8.329211 ms
+06-13 15:56:13.229 26680 26714 I CpuTimer: Elapsed time: 1.975050 ms
+06-13 15:56:13.260 26680 26714 I CpuTimerCompute: Elapsed time: 0.292000 ms
+06-13 15:56:13.260 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:13.262 26680 26714 I GpuTimerRender: Elapsed time: 0.432708 ms
+06-13 15:56:14.237 26680 26714 I Timer   : Elapsed time: 8.332429 ms
+06-13 15:56:14.237 26680 26714 I CpuTimer: Elapsed time: 2.050851 ms
+06-13 15:56:14.268 26680 26714 I CpuTimerCompute: Elapsed time: 0.320000 ms
+06-13 15:56:14.268 26680 26714 I GpuTimerCompute: Elapsed time: 0.000885 ms
+06-13 15:56:14.269 26680 26714 I GpuTimerRender: Elapsed time: 0.427187 ms
+06-13 15:56:15.684 26680 26741 I CpuTimerLoader: Elapsed time: 503.654000 ms
+06-13 15:56:15.684 26680 26714 I Timer   : Elapsed time: 13.912419 ms
+06-13 15:56:15.684 26680 26714 I CpuTimer: Elapsed time: 6.970019 ms
+06-13 15:56:15.696 26680 26714 I CpuTimerCompute: Elapsed time: 0.334000 ms
+06-13 15:56:15.696 26680 26714 I GpuTimerCompute: Elapsed time: 0.001823 ms
+06-13 15:56:15.697 26680 26714 I GpuTimerRender: Elapsed time: 0.427136 ms
+06-13 15:56:16.687 26680 26714 I Timer   : Elapsed time: 8.356479 ms
+06-13 15:56:16.687 26680 26714 I CpuTimer: Elapsed time: 1.609008 ms
+06-13 15:56:16.701 26680 26714 I CpuTimerCompute: Elapsed time: 0.578000 ms
+06-13 15:56:16.701 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:16.703 26680 26714 I GpuTimerRender: Elapsed time: 0.449271 ms
+06-13 15:56:17.695 26680 26714 I Timer   : Elapsed time: 8.331008 ms
+06-13 15:56:17.695 26680 26714 I CpuTimer: Elapsed time: 1.650190 ms
+06-13 15:56:17.710 26680 26714 I CpuTimerCompute: Elapsed time: 0.551000 ms
+06-13 15:56:17.710 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:17.712 26680 26714 I GpuTimerRender: Elapsed time: 0.433438 ms
+06-13 15:56:18.703 26680 26714 I Timer   : Elapsed time: 8.329906 ms
+06-13 15:56:18.704 26680 26714 I CpuTimer: Elapsed time: 1.651719 ms
+06-13 15:56:18.718 26680 26714 I CpuTimerCompute: Elapsed time: 0.582000 ms
+06-13 15:56:18.718 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:18.719 26680 26714 I GpuTimerRender: Elapsed time: 0.436354 ms
+06-13 15:56:19.704 26680 26714 I Timer   : Elapsed time: 8.333743 ms
+06-13 15:56:19.704 26680 26714 I CpuTimer: Elapsed time: 1.663617 ms
+06-13 15:56:19.721 26680 26714 I GpuTimerRender: Elapsed time: 0.444844 ms
+06-13 15:56:19.727 26680 26714 I CpuTimerCompute: Elapsed time: 0.644000 ms
+06-13 15:56:19.727 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:20.440 26680 26741 I CpuTimerLoader: Elapsed time: 505.740000 ms
+06-13 15:56:20.711 26680 26714 I Timer   : Elapsed time: 19.757652 ms
+06-13 15:56:20.712 26680 26714 I CpuTimer: Elapsed time: 11.534078 ms
+06-13 15:56:20.727 26680 26714 I GpuTimerRender: Elapsed time: 0.464271 ms
+06-13 15:56:20.735 26680 26714 I CpuTimerCompute: Elapsed time: 0.242000 ms
+06-13 15:56:20.735 26680 26714 I GpuTimerCompute: Elapsed time: 0.001197 ms
+06-13 15:56:21.720 26680 26714 I Timer   : Elapsed time: 8.334863 ms
+06-13 15:56:21.720 26680 26714 I CpuTimer: Elapsed time: 1.788207 ms
+06-13 15:56:21.736 26680 26714 I GpuTimerRender: Elapsed time: 0.441406 ms
+06-13 15:56:21.743 26680 26714 I CpuTimerCompute: Elapsed time: 0.578000 ms
+06-13 15:56:21.743 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:22.728 26680 26714 I Timer   : Elapsed time: 8.330069 ms
+06-13 15:56:22.728 26680 26714 I CpuTimer: Elapsed time: 1.732380 ms
+06-13 15:56:22.744 26680 26714 I GpuTimerRender: Elapsed time: 0.433021 ms
+06-13 15:56:22.751 26680 26714 I CpuTimerCompute: Elapsed time: 0.278000 ms
+06-13 15:56:22.751 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:23.737 26680 26714 I Timer   : Elapsed time: 8.331372 ms
+06-13 15:56:23.737 26680 26714 I CpuTimer: Elapsed time: 1.769372 ms
+06-13 15:56:23.753 26680 26714 I GpuTimerRender: Elapsed time: 0.438541 ms
+06-13 15:56:23.759 26680 26714 I CpuTimerCompute: Elapsed time: 0.279000 ms
+06-13 15:56:23.759 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:25.183 26680 26741 I CpuTimerLoader: Elapsed time: 510.810000 ms
+06-13 15:56:25.183 26680 26714 I Timer   : Elapsed time: 13.911915 ms
+06-13 15:56:25.184 26680 26714 I CpuTimer: Elapsed time: 6.702731 ms
+06-13 15:56:25.193 26680 26714 I CpuTimerCompute: Elapsed time: 0.170000 ms
+06-13 15:56:25.193 26680 26714 I GpuTimerCompute: Elapsed time: 0.001406 ms
+06-13 15:56:25.194 26680 26714 I GpuTimerRender: Elapsed time: 0.429219 ms
+06-13 15:56:26.185 26680 26714 I Timer   : Elapsed time: 8.279420 ms
+06-13 15:56:26.185 26680 26714 I CpuTimer: Elapsed time: 0.759702 ms
+06-13 15:56:26.200 26680 26714 I CpuTimerCompute: Elapsed time: 0.112000 ms
+06-13 15:56:26.200 26680 26714 I GpuTimerCompute: Elapsed time: 0.000885 ms
+06-13 15:56:26.201 26680 26714 I GpuTimerRender: Elapsed time: 0.448698 ms
+06-13 15:56:27.194 26680 26714 I Timer   : Elapsed time: 8.331453 ms
+06-13 15:56:27.194 26680 26714 I CpuTimer: Elapsed time: 0.670033 ms
+06-13 15:56:27.209 26680 26714 I CpuTimerCompute: Elapsed time: 0.111000 ms
+06-13 15:56:27.209 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:27.210 26680 26714 I GpuTimerRender: Elapsed time: 0.432604 ms
+06-13 15:56:28.202 26680 26714 I Timer   : Elapsed time: 8.331231 ms
+06-13 15:56:28.202 26680 26714 I CpuTimer: Elapsed time: 0.669967 ms
+06-13 15:56:28.217 26680 26714 I CpuTimerCompute: Elapsed time: 0.154000 ms
+06-13 15:56:28.217 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:28.218 26680 26714 I GpuTimerRender: Elapsed time: 0.442500 ms
+06-13 15:56:29.210 26680 26714 I Timer   : Elapsed time: 8.332989 ms
+06-13 15:56:29.210 26680 26714 I CpuTimer: Elapsed time: 0.703678 ms
+06-13 15:56:29.225 26680 26714 I CpuTimerCompute: Elapsed time: 0.117000 ms
+06-13 15:56:29.225 26680 26714 I GpuTimerCompute: Elapsed time: 0.001145 ms
+06-13 15:56:29.227 26680 26714 I GpuTimerRender: Elapsed time: 0.440156 ms
+06-13 15:56:29.918 26680 26741 I CpuTimerLoader: Elapsed time: 499.858000 ms
+06-13 15:56:30.218 26680 26714 I Timer   : Elapsed time: 19.024712 ms
+06-13 15:56:30.219 26680 26714 I CpuTimer: Elapsed time: 10.234642 ms
+06-13 15:56:30.234 26680 26714 I CpuTimerCompute: Elapsed time: 0.120000 ms
+06-13 15:56:30.234 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:30.235 26680 26714 I GpuTimerRender: Elapsed time: 0.467187 ms
+06-13 15:56:31.227 26680 26714 I Timer   : Elapsed time: 8.331949 ms
+06-13 15:56:31.227 26680 26714 I CpuTimer: Elapsed time: 0.745711 ms
+06-13 15:56:31.242 26680 26714 I CpuTimerCompute: Elapsed time: 0.148000 ms
+06-13 15:56:31.242 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:31.243 26680 26714 I GpuTimerRender: Elapsed time: 0.445052 ms
+06-13 15:56:32.227 26680 26714 I Timer   : Elapsed time: 8.338618 ms
+06-13 15:56:32.228 26680 26714 I CpuTimer: Elapsed time: 1.578675 ms
+06-13 15:56:32.251 26680 26714 I CpuTimerCompute: Elapsed time: 0.259000 ms
+06-13 15:56:32.251 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:32.252 26680 26714 I GpuTimerRender: Elapsed time: 0.432187 ms
+06-13 15:56:33.236 26680 26714 I Timer   : Elapsed time: 8.330938 ms
+06-13 15:56:33.236 26680 26714 I CpuTimer: Elapsed time: 1.693909 ms
+06-13 15:56:33.259 26680 26714 I CpuTimerCompute: Elapsed time: 0.891000 ms
+06-13 15:56:33.259 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:33.260 26680 26714 I GpuTimerRender: Elapsed time: 0.443177 ms
+06-13 15:56:34.651 26680 26741 I CpuTimerLoader: Elapsed time: 514.804000 ms
+06-13 15:56:34.651 26680 26714 I Timer   : Elapsed time: 14.016583 ms
+06-13 15:56:34.652 26680 26714 I CpuTimer: Elapsed time: 6.844218 ms
+06-13 15:56:34.661 26680 26714 I CpuTimerCompute: Elapsed time: 0.193000 ms
+06-13 15:56:34.661 26680 26714 I GpuTimerCompute: Elapsed time: 0.002240 ms
+06-13 15:56:34.662 26680 26714 I GpuTimerRender: Elapsed time: 0.437552 ms
+06-13 15:56:35.659 26680 26714 I Timer   : Elapsed time: 8.258850 ms
+06-13 15:56:35.659 26680 26714 I CpuTimer: Elapsed time: 0.737410 ms
+06-13 15:56:35.666 26680 26714 I CpuTimerCompute: Elapsed time: 0.119000 ms
+06-13 15:56:35.666 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:35.668 26680 26714 I GpuTimerRender: Elapsed time: 0.460364 ms
+06-13 15:56:36.667 26680 26714 I Timer   : Elapsed time: 8.332273 ms
+06-13 15:56:36.667 26680 26714 I CpuTimer: Elapsed time: 0.679446 ms
+06-13 15:56:36.675 26680 26714 I CpuTimerCompute: Elapsed time: 0.111000 ms
+06-13 15:56:36.675 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:36.676 26680 26714 I GpuTimerRender: Elapsed time: 0.435990 ms
+06-13 15:56:37.668 26680 26714 I Timer   : Elapsed time: 8.340604 ms
+06-13 15:56:37.668 26680 26714 I CpuTimer: Elapsed time: 0.789567 ms
+06-13 15:56:37.683 26680 26714 I CpuTimerCompute: Elapsed time: 0.256000 ms
+06-13 15:56:37.683 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:37.685 26680 26714 I GpuTimerRender: Elapsed time: 0.442708 ms
+06-13 15:56:38.676 26680 26714 I Timer   : Elapsed time: 8.323203 ms
+06-13 15:56:38.676 26680 26714 I CpuTimer: Elapsed time: 1.795628 ms
+06-13 15:56:38.691 26680 26714 I CpuTimerCompute: Elapsed time: 0.081000 ms
+06-13 15:56:38.691 26680 26714 I GpuTimerCompute: Elapsed time: 0.000781 ms
+06-13 15:56:38.692 26680 26714 I GpuTimerRender: Elapsed time: 0.432083 ms
+06-13 15:56:39.391 26680 26741 I CpuTimerLoader: Elapsed time: 506.633000 ms
+06-13 15:56:39.676 26680 26714 I Timer   : Elapsed time: 20.005615 ms
+06-13 15:56:39.676 26680 26714 I CpuTimer: Elapsed time: 11.682700 ms
+06-13 15:56:39.699 26680 26714 I CpuTimerCompute: Elapsed time: 0.408000 ms
+06-13 15:56:39.699 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:39.701 26680 26714 I GpuTimerRender: Elapsed time: 0.468437 ms
+06-13 15:56:40.676 26680 26714 I Timer   : Elapsed time: 8.335903 ms
+06-13 15:56:40.677 26680 26714 I CpuTimer: Elapsed time: 1.687008 ms
+06-13 15:56:40.708 26680 26714 I CpuTimerCompute: Elapsed time: 0.653000 ms
+06-13 15:56:40.708 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:40.711 26680 26714 I GpuTimerRender: Elapsed time: 0.446406 ms
+06-13 15:56:41.685 26680 26714 I Timer   : Elapsed time: 8.330968 ms
+06-13 15:56:41.685 26680 26714 I CpuTimer: Elapsed time: 1.714612 ms
+06-13 15:56:41.716 26680 26714 I CpuTimerCompute: Elapsed time: 0.653000 ms
+06-13 15:56:41.716 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:41.718 26680 26714 I GpuTimerRender: Elapsed time: 0.435468 ms
+06-13 15:56:42.693 26680 26714 I Timer   : Elapsed time: 8.333092 ms
+06-13 15:56:42.693 26680 26714 I CpuTimer: Elapsed time: 1.660950 ms
+06-13 15:56:42.724 26680 26714 I CpuTimerCompute: Elapsed time: 0.649000 ms
+06-13 15:56:42.724 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:42.726 26680 26714 I GpuTimerRender: Elapsed time: 0.437604 ms
+06-13 15:56:44.142 26680 26741 I CpuTimerLoader: Elapsed time: 501.456000 ms
+06-13 15:56:44.142 26680 26714 I Timer   : Elapsed time: 13.933786 ms
+06-13 15:56:44.142 26680 26714 I CpuTimer: Elapsed time: 6.534952 ms
+06-13 15:56:44.153 26680 26714 I CpuTimerCompute: Elapsed time: 0.770000 ms
+06-13 15:56:44.153 26680 26714 I GpuTimerCompute: Elapsed time: 0.002291 ms
+06-13 15:56:44.155 26680 26714 I GpuTimerRender: Elapsed time: 0.436875 ms
+06-13 15:56:45.143 26680 26714 I Timer   : Elapsed time: 8.265265 ms
+06-13 15:56:45.143 26680 26714 I CpuTimer: Elapsed time: 1.723959 ms
+06-13 15:56:45.157 26680 26714 I CpuTimerCompute: Elapsed time: 0.252000 ms
+06-13 15:56:45.157 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:45.159 26680 26714 I GpuTimerRender: Elapsed time: 0.455417 ms
+06-13 15:56:46.151 26680 26714 I Timer   : Elapsed time: 8.331066 ms
+06-13 15:56:46.151 26680 26714 I CpuTimer: Elapsed time: 1.757438 ms
+06-13 15:56:46.165 26680 26714 I CpuTimerCompute: Elapsed time: 0.228000 ms
+06-13 15:56:46.165 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:46.167 26680 26714 I GpuTimerRender: Elapsed time: 0.459583 ms
+06-13 15:56:47.159 26680 26714 I Timer   : Elapsed time: 8.328043 ms
+06-13 15:56:47.159 26680 26714 I CpuTimer: Elapsed time: 1.712157 ms
+06-13 15:56:47.173 26680 26714 I CpuTimerCompute: Elapsed time: 1.145000 ms
+06-13 15:56:47.174 26680 26714 I GpuTimerCompute: Elapsed time: 0.001250 ms
+06-13 15:56:47.175 26680 26714 I GpuTimerRender: Elapsed time: 0.454635 ms
+06-13 15:56:48.167 26680 26714 I Timer   : Elapsed time: 8.331593 ms
+06-13 15:56:48.167 26680 26714 I CpuTimer: Elapsed time: 1.736190 ms
+06-13 15:56:48.182 26680 26714 I CpuTimerCompute: Elapsed time: 0.255000 ms
+06-13 15:56:48.182 26680 26714 I GpuTimerCompute: Elapsed time: 0.001146 ms
+06-13 15:56:48.183 26680 26714 I GpuTimerRender: Elapsed time: 0.459011 ms
+06-13 15:56:48.845 26680 26741 I CpuTimerLoader: Elapsed time: 501.121000 ms
+06-13 15:56:49.175 26680 26714 I Timer   : Elapsed time: 18.329411 ms
+06-13 15:56:49.176 26680 26714 I CpuTimer: Elapsed time: 10.529000 ms
+06-13 15:56:49.190 26680 26714 I CpuTimerCompute: Elapsed time: 0.353000 ms
+06-13 15:56:49.190 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:49.192 26680 26714 I GpuTimerRender: Elapsed time: 0.472812 ms
+06-13 15:56:50.183 26680 26714 I Timer   : Elapsed time: 8.329214 ms
+06-13 15:56:50.184 26680 26714 I CpuTimer: Elapsed time: 1.782926 ms
+06-13 15:56:50.198 26680 26714 I CpuTimerCompute: Elapsed time: 0.255000 ms
+06-13 15:56:50.198 26680 26714 I GpuTimerCompute: Elapsed time: 0.001198 ms
+06-13 15:56:50.200 26680 26714 I GpuTimerRender: Elapsed time: 0.450625 ms
+06-13 15:56:51.192 26680 26714 I Timer   : Elapsed time: 8.331300 ms
+06-13 15:56:51.192 26680 26714 I CpuTimer: Elapsed time: 1.736413 ms
+06-13 15:56:51.206 26680 26714 I CpuTimerCompute: Elapsed time: 0.258000 ms
+06-13 15:56:51.206 26680 26714 I 
