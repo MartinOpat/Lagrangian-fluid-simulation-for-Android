@@ -41,6 +41,7 @@ CpuTimer* cpuTimer;
 CpuTimer* cpuLoaderTimer;
 GpuTimer* gpuRenderTimer;
 GpuTimer* gpuComputeTimer;
+CpuTimer* cpuComputeTimer;
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -100,6 +101,9 @@ void check_update() {
             cpuLoaderTimer->logElapsedTime("Loader");
             cpuLoaderTimer->reset();
         });
+
+        // Wait for the thread to finish
+        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
     }
 
     timer->measure();
@@ -123,6 +127,7 @@ void init() {
     gpuRenderTimer = new GpuTimer();
     gpuComputeTimer = new GpuTimer();
     cpuLoaderTimer = new CpuTimer();
+    cpuComputeTimer = new CpuTimer();
 
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
@@ -137,13 +142,18 @@ extern "C" {
         check_update();
 
         gpuComputeTimer->start();
+        cpuComputeTimer->start();
         ///////////////////////////////////////////////// Measured section
         particlesHandler->simulateParticles(*mainview);
         /////////////////////////////////////////////////
+        cpuComputeTimer->stop();
         gpuComputeTimer->stop();
+        cpuComputeTimer->countMeasurement();
         gpuComputeTimer->countMeasurement();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+            cpuComputeTimer->logElapsedTime("Compute");
             gpuComputeTimer->logElapsedTime("Compute");
+            cpuComputeTimer->reset();
             gpuComputeTimer->reset();
             lastTime2 = std::chrono::steady_clock::now();
         }

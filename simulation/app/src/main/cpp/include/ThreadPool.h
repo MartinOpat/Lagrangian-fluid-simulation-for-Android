@@ -61,6 +61,7 @@ inline ThreadPool::ThreadPool(size_t threads)
                         }
 
                         task();
+                        std::unique_lock<std::mutex> lock(this->queue_mutex);
                         if (--tasks_count == 0) {
                             all_tasks_done.notify_all();
                         }

@@ -41,7 +41,8 @@ grid-wise parallelization.
 2024-06-12 19:48:02.903  1477-1477  audit                   auditd                               E  type=1400 audit(1718214482.901:755): avc:  denied  { read } for  pid=25388 comm="crash_dump64" path="/data/data/com.rug.lagrangianfluidsimulation/tmp/tempU.nc" dev="dm-58" ino=245228 scontext=u:r:crash_dump:s0:c157,c257,c512,c768 tcontext=u:object_r:app_data_file:s0:c157,c257,c512,c768 tclass=file permissive=0 SEPF_SM-S918B_13_0001 audit_filtered
 2024-06-12 19:48:02.904  1477-1477  audit                   auditd                               E  type=1400 audit(1718214482.901:756): avc:  denied  { write } for  pid=25388 comm="crash_dump64" path="/data/data/com.rug.lagrangianfluidsimulation/tmp/tempV.nc" dev="dm-58" ino=381919 scontext=u:r:crash_dump:s0:c157,c257,c512,c768 tcontext=u:object_r:app_data_file:s0:c157,c257,c512,c768 tclass=file permissive=0 SEPF_SM-S918B_13_0001 audit_filtered
 ```
-- Update the main TODO.md from the new entries from this branche's TODO.md
+- Update the main TODO.md from the new entries from this branch's TODO.md
+- Update `updateParticlesPool`, and `threadPool.h` fix to main -> Solves the parallel implementation for low particles so also update todo
 
 ## Next meeting points
 - No lag (correctly switching buffers in cpu now + GPU buffer loading happens in a second thread (p.i.t.a.))
