@@ -9,7 +9,7 @@ declare -a modes=("parallel")
 #declare -a particleCounts=(1500)
 #declare -a particleCounts=(10 10000)
 #declare -a particleCounts=(1 5 25 125 625)
-declare -a particleCounts=(5)
+declare -a particleCounts=(3500)
 
 
 

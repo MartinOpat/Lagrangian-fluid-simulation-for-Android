@@ -32,7 +32,7 @@ ADB_PID=$!
 set +m
 
 echo "Logging for 5 minutes..."
-sleep 300
+sleep 60
 
 echo "Time is up, killing logging process..."
 
