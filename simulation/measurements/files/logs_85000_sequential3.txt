@@ -969,7 +969,6 @@
 06-13 13:32:03.237 20296 20385 I GpuTimerRender: Elapsed time: 6.686771 ms
 06-13 13:32:03.237 20296 20385 I Timer   : Elapsed time: 36.899876 ms
 06-13 13:32:03.237 20296 20385 I CpuTimer: Elapsed time: 29.797464 ms
-06-13 13:32:04.212 20296 20442 I CpuTimerLoader: Elapsed time: 566.368000 ms
 06-13 13:32:04.263 20296 20385 I CpuTimerCompute: Elapsed time: 37.243000 ms
 06-13 13:32:04.263 20296 20385 I GpuTimerCompute: Elapsed time: 0.002291 ms
 06-13 13:32:04.271 20296 20385 I GpuTimerRender: Elapsed time: 6.801771 ms
@@ -1065,7 +1064,6 @@
 06-13 13:32:22.620 20296 20385 I GpuTimerRender: Elapsed time: 6.439375 ms
 06-13 13:32:22.621 20296 20385 I Timer   : Elapsed time: 36.047493 ms
 06-13 13:32:22.621 20296 20385 I CpuTimer: Elapsed time: 29.359679 ms
-06-13 13:32:23.728 20296 20442 I CpuTimerLoader: Elapsed time: 645.525000 ms
 06-13 13:32:23.728 20296 20385 I Timer   : Elapsed time: 122.931305 ms
 06-13 13:32:23.728 20296 20385 I CpuTimer: Elapsed time: 103.683222 ms
 06-13 13:32:23.769 20296 20385 I CpuTimerCompute: Elapsed time: 32.312000 ms
@@ -1161,7 +1159,6 @@
 06-13 13:32:42.163 20296 20385 I CpuTimerCompute: Elapsed time: 28.742000 ms
 06-13 13:32:42.163 20296 20385 I GpuTimerCompute: Elapsed time: 0.000469 ms
 06-13 13:32:42.170 20296 20385 I GpuTimerRender: Elapsed time: 6.472083 ms
-06-13 13:32:43.141 20296 20442 I CpuTimerLoader: Elapsed time: 664.245000 ms
 06-13 13:32:43.141 20296 20385 I Timer   : Elapsed time: 122.375771 ms
 06-13 13:32:43.142 20296 20385 I CpuTimer: Elapsed time: 101.121222 ms
 06-13 13:32:43.188 20296 20385 I CpuTimerCompute: Elapsed time: 34.836000 ms
@@ -1257,7 +1254,6 @@
 06-13 13:33:01.522 20296 20385 I CpuTimerCompute: Elapsed time: 31.075000 ms
 06-13 13:33:01.522 20296 20385 I GpuTimerCompute: Elapsed time: 0.000468 ms
 06-13 13:33:01.530 20296 20385 I GpuTimerRender: Elapsed time: 6.394688 ms
-06-13 13:33:02.446 20296 20442 I CpuTimerLoader: Elapsed time: 579.016000 ms
 06-13 13:33:02.447 20296 20385 I Timer   : Elapsed time: 105.353783 ms
 06-13 13:33:02.447 20296 20385 I CpuTimer: Elapsed time: 87.088000 ms
 06-13 13:33:02.530 20296 20385 I CpuTimerCompute: Elapsed time: 32.775000 ms
