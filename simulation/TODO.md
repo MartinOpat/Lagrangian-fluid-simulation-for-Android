@@ -25,15 +25,9 @@ grid-wise parallelization -> Not necessarily.
 
 
 ## Stuff to research
-- speed up paper Kehl (read, speed up + graphing log-log); Relevant pages: 10,
-- Retake measurements (see general project TODOs for details):
-  - sequential:
-    - 420'000+
-  - Parallel:
-    - 2'200'000+
-
 - Try cuberiles after all
 - Direct volume rendering / volume ray casting
+- The outline box approach
 
 ## General project
 - Sort out references from used code
@@ -43,11 +37,9 @@ grid-wise parallelization -> Not necessarily.
 - Make a measurement for the "new bottleneck" see how the performance changes with a more random distrib. (either perlin, or bigger double-gyre)
 - Make proper APKs for a) reduced, b) full version of the app
 - Make measurements for (very) small numbers of particles -> see if v-sync doesn't make it pointless
-- Retake measurements for large number of particles with a longer runtime (at least 20 measurements)
 - Question: Since a lot of the app is asynchronous, for compute shaders especially cause lot of GPU time, is it okay to just limit (unrelated) background processes and measure the wall-clock time?
   - Ideally measure it all separately, and report that way.
   - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
 
 ## Next meeting points
-- TODO: Send LIC screenshot
 
