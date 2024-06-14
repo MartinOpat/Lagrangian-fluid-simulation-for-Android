@@ -138,12 +138,16 @@ void ParticlesHandler::updateParticlesParallel() {
 
 void ParticlesHandler::updateParticlesPool() {
     size_t num_particles = particles.size();
-    size_t batch_size = std::max(num_particles / thread_count, 1ul);  // Ensure non-zero batch size
+    size_t num_active_threads = std::min(num_particles, thread_count);
+    size_t batch_size = num_particles / num_active_threads;
+    size_t remainder = num_particles % num_active_threads;
 
-    for (size_t i = 0; i < num_particles; i += batch_size) {
-        pool.enqueue([this, i, batch_size, num_particles]() {
-            size_t end = std::min(i + batch_size, num_particles);
-            for (size_t j = i; j < end; ++j) {
+    for (size_t t = 0; t < num_active_threads; t++) {
+        size_t start = t * batch_size + std::min(t, remainder);
+        size_t end = start + batch_size + (t < remainder ? 1 : 0);
+
+        pool.enqueue([this, start, end]() {
+            for (size_t j = start; j < end; j++) {
                 physics.doStep(particles[j]);
                 bindPosition(particles[j]);
                 size_t index = j * 3;

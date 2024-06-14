@@ -10,8 +10,10 @@
 
 ## Android side
 - Implement the little coordinate system in the corner
+- Delete unused project files / folders
 
 ## Native side
+- Create a common super class for timers
 
 ## Current bottlenecks
 For a lot of particles, or randomly distributed particles in a dense grid, the bottleneck is
