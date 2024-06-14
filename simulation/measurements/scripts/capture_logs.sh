@@ -31,8 +31,8 @@ adb logcat | grep -E '\b[A-Za-z]*Timer[A-Za-z]*\s*:\s*Elapsed time: [0-9]+\.[0-9
 ADB_PID=$!
 set +m
 
-echo "Logging for 5 minutes..."
-sleep 300
+echo "Logging for 20 minutes..."
+sleep 1200
 
 echo "Time is up, killing logging process..."
 
