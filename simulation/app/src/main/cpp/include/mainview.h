@@ -21,6 +21,7 @@
 #include "consts.h"
 #include "transforms.h"
 #include "shaderManager.h"
+#include "navig_cube.h"
 
 
 /**
@@ -139,6 +140,12 @@ public:
      */
     Transforms& getTransforms() { return *transforms; }
 
+
+    /**
+     * @brief Draws the UI elements
+     */
+    void drawUI();
+
 private:
     /**
      * @brief Loads the uniforms.
@@ -147,6 +154,7 @@ private:
 
     ShaderManager *shaderManager;
     Transforms *transforms;
+    NavigCube *navigCube;
 
     // Uniforms
     GLint isPointLocationLines;

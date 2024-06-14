@@ -10,6 +10,7 @@ ShaderManager::~ShaderManager() {
     glDeleteProgram(shaderLinesProgram);
     glDeleteProgram(shaderPointsProgram);
     glDeleteProgram(shaderComputeProgram);
+    glDeleteProgram(shaderUIProgram);
 }
 
 
@@ -40,19 +41,18 @@ void compileShaderHelper(GLuint& shader, const std::string& shaderSource, GLenum
     }
 }
 
-void ShaderManager::compileVertexShader() {
+void ShaderManager::compileVertexShaders() {
     compileShaderHelper(vertexShader, vertexShaderSource, GL_VERTEX_SHADER);
+    compileShaderHelper(uiVertexShader, uiVertexShaderSource, GL_VERTEX_SHADER);
 }
 
-void ShaderManager::compileFragmentShader() {
+void ShaderManager::compileFragmentShaders() {
     compileShaderHelper(fragmentShader, fragmentShaderSource, GL_FRAGMENT_SHADER);
+    compileShaderHelper(uiFragmentShader, uiFragmentShaderSource, GL_FRAGMENT_SHADER);
 }
 
-void ShaderManager::compileLinesGeometryShader() {
+void ShaderManager::compileGeometryShaders() {
     compileShaderHelper(geometryLinesShader, geometryLinesShaderSource, GL_GEOMETRY_SHADER);
-}
-
-void ShaderManager::compilePointsGeometryShader() {
     compileShaderHelper(geometryPointsShader, geometryPointsShaderSource, GL_GEOMETRY_SHADER);
 }
 
@@ -91,18 +91,28 @@ void ShaderManager::createPointsProgram() {
     createProgramHelper(shaderPointsProgram, (GLuint[]) {vertexShader, geometryPointsShader, fragmentShader, 0});
 }
 
-void ShaderManager::createShaderProgram() {
+void ShaderManager::createComputeProgram() {
     createProgramHelper(shaderComputeProgram, (GLuint[]) {computeShader, 0});
+}
+
+void ShaderManager::createUIProgram() {
+    createProgramHelper(shaderUIProgram, (GLuint[]) {uiVertexShader, uiFragmentShader, 0});
 }
 
 void ShaderManager::detachShaders() {
     glDetachShader(shaderLinesProgram, vertexShader);
     glDetachShader(shaderLinesProgram, geometryLinesShader);
     glDetachShader(shaderLinesProgram, fragmentShader);
+
     glDetachShader(shaderPointsProgram, vertexShader);
     glDetachShader(shaderPointsProgram, geometryPointsShader);
     glDetachShader(shaderPointsProgram, fragmentShader);
+
     glDetachShader(shaderComputeProgram, computeShader);
+
+    glDetachShader(shaderUIProgram, uiVertexShader);
+    glDetachShader(shaderUIProgram, uiFragmentShader);
+
 }
 
 void ShaderManager::deleteShaders() {
@@ -111,19 +121,21 @@ void ShaderManager::deleteShaders() {
     glDeleteShader(geometryLinesShader);
     glDeleteShader(fragmentShader);
     glDeleteShader(computeShader);
+    glDeleteShader(uiVertexShader);
+    glDeleteShader(uiFragmentShader);
 }
 
 
 void ShaderManager::compileAndLinkShaders() {
-    compileVertexShader();
-    compileFragmentShader();
-    compileLinesGeometryShader();
-    compilePointsGeometryShader();
+    compileVertexShaders();
+    compileFragmentShaders();
+    compileGeometryShaders();
     compileComputeShaders();
 
     createLinesProgram();
     createPointsProgram();
-    createShaderProgram();
+    createComputeProgram();
+    createUIProgram();
 
     detachShaders();
     deleteShaders();
@@ -136,6 +148,8 @@ void ShaderManager::loadShaderSources() {
     geometryLinesShaderSource = loadShaderFile("geometry_lines_shader.glsl");
     geometryPointsShaderSource = loadShaderFile("geometry_points_shader.glsl");
     computeShaderSource = loadShaderFile("compute_shader.glsl");
+    uiVertexShaderSource = loadShaderFile("vertex_shader_ui.glsl");
+    uiFragmentShaderSource = loadShaderFile("fragment_shader_ui.glsl");
 }
 
 void ShaderManager::checkShaderProgramLinkStatus() {
@@ -170,6 +184,8 @@ void ShaderManager::cleanShaderSources() {
     geometryLinesShaderSource.clear();
     geometryPointsShaderSource.clear();
     computeShaderSource.clear();
+    uiVertexShaderSource.clear();
+    uiFragmentShaderSource.clear();
 }
 
 void ShaderManager::createShaderPrograms() {

@@ -36,6 +36,7 @@ public:
     GLuint shaderLinesProgram;
     GLuint shaderPointsProgram;
     GLuint shaderComputeProgram;
+    GLuint shaderUIProgram;
 
     /**
      * @brief Creates the shader programs.
@@ -71,22 +72,17 @@ private:
     /**
      * @brief Compiles the vertex shader.
      */
-    void compileVertexShader();
+    void compileVertexShaders();
 
     /**
      * @brief Compiles the fragment shader.
      */
-    void compileFragmentShader();
+    void compileFragmentShaders();
 
     /**
      * @brief Compiles the geometry shader for lines (vector field).
      */
-    void compileLinesGeometryShader();
-
-    /**
-     * @brief Compiles the geometry shader for points (particles).
-     */
-    void compilePointsGeometryShader();
+    void compileGeometryShaders();
 
     /**
      * @brief Compiles the compute shaders.
@@ -104,9 +100,14 @@ private:
     void createPointsProgram();
 
     /**
-     * @brief Creates the shader program.
+     * @brief Creates the compute shader program.
      */
-    void createShaderProgram();
+    void createComputeProgram();
+
+    /**
+     * @brief Creates the UI shader program.
+     */
+    void createUIProgram();
 
     /**
      * @brief Detaches the shaders.
@@ -129,6 +130,8 @@ private:
     std::string geometryLinesShaderSource;
     std::string geometryPointsShaderSource;
     std::string computeShaderSource;
+    std::string uiVertexShaderSource;
+    std::string uiFragmentShaderSource;
 
     // Shaders
     GLuint vertexShader;
@@ -136,6 +139,9 @@ private:
     GLuint geometryLinesShader;
     GLuint geometryPointsShader;
     GLuint computeShader;
+    GLuint uiVertexShader;
+    GLuint uiFragmentShader;
+
 };
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_SHADERMANAGER_H

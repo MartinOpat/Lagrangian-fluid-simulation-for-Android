@@ -8,6 +8,7 @@
 Mainview::Mainview(AAssetManager* assetManager) {
     transforms = new Transforms();
     shaderManager = new ShaderManager(assetManager);
+    navigCube = new NavigCube();
 }
 
 Mainview::~Mainview() {
@@ -21,6 +22,7 @@ Mainview::~Mainview() {
 
     delete transforms;
     delete shaderManager;
+    delete navigCube;
 }
 
 
@@ -54,6 +56,7 @@ void Mainview::loadUniforms() {
 void Mainview::setupGraphics() {
     shaderManager->createShaderPrograms();
     loadUniforms();
+    navigCube->loadConstUniforms(shaderManager->shaderUIProgram);
 }
 
 void Mainview::createParticlesBuffer(std::vector<float>& particlesPos) {
@@ -218,4 +221,15 @@ void Mainview::dispatchComputeShader() {
 
     // Ensure vertex shader sees the updates
     glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
+}
+
+void Mainview::drawUI() {
+    glm::vec3 rot = transforms->getRotation();
+
+    glm::mat4x4 modelTransform = glm::identity<glm::mat4>();
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rot.x, glm::vec3(1.0f, 0.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rot.y, glm::vec3(0.0f, 1.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rot.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+    navigCube->draw(shaderManager->shaderUIProgram, modelTransform);
 }

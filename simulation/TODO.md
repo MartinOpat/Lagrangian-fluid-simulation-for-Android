@@ -9,7 +9,6 @@
 - Discuss capped frame-rate due to v-sync and its impact on the measurements in discussion sections
 
 ## Android side
-- Implement the little coordinate system in the corner
 - Delete unused project files / folders
 
 ## Native side
