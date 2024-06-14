@@ -2,4 +2,4 @@
 1 -> wall clock time, cache clean -> continuous 2
 2 -> CPU / GPU time, cache clean -> continuous 3
 0 (5^x) -> CPU / GPU time, cache, clean, small numbers -> continuous 4
-3 -> CPU / GPU time, cache clean, parallel crash fix, loader timer wait => wall clock time inaccurate -> continuous 5
+3 -> CPU / GPU time, cache clean, parallel crash fix, loader timer wait => wall clock time inaccurate
