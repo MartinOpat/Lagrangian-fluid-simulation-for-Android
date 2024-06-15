@@ -36,7 +36,6 @@ inline CpuTimer::CpuTimer()
 
 inline void CpuTimer::start() {
     started = true;
-    numMeasurements = 0;
     startTime = std::clock();
 }
 
@@ -51,20 +50,20 @@ inline double CpuTimer::elapsed_milliseconds() {
 }
 
 inline void CpuTimer::logElapsedTime(std::string tag) {
-    LOGI(std::string("CpuTimer").append(tag).c_str(), "Elapsed time: %f ms", elapsed_milliseconds() / numMeasurements);
+    LOGI(std::string("CpuTimer").append(tag).c_str(), "Elapsed time: %f ms", measurements / numMeasurements);
 }
 
 inline void CpuTimer::measure() {
     if (started) {
-        numMeasurements++;
         auto elapsedWallTime = std::chrono::steady_clock::now() - startWallTime;
+        stop();
+        countMeasurement();
         if (std::chrono::duration_cast<std::chrono::milliseconds>(elapsedWallTime) >= displayFrequency) {
-            stop();
             logElapsedTime();
             reset();
-            start();
             startWallTime = std::chrono::steady_clock::now();
         }
+        start();
     } else {
         start();
     }

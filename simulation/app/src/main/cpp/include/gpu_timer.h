@@ -5,6 +5,7 @@
 #ifndef LAGRANGIAN_FLUID_SIMULATION_GPU_TIMER_H
 #define LAGRANGIAN_FLUID_SIMULATION_GPU_TIMER_H
 
+//#define GL_GLEXT_PROTOTYPES
 #include <GLES3/gl3.h>
 #include <GLES2/gl2ext.h>
 #include "android_logging.h"
@@ -32,9 +33,16 @@ private:
     double measurements;
 };
 
+// Define the function pointer type
+typedef void (GL_APIENTRYP PFNGLGETQUERYOBJECTUI64VEXTPROC)(GLuint id, GLenum pname, GLuint64* params);
+
+// Declare the function pointer
+PFNGLGETQUERYOBJECTUI64VEXTPROC glGetQueryObjectui64vEXT;
+
 inline GpuTimer::GpuTimer()
         : started(false), currentQuery(0), numMeasurements(0), displayFrequency(1000.0) {
     glGenQueries(2, queryID);
+    glGetQueryObjectui64vEXT = (PFNGLGETQUERYOBJECTUI64VEXTPROC)eglGetProcAddress("glGetQueryObjectui64vEXT");
 }
 
 inline GpuTimer::~GpuTimer() {
@@ -44,7 +52,6 @@ inline GpuTimer::~GpuTimer() {
 inline void GpuTimer::start() {
     if (!started) {
         started = true;
-        numMeasurements = 0;
         glBeginQuery(GL_TIME_ELAPSED_EXT, queryID[currentQuery]);
     }
 }
@@ -53,9 +60,17 @@ inline void GpuTimer::stop() {
     if (started) {
         started = false;
         glEndQuery(GL_TIME_ELAPSED_EXT);
+        glFinish();  // Ensure all rendering commands are completed
         int nextQuery = (currentQuery + 1) % 2;
-        GLuint elapsed_time;
-        glGetQueryObjectuiv(queryID[currentQuery], GL_QUERY_RESULT_EXT, &elapsed_time);
+        GLuint64 elapsed_time;
+
+//        glGetQueryObjectuiv(queryID[currentQuery], GL_QUERY_RESULT_EXT, &elapsed_time);
+        GLuint available = 0;
+        while (!available) {
+            glGetQueryObjectuiv(queryID[currentQuery], GL_QUERY_RESULT_AVAILABLE, &available);
+        }
+        glGetQueryObjectui64vEXT(queryID[currentQuery], GL_QUERY_RESULT, &elapsed_time);
+
         times.push_back(elapsed_time / 1000000.0); // Convert nanoseconds to milliseconds
         currentQuery = nextQuery;
     }
@@ -67,7 +82,7 @@ inline double GpuTimer::elapsedMilliseconds() {
 }
 
 inline void GpuTimer::logElapsedTime(std::string tag) {
-    LOGI(std::string("GpuTimer").append(tag).c_str(), "Elapsed time: %f ms", elapsedMilliseconds() / numMeasurements);
+    LOGI(std::string("GpuTimer").append(tag).c_str(), "Elapsed time: %f ms", measurements / numMeasurements);
 }
 
 inline void GpuTimer::countMeasurement() {
