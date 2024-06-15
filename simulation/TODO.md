@@ -23,6 +23,7 @@ grid-wise parallelization -> Not necessarily.
 -> Could simply due to the fact that the particles in thread-groups are far apart in memory -> No simple fix
 - -> Read about warps and global memory
 - -> Discuss the CPU equivalent
+- Java side handling of opengl surface and egl context
 
 
 ## Stuff to research
