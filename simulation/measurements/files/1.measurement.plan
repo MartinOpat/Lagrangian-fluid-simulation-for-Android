@@ -5,5 +5,8 @@
 3 -> CPU / GPU time, cache clean, parallel crash fix, loader timer wait => wall clock time inaccurate -> continuous 5
 1 (5^x) -> CPU / GPU time, cache clean, parallel crash fix, loader timer wait => wall clock time inaccurate, small numbers
 
-0 (10'000, 250'000) -> Measuring performance over time , 20 mins, not dense v.f.
-1 (10'000, 250'000) -> Measuring performance over time, 20 mins, dense v.f. but no render
+0 (10'000, 1000'000) -> Measuring performance over time , 20 mins, not dense v.f.
+1 (10'000, 1000'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced)
+
+0 (2'500, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), ordered initially
+1 (2'500, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), chaotic initially
