@@ -52,7 +52,7 @@ void initialize(struct android_app* app) {
     global_app_state.mainview = new Mainview(mgr);
     global_app_state.vectorFieldHandler = new VectorFieldHandler(15, 5);
     global_app_state.physics = new Physics(*global_app_state.vectorFieldHandler, Physics::Model::particles_advection);
-    global_app_state.particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform, *global_app_state.physics, NUM_PARTICLES);
+    global_app_state.particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line, *global_app_state.physics, NUM_PARTICLES);
     global_app_state.touchHandler = new TouchHandler(global_app_state.mainview->getTransforms());
     global_app_state.threadPool = new ThreadPool(1);
     global_app_state.timer = new Timer<std::chrono::steady_clock>();
@@ -116,7 +116,7 @@ void check_update() {
     if (global_time_in_step >= TIME_STEP) {
         global_time_in_step = 0.0f;
 
-//        (global_app_state.eglContextManager)->syncEGLContext((global_app_state.threadPool));
+        (global_app_state.eglContextManager)->syncEGLContext((global_app_state.threadPool));
 
         (global_app_state.vectorFieldHandler)->updateTimeStep();
         (global_app_state.mainview)->loadComputeBuffer();
