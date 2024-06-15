@@ -2,6 +2,7 @@ package com.rug.lagrangianfluidsimulation;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FileAccessHelper {
 
-    MainActivity mainActivity;
+    Activity activity;
     private volatile boolean dataReady = false;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -35,8 +36,8 @@ public class FileAccessHelper {
     public native void loadInitialPositions(int fd);
 
     // Constructor
-    public FileAccessHelper(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public FileAccessHelper(Activity activity) {
+        this.activity = activity;
     }
 
     public void openFilePicker() {
@@ -46,21 +47,21 @@ public class FileAccessHelper {
         String[] mimeTypes = {"application/netcdf", "application/x-netcdf"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        mainActivity.startActivityForResult(intent, REQUEST_CODE_PICK_FILES);
+        activity.startActivityForResult(intent, REQUEST_CODE_PICK_FILES);
     }
 
     public void openDirectoryPicker() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        mainActivity.startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY);
+        activity.startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY);
     }
 
 
     public void checkAndRequestPermissions() {
         Log.d("Permissions", "Checking permissions");
-        if (ContextCompat.checkSelfPermission(mainActivity, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             Log.d("Permissions", "Permission not granted, requesting...");
-            ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_STORAGE);
         } else {
             Log.d("Permissions", "Permission already granted, opening picker");
             openFilePicker();
@@ -77,40 +78,18 @@ public class FileAccessHelper {
     }
 
     public void loadNetCDFData(Uri[] uris) {
-        executor.submit(() -> {
+        int[] fds = new int[uris.length];
+        for (int i = 0; i < uris.length; i++) {
+            fds[i] = getFileDescriptor(uris[i]);
+        }
 
-            ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            List<Future<Integer>> futureList = new ArrayList<>();
-            for (Uri uri : uris) {
-                futureList.add(executor.submit(() -> getFileDescriptor(uri)));
-            }
-            executor.shutdown();
-            try {
-                boolean res = executor.awaitTermination(1, TimeUnit.MINUTES); // Wait for all tasks to finish
-                if (!res) {
-                    Log.e("MainActivity", "Executor service timed out");
-                }
-            } catch (InterruptedException e) {
-                Log.e("MainActivity", "Executor service interrupted", e);
-            }
-            int[] fds = new int[uris.length];
-            for (int i = 0; i < futureList.size(); i++) {
-                try {
-                    fds[i] = futureList.get(i).get();
-                } catch (Exception e) {
-                    Log.e("MainActivity", "Error getting file descriptor", e);
-                }
-            }
-            mainActivity.runOnUiThread(() -> {
-                loadFilesFDs(fds);
-                mainActivity.onDataLoaded();
-            });
-        });
+        setDataReady(true);
+        loadFilesFDs(fds);
     }
 
 
     public int getFileDescriptor(Uri uri) {
-        try (ParcelFileDescriptor pfd = mainActivity.getContentResolver().openFileDescriptor(uri, "r")) {
+        try (ParcelFileDescriptor pfd = activity.getContentResolver().openFileDescriptor(uri, "r")) {
             if (pfd != null) {
                 return pfd.detachFd(); // Detach the file descriptor to pass it to native code
             }

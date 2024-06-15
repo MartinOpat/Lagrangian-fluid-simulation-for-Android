@@ -15,6 +15,13 @@ project("lagrangianfluidsimulation")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 17)
 
+# Add the path to the android_native_app_glue.h file.
+include_directories(${ANDROID_NDK}/sources/android/native_app_glue)
+
+# Add the android_native_app_glue.c file to a library.
+add_library(android_native_app_glue STATIC ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
+
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -49,7 +56,7 @@ add_library(libc++_shared SHARED IMPORTED)
 set_target_properties(libc++_shared PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libc++_shared.so)
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
-        src/native-lib.cpp
+        src/android_main.cpp
         src/mainview.cpp
         src/file_reader.cpp
         src/netcdf_reader.cpp
@@ -76,6 +83,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         netcdf
         glm
         EGL
+        android_native_app_glue
 )
 
 

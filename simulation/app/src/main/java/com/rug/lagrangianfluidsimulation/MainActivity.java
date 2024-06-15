@@ -204,20 +204,4 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    public View getView() {
-        return glSurfaceView;
-    }
-
-    public void setView(GLSurfaceView glSurfaceView) {
-        this.glSurfaceView = glSurfaceView;
-    }
-
-    public FileAccessHelper getFileAccessHelper() {
-        return fileAccessHelper;
-    }
-
-    public void setFileAccessHelper(FileAccessHelper fileAccessHelper) {
-        this.fileAccessHelper = fileAccessHelper;
-    }
-
 }
