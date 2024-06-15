@@ -152,9 +152,6 @@ void Mainview::drawVectorField(int size) {
 
     // Check for errors
     GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        LOGE("shaderManager", "OpenGL setup error: %x", err);
-    }
 
     // Unbind
     glBindVertexArray(0);
@@ -200,10 +197,10 @@ void Mainview::preloadComputeBuffer(std::vector<float>& vector_field, std::atomi
     glBufferData(GL_SHADER_STORAGE_BUFFER, vector_field.size() * sizeof(float), vector_field.data(), GL_DYNAMIC_DRAW);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
-//    // Setup fence to make sure the data is loaded and sync between threads before use
-//    GLsync fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
-//    glFlush();
-//    globalFence.store(fence, std::memory_order_release);
+    // Setup fence to make sure the data is loaded and sync between threads before use
+    GLsync fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
+    glFlush();
+    globalFence.store(fence, std::memory_order_release);
 }
 
 void Mainview::loadComputeBuffer() {

@@ -122,13 +122,13 @@ void check_update() {
         (global_app_state.mainview)->loadComputeBuffer();
         global_app_state.currentFrame = (global_app_state.currentFrame + 1) % global_app_state.numFrames;
 
-//        LOGI("native-lib", "Loading step %d", global_app_state.currentFrame);
-//        (global_app_state.threadPool)->enqueue([]() {
-//            loadStep(global_app_state.currentFrame);
-//            (global_app_state.mainview)->preloadComputeBuffer((global_app_state.vectorFieldHandler)->getFutureVertices(), (global_app_state.eglContextManager)->globalFence);
-//        });
+        LOGI("native-lib", "Loading step %d", global_app_state.currentFrame);
+        (global_app_state.threadPool)->enqueue([]() {
             loadStep(global_app_state.currentFrame);
             (global_app_state.mainview)->preloadComputeBuffer((global_app_state.vectorFieldHandler)->getFutureVertices(), (global_app_state.eglContextManager)->globalFence);
+        });
+//            loadStep(global_app_state.currentFrame);
+//            (global_app_state.mainview)->preloadComputeBuffer((global_app_state.vectorFieldHandler)->getFutureVertices(), (global_app_state.eglContextManager)->globalFence);
     }
 
     (global_app_state.timer)->measure();
