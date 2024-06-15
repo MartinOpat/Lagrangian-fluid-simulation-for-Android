@@ -8,5 +8,5 @@
 0 (10'000, 1000'000) -> Measuring performance over time , 20 mins, not dense v.f.
 1 (10'000, 1000'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced)
 
-0 (2'500, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), ordered initially
-1 (2'500, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), chaotic initially
+0 (250, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), ordered initially
+1 (250, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), chaotic initially, seed kept constant
