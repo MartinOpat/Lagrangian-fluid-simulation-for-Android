@@ -5,7 +5,7 @@
 #include "include/physics.h"
 
 
-Physics::Physics(VectorFieldHandler& vectorFieldHandler, Physics::Model model): vectorFieldHandler(vectorFieldHandler), model(model) {}
+Physics::Physics(VectorFieldHandler& vectorFieldHandler, Physics::Model model, float dt): vectorFieldHandler(vectorFieldHandler), model(model), dt(dt) {}
 
 // args can contain any arguments, but at least the position
 glm::vec3 Physics::dvdt(const ParticleState& state) {

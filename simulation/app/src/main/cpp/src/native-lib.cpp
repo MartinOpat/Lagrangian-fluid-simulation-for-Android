@@ -94,11 +94,21 @@ void init() {
     mode = Mode::computeShaders;
 
     touchHandler = new TouchHandler(mainview->getTransforms());
-    vectorFieldHandler = new VectorFieldHandler(15, 5);
-    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line ,*physics, NUM_PARTICLES);  // Code-wise initialization
-//    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
+    //////////////////////// Double gyre ////////////////////////
+//    vectorFieldHandler = new VectorFieldHandler(15, 5);
+//    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.1f);
+//    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line ,*physics, NUM_PARTICLES);
+    /////////////////////////////////////////////////////////////
+
+    //////////////////////// Perlin noise ////////////////////////
+    vectorFieldHandler = new VectorFieldHandler(1, 1);
+    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);
+    /////////////////////////////////////////////////////////////
+
+    // Initialization from file
+//    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);
 
     timer = new Timer<std::chrono::steady_clock>();
 

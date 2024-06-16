@@ -38,7 +38,7 @@ public:
      * @param vectorFieldHandler The vector field handler.
      * @param model The model of physics for the particles.
      */
-    Physics(VectorFieldHandler& vectorFieldHandler, Model model = Model::particles_advection);
+    Physics(VectorFieldHandler& vectorFieldHandler, Model model = Model::particles_advection, float dt = 0.1f);
 
     /**
      * @brief Calculates the derivative of the simulated quantity.
