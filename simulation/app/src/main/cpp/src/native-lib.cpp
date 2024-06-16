@@ -96,15 +96,15 @@ void init() {
     touchHandler = new TouchHandler(mainview->getTransforms());
 
     //////////////////////// Double gyre ////////////////////////
-//    vectorFieldHandler = new VectorFieldHandler(15, 5);
-//    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.1f);
-//    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line ,*physics, NUM_PARTICLES);
+    vectorFieldHandler = new VectorFieldHandler(15, 5);
+    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.1f);
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines ,*physics, NUM_PARTICLES);
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////
-    vectorFieldHandler = new VectorFieldHandler(1, 1);
-    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);
+//    vectorFieldHandler = new VectorFieldHandler(1, 1);
+//    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
+//    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);
     /////////////////////////////////////////////////////////////
 
     // Initialization from file

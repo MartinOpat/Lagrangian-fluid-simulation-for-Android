@@ -11,7 +11,7 @@
 #define FIELD_DEPTH 50.0f
 
 // Near/far rendering planes
-#define NEAR_FAR 100.0f
+#define NEAR_FAR 500.0f
 
 // Number of particles (only used when not specifying positions from file)
 #define NUM_PARTICLES 250000
