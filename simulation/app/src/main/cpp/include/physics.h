@@ -78,7 +78,7 @@ public:
      */
     void doStep(Particle& particle);
 
-    float dt = 0.02f;  // Time step == dt / TIME_STEP [days] == approx 2.88 [minutes] (for 0.02f)
+    float dt = 0.1f;  // Time step == dt / TIME_STEP [days] == approx 2.88 [minutes] (for 0.02f)
     float b = 50;  // Drag coefficient (6*pi*mu*radius = 0.017 for water)
     float m = 1.0f;  // Mass of the particle
     float rho = 1.0f;  // Density of the fluid

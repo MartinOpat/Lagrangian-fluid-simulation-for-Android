@@ -17,7 +17,7 @@
 #define NUM_PARTICLES 250000
 
 // Number of simulation time between time steps (two files interpolation) == 1 day
-#define TIME_STEP 10
+#define TIME_STEP 50
 
 // [0, TIME_STEP)
 extern float global_time_in_step;
