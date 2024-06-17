@@ -12,7 +12,9 @@
   - sequential:
     - 
   - Parallel:
-- Take some more measurements for cycles with loading such that I can do a [stacked bar chart](https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_stacked.html)
+- Take some more measurements for cycles with loading such that I can do a [stacked bar chart](https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_stacked.html), i.e. take measurements where load
+time is included asynchroneously as it normaly would be, but calculate the proportions
+- Take dense grid wall clock time measurements
 
 
 ### Perlin stuff
