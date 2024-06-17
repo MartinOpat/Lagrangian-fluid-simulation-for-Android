@@ -8,7 +8,6 @@ NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
 echo "Using ABI: $ABI"
 
 # Get third party libs
-cd simulation/third_party
 
 # Get and install zlib
 mkdir zlib
@@ -60,19 +59,6 @@ tar -xzf netcdf-cxx.tar.gz --strip-components=1
 cd ../../build_scripts
 chmod +x compile_netcdf_cxx.sh
 ./compile_netcdf_cxx.sh $ABI $NDK
-cd ..
-
-# Get and install vtk
-mkdir vtk
-cd vtk
-mkdir source
-mkdir build
-cd source
-curl -L -o vtk.tar.gz https://www.vtk.org/files/release/9.3/VTK-9.3.0.tar.gz
-tar -xzf vtk.tar.gz --strip-components=1
-cd ../../build_scripts
-chmod +x compile_vtk.sh
-./compile_vtk.sh $ABI $NDK
 cd ..
 
 # Copy shared libraries to the app
