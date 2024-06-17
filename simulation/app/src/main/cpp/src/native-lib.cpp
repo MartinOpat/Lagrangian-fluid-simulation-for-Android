@@ -141,21 +141,30 @@ extern "C" {
         static std::chrono::steady_clock::time_point lastTime2 = std::chrono::steady_clock::now();
         check_update();
 
-        gpuComputeTimer->start();
-        cpuComputeTimer->start();
+        if (mode == Mode::computeShaders) {
+            gpuComputeTimer->start();
+        } else {
+            cpuComputeTimer->start();
+        }
         ///////////////////////////////////////////////// Measured section
         particlesHandler->simulateParticles(*mainview);
         /////////////////////////////////////////////////
-        cpuComputeTimer->stop();
-        gpuComputeTimer->stop();
-        cpuComputeTimer->countMeasurement();
-        gpuComputeTimer->countMeasurement();
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
-            cpuComputeTimer->logElapsedTime("Compute");
-            gpuComputeTimer->logElapsedTime("Compute");
-            cpuComputeTimer->reset();
-            gpuComputeTimer->reset();
-            lastTime2 = std::chrono::steady_clock::now();
+        if (mode == Mode::computeShaders) {
+            gpuComputeTimer->stop();
+            gpuComputeTimer->countMeasurement();
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+                gpuComputeTimer->logElapsedTime("Compute");
+                gpuComputeTimer->reset();
+                lastTime2 = std::chrono::steady_clock::now();
+            }
+        } else {
+            cpuComputeTimer->stop();
+            cpuComputeTimer->countMeasurement();
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+                cpuComputeTimer->logElapsedTime("Compute");
+                cpuComputeTimer->reset();
+                lastTime2 = std::chrono::steady_clock::now();
+            }
         }
 
 
