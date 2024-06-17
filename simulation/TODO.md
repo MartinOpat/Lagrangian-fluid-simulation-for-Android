@@ -45,9 +45,8 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Question: Since a lot of the app is asynchronous, for compute shaders especially cause lot of GPU time, is it okay to just limit (unrelated) background processes and measure the wall-clock time?
   - Ideally measure it all separately, and report that way.
   - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
-- Update main readme with gradlew commands
-
-- UPDATE THE MEASUREMENT BRANCH WITH THE TODAY'S CODE ENHANCEMENTS IN ORDER TO MEASURE THE DENSE/SPARSE GRID PERFORMANCE
+- Put detailed lib versions in the readme.md
+- Put library credit in the readme.md
 
 ## Next meeting points
 
