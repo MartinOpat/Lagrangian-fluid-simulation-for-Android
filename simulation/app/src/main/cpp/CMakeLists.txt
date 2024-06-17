@@ -30,6 +30,7 @@ set(CMAKE_CXX_STANDARD 17)
 # used in the AndroidManifest.xml file.
 
 add_subdirectory(glm)
+add_subdirectory(netcdf)
 
 
 add_library(zlib SHARED IMPORTED)
