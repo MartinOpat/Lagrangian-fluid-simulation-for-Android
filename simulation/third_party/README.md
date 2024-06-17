@@ -13,10 +13,10 @@ sudo apt-get clang
 ```
 
 ### Installing 3rd party libraries
-It is recommended to use the provided `configure.sh` bash script, which can be used like so:
+It is recommended to use the provided `compileThirdPartyLibs.sh` bash script, which can be used like so:
 ```bash
-chmod +x configure.sh
-sudo ./configure.sh $ABI $NDK
+chmod +x compileThirdPartyLibs.sh
+sudo ./compileThirdPartyLibs.sh $ABI $NDK
 ```
 
-The 3rd party libraries can also be installed manually by going into the `simulation/third_party` folder and following the provided `readme.md`
+The 3rd party libraries can also be installed manually see `individual_libraries_installation_isntructions.md`
