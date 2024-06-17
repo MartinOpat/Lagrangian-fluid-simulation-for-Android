@@ -7,6 +7,8 @@
 - Reuse abstract and intro from proposal
 - background section can be based on state-of-the-art but needs updating to be relevant
 - Discuss capped frame-rate due to v-sync and its impact on the measurements in discussion sections
+- 
+- Discuss the disrepancies (see status update email thread)
 
 ## Android side
 - Delete unused project files / folders
