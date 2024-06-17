@@ -1,7 +1,6 @@
 # Things that need to be done that are not immediately obvious.
 
 ## Android side
-- UPDATE THIS BRANCH WITH THE TODAY'S CODE ENHANCEMENTS IN ORDER TO MEASURE THE DENSE/SPARSE GRID PERFORMANCE
 
 
 ## Native side
