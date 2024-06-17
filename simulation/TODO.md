@@ -12,6 +12,7 @@
   - sequential:
     - 
   - Parallel:
+- Take some more measurements for cycles with loading such that I can do a [stacked bar chart](https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_stacked.html)
 
 
 ### Perlin stuff
