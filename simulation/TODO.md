@@ -10,6 +10,7 @@
 
 ## Android side
 - Delete unused project files / folders
+- Fixed the occasional glitch during user interactions
 
 ## Native side
 - Delete unused functions
