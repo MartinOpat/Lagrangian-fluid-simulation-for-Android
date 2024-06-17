@@ -30,7 +30,7 @@ set(CMAKE_CXX_STANDARD 17)
 # used in the AndroidManifest.xml file.
 
 add_subdirectory(glm)
-
+include_directories(netcdf)
 
 add_library(zlib SHARED IMPORTED)
 set_target_properties(zlib PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libz.so)
