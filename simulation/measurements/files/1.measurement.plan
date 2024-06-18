@@ -12,5 +12,9 @@
 1 (250, 250'000) -> Measuring performance over time, 20 mins, dense v.f. (render still reduced), chaotic initially, seed kept constant
 
 
-4 -> All the damn fixes, dense field, continuous 6
+4 -> All the damn fixes, dense field -> continuous 6
+5 -> -//-, not dense, half time, load time for stacked bar chart -> continuous 7
+6 -> -//-, dense, half time, load time for stacked bar chart -> continuous 8
+7 -> -//-, dense, uniform distrib. -> continuous 9
+8 -> -//-, dense, only wall clock time -> continuous 10
 
