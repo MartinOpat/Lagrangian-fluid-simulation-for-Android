@@ -13,6 +13,8 @@
 ## Android side
 - Delete unused project files / folders
 - Fixed the occasional glitch during user interactions
+- Split up the fragment shader
+- Split finessXY into finenessX and finenessY
 
 ## Native side
 - Delete unused functions
@@ -33,6 +35,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Try cuberiles after all
 - Direct volume rendering / volume ray casting
 - The outline box approach
+- Ask whether to keep the glossary or nah
 
 ## General project
 - Sort out references from used code
