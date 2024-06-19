@@ -103,7 +103,7 @@ void check_update() {
         });
 
         // Wait for the thread to finish
-//        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
+        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
     }
 
     timer->measure();
@@ -119,7 +119,7 @@ void init() {
     vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *physics, num_particles);  // Code-wise initialization
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform , *physics, num_particles);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer<std::chrono::steady_clock>();
