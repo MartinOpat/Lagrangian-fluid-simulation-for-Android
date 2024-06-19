@@ -8,7 +8,11 @@
 - background section can be based on state-of-the-art but needs updating to be relevant
 - Discuss capped frame-rate due to v-sync and its impact on the measurements in discussion sections
 - 
-- Discuss the disrepancies (see status update email thread)
+- Discuss the discrepancies (see status update email thread)
+-
+- Check that the uses of "was done" and "will be done" is consistent and makes sense
+- Make sure that it is properly distinguished between the time step of switching files (a day), and a simulation time step (dt)
+- Make sure that it is clear that fluid simulation and particle simulation is the same thing as we are simulating the fluid as particles (probs. in the intro)
 
 ## Android side
 - Delete unused project files / folders
@@ -36,6 +40,8 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Direct volume rendering / volume ray casting
 - The outline box approach
 - Ask whether to keep the glossary or nah
+- Ask whether to keep the keywords and research databases used in the review
+- Ask whether to keep the MPM/SPH methods as examples of current SOA or just remove them altogether and replace with more relevant stuff
 
 ## General project
 - Sort out references from used code
@@ -50,6 +56,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
   - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
 - Put detailed lib versions in the readme.md
 - Put library credit in the readme.md
+- When all is done, get that best thesis price (pwease)
 
 ## Next meeting points
 
