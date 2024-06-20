@@ -42,6 +42,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Ask whether to keep the glossary or nah
 - Ask whether to keep the keywords and research databases used in the review
 - Ask whether to keep the MPM/SPH methods as examples of current SOA or just remove them altogether and replace with more relevant stuff
+- Keep both regular scale and log scale graphs or only log scale?
 
 ## General project
 - Sort out references from used code
