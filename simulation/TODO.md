@@ -39,10 +39,11 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Try cuberiles after all
 - Direct volume rendering / volume ray casting
 - The outline box approach
-- Ask whether to keep the glossary or nah
-- Ask whether to keep the keywords and research databases used in the review
+- ~~Ask whether to keep the glossary or nah~~ - nah remove
+- ~~Ask whether to keep the keywords and research databases used in the review~~
 - Ask whether to keep the MPM/SPH methods as examples of current SOA or just remove them altogether and replace with more relevant stuff
-- Keep both regular scale and log scale graphs or only log scale?
+- ~~Ask keep both regular scale and log scale graphs or only log scale?~~
+- Should I also do memory comparison (even tho the memory is almost constant apart from the moment where reading in a new file) - ~~if so would the profiler be enough for this?~~
 
 ## General project
 - Sort out references from used code
