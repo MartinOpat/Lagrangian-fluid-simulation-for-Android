@@ -56,7 +56,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
   - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
 - Put detailed lib versions in the readme.md
 - Put library credit in the readme.md
-- When all is done, get that best thesis price (pwease)
+- When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination
 
 ## Next meeting points
 
