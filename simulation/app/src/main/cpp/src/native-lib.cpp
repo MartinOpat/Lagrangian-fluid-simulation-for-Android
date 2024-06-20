@@ -103,7 +103,7 @@ void check_update() {
         });
 
         // Wait for the thread to finish
-        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
+//        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
     }
 
     timer->measure();
