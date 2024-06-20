@@ -37,11 +37,11 @@ ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
 
 Timer<std::chrono::steady_clock>* timer;
-CpuTimer* cpuTimer;
-CpuTimer* cpuLoaderTimer;
-GpuTimer* gpuRenderTimer;
-GpuTimer* gpuComputeTimer;
-CpuTimer* cpuComputeTimer;
+//CpuTimer* cpuTimer;
+//CpuTimer* cpuLoaderTimer;
+//GpuTimer* gpuRenderTimer;
+//GpuTimer* gpuComputeTimer;
+//CpuTimer* cpuComputeTimer;
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -91,15 +91,15 @@ void check_update() {
 
         LOGI("native-lib", "Loading step %d", currentFrame);
         threadPool->enqueue([frame = currentFrame]() {
-            cpuLoaderTimer->start();
+//            cpuLoaderTimer->start();
             ///////////////////////////////////////////////// Measured section
             loadStep(frame);
             mainview->preloadComputeBuffer(vectorFieldHandler->getFutureVertices(), eglContextManager->globalFence);
             /////////////////////////////////////////////////
-            cpuLoaderTimer->stop();
-            cpuLoaderTimer->countMeasurement();
-            cpuLoaderTimer->logElapsedTime("Loader");
-            cpuLoaderTimer->reset();
+//            cpuLoaderTimer->stop();
+//            cpuLoaderTimer->countMeasurement();
+//            cpuLoaderTimer->logElapsedTime("Loader");
+//            cpuLoaderTimer->reset();
         });
 
         // Wait for the thread to finish
@@ -107,7 +107,7 @@ void check_update() {
     }
 
     timer->measure();
-    cpuTimer->measure();
+//    cpuTimer->measure();
 }
 
 
@@ -119,15 +119,15 @@ void init() {
     vectorFieldHandler = new VectorFieldHandler(15, 5);
     physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection);
 
-    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform , *physics, num_particles);  // Code-wise initialization
+    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *physics, num_particles);  // Code-wise initialization
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer<std::chrono::steady_clock>();
-    cpuTimer = new CpuTimer();
-    gpuRenderTimer = new GpuTimer();
-    gpuComputeTimer = new GpuTimer();
-    cpuLoaderTimer = new CpuTimer();
-    cpuComputeTimer = new CpuTimer();
+//    cpuTimer = new CpuTimer();
+//    gpuRenderTimer = new GpuTimer();
+//    gpuComputeTimer = new GpuTimer();
+//    cpuLoaderTimer = new CpuTimer();
+//    cpuComputeTimer = new CpuTimer();
 
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
@@ -141,47 +141,47 @@ extern "C" {
         static std::chrono::steady_clock::time_point lastTime2 = std::chrono::steady_clock::now();
         check_update();
 
-        if (mode == Mode::computeShaders) {
-            gpuComputeTimer->start();
-        } else {
-            cpuComputeTimer->start();
-        }
+//        if (mode == Mode::computeShaders) {
+//            gpuComputeTimer->start();
+//        } else {
+//            cpuComputeTimer->start();
+//        }
         ///////////////////////////////////////////////// Measured section
         particlesHandler->simulateParticles(*mainview);
         /////////////////////////////////////////////////
-        if (mode == Mode::computeShaders) {
-            gpuComputeTimer->stop();
-            gpuComputeTimer->countMeasurement();
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
-                gpuComputeTimer->logElapsedTime("Compute");
-                gpuComputeTimer->reset();
-                lastTime2 = std::chrono::steady_clock::now();
-            }
-        } else {
-            cpuComputeTimer->stop();
-            cpuComputeTimer->countMeasurement();
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
-                cpuComputeTimer->logElapsedTime("Compute");
-                cpuComputeTimer->reset();
-                lastTime2 = std::chrono::steady_clock::now();
-            }
-        }
+//        if (mode == Mode::computeShaders) {
+//            gpuComputeTimer->stop();
+//            gpuComputeTimer->countMeasurement();
+//            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+//                gpuComputeTimer->logElapsedTime("Compute");
+//                gpuComputeTimer->reset();
+//                lastTime2 = std::chrono::steady_clock::now();
+//            }
+//        } else {
+//            cpuComputeTimer->stop();
+//            cpuComputeTimer->countMeasurement();
+//            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+//                cpuComputeTimer->logElapsedTime("Compute");
+//                cpuComputeTimer->reset();
+//                lastTime2 = std::chrono::steady_clock::now();
+//            }
+//        }
 
 
-        gpuRenderTimer->start();
+//        gpuRenderTimer->start();
         ///////////////////////////////////////////////// Measured section
         mainview->setFrame();
         vectorFieldHandler->draw(*mainview);
         particlesHandler->draw(*mainview);
         /////////////////////////////////////////////////
-        gpuRenderTimer->stop();
-        gpuRenderTimer->countMeasurement();
-
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime).count() > 1000) {
-            gpuRenderTimer->logElapsedTime("Render");
-            gpuRenderTimer->reset();
-            lastTime = std::chrono::steady_clock::now();
-        }
+//        gpuRenderTimer->stop();
+//        gpuRenderTimer->countMeasurement();
+//
+//        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime).count() > 1000) {
+//            gpuRenderTimer->logElapsedTime("Render");
+//            gpuRenderTimer->reset();
+//            lastTime = std::chrono::steady_clock::now();
+//        }
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
@@ -249,10 +249,10 @@ extern "C" {
         delete physics;
         delete touchHandler;
         delete timer;
-        delete cpuTimer;
-        delete cpuLoaderTimer;
-        delete gpuRenderTimer;
-        delete gpuComputeTimer;
+//        delete cpuTimer;
+//        delete cpuLoaderTimer;
+//        delete gpuRenderTimer;
+//        delete gpuComputeTimer;
         delete threadPool;
         delete eglContextManager;
     }

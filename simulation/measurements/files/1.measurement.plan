@@ -16,5 +16,8 @@
 5 -> -//-, not dense, half time, load time for stacked bar chart -> continuous 7
 6 -> -//-, dense, half time, load time for stacked bar chart -> continuous 8
 7 -> -//-, dense, uniform distrib. -> continuous 9
-8 -> -//-, dense, only wall clock time -> continuous 10
+
+8 -> everything regular as in main, not dense, line, wall clock time -> continuous 10
+9 -> -//-, dense, only wall clock time -> continuous 11
+
 

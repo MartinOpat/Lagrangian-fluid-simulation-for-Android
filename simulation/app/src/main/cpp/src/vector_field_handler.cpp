@@ -63,72 +63,6 @@ void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &vel
 }
 
 /////////////////////////////////////////////////////////////////////////// Dense
-void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData) {
-    std::vector<float> vertices;
-    vertices.reserve(width * height * depth * 6);
-    std::vector<float> tempDisplayVertices;
-    tempDisplayVertices.reserve(getWidth() * getHeight() * getDepth() * 6);
-
-    const float maxU = *std::max_element(uData.begin(), uData.end());
-    const float minU = *std::min_element(uData.begin(), uData.end());
-    const float maxV = *std::max_element(vData.begin(), vData.end());
-    const float minV = *std::min_element(vData.begin(), vData.end());
-    const float maxW = *std::max_element(wData.begin(), wData.end());
-    const float minW = *std::min_element(wData.begin(), wData.end());
-    const float max = std::max({maxU, maxV, maxW});
-    const float min = std::min({minU, minV, minW});
-
-    for (int z = 0; z < depth; z++) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int index = z * width * height + y * width + x;
-
-                float normalizedX = FIELD_WIDTH*((x / (float)(width)) * 2 - 1);
-                float normalizedY = FIELD_HEIGHT*((y / (float)(height)) * 2 - 1);
-                float normalizedZ = FIELD_DEPTH*((z / (float)(depth)) * 2 - 1);
-
-
-                float normalizedU = 2 * ((uData[index] - min) / (max - min)) - 1;
-                float normalizedV = 2 * ((vData[index] - min) / (max - min)) - 1;
-                float normalizedW = 2 * ((wData[index] - min) / (max - min)) - 1;
-
-                // Start point
-                vertices.push_back(normalizedX);
-                vertices.push_back(normalizedY);
-                vertices.push_back(normalizedZ);
-
-                // End point
-                vertices.push_back(normalizedX + normalizedU);
-                vertices.push_back(normalizedY + normalizedV);
-                vertices.push_back(normalizedZ + normalizedW);
-
-                // Display vertices are reduced
-                if (z % finenessZ != 0 || y % finenessXY != 0 || x % finenessXY != 0) continue;
-                tempDisplayVertices.push_back(normalizedX);
-                tempDisplayVertices.push_back(normalizedY);
-                tempDisplayVertices.push_back(normalizedZ);
-
-                float scaleFactor = 10.0f;
-                tempDisplayVertices.push_back(normalizedX + normalizedU*scaleFactor);
-                tempDisplayVertices.push_back(normalizedY + normalizedV*scaleFactor);
-                tempDisplayVertices.push_back(normalizedZ + normalizedW*scaleFactor);
-            }
-        }
-    }
-
-    // Put the newly created vertices in the correct place
-    if (allVertices.size() == 3) {
-        allVertices[2] = vertices;
-        displayVertices[2] = tempDisplayVertices;
-    } else {
-        LOGI("vector_field_handler", "Vertices not yet filled, pushing");
-        allVertices.push_back(vertices);
-        displayVertices.push_back(tempDisplayVertices);
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////// Sparse
 //void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData) {
 //    std::vector<float> vertices;
 //    vertices.reserve(width * height * depth * 6);
@@ -141,6 +75,8 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 //    const float minV = *std::min_element(vData.begin(), vData.end());
 //    const float maxW = *std::max_element(wData.begin(), wData.end());
 //    const float minW = *std::min_element(wData.begin(), wData.end());
+//    const float max = std::max({maxU, maxV, maxW});
+//    const float min = std::min({minU, minV, minW});
 //
 //    for (int z = 0; z < depth; z++) {
 //        for (int y = 0; y < height; y++) {
@@ -153,17 +89,9 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 //                float normalizedZ = FIELD_DEPTH*((z / (float)(depth)) * 2 - 1);
 //
 //
-//                float scaleFactor = 10.0f;
-//                float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
-//                normalizedU *= scaleFactor;
-//                float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
-//                normalizedV *= scaleFactor;
-//                float normalizedW = 2 * ((wData[index] - minW) / (maxW - minW)) - 1;
-//                normalizedW *= scaleFactor;
-//
-//                float endX = normalizedX + normalizedU;
-//                float endY = normalizedY + normalizedV;
-//                float endZ = normalizedZ + normalizedW;
+//                float normalizedU = 2 * ((uData[index] - min) / (max - min)) - 1;
+//                float normalizedV = 2 * ((vData[index] - min) / (max - min)) - 1;
+//                float normalizedW = 2 * ((wData[index] - min) / (max - min)) - 1;
 //
 //                // Start point
 //                vertices.push_back(normalizedX);
@@ -171,9 +99,9 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 //                vertices.push_back(normalizedZ);
 //
 //                // End point
-//                vertices.push_back(endX);
-//                vertices.push_back(endY);
-//                vertices.push_back(endZ);
+//                vertices.push_back(normalizedX + normalizedU);
+//                vertices.push_back(normalizedY + normalizedV);
+//                vertices.push_back(normalizedZ + normalizedW);
 //
 //                // Display vertices are reduced
 //                if (z % finenessZ != 0 || y % finenessXY != 0 || x % finenessXY != 0) continue;
@@ -181,9 +109,10 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 //                tempDisplayVertices.push_back(normalizedY);
 //                tempDisplayVertices.push_back(normalizedZ);
 //
-//                tempDisplayVertices.push_back(endX);
-//                tempDisplayVertices.push_back(endY);
-//                tempDisplayVertices.push_back(endZ);
+//                float scaleFactor = 10.0f;
+//                tempDisplayVertices.push_back(normalizedX + normalizedU*scaleFactor);
+//                tempDisplayVertices.push_back(normalizedY + normalizedV*scaleFactor);
+//                tempDisplayVertices.push_back(normalizedZ + normalizedW*scaleFactor);
 //            }
 //        }
 //    }
@@ -198,6 +127,77 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
 //        displayVertices.push_back(tempDisplayVertices);
 //    }
 //}
+
+/////////////////////////////////////////////////////////////////////////// Sparse
+void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData) {
+    std::vector<float> vertices;
+    vertices.reserve(width * height * depth * 6);
+    std::vector<float> tempDisplayVertices;
+    tempDisplayVertices.reserve(getWidth() * getHeight() * getDepth() * 6);
+
+    const float maxU = *std::max_element(uData.begin(), uData.end());
+    const float minU = *std::min_element(uData.begin(), uData.end());
+    const float maxV = *std::max_element(vData.begin(), vData.end());
+    const float minV = *std::min_element(vData.begin(), vData.end());
+    const float maxW = *std::max_element(wData.begin(), wData.end());
+    const float minW = *std::min_element(wData.begin(), wData.end());
+
+    for (int z = 0; z < depth; z++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                int index = z * width * height + y * width + x;
+
+                float normalizedX = FIELD_WIDTH*((x / (float)(width)) * 2 - 1);
+                float normalizedY = FIELD_HEIGHT*((y / (float)(height)) * 2 - 1);
+                float normalizedZ = FIELD_DEPTH*((z / (float)(depth)) * 2 - 1);
+
+
+                float scaleFactor = 10.0f;
+                float normalizedU = 2 * ((uData[index] - minU) / (maxU - minU)) - 1;
+                normalizedU *= scaleFactor;
+                float normalizedV = 2 * ((vData[index] - minV) / (maxV - minV)) - 1;
+                normalizedV *= scaleFactor;
+                float normalizedW = 2 * ((wData[index] - minW) / (maxW - minW)) - 1;
+                normalizedW *= scaleFactor;
+
+                float endX = normalizedX + normalizedU;
+                float endY = normalizedY + normalizedV;
+                float endZ = normalizedZ + normalizedW;
+
+                // Start point
+                vertices.push_back(normalizedX);
+                vertices.push_back(normalizedY);
+                vertices.push_back(normalizedZ);
+
+                // End point
+                vertices.push_back(endX);
+                vertices.push_back(endY);
+                vertices.push_back(endZ);
+
+                // Display vertices are reduced
+                if (z % finenessZ != 0 || y % finenessXY != 0 || x % finenessXY != 0) continue;
+                tempDisplayVertices.push_back(normalizedX);
+                tempDisplayVertices.push_back(normalizedY);
+                tempDisplayVertices.push_back(normalizedZ);
+
+                tempDisplayVertices.push_back(endX);
+                tempDisplayVertices.push_back(endY);
+                tempDisplayVertices.push_back(endZ);
+            }
+        }
+    }
+
+    // Put the newly created vertices in the correct place
+    if (allVertices.size() == 3) {
+        allVertices[2] = vertices;
+        displayVertices[2] = tempDisplayVertices;
+    } else {
+        LOGI("vector_field_handler", "Vertices not yet filled, pushing");
+        allVertices.push_back(vertices);
+        displayVertices.push_back(tempDisplayVertices);
+    }
+}
 
 
 void VectorFieldHandler::updateTimeStep() {

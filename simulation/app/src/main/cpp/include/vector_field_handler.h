@@ -81,45 +81,45 @@ public:
      *
      * @return The previous vertices.
      */
-    std::vector<float>& getOldVertices() {return allVertices[0];};
+    std::vector<float>& getOldVertices() {return displayVertices[0];};
 
     /**
      * @brief Getter for the next time step vertices.
      *
      * @return The next vertices.
      */
-    std::vector<float>& getNewVertices() {return allVertices[1];};
+    std::vector<float>& getNewVertices() {return displayVertices[1];};
 
     /**
      * @brief Getter for the next (unloaded) time step vertices.
      *
      * @return The future vertices.
      */
-    std::vector<float>& getFutureVertices() {return allVertices[2];};
+    std::vector<float>& getFutureVertices() {return displayVertices[2];};
 
     /**
      * @brief Getter for the width.
      *
      * @return The width.
      */
-    int getWidth() {return width;};
-//    int getWidth() {return (width + finenessXY - 1) / finenessXY;};
+//    int getWidth() {return width;};
+    int getWidth() {return (width + finenessXY - 1) / finenessXY;};
 
     /**
      * @brief Getter for the height.
      *
      * @return The height.
      */
-    int getHeight() {return height;};
-//    int getHeight() {return (height + finenessXY - 1) / finenessXY;};
+//    int getHeight() {return height;};
+    int getHeight() {return (height + finenessXY - 1) / finenessXY;};
 
     /**
      * @brief Getter for the depth.
      *
      * @return The depth.
      */
-    int getDepth() {return depth;};
-//    int getDepth() {return (depth + finenessZ - 1) / finenessZ;};
+//    int getDepth() {return depth;};
+    int getDepth() {return (depth + finenessZ - 1) / finenessZ;};
 
 private:
     // Dimensions of the loaded vector field
