@@ -15,6 +15,8 @@
   - Comp. shaders:
     - 2'200'000
     - 5'000'000
+
+- Make the 1.measurement.plan file  be comprehensible by other humans
     
 - Take some more measurements for cycles with loading such that I can do a [stacked bar chart](https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_stacked.html), i.e. take measurements where load
 time is included asynchroneously as it normaly would be, but calculate the proportions
