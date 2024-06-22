@@ -14,6 +14,9 @@
 - Make sure that it is properly distinguished between the time step of switching files (a day), and a simulation time step (dt)
 - Make sure that it is clear that fluid simulation and particle simulation is the same thing as we are simulating the fluid as particles (probs. in the intro)
 
+### When sending the thesis draft mention:
+- Found the inline feedback for the research proposal draft, did not know that was a thing ... implemented those changes
+
 ## Android side
 - Delete unused project files / folders
 - Fixed the occasional glitch during user interactions
@@ -39,11 +42,6 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Try cuberiles after all
 - Direct volume rendering / volume ray casting
 - The outline box approach
-- ~~Ask whether to keep the glossary or nah~~ - nah remove
-- ~~Ask whether to keep the keywords and research databases used in the review~~
-- Ask whether to keep the MPM/SPH methods as examples of current SOA or just remove them altogether and replace with more relevant stuff
-- ~~Ask keep both regular scale and log scale graphs or only log scale?~~
-- Should I also do memory comparison (even tho the memory is almost constant apart from the moment where reading in a new file) - ~~if so would the profiler be enough for this?~~
 
 ## General project
 - Sort out references from used code
@@ -58,7 +56,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
   - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
 - Put detailed lib versions in the readme.md
 - Put library credit in the readme.md
-- When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination
+- When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination (https://khmw.nl/khmw-jong-talent-prijzen-khmw-young-talent-awards/)
 
 ## Next meeting points
 
