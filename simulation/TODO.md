@@ -44,7 +44,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - The outline box approach
 
 ## General project
-- Sort out references from used code
+- Sort out references/licenses from used code
 - Make sure to use same case (e.g. camelCase)
 - Try better rendering methods when exatra time, e.g. thesis draft is being review ->volume rendering / volume ray casting, find new ones
 - Mention the different (attempted) different ways of rendering stuff - so far: LIC
