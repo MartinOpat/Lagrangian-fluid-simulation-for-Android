@@ -22,6 +22,7 @@
 - Fixed the occasional glitch during user interactions
 - Split up the fragment shader
 - Split finessXY into finenessX and finenessY
+- Do something about that hardcoded string in file_reader
 
 ## Native side
 - Delete unused functions

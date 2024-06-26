@@ -6,10 +6,22 @@
 
 std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilename) {
     // Generate path for the temporary file in the app's internal storage
-    std::string tempFilePath = "/data/data/com.rug.lagrangianfluidsimulation/tmp/" + tempFilename;
+
+    // TODO: Fix this mess
+
+    // main app
+//    std::string tempFilePath = "/data/data/com.rug.lagrangianfluidsimulation/tmp/" + tempFilename;
+//    mkdir("/data/data/com.rug.lagrangianfluidsimulation/tmp/", 0777);
+
+    // Double gyre
+//    std::string tempFilePath = "/data/data/com.rug.lagrangianfluidsimulation.doublegyre/tmp/" + tempFilename;
+//    mkdir("/data/data/com.rug.lagrangianfluidsimulation.doublegyre/tmp/", 0777);
+
+    // Perlin
+    std::string tempFilePath = "/data/data/com.rug.lagrangianfluidsimulation.perlin/tmp/" + tempFilename;
+    mkdir("/data/data/com.rug.lagrangianfluidsimulation.perlin/tmp/", 0777);
 
     // Ensure the directory exists
-    mkdir("/data/data/com.rug.lagrangianfluidsimulation/tmp/", 0777);
 
     // Create and open the temporary file
     int tempFd = open(tempFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
