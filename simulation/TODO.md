@@ -23,6 +23,7 @@
 - Split up the fragment shader
 - Split finessXY into finenessX and finenessY
 - Do something about that hardcoded string in file_reader
+- Move mutex in `transforms.cpp`
 
 ## Native side
 - Delete unused functions

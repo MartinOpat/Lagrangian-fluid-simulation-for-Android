@@ -5,6 +5,8 @@
 #ifndef LAGRANGIAN_FLUID_SIMULATION_TRANSFORMS_H
 #define LAGRANGIAN_FLUID_SIMULATION_TRANSFORMS_H
 
+#include <mutex>
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "consts.h"

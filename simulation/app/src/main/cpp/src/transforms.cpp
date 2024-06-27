@@ -36,9 +36,10 @@ void Transforms::setAspectRatio(float aspectRatio) {
     updateTransformations();
 }
 
+std::mutex mtx;  // TODO: Move this
 void Transforms::updateTransformations() {
     // Update model matrix
-    modelTransform = glm::identity<glm::mat4>();
+    glm::mat4 modelTransform = glm::identity<glm::mat4>();
     modelTransform = glm::scale(modelTransform, glm::vec3(scale, scale, scale));
 
     // Rotation behaviour is order dependent
@@ -55,5 +56,9 @@ void Transforms::updateTransformations() {
     } else {
         width /= aspectRatio;
     }
-    projectionTransform = glm::ortho(-width, width, -height, height, -NEAR_FAR, NEAR_FAR);
+    glm::mat4 projectionTransform = glm::ortho(-width, width, -height, height, -NEAR_FAR, NEAR_FAR);
+
+    std::lock_guard<std::mutex> lock(mtx);
+    this->modelTransform = modelTransform;
+    this->projectionTransform = projectionTransform;
 }
