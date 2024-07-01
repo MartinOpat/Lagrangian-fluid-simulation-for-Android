@@ -5,7 +5,7 @@
 - discussion -> discuss exp., impact, (loading different data, features, interactions, what can be done), future work (tried out things, bottlenecks, load distrib.)
 - Describe required dataset(s) either before methods or very first in methods
 - Reuse abstract and intro from proposal
-- background section can be based on state-of-the-art but needs updating to be relevant
+- background section can be based on globalAppState-of-the-art but needs updating to be relevant
 - Discuss capped frame-rate due to v-sync and its impact on the measurements in discussion sections
 - 
 - Discuss the discrepancies (see status update email thread)
@@ -23,7 +23,7 @@
 - Split up the fragment shader
 - Split finessXY into finenessX and finenessY
 - Move mutex in `transforms.cpp`
-- Consider doing globally passed (by ref.) of app state, like in NativeActivity
+- Consider doing globally passed (by ref.) of app globalAppState, like in NativeActivity
 
 ## Native side
 - Delete unused functions

@@ -37,81 +37,75 @@ struct appState {
     EGLContextManager *eglContextManager;
     NetCDFReader *reader;
 
-    float global_time_in_step;
-    Mode mode;
     int currentFrame ;
     int numFrames;
     float aspectRatio;
 
 };
-void *userData = new appState();
+appState *globalAppState = new appState();
+
+// Global variables from consts.h
+float global_time_in_step = 0.0f;
+Mode mode;
 
 
 inline void loadStep(int frame) {
-    appState *state = static_cast<appState *>(userData);
-    state->vectorFieldHandler->loadTimeStep(*(state->reader), (state->fileDescriptors)[frame], (state->fileDescriptors)[state->numFrames + frame], (state->fileDescriptors)[2*state->numFrames + frame]);
+    globalAppState->vectorFieldHandler->loadTimeStep(*(globalAppState->reader), (globalAppState->fileDescriptors)[frame], (globalAppState->fileDescriptors)[globalAppState->numFrames + frame], (globalAppState->fileDescriptors)[2 * globalAppState->numFrames + frame]);
 }
 
 void loadInitStep() {
-    appState *state = static_cast<appState *>(userData);
-    if (state->numFrames == 0) {
+    if (globalAppState->numFrames == 0) {
         LOGE("native-lib", "No frames loaded");
         return;
-    } else if (state->numFrames == 1) {
+    } else if (globalAppState->numFrames == 1) {
         loadStep(0);
-    } else if (state->numFrames == 2) {
+    } else if (globalAppState->numFrames == 2) {
         loadStep(0);
         loadStep(1);
-        state->currentFrame = 1;
+        globalAppState->currentFrame = 1;
     } else {
         loadStep(0);
         loadStep(1);
         loadStep(2);
-        state->currentFrame = 2;
+        globalAppState->currentFrame = 2;
     }
 }
 
 
 void check_update() {
-    appState *state = static_cast<appState *>(userData);
+    global_time_in_step += (globalAppState->physics)->dt;
+    if (global_time_in_step >= TIME_STEP) {
+        global_time_in_step = 0.0f;
 
-    state->global_time_in_step += (state->physics)->dt;
-    if (state->global_time_in_step >= TIME_STEP) {
-        state->global_time_in_step = 0.0f;
+        (globalAppState->eglContextManager)->syncEGLContext(globalAppState->readerThreadPool);
 
-        (state->eglContextManager)->syncEGLContext(state->readerThreadPool);
+        (globalAppState->vectorFieldHandler)->updateTimeStep();
+        (globalAppState->mainview)->loadComputeBuffer();
+        globalAppState->currentFrame = (globalAppState->currentFrame + 1) % globalAppState->numFrames;
 
-        (state->vectorFieldHandler)->updateTimeStep();
-        (state->mainview)->loadComputeBuffer();
-        state->currentFrame = (state->currentFrame + 1) % state->numFrames;
-
-        LOGI("native-lib", "Loading step %d", state->currentFrame);
-        (state->readerThreadPool)->enqueue([appState = state]() {
+        LOGI("native-lib", "Loading step %d", globalAppState->currentFrame);
+        (globalAppState->readerThreadPool)->enqueue([appState = globalAppState]() {
             loadStep(appState->currentFrame);
             (appState->mainview)->preloadComputeBuffer((appState->vectorFieldHandler)->getFutureVertices(), (appState->eglContextManager)->globalFence);
         });
     }
 
-    (state->timer)->measure();
+    (globalAppState->timer)->measure();
 }
 
 
 void init(std::string packageName) {
-    appState *state = static_cast<appState *>(userData);
+    mode = Mode::computeShaders;
 
-    state->global_time_in_step = 0.0f;
-    state->currentFrame = 0;
-    state->numFrames = 0;
-    state->aspectRatio = 1.0f;
-    state->mode = Mode::computeShaders;
+    globalAppState->currentFrame = 0;
 
-    state->touchHandler = new TouchHandler((state->mainview)->getTransforms());
-    state->reader = new NetCDFReader(packageName);
+    globalAppState->touchHandler = new TouchHandler((globalAppState->mainview)->getTransforms());
+    globalAppState->reader = new NetCDFReader(packageName);
 
     //////////////////////// Double gyre ////////////////////////
-    state->vectorFieldHandler = new VectorFieldHandler(15, 5);
-    state->physics = new Physics(*(state->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
-    state->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines ,*(state->physics), NUM_PARTICLES);
+    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 5);
+    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
+    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines , *(globalAppState->physics), NUM_PARTICLES);
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////
@@ -123,32 +117,30 @@ void init(std::string packageName) {
     // Initialization from file
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);
 
-    state->timer = new Timer<std::chrono::steady_clock>();
+    globalAppState->timer = new Timer<std::chrono::steady_clock>();
 
-    state->readerThreadPool = new ThreadPool(1);
-    state->eglContextManager = new EGLContextManager();
+    globalAppState->readerThreadPool = new ThreadPool(1);
+    globalAppState->eglContextManager = new EGLContextManager();
 
     LOGI("native-lib", "init complete");
 }
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
-        appState *state = static_cast<appState *>(userData);
+//        appState *state = static_cast<appState *>(userData);
 
         check_update();
-        (state->particlesHandler)->simulateParticles(*(state->mainview));
-        (state->mainview)->setFrame();
+        (globalAppState->particlesHandler)->simulateParticles(*(globalAppState->mainview));
+        (globalAppState->mainview)->setFrame();
 
-        (state->vectorFieldHandler)->draw(*(state->mainview));
-        (state->particlesHandler)->draw(*(state->mainview));
-        (state->mainview)->drawUI();
+        (globalAppState->vectorFieldHandler)->draw(*(globalAppState->mainview));
+        (globalAppState->particlesHandler)->draw(*(globalAppState->mainview));
+        (globalAppState->mainview)->drawUI();
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename
-        appState *state = static_cast<appState *>(userData);
-
-        state->mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
-        (state->mainview)->setupGraphics();
+        globalAppState->mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
+        (globalAppState->mainview)->setupGraphics();
 
         std::string folderPath = env->GetStringUTFChars(path, nullptr);
         std::regex regexPattern("/data/user/0/([^/]+)/files");
@@ -157,26 +149,24 @@ extern "C" {
         std::string packageName = match[1].str();
 
         init(packageName);
-        (state->mainview)->getTransforms().setAspectRatio(state->aspectRatio);
-        (state->eglContextManager)->initContext();
+        (globalAppState->mainview)->getTransforms().setAspectRatio(globalAppState->aspectRatio);
+        (globalAppState->eglContextManager)->initContext();
         LOGI("native-lib", "Graphics setup complete");
     }
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadFilesFDs(
                 JNIEnv* env, jobject /* this */, jintArray jfds) {
-        appState *state = static_cast<appState *>(userData);
-
         LOGI("native-lib", "Loading file descriptors");
         jsize len = env->GetArrayLength(jfds);
-        state->numFrames = len / 3;
-        LOGI("native-lib", "Number of frames: %d", state->numFrames);
+        globalAppState->numFrames = len / 3;
+        LOGI("native-lib", "Number of frames: %d", globalAppState->numFrames);
 
         jint* fds = env->GetIntArrayElements(jfds, nullptr);
-        state->fileDescriptors.clear();
-        state->fileDescriptors.reserve(len);
+        globalAppState->fileDescriptors.clear();
+        globalAppState->fileDescriptors.reserve(len);
         for (int i = 0; i < len; i++) {
-            state->fileDescriptors.push_back(fds[i]);
+            globalAppState->fileDescriptors.push_back(fds[i]);
         }
 
         env->ReleaseIntArrayElements(jfds, fds, 0);
@@ -187,28 +177,24 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {  // TODO: Is there a reason for this to be exported ?
-        appState *state = static_cast<appState *>(userData);
-
-        (state->mainview)->createVectorFieldBuffer((state->vectorFieldHandler)->getOldVertices());
-        (state->mainview)->createParticlesBuffer((state->particlesHandler)->getParticlesPositions());
-        (state->mainview)->createComputeBuffer((state->vectorFieldHandler)->getOldVertices(), (state->vectorFieldHandler)->getNewVertices(), (state->vectorFieldHandler)->getFutureVertices());
-        (state->mainview)->loadConstUniforms((state->physics)->dt, (state->vectorFieldHandler)->getWidth(), (state->vectorFieldHandler)->getHeight(), (state->vectorFieldHandler)->getDepth());
+        (globalAppState->mainview)->createVectorFieldBuffer((globalAppState->vectorFieldHandler)->getOldVertices());
+        (globalAppState->mainview)->createParticlesBuffer((globalAppState->particlesHandler)->getParticlesPositions());
+        (globalAppState->mainview)->createComputeBuffer((globalAppState->vectorFieldHandler)->getOldVertices(), (globalAppState->vectorFieldHandler)->getNewVertices(), (globalAppState->vectorFieldHandler)->getFutureVertices());
+        (globalAppState->mainview)->loadConstUniforms((globalAppState->physics)->dt, (globalAppState->vectorFieldHandler)->getWidth(), (globalAppState->vectorFieldHandler)->getHeight(), (globalAppState->vectorFieldHandler)->getDepth());
         LOGI("native-lib", "Buffers created");
     }
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_nativeSendTouchEvent(JNIEnv *env, jobject obj, jint pointerCount, jfloatArray xArray, jfloatArray yArray, jint action) {
-        appState *state = static_cast<appState *>(userData);
-
         jfloat* xTemp = env->GetFloatArrayElements(xArray, nullptr);
         jfloat* yTemp = env->GetFloatArrayElements(yArray, nullptr);
 
         if (pointerCount == 1) {
-            (state->touchHandler)->handleSingleTouch(xTemp[0], yTemp[0], action);
+            (globalAppState->touchHandler)->handleSingleTouch(xTemp[0], yTemp[0], action);
         } else if (pointerCount == 2) {
             float x[2] = {xTemp[0], xTemp[1]};
             float y[2] = {yTemp[0], yTemp[1]};
-            (state->touchHandler)->handleDoubleTouch(x, y, action);
+            (globalAppState->touchHandler)->handleDoubleTouch(x, y, action);
         }
 
         env->ReleaseFloatArrayElements(xArray, xTemp, 0);
@@ -217,45 +203,39 @@ extern "C" {
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_onDestroyNative(JNIEnv *env, jobject thiz) {
-        appState *state = static_cast<appState *>(userData);
+        delete globalAppState->mainview;
+        delete globalAppState->particlesHandler;
+        delete globalAppState->vectorFieldHandler;
+        delete globalAppState->physics;
+        delete globalAppState->touchHandler;
+        delete globalAppState->timer;
+        delete globalAppState->readerThreadPool;
+        delete globalAppState->eglContextManager;
+        delete globalAppState->reader;
 
-        delete state->mainview;
-        delete state->particlesHandler;
-        delete state->vectorFieldHandler;
-        delete state->physics;
-        delete state->touchHandler;
-        delete state->timer;
-        delete state->readerThreadPool;
-        delete state->eglContextManager;
-        delete state->reader;
-
-        delete state;
+        delete globalAppState;
     }
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_loadDeviceInfo(JNIEnv *env, jobject thiz, jdouble jaspectRatio) {
-        appState *state = static_cast<appState *>(userData);
-
-        state->aspectRatio = (float) jaspectRatio;
+        globalAppState->aspectRatio = (float) jaspectRatio;
     }
 
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_FileAccessHelper_loadInitialPositions(JNIEnv *env, jobject thiz, jint fd) {
-        appState *state = static_cast<appState *>(userData);
-
-        if ((state->particlesHandler)->areParticlesInitialized()) {
+        if ((globalAppState->particlesHandler)->areParticlesInitialized()) {
             return;
         }
         LOGI("native-lib", "Loading initial positions");
-        std::string tempFile = (state->reader)->writeTempFileFromFD(fd, "temp.nc");
+        std::string tempFile = (globalAppState->reader)->writeTempFileFromFD(fd, "temp.nc");
 
         if (tempFile.empty()) {
             LOGE("native-lib", "Failed to create temporary file.");
             return;
         }
 
-        (state->particlesHandler)->loadPositionsFromFile(tempFile);
-        (state->mainview)->loadParticlesData((state->particlesHandler)->getParticlesPositions());
+        (globalAppState->particlesHandler)->loadPositionsFromFile(tempFile);
+        (globalAppState->mainview)->loadParticlesData((globalAppState->particlesHandler)->getParticlesPositions());
         LOGI("native-lib", "Particles initialized");
     }
 } // extern "C"

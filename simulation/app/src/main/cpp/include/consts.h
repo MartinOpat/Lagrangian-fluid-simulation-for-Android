@@ -20,7 +20,7 @@
 #define TIME_STEP 50
 
 // [0, TIME_STEP)
-//extern float global_time_in_step;
+extern float global_time_in_step;
 
 // Application mode
 enum class Mode {
@@ -28,9 +28,10 @@ enum class Mode {
     parallel,
     computeShaders
 };
-//extern Mode mode;
+extern Mode mode;
 
-// Application state - user (i.e. programmer) defined
-extern void *userData;
+//// Application state - user (i.e. programmer) defined
+//struct appState;
+//extern appState *globalAppState;
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_CONSTS_H
