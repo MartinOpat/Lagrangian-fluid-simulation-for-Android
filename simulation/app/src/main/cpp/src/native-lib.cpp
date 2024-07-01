@@ -133,18 +133,12 @@ extern "C" {
         mainview->drawUI();
     }
 
-    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {  // TODO: Rename
+    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename
         mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
         mainview->setupGraphics();
         mainview->getTransforms().setAspectRatio(aspectRatio);
 
-        // Get current working folder from JNIEnv
-        jclass cls = env->GetObjectClass(obj);
-        jmethodID mid = env->GetMethodID(cls, "getFilesDir", "()Ljava/io/File;");
-        jobject file = env->CallObjectMethod(obj, mid);
-        jstring path = (jstring) env->CallObjectMethod(file, env->GetMethodID(env->GetObjectClass(file), "getAbsolutePath", "()Ljava/lang/String;"));
         std::string folderPath = env->GetStringUTFChars(path, nullptr);
-
         std::regex regexPattern("/data/user/0/([^/]+)/files");
         std::smatch match;
         std::regex_search(folderPath, match, regexPattern);
