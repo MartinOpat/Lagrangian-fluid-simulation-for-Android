@@ -58,7 +58,9 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
   - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
 - Put detailed lib versions in the readme.md
 - Put library credit in the readme.md
-- When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination (https://khmw.nl/khmw-jong-talent-prijzen-khmw-young-talent-awards/)
+- Add apk as a github release
 
 ## Next meeting points
+- Make repo public?
+- When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination (https://khmw.nl/khmw-jong-talent-prijzen-khmw-young-talent-awards/)
 
