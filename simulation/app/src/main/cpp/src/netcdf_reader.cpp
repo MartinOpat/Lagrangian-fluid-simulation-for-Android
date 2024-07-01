@@ -17,7 +17,7 @@
 #include "include/android_logging.h"
 
 
-NetCDFReader::NetCDFReader() {
+NetCDFReader::NetCDFReader(std::string packageName) : FileReader(packageName) {
     mAssetManager = nullptr;
     mFilename = "";
     variableNames = {};
@@ -37,7 +37,7 @@ void NetCDFReader::loadFile(const std::string& filename) {
 
     AAsset* asset = AAssetManager_open(mAssetManager, mFilename.c_str(), AASSET_MODE_UNKNOWN);
     if (!asset) {
-        std::cerr << "Failed to open asset: " << mFilename << std::endl;
+        LOGE("netcdf-reader", "Failed to open asset: %s", mFilename.c_str());
         return;
     }
 
@@ -59,7 +59,7 @@ void NetCDFReader::loadFile(const std::string& filename) {
             variableNames.push_back(var.first); // Store the name of each variable
         }
     } catch (netCDF::exceptions::NcException& e) {
-        std::cerr << e.what() << std::endl;
+        LOGE("netcdf-reader", "Failed to open NetCDF file: %s", e.what());
     }
 
     std::remove(tempFilename.c_str());
@@ -72,7 +72,7 @@ void NetCDFReader::printVariableNames() const {
         return;
     }
     for (const auto& varName : variableNames) {
-        std::cout << varName << std::endl;
+        LOGI("netcdf-reader", "%s", varName.c_str());
     }
 }
 

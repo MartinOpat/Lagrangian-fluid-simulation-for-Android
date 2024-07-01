@@ -11,6 +11,7 @@
 #include <thread>
 #include <atomic>
 #include <functional>
+#include <regex>
 
 #include "include/android_logging.h"
 #include "include/netcdf_reader.h"
@@ -33,6 +34,8 @@ Physics* physics;
 Timer<std::chrono::steady_clock>* timer;
 ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
+NetCDFReader *reader;
+
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -45,7 +48,7 @@ float aspectRatio = 1.0f;
 
 
 inline void loadStep(int frame) {
-    vectorFieldHandler->loadTimeStep(fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
+    vectorFieldHandler->loadTimeStep(*reader, fileDescriptors[frame], fileDescriptors[numFrames + frame], fileDescriptors[2*numFrames + frame]);
 }
 
 void loadInitStep() {
@@ -90,10 +93,11 @@ void check_update() {
 }
 
 
-void init() {
+void init(std::string packageName) {
     mode = Mode::computeShaders;
 
     touchHandler = new TouchHandler(mainview->getTransforms());
+    reader = new NetCDFReader(packageName);
 
     //////////////////////// Double gyre ////////////////////////
     vectorFieldHandler = new VectorFieldHandler(15, 5);
@@ -129,12 +133,18 @@ extern "C" {
         mainview->drawUI();
     }
 
-    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager) {
+    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename
         mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
         mainview->setupGraphics();
         mainview->getTransforms().setAspectRatio(aspectRatio);
 
-        init();
+        std::string folderPath = env->GetStringUTFChars(path, nullptr);
+        std::regex regexPattern("/data/user/0/([^/]+)/files");
+        std::smatch match;
+        std::regex_search(folderPath, match, regexPattern);
+        std::string packageName = match[1].str();
+
+        init(packageName);
         eglContextManager->initContext();
         LOGI("native-lib", "Graphics setup complete");
     }
@@ -196,6 +206,7 @@ extern "C" {
         delete timer;
         delete threadPool;
         delete eglContextManager;
+        delete reader;
     }
 
     JNIEXPORT void JNICALL
@@ -209,8 +220,7 @@ extern "C" {
             return;
         }
         LOGI("native-lib", "Loading initial positions");
-        NetCDFReader reader;
-        std::string tempFile = reader.writeTempFileFromFD(fd, "temp.nc");
+        std::string tempFile = reader->writeTempFileFromFD(fd, "temp.nc");
 
         if (tempFile.empty()) {
             LOGE("native-lib", "Failed to create temporary file.");

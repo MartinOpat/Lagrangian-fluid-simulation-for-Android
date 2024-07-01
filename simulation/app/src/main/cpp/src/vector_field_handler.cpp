@@ -173,8 +173,7 @@ void VectorFieldHandler::loadTimeStepHelper(const std::string& fileUPath, const 
     std::remove(fileWPath.c_str());
 }
 
-void VectorFieldHandler::loadTimeStep(int fdU, int fdV, int fdW) {
-    NetCDFReader reader;
+void VectorFieldHandler::loadTimeStep(NetCDFReader& reader, int fdU, int fdV, int fdW) {
     std::string tempFileU = reader.writeTempFileFromFD(fdU, "tempU.nc");
     std::string tempFileV = reader.writeTempFileFromFD(fdV, "tempV.nc");
     std::string tempFileW = reader.writeTempFileFromFD(fdW, "tempW.nc");

@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 
 
     private native void drawFrame();
-    public native void setupGraphics(AssetManager assetManager);
+    public native void setupGraphics(AssetManager assetManager, String workPath);
     public native void createBuffers();
     public native void nativeSendTouchEvent(int pointerCount, float[] x, float[] y, int action);
     public native void onDestroyNative();
@@ -69,7 +69,9 @@ public class MainActivity extends Activity {
             @Override
             public void onSurfaceCreated(GL10 gl, EGLConfig config) {
                 AssetManager assetManager = getAssets();
-                setupGraphics(assetManager);
+
+                String workPath = getFilesDir().getAbsolutePath();
+                setupGraphics(assetManager, workPath);
             }
 
             @Override

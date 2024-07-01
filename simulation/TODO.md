@@ -22,6 +22,8 @@
 - Fixed the occasional glitch during user interactions
 - Split up the fragment shader
 - Split finessXY into finenessX and finenessY
+- Move mutex in `transforms.cpp`
+- Consider doing globally passed (by ref.) of app state, like in NativeActivity
 
 ## Native side
 - Delete unused functions

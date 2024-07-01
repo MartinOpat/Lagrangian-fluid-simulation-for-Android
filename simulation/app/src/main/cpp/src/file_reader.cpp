@@ -4,12 +4,18 @@
 
 #include "include/file_reader.h"
 
+FileReader::FileReader(std::string packageName): packageName(packageName) {
+
+}
+
+
 std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilename) {
     // Generate path for the temporary file in the app's internal storage
-    std::string tempFilePath = "/data/data/com.rug.lagrangianfluidsimulation/tmp/" + tempFilename;
+    std::string folderPath = "/data/data/" + packageName + "/tmp/";
+    std::string tempFilePath = folderPath + tempFilename;
 
     // Ensure the directory exists
-    mkdir("/data/data/com.rug.lagrangianfluidsimulation/tmp/", 0777);
+    mkdir(folderPath.c_str(), 0777);
 
     // Create and open the temporary file
     int tempFd = open(tempFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
@@ -36,3 +42,4 @@ std::string FileReader::writeTempFileFromFD(int fd, const std::string& tempFilen
 
     return tempFilePath;
 }
+

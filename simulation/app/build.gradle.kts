@@ -65,6 +65,21 @@ android {
             jniLibs.srcDirs("src/main/jniLibs")
         }
     }
+
+    flavorDimensions("version")
+
+    productFlavors {
+        create("DoubleGyre") {
+            dimension = "version"
+            applicationIdSuffix = ".doublegyre"
+            versionName = "1.0-doublegyre"
+        }
+        create("Perlin") {
+            dimension = "version"
+            applicationIdSuffix = ".perlin"
+            versionName = "1.0-perlin"
+        }
+    }
 }
 
 dependencies {
