@@ -25,7 +25,7 @@ public:
      * @param finenessXY The fineness of the vector field in the X and Y axes.
      * @param finenessZ The fineness of the vector field in the Z-axis.
      */
-    VectorFieldHandler(int finenessXY = 1, int finenessZ = 1);
+    VectorFieldHandler(int finenessX = 1, int finenessY = 1, int finenessZ = 1);
 
     /**
      * @brief Gets the velocity field at the given position.
@@ -104,7 +104,6 @@ public:
      * @return The width.
      */
     int getWidth() {return width;};
-//    int getWidth() {return (width + finenessXY - 1) / finenessXY;};
 
     /**
      * @brief Getter for the height.
@@ -127,7 +126,8 @@ private:
     int depth ;
 
     // Defines how many vertices to omit for rendering (higher value = less vertices)
-    int finenessXY;
+    int finenessX;
+    int finenessY;
     int finenessZ;
 
     std::vector<std::vector<float>> allVertices;

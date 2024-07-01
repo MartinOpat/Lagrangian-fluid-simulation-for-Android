@@ -4,7 +4,7 @@
 
 #include "include/vector_field_handler.h"
 
-VectorFieldHandler::VectorFieldHandler(int finenessXY, int finenessZ): finenessXY(finenessXY), finenessZ(finenessZ) {}
+VectorFieldHandler::VectorFieldHandler(int finenessX, int finenessY, int finenessZ): finenessX(finenessX), finenessY(finenessY), finenessZ(finenessZ) {}
 
 void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices as floating point
@@ -105,7 +105,7 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
                 vertices.push_back(normalizedZ + normalizedW);
 
                 // Display vertices are reduced
-                if (z % finenessZ != 0 || y % finenessXY != 0 || x % finenessXY != 0) continue;
+                if (z % finenessZ != 0 || y % finenessY != 0 || x % finenessX != 0) continue;
                 tempDisplayVertices.push_back(normalizedX);
                 tempDisplayVertices.push_back(normalizedY);
                 tempDisplayVertices.push_back(normalizedZ);

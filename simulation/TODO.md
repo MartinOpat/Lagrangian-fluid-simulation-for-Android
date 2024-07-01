@@ -21,7 +21,6 @@
 - Delete unused project files / folders
 - Fixed the occasional glitch during user interactions
 - Split up the fragment shader
-- Split finessXY into finenessX and finenessY
 
 ## Native side
 - Delete unused functions
