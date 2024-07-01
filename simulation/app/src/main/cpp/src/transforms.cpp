@@ -36,7 +36,7 @@ void Transforms::setAspectRatio(float aspectRatio) {
     updateTransformations();
 }
 
-std::mutex mtx;  // TODO: Move this
+
 void Transforms::updateTransformations() {
     // Update model matrix
     glm::mat4 modelTransform = glm::identity<glm::mat4>();
@@ -58,6 +58,7 @@ void Transforms::updateTransformations() {
     }
     glm::mat4 projectionTransform = glm::ortho(-width, width, -height, height, -NEAR_FAR, NEAR_FAR);
 
+    // Apply changes to the actual matrices
     std::lock_guard<std::mutex> lock(mtx);
     this->modelTransform = modelTransform;
     this->projectionTransform = projectionTransform;

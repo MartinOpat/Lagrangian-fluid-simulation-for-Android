@@ -71,6 +71,7 @@ private:
      */
     void updateTransformations();
 
+    std::mutex mtx;
 
     glm::vec3 rotation;
     float scale;
