@@ -58,11 +58,12 @@ public:
     /**
      * @brief Loads a time step with the given file descriptors for u, v, and w data.
      *
+     * @param reader The NetCDF reader to use.
      * @param fdU The file descriptor for the u data.
      * @param fdV The file descriptor for the v data.
      * @param fdW The file descriptor for the w data.
      */
-    void loadTimeStep(int fdU, int fdV, int fdW);
+    void loadTimeStep(NetCDFReader& reader, int fdU, int fdV, int fdW);
 
     /**
      * @brief Updates the time step.

@@ -61,6 +61,9 @@ public class MainActivity extends Activity {
         double aspectRatio = (double) widthPixels / heightPixels;
         Log.i("MainActivity", "Detected aspect ratio: " + aspectRatio);
         loadDeviceInfo(aspectRatio);
+
+        // Get the current working directory
+        File directory = getFilesDir();
     }
 
     private void setupGLSurfaceView() {

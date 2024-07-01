@@ -22,7 +22,7 @@ public:
     /**
      * @brief Constructor
      */
-    FileReader() {}
+    FileReader(std::string packageName);
 
     /**
      * @brief Writes content from a file descriptor into a temporary file.
@@ -31,6 +31,9 @@ public:
      * @return The path to the created temporary file.
      */
     std::string writeTempFileFromFD(int fd, const std::string& tempFilename);
+
+private:
+    std::string packageName;
 };
 
 

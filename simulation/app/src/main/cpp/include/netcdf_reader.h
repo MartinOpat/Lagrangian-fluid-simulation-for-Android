@@ -22,7 +22,7 @@ public:
     /**
      * @brief Constructor.
      */
-    NetCDFReader();
+    NetCDFReader(std::string packageName);
 
     /**
      * @brief Loads the asset manager.
