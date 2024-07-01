@@ -25,11 +25,13 @@ public:
     /**
      * @enum Model
      * @brief The model of physics for the particles.
+     *
+     * @note particles_simple and particles are not compatible with the compute shader implementation
      */
     enum class Model {
         particles_simple,       // drag force
         particles,              // centripetal, buoyant, drag, gravity, drag, and added mass force
-        particles_advection,    // Advection equation for particles - default
+        particles_advection,    // Advection equation for tracer particles - default
     };
 
     /**

@@ -14,13 +14,9 @@
 - Make sure that it is properly distinguished between the time step of switching files (a day), and a simulation time step (dt)
 - Make sure that it is clear that fluid simulation and particle simulation is the same thing as we are simulating the fluid as particles (probs. in the intro)
 
-### When sending the thesis draft mention:
-- Found the inline feedback for the research proposal draft, did not know that was a thing ... implemented those changes
 
 ## Android side
 - Delete unused project files / folders
-- Fixed the occasional glitch during user interactions
-- Split up the fragment shader
 
 ## Native side
 - Delete unused functions
@@ -48,11 +44,7 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Try better rendering methods when exatra time, e.g. thesis draft is being review ->volume rendering / volume ray casting, find new ones
 - Mention the different (attempted) different ways of rendering stuff - so far: LIC
 - Make a measurement for the "new bottleneck" see how the performance changes with a more random distrib. (either perlin, or bigger double-gyre)
-- Make proper APKs for a) reduced, b) full version of the app
-- Make measurements for (very) small numbers of particles -> see if v-sync doesn't make it pointless
-- Question: Since a lot of the app is asynchronous, for compute shaders especially cause lot of GPU time, is it okay to just limit (unrelated) background processes and measure the wall-clock time?
-  - Ideally measure it all separately, and report that way.
-  - Measure, GPU compute, GPU render, GPU buffer load, CPU file load, CPU time ... all separately, as any could potentially become bottleneck
+
 - Put detailed lib versions in the readme.md
 - Put library credit in the readme.md
 - Add apk as a github release

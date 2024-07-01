@@ -37,13 +37,11 @@ void Mainview::setFrame() {
 
 
 void Mainview::loadUniforms() {
-    this->isPointLocationPoints = glGetUniformLocation(shaderManager->shaderPointsProgram, "uIsPoint");
     this->pointSize = glGetUniformLocation(shaderManager->shaderPointsProgram, "uPointSize");
     this->modelLocationPoints = glGetUniformLocation(shaderManager->shaderPointsProgram, "modelTransform");
     this->viewLocationPoints = glGetUniformLocation(shaderManager->shaderPointsProgram, "viewTransform");
     this->projectionLocationPoints = glGetUniformLocation(shaderManager->shaderPointsProgram, "projectionTransform");
 
-    this->isPointLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "uIsPoint");
     this->modelLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "modelTransform");
     this->projectionLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "projectionTransform");
     this->viewLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "viewTransform");
@@ -95,7 +93,6 @@ void Mainview::drawParticles(int size) {
     glBindVertexArray(particleVAO);
 
     // Load uniforms
-    glUniform1i(isPointLocationPoints, 1);
     glUniform1f(pointSize, 15.0f);
     glUniformMatrix4fv(modelLocationPoints, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
     glUniformMatrix4fv(projectionLocationPoints, 1, GL_TRUE, &(transforms->projectionTransform)[0][0]);
@@ -142,7 +139,6 @@ void Mainview::drawVectorField(int size) {
     glBindVertexArray(vectorFieldVAO);
 
     // Load uniforms
-    glUniform1i(isPointLocationLines, 0);
     glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
     glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &transforms->projectionTransform[0][0]);
     glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &transforms->viewTransform[0][0]);

@@ -105,7 +105,7 @@ void init(std::string packageName) {
     //////////////////////// Double gyre ////////////////////////
     globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
     globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
-    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::two_lines , *(globalAppState->physics), NUM_PARTICLES);
+    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////

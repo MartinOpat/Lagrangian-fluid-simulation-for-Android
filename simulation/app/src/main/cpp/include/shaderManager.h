@@ -126,7 +126,8 @@ private:
 
     // Shader sources
     std::string vertexShaderSource;
-    std::string fragmentShaderSource;
+    std::string fragmentShaderLinesSource;
+    std::string fragmentShaderPointsSource;
     std::string geometryLinesShaderSource;
     std::string geometryPointsShaderSource;
     std::string computeShaderSource;
@@ -135,7 +136,8 @@ private:
 
     // Shaders
     GLuint vertexShader;
-    GLuint fragmentShader;
+    GLuint fragmentShaderLines;
+    GLuint fragmentShaderPoints;
     GLuint geometryLinesShader;
     GLuint geometryPointsShader;
     GLuint computeShader;

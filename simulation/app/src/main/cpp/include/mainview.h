@@ -157,8 +157,6 @@ private:
     NavigCube *navigCube;
 
     // Uniforms
-    GLint isPointLocationLines;
-    GLint isPointLocationPoints;
     GLint pointSize;
     GLint modelLocationLines;
     GLint viewLocationLines;
