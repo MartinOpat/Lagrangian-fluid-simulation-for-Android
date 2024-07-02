@@ -21,8 +21,6 @@
 - Try better rendering methods when exatra time, e.g. thesis draft is being review ->volume rendering / volume ray casting, find new ones
 - Mention the different (attempted) different ways of rendering stuff - so far: LIC
 
-- Add apk as a github release
-
 ## Next meeting points
 - Make repo public?
 - When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination (https://khmw.nl/khmw-jong-talent-prijzen-khmw-young-talent-awards/)
