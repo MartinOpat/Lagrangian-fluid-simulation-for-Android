@@ -103,7 +103,7 @@ void init(std::string packageName) {
     globalAppState->reader = new NetCDFReader(packageName);
 
     //////////////////////// Double gyre ////////////////////////
-    globalAppState->vectorFieldHandler = new VectorFieldHandler(5, 5, 5);
+    globalAppState->vectorFieldHandler = new VectorFieldHandler(7, 7, 7);
     globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
     globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Keep this commented if using loading from file
     /////////////////////////////////////////////////////////////

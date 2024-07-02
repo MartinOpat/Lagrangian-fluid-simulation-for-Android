@@ -191,7 +191,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
         // Copy +/- x sides
         for (int y = 0; y < grid_height; y++) {
             int negXFieldStartIdx = y * grid_width * 6 + z * grid_height * grid_width * 6;
-            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6;
+            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6-6;
             int sideXIdx = z * grid_height * 6 + y*6;
             std::copy_n(&(verticesOld[posXFieldStartIdx]), 6, &(posXSideOld[sideXIdx]));
             std::copy_n(&(verticesOld[negXFieldStartIdx]), 6, &(negXSideOld[sideXIdx]));
@@ -219,7 +219,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
         // Copy +/- x sides
         for (int y = 0; y < grid_height; y++) {
             int negXFieldStartIdx = y * grid_width * 6 + z * grid_height * grid_width * 6;
-            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6;
+            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6-6;
             int sideXIdx = z * grid_height * 6 + y*6;
             std::copy_n(&(verticesNew[posXFieldStartIdx]), 6, &(posXSideNew[sideXIdx]));
             std::copy_n(&(verticesNew[negXFieldStartIdx]), 6, &(negXSideNew[sideXIdx]));
