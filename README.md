@@ -5,7 +5,7 @@
     1. [SDK and NDK installation](#sdk-and-ndk-installation)
     2. [Building the app](#building-the-app)
 2. [Installing the app](#installing-the-app)
-3. [3rd party applications](#3rd-party-applications)
+3. [3rd party libraries](#3rd-party-libraries)
 
 
 
@@ -44,15 +44,18 @@ adb install -r ./app/build/outputs/apk/debug/app-debug.apk
 from the `simulation` folder to install the `apk`.
 
 
-## 3rd Party Applications
+## 3rd Party Libraries
 The following list of 3rd party applications was used in this project:
-- [GLM](https://github.com/g-truc/glm) 1.0.1
 - [zlib](https://github.com/madler/zlib) 1.3.1
 - [hdf5](https://github.com/HDFGroup/hdf5) 1.14.4.2
 - [netcdf-c](https://github.com/Unidata/netcdf-c) 4.9.2
 - [netcdf-cxx](https://github.com/Unidata/netcdf-cxx4) 4.3.1
 
 The libraries above have already been compiled for Android into shader objects (.so) and included in the project. Thus, there is no need to recompile them. However, follow the `simulation/third_party/` instructions if you need to recompile them anyway.
+
+ The following 3rd party C++ libraries were used in the native implementation:
+- [GLM](https://github.com/g-truc/glm) 1.0.1
+- [ThreadPool](https://github.com/progschj/ThreadPool) 
 
 For compiling and building the project for Android, the following list of tools was used:
 - [NDK](https://developer.android.com/ndk) 25.1.8937393
