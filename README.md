@@ -5,6 +5,7 @@
     1. [SDK and NDK installation](#sdk-and-ndk-installation)
     2. [Building the app](#building-the-app)
 2. [Installing the app](#installing-the-app)
+3. [3rd party applications](#3rd-party-applications)
 
 
 
@@ -19,7 +20,7 @@ The SDK and NDK can be installed either at the initial (one-time) setup for Andr
 
 After pressing `apply`, an installer should appear. Once everything is finished, you can leave the settings.
 
-Note that SDK `34.0.0` and NDK `25.1.8937393` were used during the development.
+Note that SDK `34.0.0` and NDK `25.1.8937393` were used during the development (see [3rd party applications](#3rd-party-applications) for more detailed info)
 
 ### Building the app
 The app can be built via [AndroidStudio](https://developer.android.com/studio) or by running
@@ -41,3 +42,21 @@ If you connect your phone to [AndroidStudio](https://developer.android.com/studi
 adb install -r ./app/build/outputs/apk/debug/app-debug.apk
 ```
 from the `simulation` folder to install the `apk`.
+
+
+## 3rd Party Applications
+The following list of 3rd party applications was used in this project:
+- [GLM](https://github.com/g-truc/glm) 1.0.1
+- [zlib](https://github.com/madler/zlib) 1.3.1
+- [hdf5](https://github.com/HDFGroup/hdf5) 1.14.4.2
+- [netcdf-c](https://github.com/Unidata/netcdf-c) 4.9.2
+- [netcdf-cxx](https://github.com/Unidata/netcdf-cxx4) 4.3.1
+
+The libraries above have already been compiled for Android into shader objects (.so) and included in the project. Thus, there is no need to recompile them. However, follow the `simulation/third_party/` instructions if you need to recompile them anyway.
+
+For compiling and building the project for Android, the following list of tools was used:
+- [NDK](https://developer.android.com/ndk) 25.1.8937393
+- [Android SDK Build-Tools](https://developer.android.com/tools/releases/build-tools) 34.0.0
+- [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) 35.0.1
+- [CMake](https://cmake.org/) 3.22.1
+- [Gradle](https://gradle.org/) 8.4

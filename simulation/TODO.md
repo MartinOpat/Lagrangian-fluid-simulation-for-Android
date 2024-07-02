@@ -45,7 +45,6 @@ Note that the dense grid is pretty much an issue just for the compute shaders, f
 - Mention the different (attempted) different ways of rendering stuff - so far: LIC
 - Make a measurement for the "new bottleneck" see how the performance changes with a more random distrib. (either perlin, or bigger double-gyre)
 
-- Put detailed lib versions in the readme.md
 - Put library credit in the readme.md
 - Add apk as a github release
 
