@@ -29,10 +29,24 @@ Mainview::~Mainview() {
 
 void Mainview::setFrame() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+//    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glEnable(GL_BLEND); // Enable blending
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glEnable(GL_BLEND); // Enable blending
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+//    // Enable face culling
+//    glEnable(GL_CULL_FACE);
+//    // Cull back faces
+//    glCullFace(GL_BACK);
+//    // Set front faces as counter-clockwise
+//    glFrontFace(GL_CCW);
+
+// Enable depth testing
+    glEnable(GL_DEPTH_TEST);
+// Set the depth function
+    glDepthFunc(GL_LESS);
+
 }
 
 
@@ -105,48 +119,232 @@ void Mainview::drawParticles(int size) {
     glBindVertexArray(0);
 }
 
+void Mainview::setupColorMap() {
+    // Create and bind the color map texture
+    glGenTextures(1, &colorMapTexture);
+    glBindTexture(GL_TEXTURE_2D, colorMapTexture);
+
+    GLubyte colorData[256 * 3]; // Simple gradient
+    for (int i = 0; i < 256; ++i) {
+        colorData[i * 3 + 0] = (GLubyte)i;        // Red gradient
+        colorData[i * 3 + 1] = (GLubyte)(255 - i); // Green gradient
+        colorData[i * 3 + 2] = 128;               // Constant blue
+    }
+
+    // OpenGL ES does not support GL_TEXTURE_1D, so we use a 2D texture with height = 1
+    glTexImage2D(GL_TEXTURE, 0, GL_RGB, 256, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, colorData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+}
+
+
 void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
+    setupColorMap();
+
     glUseProgram(shaderManager->shaderLinesProgram);
 
-    // Create VBO
     glGenBuffers(1, &vectorFieldVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STREAM_DRAW);
-
-    // Create VAO
     glGenVertexArrays(1, &vectorFieldVAO);
+
     glBindVertexArray(vectorFieldVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
+    glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_STREAM_DRAW);
 
-    // Enable vertex attribute array
+    // Position attribute
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 
-    // Unbind VAO and VBO
+    // Interpolation values attribute
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Mainview::loadVectorFieldData(std::vector<float>& vertices) {
+
+void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<float>& verticesNew) {
     glUseProgram(shaderManager->shaderLinesProgram);
 
+
+    // Fill each box side vector but in constant time because we exactly know where the sides values are
+
+    std::vector<float> posXSideOld(grid_depth * grid_height * 6);
+    std::vector<float> negXSideOld(grid_depth * grid_height * 6);
+    std::vector<float> posYSideOld(grid_width * grid_depth * 6);
+    std::vector<float> negYSideOld(grid_width * grid_depth * 6);
+    std::vector<float> posZSideOld(grid_width * grid_height * 6);
+    std::vector<float> negZSideOld(grid_width * grid_height * 6);
+
+    // Copy +/- z sides
+    std::copy_n(verticesOld.begin(), grid_width * grid_height * 6, negZSideOld.begin());
+    std::copy_n(verticesOld.end() - grid_width * grid_height * 6, grid_width * grid_height * 6, posZSideOld.begin());
+    // Copy +/- y sides
+    for (int z = 0; z < grid_depth; z++) {
+        int negFieldStartIdx = z * grid_height * grid_width * 6;
+        int posFieldStartIdx = negFieldStartIdx + grid_height * grid_width * 6 - grid_width * 6;
+        int sideIdx = z * grid_width * 6;
+        std::copy_n(&(verticesOld[posFieldStartIdx]), 6 * grid_width, &(posYSideOld[sideIdx]));
+        std::copy_n(&(verticesOld[negFieldStartIdx]), 6 * grid_width, &(negYSideOld[sideIdx]));
+        // Copy +/- x sides
+        for (int y = 0; y < grid_height; y++) {
+            int negXFieldStartIdx = y * grid_width * 6 + z * grid_height * grid_width * 6;
+            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6;
+            int sideXIdx = z * grid_height * 6 + y*6;
+            std::copy_n(&(verticesOld[posXFieldStartIdx]), 6, &(posXSideOld[sideXIdx]));
+            std::copy_n(&(verticesOld[negXFieldStartIdx]), 6, &(negXSideOld[sideXIdx]));
+        }
+    }
+
+
+    std::vector<float> posXSideNew(grid_depth * grid_height * 6);
+    std::vector<float> negXSideNew(grid_depth * grid_height * 6);
+    std::vector<float> posYSideNew(grid_width * grid_depth * 6);
+    std::vector<float> negYSideNew(grid_width * grid_depth * 6);
+    std::vector<float> posZSideNew(grid_width * grid_height * 6);
+    std::vector<float> negZSideNew(grid_width * grid_height * 6);
+
+    // Copy +/- z sides
+    std::copy_n(verticesNew.begin(), grid_width * grid_height * 6, negZSideNew.begin());
+    std::copy_n(verticesNew.end() - grid_width * grid_height * 6, grid_width * grid_height * 6, posZSideNew.begin());
+    // Copy +/- y sides
+    for (int z = 0; z < grid_depth; z++) {
+        int negFieldStartIdx = z * grid_height * grid_width * 6;
+        int posFieldStartIdx = negFieldStartIdx + grid_height * grid_width * 6 - grid_width * 6;
+        int sideIdx = z * grid_width * 6;
+        std::copy_n(&(verticesNew[posFieldStartIdx]), 6 * grid_width, &(posYSideNew[sideIdx]));
+        std::copy_n(&(verticesNew[negFieldStartIdx]), 6 * grid_width, &(negYSideNew[sideIdx]));
+        // Copy +/- x sides
+        for (int y = 0; y < grid_height; y++) {
+            int negXFieldStartIdx = y * grid_width * 6 + z * grid_height * grid_width * 6;
+            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6;
+            int sideXIdx = z * grid_height * 6 + y*6;
+            std::copy_n(&(verticesNew[posXFieldStartIdx]), 6, &(posXSideNew[sideXIdx]));
+            std::copy_n(&(verticesNew[negXFieldStartIdx]), 6, &(negXSideNew[sideXIdx]));
+        }
+    }
+
+    // TODO: Make it less dense here.
+
+
+    std::vector<float> posXSide(posXSideOld.size());
+    std::vector<float> negXSide(negXSideOld.size());
+    std::vector<float> posYSide(posYSideOld.size());
+    std::vector<float> negYSide(negYSideOld.size());
+    std::vector<float> posZSide(posZSideOld.size());
+    std::vector<float> negZSide(negZSideOld.size());
+
+    // Interpolate between new and old
+    for (int i = 0; i < posXSideOld.size(); i++) {
+        posXSide[i] = posXSideOld[i] + global_time_in_step / (float) TIME_STEP * (posXSideNew[i] - posXSideOld[i]);
+        negXSide[i] = negXSideOld[i] + global_time_in_step / (float) TIME_STEP * (negXSideNew[i] - negXSideOld[i]);
+    }
+    for (int i = 0; i < posYSideOld.size(); i++) {
+        posYSide[i] = posYSideOld[i] + global_time_in_step / (float) TIME_STEP * (posYSideNew[i] - posYSideOld[i]);
+        negYSide[i] = negYSideOld[i] + global_time_in_step / (float) TIME_STEP * (negYSideNew[i] - negYSideOld[i]);
+    }
+    for (int i = 0; i < posZSideOld.size(); i++) {
+        posZSide[i] = posZSideOld[i] + global_time_in_step / (float) TIME_STEP * (posZSideNew[i] - posZSideOld[i]);
+        negZSide[i] = negZSideOld[i] + global_time_in_step / (float) TIME_STEP * (negZSideNew[i] - negZSideOld[i]);
+    }
+
+    faceTriangles.clear();
+
+    // z+ face
+    for (int x = 0; x < grid_width-1; x++) {
+        for (int y = 0; y < grid_height-1; y++) {
+            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + y * grid_width) * 6, posZSide.begin() + (x + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + (y + 1) * grid_width) * 6, posZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + ((x + 1) + y * grid_width) * 6, posZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + ((x + 1) + y * grid_width) * 6, posZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + (y + 1) * grid_width) * 6, posZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6, posZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6 + 6);
+        }
+    }
+
+    // y+ face
+    for (int x = 0; x < grid_width-1; x++) {
+        for (int z = 0; z < grid_depth-1; z++) {
+            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + (x + z * grid_width) * 6, posYSideOld.begin() + (x + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + (x + (z + 1) * grid_width) * 6, posYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + ((x + 1) + z * grid_width) * 6, posYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + ((x + 1) + z * grid_width) * 6, posYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + (x + (z + 1) * grid_width) * 6, posYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6, posYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
+        }
+    }
+
+//    // x+ face
+    for (int y = 0; y < grid_height-1; y++) {
+        for (int z = 0; z < grid_depth-1; z++) {
+            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + (y + z * grid_height) * 6, posXSideOld.begin() + (y + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + (y + (z + 1) * grid_height) * 6, posXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + ((y + 1) + z * grid_height) * 6, posXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + ((y + 1) + z * grid_height) * 6, posXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + (y + (z + 1) * grid_height) * 6, posXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6, posXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
+        }
+    }
+//
+    // z- face
+    for (int x = 0; x < grid_width-1; x++) {
+        for (int y = 0; y < grid_height-1; y++) {
+            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + (x + y * grid_width) * 6, negZSideOld.begin() + (x + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + (x + (y + 1) * grid_width) * 6, negZSideOld.begin() + (x + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + ((x + 1) + y * grid_width) * 6, negZSideOld.begin() + ((x + 1) + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + ((x + 1) + y * grid_width) * 6, negZSideOld.begin() + ((x + 1) + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + (x + (y + 1) * grid_width) * 6, negZSideOld.begin() + (x + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + ((x + 1) + (y + 1) * grid_width) * 6, negZSideOld.begin() + ((x + 1) + (y + 1) * grid_width) * 6 + 6);
+        }
+    }
+//
+    // y- face
+    for (int x = 0; x < grid_width-1; x++) {
+        for (int z = 0; z < grid_depth-1; z++) {
+            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + (x + z * grid_width) * 6, negYSideOld.begin() + (x + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + (x + (z + 1) * grid_width) * 6, negYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + ((x + 1) + z * grid_width) * 6, negYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + ((x + 1) + z * grid_width) * 6, negYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + (x + (z + 1) * grid_width) * 6, negYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6, negYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
+        }
+    }
+//
+//    // x- face
+    for (int y = 0; y < grid_height-1; y++) {
+        for (int z = 0; z < grid_depth-1; z++) {
+            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + (y + z * grid_height) * 6, negXSideOld.begin() + (y + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + (y + (z + 1) * grid_height) * 6, negXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + ((y + 1) + z * grid_height) * 6, negXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + ((y + 1) + z * grid_height) * 6, negXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + (y + (z + 1) * grid_height) * 6, negXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6, negXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
+        }
+    }
+
+    glBindVertexArray(vectorFieldVAO);
     glBindBuffer(GL_ARRAY_BUFFER, vectorFieldVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STREAM_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, faceTriangles.size() * sizeof(float), faceTriangles.data(), GL_STREAM_DRAW);
+
+    glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Mainview::drawVectorField(int size) {
-    // Load VAO
-    glBindVertexArray(vectorFieldVAO);
+    // Load VAOs
+    glUseProgram(shaderManager->shaderLinesProgram);
 
-    // Load uniforms
+    glBindVertexArray(vectorFieldVAO);
     glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
     glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &transforms->projectionTransform[0][0]);
     glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &transforms->viewTransform[0][0]);
 
-    // Draw
-    glDrawArrays(GL_LINES, 0, size / 3);
 
-    // Unbind
+    LOGI("Mainview", "Drawing vector field of size: %zu", faceTriangles.size());
+    glDrawArrays(GL_TRIANGLES, 0, faceTriangles.size() / 6);
+
     glBindVertexArray(0);
 }
 

@@ -10,6 +10,11 @@
 #define FIELD_HEIGHT 100.0f
 #define FIELD_DEPTH 50.0f
 
+// Grid dimensions
+extern int grid_width;
+extern int grid_height;
+extern int grid_depth;
+
 // Near/far rendering planes
 #define NEAR_FAR 500.0f
 

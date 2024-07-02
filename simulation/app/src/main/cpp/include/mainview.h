@@ -57,7 +57,7 @@ public:
 
      * @param vertices A reference to the flat vector of vertices (6 floats per vector).
      */
-    void loadVectorFieldData(std::vector<float>& vertices);
+    void loadVectorFieldData(std::vector<float>& verticesOld, std::vector<float>& verticesNew);
 
     /**
      * @brief Draws the vector field.
@@ -146,6 +146,8 @@ public:
      */
     void drawUI();
 
+    void setupColorMap();
+
 private:
     /**
      * @brief Loads the uniforms.
@@ -174,6 +176,12 @@ private:
     GLuint computeVectorField0SSBO;
     GLuint computeVectorField1SSBO;
     GLuint computeVectorField2SSBO;
+
+    // Textures
+    GLuint colorMapTexture;
+
+    // Array containing vertices for the triangles forming the faces of the cuboid
+    std::vector<float> faceTriangles;
 };
 
 #endif // GL_SHADER_MANAGER_H

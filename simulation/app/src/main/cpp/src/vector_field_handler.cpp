@@ -4,7 +4,14 @@
 
 #include "include/vector_field_handler.h"
 
-VectorFieldHandler::VectorFieldHandler(int finenessX, int finenessY, int finenessZ): finenessX(finenessX), finenessY(finenessY), finenessZ(finenessZ) {}
+// System-wide vars. from consts.h
+int grid_width = 0;
+int grid_height = 0;
+int grid_depth = 0;
+
+VectorFieldHandler::VectorFieldHandler(int finenessX, int finenessY, int finenessZ): finenessX(finenessX), finenessY(finenessY), finenessZ(finenessZ) {
+
+}
 
 void VectorFieldHandler::velocityField(const glm::vec3 &position, glm::vec3 &velocity) {
     // Transform position [-1, 1] range to [0, adjWidth/adjHeight] grid indices as floating point
@@ -118,6 +125,14 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
         }
     }
 
+    // Display grid dimensions
+    grid_width = width;
+//    grid_width = (width + finenessX - 1) / finenessX;
+    grid_height = height;
+//    grid_height = (height + finenessY - 1) / finenessY;
+    grid_depth = depth;
+//    grid_depth = (depth + finenessZ - 1) / finenessZ;
+
     // Put the newly created vertices in the correct place
     if (allVertices.size() == 3) {
         allVertices[2] = vertices;
@@ -188,12 +203,12 @@ void VectorFieldHandler::loadTimeStep(NetCDFReader& reader, int fdU, int fdV, in
 void VectorFieldHandler::draw(Mainview& mainview) {
     // Interpolate between the two time steps
     // y = [0] + t / T * ([0]-[1])
-    std::vector<float> vertices(displayVertices[0].size());
-    for (int i = 0; i < displayVertices[0].size(); i++) {
-        vertices[i] = displayVertices[0][i] + global_time_in_step / (float) TIME_STEP * (displayVertices[1][i] - displayVertices[0][i]);
-    }
+//    std::vector<float> vertices(displayVertices[0].size());
+//    for (int i = 0; i < displayVertices[0].size(); i++) {
+//        vertices[i] = displayVertices[0][i] + global_time_in_step / (float) TIME_STEP * (displayVertices[1][i] - displayVertices[0][i]);
+//    }
 
     // Load the data into the shader and draw
-    mainview.loadVectorFieldData(vertices);
-    mainview.drawVectorField(vertices.size());
+    mainview.loadVectorFieldData(allVertices[0], allVertices[1]);
+    mainview.drawVectorField(allVertices[0].size());
 }

@@ -2,11 +2,14 @@
 
 #define PI 3.14159265
 
-layout(lines) in;
-layout(line_strip, max_vertices = 2) out;
+layout(triangles) in;
+layout(triangle_strip, max_vertices = 3) out;
 
 in vec3 pos[];
-flat out vec4 col;
+in vec3 pos2[];
+
+out vec4 col;
+out float angle;
 
 uniform mat4 projectionTransform;
 uniform mat4 viewTransform;
@@ -31,27 +34,24 @@ vec3 angleToRGB(float angle) {
 }
 
 void main() {
-    // Get position
-    vec3 startPosition = pos[0];
-    vec3 endPosition = pos[1];
+    for (int i = 0; i < 3; i++) {
+        // Get position
+        vec3 startPosition = pos[i];
+        vec3 endPosition = pos2[i];
 
-    // Transform position
-    vec4 worldStartPos = modelTransform * vec4(startPosition, 1.0);
-    vec4 worldEndPos = modelTransform * vec4(endPosition, 1.0);
+        // Transform position
+        vec4 worldStartPos = modelTransform * vec4(startPosition, 1.0);
+        vec4 worldEndPos = modelTransform * vec4(endPosition, 1.0);
 
-    // Get angle
-    vec3 v = normalize(endPosition - startPosition);
-    float angle = atan(v.y, v.x);
+        // Get angle
+        vec3 v = normalize(endPosition - startPosition);
+        angle = atan(v.y, v.x);
 
-    // Get color
-    col = vec4(angleToRGB(angle), 1.0);
-
-    // Emit vertices
-    gl_Position = projectionTransform * viewTransform * worldStartPos;
-    EmitVertex();
-
-    gl_Position = projectionTransform * viewTransform * worldEndPos;
-    EmitVertex();
+        // Set color and position
+        col = vec4(angleToRGB(angle), 1.0);
+        gl_Position = projectionTransform * viewTransform * worldStartPos;
+        EmitVertex();
+    }
 
     EndPrimitive();
 }
