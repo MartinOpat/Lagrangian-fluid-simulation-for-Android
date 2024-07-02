@@ -126,12 +126,12 @@ void VectorFieldHandler::prepareVertexData(const std::vector<float>& uData, cons
     }
 
     // Display grid dimensions
-    grid_width = width;
-//    grid_width = (width + finenessX - 1) / finenessX;
-    grid_height = height;
-//    grid_height = (height + finenessY - 1) / finenessY;
-    grid_depth = depth;
-//    grid_depth = (depth + finenessZ - 1) / finenessZ;
+//    grid_width = width;
+    grid_width = (width + finenessX - 1) / finenessX;
+//    grid_height = height;
+    grid_height = (height + finenessY - 1) / finenessY;
+//    grid_depth = depth;
+    grid_depth = (depth + finenessZ - 1) / finenessZ;
 
     // Put the newly created vertices in the correct place
     if (allVertices.size() == 3) {
@@ -209,6 +209,6 @@ void VectorFieldHandler::draw(Mainview& mainview) {
 //    }
 
     // Load the data into the shader and draw
-    mainview.loadVectorFieldData(allVertices[0], allVertices[1]);
-    mainview.drawVectorField(allVertices[0].size());
+    mainview.loadVectorFieldData(displayVertices[0], displayVertices[1]);
+    mainview.drawVectorField(displayVertices[0].size());
 }

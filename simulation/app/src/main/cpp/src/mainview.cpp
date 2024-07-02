@@ -267,60 +267,60 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     // y+ face
     for (int x = 0; x < grid_width-1; x++) {
         for (int z = 0; z < grid_depth-1; z++) {
-            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + (x + z * grid_width) * 6, posYSideOld.begin() + (x + z * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + (x + (z + 1) * grid_width) * 6, posYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + ((x + 1) + z * grid_width) * 6, posYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + ((x + 1) + z * grid_width) * 6, posYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + (x + (z + 1) * grid_width) * 6, posYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6, posYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + z * grid_width) * 6, posYSide.begin() + (x + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + (z + 1) * grid_width) * 6, posYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + z * grid_width) * 6, posYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + z * grid_width) * 6, posYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + (z + 1) * grid_width) * 6, posYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6, posYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
         }
     }
 
 //    // x+ face
     for (int y = 0; y < grid_height-1; y++) {
         for (int z = 0; z < grid_depth-1; z++) {
-            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + (y + z * grid_height) * 6, posXSideOld.begin() + (y + z * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + (y + (z + 1) * grid_height) * 6, posXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + ((y + 1) + z * grid_height) * 6, posXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + ((y + 1) + z * grid_height) * 6, posXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + (y + (z + 1) * grid_height) * 6, posXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), posXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6, posXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + z * grid_height) * 6, posXSide.begin() + (y + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + (z + 1) * grid_height) * 6, posXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + z * grid_height) * 6, posXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + z * grid_height) * 6, posXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + (z + 1) * grid_height) * 6, posXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6, posXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
         }
     }
 //
     // z- face
     for (int x = 0; x < grid_width-1; x++) {
         for (int y = 0; y < grid_height-1; y++) {
-            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + (x + y * grid_width) * 6, negZSideOld.begin() + (x + y * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + (x + (y + 1) * grid_width) * 6, negZSideOld.begin() + (x + (y + 1) * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + ((x + 1) + y * grid_width) * 6, negZSideOld.begin() + ((x + 1) + y * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + ((x + 1) + y * grid_width) * 6, negZSideOld.begin() + ((x + 1) + y * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + (x + (y + 1) * grid_width) * 6, negZSideOld.begin() + (x + (y + 1) * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negZSideOld.begin() + ((x + 1) + (y + 1) * grid_width) * 6, negZSideOld.begin() + ((x + 1) + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + y * grid_width) * 6, negZSide.begin() + (x + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + (y + 1) * grid_width) * 6, negZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + ((x + 1) + y * grid_width) * 6, negZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + ((x + 1) + y * grid_width) * 6, negZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + (y + 1) * grid_width) * 6, negZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6, negZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6 + 6);
         }
     }
 //
     // y- face
     for (int x = 0; x < grid_width-1; x++) {
         for (int z = 0; z < grid_depth-1; z++) {
-            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + (x + z * grid_width) * 6, negYSideOld.begin() + (x + z * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + (x + (z + 1) * grid_width) * 6, negYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + ((x + 1) + z * grid_width) * 6, negYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + ((x + 1) + z * grid_width) * 6, negYSideOld.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + (x + (z + 1) * grid_width) * 6, negYSideOld.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6, negYSideOld.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + z * grid_width) * 6, negYSide.begin() + (x + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + (z + 1) * grid_width) * 6, negYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + z * grid_width) * 6, negYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + z * grid_width) * 6, negYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + (z + 1) * grid_width) * 6, negYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6, negYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
         }
     }
 //
 //    // x- face
     for (int y = 0; y < grid_height-1; y++) {
         for (int z = 0; z < grid_depth-1; z++) {
-            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + (y + z * grid_height) * 6, negXSideOld.begin() + (y + z * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + (y + (z + 1) * grid_height) * 6, negXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + ((y + 1) + z * grid_height) * 6, negXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + ((y + 1) + z * grid_height) * 6, negXSideOld.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + (y + (z + 1) * grid_height) * 6, negXSideOld.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-            faceTriangles.insert(faceTriangles.end(), negXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6, negXSideOld.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + z * grid_height) * 6, negXSide.begin() + (y + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + (z + 1) * grid_height) * 6, negXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + z * grid_height) * 6, negXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + z * grid_height) * 6, negXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + (z + 1) * grid_height) * 6, negXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
+            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6, negXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
         }
     }
 
@@ -342,7 +342,7 @@ void Mainview::drawVectorField(int size) {
     glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &transforms->viewTransform[0][0]);
 
 
-    LOGI("Mainview", "Drawing vector field of size: %zu", faceTriangles.size());
+//    LOGI("Mainview", "Drawing vector field of size: %zu", faceTriangles.size());
     glDrawArrays(GL_TRIANGLES, 0, faceTriangles.size() / 6);
 
     glBindVertexArray(0);
