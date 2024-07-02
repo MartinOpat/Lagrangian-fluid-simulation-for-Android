@@ -105,17 +105,17 @@ void init(std::string packageName) {
     //////////////////////// Double gyre ////////////////////////
     globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
     globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
-    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);
+//    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Keep this commented if using loading from file
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////
-//    vectorFieldHandler = new VectorFieldHandler();
-//    physics = new Physics(*vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
-//    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);
+//    globalAppState->vectorFieldHandler = new VectorFieldHandler();
+//    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
+//    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Keep this commented if using loading from file
     /////////////////////////////////////////////////////////////
 
     // Initialization from file
-//    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);
+    globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);
 
     globalAppState->timer = new Timer<std::chrono::steady_clock>();
 
