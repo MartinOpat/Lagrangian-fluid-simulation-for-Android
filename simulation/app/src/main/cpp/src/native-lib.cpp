@@ -103,14 +103,14 @@ void init(std::string packageName) {
     globalAppState->reader = new NetCDFReader(packageName);
 
     //////////////////////// Double gyre ////////////////////////
-    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
-    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
+//    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
+//    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
 //    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Keep this commented if using loading from file
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////
-//    globalAppState->vectorFieldHandler = new VectorFieldHandler();
-//    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
+    globalAppState->vectorFieldHandler = new VectorFieldHandler();
+    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
 //    particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*physics, NUM_PARTICLES);  // Keep this commented if using loading from file
     /////////////////////////////////////////////////////////////
 

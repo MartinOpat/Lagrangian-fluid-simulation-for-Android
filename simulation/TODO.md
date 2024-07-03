@@ -7,6 +7,7 @@
 
 ## Android side
 - Delete unused project files / folders
+- Properly handle the screen layout (see boxVisualization branch)
 
 ## Native side
 - Delete unused functions
