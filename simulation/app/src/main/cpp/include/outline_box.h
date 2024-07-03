@@ -33,85 +33,51 @@ public:
 private:
     GLuint VBOs[2], VAO;
 
-//    const GLfloat vertices[96] = {
-//            // Bottom
-//            0.0f, 0.0f, 0.0f, 1.0f,
-//            FIELD_WIDTH, 0.0f, 0.0f, 1.0f,
-//
-//            FIELD_WIDTH, 0.0f, 0.0f, 1.0f,
-//            FIELD_WIDTH, 0.0f, FIELD_DEPTH, 1.0f,
-//
-//            FIELD_WIDTH, 0.0f, FIELD_DEPTH, 1.0f,
-//            0.0f, 0.0f, FIELD_DEPTH, 1.0f,
-//
-//            0.0f, 0.0f, FIELD_DEPTH, 1.0f,
-//            0.0f, 0.0f, 0.0f, 1.0f,
-//
-//            // Top
-//            0.0f, FIELD_HEIGHT, 0.0f, 1.0f,
-//            FIELD_WIDTH, FIELD_HEIGHT, 0.0f, 1.0f,
-//
-//            FIELD_WIDTH, FIELD_HEIGHT, 0.0f, 1.0f,
-//            FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-//
-//            FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-//            0.0f, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-//
-//            0.0f, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-//            0.0f, FIELD_HEIGHT, 0.0f, 1.0f,
-//
-//            // Sides
-//            0.0f, 0.0f, 0.0f, 1.0f,
-//            0.0f, FIELD_HEIGHT, 0.0f, 1.0f,
-//
-//            FIELD_WIDTH, 0.0f, 0.0f, 1.0f,
-//            FIELD_WIDTH, FIELD_HEIGHT, 0.0f, 1.0f,
-//
-//            FIELD_WIDTH, 0.0f, FIELD_DEPTH, 1.0f,
-//            FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-//
-//            0.0f, 0.0f, FIELD_DEPTH, 1.0f,
-//            0.0f, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-//    };
-
-    const float max_dim = std::max(FIELD_WIDTH, std::max(FIELD_HEIGHT, FIELD_DEPTH));
-
+    const float zNegModif = 0.98f;
+    const float yNegModif = 0.98f;
+    const float xNegModif = 0.98f;
+    const float zPosModif = 1.03f;
+    const float yPosModif = 1.02f;
+    const float xPosModif = 1.01f;
     const GLfloat vertices[96] = {
-            -FIELD_WIDTH, -FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            FIELD_WIDTH, -FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
+            // ___ Face
+            -xPosModif*FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
 
-            FIELD_WIDTH, -FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            FIELD_WIDTH, FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, yNegModif * FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
 
-            FIELD_WIDTH, FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            -FIELD_WIDTH, FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, yNegModif * FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, yNegModif * FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
 
-            -FIELD_WIDTH, FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            -FIELD_WIDTH, -FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, yNegModif * FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
 
-            -FIELD_WIDTH, -FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-            FIELD_WIDTH, -FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            FIELD_WIDTH, -FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-            FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            // ___ Face
+            xNegModif * FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, yNegModif * FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-            -FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, yNegModif * FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, yNegModif * FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            -FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
-            -FIELD_WIDTH, -FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, yNegModif * FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            -FIELD_WIDTH, -FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            -FIELD_WIDTH, -FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            // Connecting lines
+            -xPosModif*FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            FIELD_WIDTH, -FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            FIELD_WIDTH, -FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, -yPosModif*FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            FIELD_WIDTH, FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, yNegModif * FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            xNegModif * FIELD_WIDTH, yNegModif * FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
 
-            -FIELD_WIDTH, FIELD_HEIGHT, -FIELD_DEPTH, 1.0f,
-            -FIELD_WIDTH, FIELD_HEIGHT, FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, yNegModif * FIELD_HEIGHT, -zPosModif * FIELD_DEPTH, 1.0f,
+            -xPosModif*FIELD_WIDTH, yNegModif * FIELD_HEIGHT, zNegModif * FIELD_DEPTH, 1.0f,
     };
 
     const GLfloat colors[96] = {
@@ -174,7 +140,7 @@ inline OutlineBox::OutlineBox() {
 inline void OutlineBox::draw(GLuint shaderProgram, glm::mat4& modelTransform) {
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelTransform"), 1, GL_TRUE, &modelTransform[0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelTransform"), 1, GL_FALSE, &modelTransform[0][0]);
     glDrawArrays(GL_LINES, 0, 24);
     glBindVertexArray(0);
 }

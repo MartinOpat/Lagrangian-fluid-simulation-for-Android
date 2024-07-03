@@ -400,7 +400,7 @@ void Mainview::dispatchComputeShader() {
 void Mainview::drawUI() {
     // Prepare transformations
     glm::mat4x4 modelTransform = transforms->modelTransform;
-    glm::mat4x4 modelProjectionTransform = transforms->projectionTransform *  modelTransform;
+    glm::mat4x4 modelProjectionTransform = transforms->projectionTransform *  transforms->viewTransform * glm::transpose(transforms->modelTransform);
 
     ///////////////////////////// Navigation Cube /////////////////////////////
     navigCube->loadConstUniforms(shaderManager->shaderUIProgram);
