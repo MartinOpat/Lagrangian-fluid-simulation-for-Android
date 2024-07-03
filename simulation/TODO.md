@@ -25,3 +25,6 @@
 - Make repo public?
 - When all is done, get that best thesis price (pwease) - ask Kehl for recommendation / nomination (https://khmw.nl/khmw-jong-talent-prijzen-khmw-young-talent-awards/)
 
+## This branch's
+- Add common superclass for UI elements
+- Refactor that long function for box drawing

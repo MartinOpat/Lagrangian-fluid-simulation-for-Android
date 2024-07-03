@@ -33,7 +33,7 @@ public:
     ~ShaderManager();
 
     // Shader programs
-    GLuint shaderLinesProgram;
+    GLuint shaderBoxProgram;
     GLuint shaderPointsProgram;
     GLuint shaderComputeProgram;
     GLuint shaderUIProgram;
@@ -125,7 +125,7 @@ private:
     void cleanShaderSources();
 
     // Shader sources
-    std::string vertexShaderSource;
+    std::string boxVertexShaderSource;
     std::string fragmentShaderLinesSource;
     std::string fragmentShaderPointsSource;
     std::string geometryLinesShaderSource;

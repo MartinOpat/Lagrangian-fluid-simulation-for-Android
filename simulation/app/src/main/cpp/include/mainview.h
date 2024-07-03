@@ -22,6 +22,7 @@
 #include "transforms.h"
 #include "shaderManager.h"
 #include "navig_cube.h"
+#include "outline_box.h"
 
 
 /**
@@ -146,8 +147,6 @@ public:
      */
     void drawUI();
 
-    void setupColorMap();
-
 private:
     /**
      * @brief Loads the uniforms.
@@ -157,12 +156,14 @@ private:
     ShaderManager *shaderManager;
     Transforms *transforms;
     NavigCube *navigCube;
+    OutlineBox *outlineBox;
+
 
     // Uniforms
     GLint pointSize;
-    GLint modelLocationLines;
-    GLint viewLocationLines;
-    GLint projectionLocationLines;
+    GLint modelLocationBox;
+    GLint viewLocationBox;
+    GLint projectionLocationBox;
     GLint modelLocationPoints;
     GLint viewLocationPoints;
     GLint projectionLocationPoints;
@@ -177,8 +178,6 @@ private:
     GLuint computeVectorField1SSBO;
     GLuint computeVectorField2SSBO;
 
-    // Textures
-    GLuint colorMapTexture;
 
     // Array containing vertices for the triangles forming the faces of the cuboid
     std::vector<float> faceTriangles;

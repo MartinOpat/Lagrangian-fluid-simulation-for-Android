@@ -7,7 +7,7 @@
 ShaderManager::ShaderManager(AAssetManager *assetManager): assetManager(assetManager) {}
 
 ShaderManager::~ShaderManager() {
-    glDeleteProgram(shaderLinesProgram);
+    glDeleteProgram(shaderBoxProgram);
 //    glDeleteProgram(shaderPointsProgram);
     glDeleteProgram(shaderComputeProgram);
     glDeleteProgram(shaderUIProgram);
@@ -42,7 +42,7 @@ void compileShaderHelper(GLuint& shader, const std::string& shaderSource, GLenum
 }
 
 void ShaderManager::compileVertexShaders() {
-    compileShaderHelper(vertexShader, vertexShaderSource, GL_VERTEX_SHADER);
+    compileShaderHelper(vertexShader, boxVertexShaderSource, GL_VERTEX_SHADER);
     compileShaderHelper(uiVertexShader, uiVertexShaderSource, GL_VERTEX_SHADER);
 }
 
@@ -86,7 +86,7 @@ void createProgramHelper(GLuint& program, GLuint shaders[]) {
 }
 
 void ShaderManager::createLinesProgram() {
-    createProgramHelper(shaderLinesProgram, (GLuint[]) {vertexShader, geometryLinesShader, fragmentShaderLines, 0});
+    createProgramHelper(shaderBoxProgram, (GLuint[]) {vertexShader, geometryLinesShader, fragmentShaderLines, 0});
 }
 
 void ShaderManager::createPointsProgram() {
@@ -102,9 +102,9 @@ void ShaderManager::createUIProgram() {
 }
 
 void ShaderManager::detachShaders() {
-    glDetachShader(shaderLinesProgram, vertexShader);
-    glDetachShader(shaderLinesProgram, geometryLinesShader);
-    glDetachShader(shaderLinesProgram, fragmentShaderLines);
+    glDetachShader(shaderBoxProgram, vertexShader);
+    glDetachShader(shaderBoxProgram, geometryLinesShader);
+    glDetachShader(shaderBoxProgram, fragmentShaderLines);
 
 //    glDetachShader(shaderPointsProgram, vertexShader);
 //    glDetachShader(shaderPointsProgram, geometryPointsShader);
@@ -146,7 +146,7 @@ void ShaderManager::compileAndLinkShaders() {
 
 
 void ShaderManager::loadShaderSources() {
-    vertexShaderSource = loadShaderFile("vertex_shader.glsl");
+    boxVertexShaderSource = loadShaderFile("vertex_shader_box.glsl");
     fragmentShaderLinesSource = loadShaderFile("fragment_shader_lines.glsl");
 //    fragmentShaderPointsSource = loadShaderFile("fragment_shader_points.glsl");
     geometryLinesShaderSource = loadShaderFile("geometry_lines_shader.glsl");
@@ -159,10 +159,10 @@ void ShaderManager::loadShaderSources() {
 void ShaderManager::checkShaderProgramLinkStatus() {
     // Check if the shader program linked successfully
     GLint linked;
-    glGetProgramiv(shaderLinesProgram, GL_LINK_STATUS, &linked);
+    glGetProgramiv(shaderBoxProgram, GL_LINK_STATUS, &linked);
     if (!linked) {
         GLchar linkLog[1024];
-        glGetProgramInfoLog(shaderLinesProgram, sizeof(linkLog), NULL, linkLog);
+        glGetProgramInfoLog(shaderBoxProgram, sizeof(linkLog), NULL, linkLog);
         LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
     }
 
@@ -183,7 +183,7 @@ void ShaderManager::checkShaderProgramLinkStatus() {
 }
 
 void ShaderManager::cleanShaderSources() {
-    vertexShaderSource.clear();
+    boxVertexShaderSource.clear();
     fragmentShaderLinesSource.clear();
 //    fragmentShaderPointsSource.clear();
     geometryLinesShaderSource.clear();

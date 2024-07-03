@@ -9,6 +9,7 @@ Mainview::Mainview(AAssetManager* assetManager) {
     transforms = new Transforms();
     shaderManager = new ShaderManager(assetManager);
     navigCube = new NavigCube();
+    outlineBox = new OutlineBox();
 }
 
 Mainview::~Mainview() {
@@ -23,6 +24,7 @@ Mainview::~Mainview() {
     delete transforms;
     delete shaderManager;
     delete navigCube;
+    delete outlineBox;
 }
 
 
@@ -56,9 +58,9 @@ void Mainview::loadUniforms() {
     this->viewLocationPoints = glGetUniformLocation(shaderManager->shaderPointsProgram, "viewTransform");
     this->projectionLocationPoints = glGetUniformLocation(shaderManager->shaderPointsProgram, "projectionTransform");
 
-    this->modelLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "modelTransform");
-    this->projectionLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "projectionTransform");
-    this->viewLocationLines = glGetUniformLocation(shaderManager->shaderLinesProgram, "viewTransform");
+    this->modelLocationBox = glGetUniformLocation(shaderManager->shaderBoxProgram, "modelTransform");
+    this->projectionLocationBox = glGetUniformLocation(shaderManager->shaderBoxProgram, "projectionTransform");
+    this->viewLocationBox = glGetUniformLocation(shaderManager->shaderBoxProgram, "viewTransform");
 
     this->globalTimeInStepLocation = glGetUniformLocation(shaderManager->shaderComputeProgram, "global_time_in_step");
 }
@@ -68,7 +70,6 @@ void Mainview::loadUniforms() {
 void Mainview::setupGraphics() {
     shaderManager->createShaderPrograms();
     loadUniforms();
-    navigCube->loadConstUniforms(shaderManager->shaderUIProgram);
 }
 
 void Mainview::createParticlesBuffer(std::vector<float>& particlesPos) {
@@ -119,31 +120,9 @@ void Mainview::drawParticles(int size) {
     glBindVertexArray(0);
 }
 
-void Mainview::setupColorMap() {
-    // Create and bind the color map texture
-    glGenTextures(1, &colorMapTexture);
-    glBindTexture(GL_TEXTURE_2D, colorMapTexture);
-
-    GLubyte colorData[256 * 3]; // Simple gradient
-    for (int i = 0; i < 256; ++i) {
-        colorData[i * 3 + 0] = (GLubyte)i;        // Red gradient
-        colorData[i * 3 + 1] = (GLubyte)(255 - i); // Green gradient
-        colorData[i * 3 + 2] = 128;               // Constant blue
-    }
-
-    // OpenGL ES does not support GL_TEXTURE_1D, so we use a 2D texture with height = 1
-    glTexImage2D(GL_TEXTURE, 0, GL_RGB, 256, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, colorData);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-}
-
 
 void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
-    setupColorMap();
-
-    glUseProgram(shaderManager->shaderLinesProgram);
+    glUseProgram(shaderManager->shaderBoxProgram);
 
     glGenBuffers(1, &vectorFieldVBO);
     glGenVertexArrays(1, &vectorFieldVAO);
@@ -166,7 +145,7 @@ void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
 
 
 void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<float>& verticesNew) {
-    glUseProgram(shaderManager->shaderLinesProgram);
+    glUseProgram(shaderManager->shaderBoxProgram);
 
 
     // Fill each box side vector but in constant time because we exactly know where the sides values are
@@ -251,6 +230,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
 
     faceTriangles.clear();
+    faceTriangles.reserve((grid_width * grid_height + grid_width * grid_depth + grid_height * grid_depth) * 6 * 6 * 2);
 
     // z+ face
     for (int x = 0; x < grid_width-1; x++) {
@@ -334,12 +314,12 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
 
 void Mainview::drawVectorField(int size) {
     // Load VAOs
-    glUseProgram(shaderManager->shaderLinesProgram);
+    glUseProgram(shaderManager->shaderBoxProgram);
 
     glBindVertexArray(vectorFieldVAO);
-    glUniformMatrix4fv(modelLocationLines, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
-    glUniformMatrix4fv(projectionLocationLines, 1, GL_TRUE, &transforms->projectionTransform[0][0]);
-    glUniformMatrix4fv(viewLocationLines, 1, GL_TRUE, &transforms->viewTransform[0][0]);
+    glUniformMatrix4fv(modelLocationBox, 1, GL_TRUE, &(transforms->modelTransform)[0][0]);
+    glUniformMatrix4fv(projectionLocationBox, 1, GL_TRUE, &transforms->projectionTransform[0][0]);
+    glUniformMatrix4fv(viewLocationBox, 1, GL_TRUE, &transforms->viewTransform[0][0]);
 
 
 //    LOGI("Mainview", "Drawing vector field of size: %zu", faceTriangles.size());
@@ -418,12 +398,16 @@ void Mainview::dispatchComputeShader() {
 }
 
 void Mainview::drawUI() {
-    glm::vec3 rot = transforms->getRotation();
+    // Prepare transformations
+    glm::mat4x4 modelTransform = transforms->modelTransform;
+    glm::mat4x4 modelProjectionTransform = transforms->projectionTransform *  modelTransform;
 
-    glm::mat4x4 modelTransform = glm::identity<glm::mat4>();
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rot.x, glm::vec3(1.0f, 0.0f, 0.0f));
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -rot.y, glm::vec3(0.0f, 1.0f, 0.0f));
-    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), rot.z, glm::vec3(0.0f, 0.0f, 1.0f));
-
+    ///////////////////////////// Navigation Cube /////////////////////////////
+    navigCube->loadConstUniforms(shaderManager->shaderUIProgram);
     navigCube->draw(shaderManager->shaderUIProgram, modelTransform);
+
+    ///////////////////////////// Outline box /////////////////////////////
+    outlineBox->loadConstUniforms(shaderManager->shaderUIProgram);
+    outlineBox->draw(shaderManager->shaderUIProgram, modelProjectionTransform);
+
 }
