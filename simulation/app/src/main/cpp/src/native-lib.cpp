@@ -127,13 +127,12 @@ void init(std::string packageName) {
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
-//        appState *state = static_cast<appState *>(userData);
         check_update();
-//        (globalAppState->particlesHandler)->simulateParticles(*(globalAppState->mainview));
+        (globalAppState->particlesHandler)->simulateParticles(*(globalAppState->mainview));
         (globalAppState->mainview)->setFrame();
 
         (globalAppState->vectorFieldHandler)->draw(*(globalAppState->mainview));
-//        (globalAppState->particlesHandler)->draw(*(globalAppState->mainview));
+        (globalAppState->particlesHandler)->draw(*(globalAppState->mainview));
         (globalAppState->mainview)->drawUI();
     }
 
@@ -177,7 +176,7 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {  // TODO: Is there a reason for this to be exported ?
         (globalAppState->mainview)->createVectorFieldBuffer((globalAppState->vectorFieldHandler)->getOldVertices());
-//        (globalAppState->mainview)->createParticlesBuffer((globalAppState->particlesHandler)->getParticlesPositions());
+        (globalAppState->mainview)->createParticlesBuffer((globalAppState->particlesHandler)->getParticlesPositions());
         (globalAppState->mainview)->createComputeBuffer((globalAppState->vectorFieldHandler)->getOldVertices(), (globalAppState->vectorFieldHandler)->getNewVertices(), (globalAppState->vectorFieldHandler)->getFutureVertices());
         (globalAppState->mainview)->loadConstUniforms((globalAppState->physics)->dt, (globalAppState->vectorFieldHandler)->getWidth(), (globalAppState->vectorFieldHandler)->getHeight(), (globalAppState->vectorFieldHandler)->getDepth());
         LOGI("native-lib", "Buffers created");
@@ -234,7 +233,7 @@ extern "C" {
         }
 
         (globalAppState->particlesHandler)->loadPositionsFromFile(tempFile);
-//        (globalAppState->mainview)->loadParticlesData((globalAppState->particlesHandler)->getParticlesPositions());
+        (globalAppState->mainview)->loadParticlesData((globalAppState->particlesHandler)->getParticlesPositions());
         LOGI("native-lib", "Particles initialized");
     }
 } // extern "C"

@@ -8,7 +8,7 @@ ShaderManager::ShaderManager(AAssetManager *assetManager): assetManager(assetMan
 
 ShaderManager::~ShaderManager() {
     glDeleteProgram(shaderBoxProgram);
-//    glDeleteProgram(shaderPointsProgram);
+    glDeleteProgram(shaderPointsProgram);
     glDeleteProgram(shaderComputeProgram);
     glDeleteProgram(shaderUIProgram);
 }
@@ -48,13 +48,13 @@ void ShaderManager::compileVertexShaders() {
 
 void ShaderManager::compileFragmentShaders() {
     compileShaderHelper(fragmentShaderLines, fragmentShaderLinesSource, GL_FRAGMENT_SHADER);
-//    compileShaderHelper(fragmentShaderPoints, fragmentShaderPointsSource, GL_FRAGMENT_SHADER);
+    compileShaderHelper(fragmentShaderPoints, fragmentShaderPointsSource, GL_FRAGMENT_SHADER);
     compileShaderHelper(uiFragmentShader, uiFragmentShaderSource, GL_FRAGMENT_SHADER);
 }
 
 void ShaderManager::compileGeometryShaders() {
     compileShaderHelper(geometryLinesShader, geometryLinesShaderSource, GL_GEOMETRY_SHADER);
-//    compileShaderHelper(geometryPointsShader, geometryPointsShaderSource, GL_GEOMETRY_SHADER);
+    compileShaderHelper(geometryPointsShader, geometryPointsShaderSource, GL_GEOMETRY_SHADER);
 }
 
 void ShaderManager::compileComputeShaders() {
@@ -106,9 +106,9 @@ void ShaderManager::detachShaders() {
     glDetachShader(shaderBoxProgram, geometryLinesShader);
     glDetachShader(shaderBoxProgram, fragmentShaderLines);
 
-//    glDetachShader(shaderPointsProgram, vertexShader);
-//    glDetachShader(shaderPointsProgram, geometryPointsShader);
-//    glDetachShader(shaderPointsProgram, fragmentShaderPoints);
+    glDetachShader(shaderPointsProgram, vertexShader);
+    glDetachShader(shaderPointsProgram, geometryPointsShader);
+    glDetachShader(shaderPointsProgram, fragmentShaderPoints);
 
     glDetachShader(shaderComputeProgram, computeShader);
 
@@ -119,10 +119,10 @@ void ShaderManager::detachShaders() {
 
 void ShaderManager::deleteShaders() {
     glDeleteShader(vertexShader);
-//    glDeleteShader(geometryPointsShader);
+    glDeleteShader(geometryPointsShader);
     glDeleteShader(geometryLinesShader);
     glDeleteShader(fragmentShaderLines);
-//    glDeleteShader(fragmentShaderPoints);
+    glDeleteShader(fragmentShaderPoints);
     glDeleteShader(computeShader);
     glDeleteShader(uiVertexShader);
     glDeleteShader(uiFragmentShader);
@@ -136,7 +136,7 @@ void ShaderManager::compileAndLinkShaders() {
     compileComputeShaders();
 
     createLinesProgram();
-//    createPointsProgram();
+    createPointsProgram();
     createComputeProgram();
     createUIProgram();
 
@@ -148,9 +148,9 @@ void ShaderManager::compileAndLinkShaders() {
 void ShaderManager::loadShaderSources() {
     boxVertexShaderSource = loadShaderFile("vertex_shader_box.glsl");
     fragmentShaderLinesSource = loadShaderFile("fragment_shader_lines.glsl");
-//    fragmentShaderPointsSource = loadShaderFile("fragment_shader_points.glsl");
+    fragmentShaderPointsSource = loadShaderFile("fragment_shader_points.glsl");
     geometryLinesShaderSource = loadShaderFile("geometry_lines_shader.glsl");
-//    geometryPointsShaderSource = loadShaderFile("geometry_points_shader.glsl");
+    geometryPointsShaderSource = loadShaderFile("geometry_points_shader.glsl");
     computeShaderSource = loadShaderFile("compute_shader.glsl");
     uiVertexShaderSource = loadShaderFile("vertex_shader_ui.glsl");
     uiFragmentShaderSource = loadShaderFile("fragment_shader_ui.glsl");
@@ -166,14 +166,14 @@ void ShaderManager::checkShaderProgramLinkStatus() {
         LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
     }
 
-//    // Check if the shader program linked successfully
-//    GLint linkedPoints;
-//    glGetProgramiv(shaderPointsProgram, GL_LINK_STATUS, &linkedPoints);
-//    if (!linkedPoints) {
-//        GLchar linkLog[1024];
-//        glGetProgramInfoLog(shaderPointsProgram, sizeof(linkLog), NULL, linkLog);
-//        LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
-//    }
+    // Check if the shader program linked successfully
+    GLint linkedPoints;
+    glGetProgramiv(shaderPointsProgram, GL_LINK_STATUS, &linkedPoints);
+    if (!linkedPoints) {
+        GLchar linkLog[1024];
+        glGetProgramInfoLog(shaderPointsProgram, sizeof(linkLog), NULL, linkLog);
+        LOGE("shaderManager", "Shader Program Link Error: %s", linkLog);
+    }
 
     // Check for any other OpenGL errors
     GLenum err;
@@ -185,9 +185,9 @@ void ShaderManager::checkShaderProgramLinkStatus() {
 void ShaderManager::cleanShaderSources() {
     boxVertexShaderSource.clear();
     fragmentShaderLinesSource.clear();
-//    fragmentShaderPointsSource.clear();
+    fragmentShaderPointsSource.clear();
     geometryLinesShaderSource.clear();
-//    geometryPointsShaderSource.clear();
+    geometryPointsShaderSource.clear();
     computeShaderSource.clear();
     uiVertexShaderSource.clear();
     uiFragmentShaderSource.clear();

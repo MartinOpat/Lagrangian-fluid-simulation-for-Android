@@ -147,13 +147,13 @@ void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
 void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<float>& verticesNew) {
     glUseProgram(shaderManager->shaderBoxProgram);
 
-    int move_attrib_x = 0;  // [0, width)
+    int move_attrib_x = 20;  // [0, width)
     int moved_grid_width = grid_width - move_attrib_x;
 
-    int move_attrib_y = 0;  // [0, height)
+    int move_attrib_y = 20;  // [0, height)
     int moved_grid_height = grid_height - move_attrib_y;
 
-    int move_attrib_z = 5;  // [0, depth)
+    int move_attrib_z = 10;  // [0, depth)
     int moved_grid_depth = grid_depth - move_attrib_z;
     // Fill each box side vector but in constant time because we exactly know where the sides values are
 
@@ -408,7 +408,10 @@ void Mainview::dispatchComputeShader() {
 
 void Mainview::drawUI() {
     // Prepare transformations
-    glm::mat4x4 modelTransform = transforms->modelTransform;
+    glm::mat4x4 modelTransform = glm::identity<glm::mat4>();
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), transforms->getRotation().x, glm::vec3(1.0f, 0.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), -transforms->getRotation().y, glm::vec3(0.0f, 1.0f, 0.0f));
+    modelTransform *= glm::rotate(glm::identity<glm::mat4>(), transforms->getRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
     glm::mat4x4 modelProjectionTransform = transforms->projectionTransform *  transforms->viewTransform * glm::transpose(transforms->modelTransform);
 
     ///////////////////////////// Navigation Cube /////////////////////////////
