@@ -11,6 +11,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
@@ -50,7 +52,35 @@ public class MainActivity extends Activity {
         getAspectRatio();
         fileAccessHelper.checkAndRequestPermissions();
         setupGLSurfaceView();
-        setContentView(glSurfaceView);
+
+//        setContentView(glSurfaceView);
+        setContentView(R.layout.activity_main);
+        FrameLayout container = findViewById(R.id.glContainer);
+        container.addView(glSurfaceView, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
+
+        setupUIComponents();
+    }
+
+    private void setupUIComponents() {
+        SeekBar slider = findViewById(R.id.slider);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Handle slider changes, possibly adjust OpenGL rendering parameters
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Optional implementation
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Optional implementation
+            }
+        });
     }
 
     private void getAspectRatio() {
