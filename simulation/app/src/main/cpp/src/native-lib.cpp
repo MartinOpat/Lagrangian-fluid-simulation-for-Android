@@ -236,4 +236,14 @@ extern "C" {
         (globalAppState->mainview)->loadParticlesData((globalAppState->particlesHandler)->getParticlesPositions());
         LOGI("native-lib", "Particles initialized");
     }
+
+    JNIEXPORT void JNICALL
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_moveXBoxFace(JNIEnv *env, jobject thiz, jfloat val) {
+        (globalAppState->mainview)->setMoveAttribX(val);
+    }
+
+JNIEXPORT void JNICALL
+Java_com_rug_lagrangianfluidsimulation_MainActivity_moveYBoxFace(JNIEnv *env, jobject thiz, jfloat val) {
+    (globalAppState->mainview)->setMoveAttribY(val);
+}
 } // extern "C"

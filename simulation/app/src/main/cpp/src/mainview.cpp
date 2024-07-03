@@ -147,13 +147,9 @@ void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
 void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<float>& verticesNew) {
     glUseProgram(shaderManager->shaderBoxProgram);
 
-    int move_attrib_x = 20;  // [0, width)
+
     int moved_grid_width = grid_width - move_attrib_x;
-
-    int move_attrib_y = 20;  // [0, height)
     int moved_grid_height = grid_height - move_attrib_y;
-
-    int move_attrib_z = 10;  // [0, depth)
     int moved_grid_depth = grid_depth - move_attrib_z;
     // Fill each box side vector but in constant time because we exactly know where the sides values are
 

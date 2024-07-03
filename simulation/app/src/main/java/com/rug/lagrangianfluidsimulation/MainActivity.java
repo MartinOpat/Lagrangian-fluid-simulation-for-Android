@@ -46,6 +46,9 @@ public class MainActivity extends Activity {
     public native void onDestroyNative();
     public native void loadDeviceInfo(double aspectRatio);
 
+    public native void moveXBoxFace(float val);
+    public native void moveYBoxFace(float val);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,22 +67,49 @@ public class MainActivity extends Activity {
     }
 
     private void setupUIComponents() {
+        int min = 0;
+        int max = 100;
+        ///////////////////// Horizontal slider /////////////////////
         SeekBar slider = findViewById(R.id.slider);
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // Handle slider changes, possibly adjust OpenGL rendering parameters
+                moveYBoxFace((float) progress / (max+1));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Optional implementation
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // Optional implementation
             }
+        });
+        slider.setMin(min);
+        slider.setMax(max);
+
+        ///////////////////// Vertical slider /////////////////////
+        SeekBar slider2 = findViewById(R.id.rightSlider);
+        slider2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                moveXBoxFace((float) progress / (max+1));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        slider2.setMin(min);
+        slider2.setMax(max);
+        final View parent = (View) slider2.getParent();
+        parent.post(() -> {
+            int parentWidth = parent.getWidth();
+            slider2.setTranslationX((float) parentWidth / 2 - (float) slider2.getHeight() / 2);
         });
     }
 

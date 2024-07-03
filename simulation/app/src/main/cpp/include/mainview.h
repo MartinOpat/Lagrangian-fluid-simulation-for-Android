@@ -141,11 +141,13 @@ public:
      */
     Transforms& getTransforms() { return *transforms; }
 
-
     /**
      * @brief Draws the UI elements
      */
     void drawUI();
+
+    void setMoveAttribX(float perc) { move_attrib_x = (int)(perc * grid_width); }
+    void setMoveAttribY(float perc) { move_attrib_y = (int)(perc * grid_height); }
 
 private:
     /**
@@ -181,6 +183,11 @@ private:
 
     // Array containing vertices for the triangles forming the faces of the cuboid
     std::vector<float> faceTriangles;
+
+    // Faces moving
+    int move_attrib_x = 0;  // [0, width)
+    int move_attrib_y = 0;  // [0, height)
+    int move_attrib_z = 0;  // [0, depth)
 };
 
 #endif // GL_SHADER_MANAGER_H
