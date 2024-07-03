@@ -147,21 +147,31 @@ void Mainview::createVectorFieldBuffer(std::vector<float>& vertices) {
 void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<float>& verticesNew) {
     glUseProgram(shaderManager->shaderBoxProgram);
 
+    int move_attrib_x = 0;  // [0, width)
+    int moved_grid_width = grid_width - move_attrib_x;
 
+    int move_attrib_y = 0;  // [0, height)
+    int moved_grid_height = grid_height - move_attrib_y;
+
+    int move_attrib_z = 1;  // [0, depth)
+    int moved_grid_depth = grid_depth - move_attrib_z;
     // Fill each box side vector but in constant time because we exactly know where the sides values are
 
-    std::vector<float> posXSideOld(grid_depth * grid_height * 6);
-    std::vector<float> negXSideOld(grid_depth * grid_height * 6);
-    std::vector<float> posYSideOld(grid_width * grid_depth * 6);
-    std::vector<float> negYSideOld(grid_width * grid_depth * 6);
+    std::vector<float> posXSideOld(moved_grid_depth * grid_height * 6);
+    std::vector<float> negXSideOld(moved_grid_depth * grid_height * 6);
+    std::vector<float> posYSideOld(grid_width * moved_grid_depth * 6);
+    std::vector<float> negYSideOld(grid_width * moved_grid_depth * 6);
     std::vector<float> posZSideOld(grid_width * grid_height * 6);
     std::vector<float> negZSideOld(grid_width * grid_height * 6);
 
     // Copy +/- z sides
     std::copy_n(verticesOld.begin(), grid_width * grid_height * 6, negZSideOld.begin());
-    std::copy_n(verticesOld.end() - grid_width * grid_height * 6, grid_width * grid_height * 6, posZSideOld.begin());
+//    std::copy_n(verticesOld.end() - grid_width * grid_height * 6, grid_width * grid_height * 6, posZSideOld.begin());
+    std::copy_n(verticesOld.begin() + (moved_grid_depth - 1) * grid_height * grid_width * 6, grid_width * grid_height * 6, posZSideOld.begin());
+
+
     // Copy +/- y sides
-    for (int z = 0; z < grid_depth; z++) {
+    for (int z = 0; z < moved_grid_depth; z++) {
         int negFieldStartIdx = z * grid_height * grid_width * 6;
         int posFieldStartIdx = negFieldStartIdx + grid_height * grid_width * 6 - grid_width * 6;
         int sideIdx = z * grid_width * 6;
@@ -178,18 +188,19 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
 
 
-    std::vector<float> posXSideNew(grid_depth * grid_height * 6);
-    std::vector<float> negXSideNew(grid_depth * grid_height * 6);
-    std::vector<float> posYSideNew(grid_width * grid_depth * 6);
-    std::vector<float> negYSideNew(grid_width * grid_depth * 6);
+    std::vector<float> posXSideNew(moved_grid_depth * grid_height * 6);
+    std::vector<float> negXSideNew(moved_grid_depth * grid_height * 6);
+    std::vector<float> posYSideNew(grid_width * moved_grid_depth * 6);
+    std::vector<float> negYSideNew(grid_width * moved_grid_depth * 6);
     std::vector<float> posZSideNew(grid_width * grid_height * 6);
     std::vector<float> negZSideNew(grid_width * grid_height * 6);
 
     // Copy +/- z sides
     std::copy_n(verticesNew.begin(), grid_width * grid_height * 6, negZSideNew.begin());
-    std::copy_n(verticesNew.end() - grid_width * grid_height * 6, grid_width * grid_height * 6, posZSideNew.begin());
+//    std::copy_n(verticesNew.end() - grid_width * grid_height * 6, grid_width * grid_height * 6, posZSideNew.begin());
+    std::copy_n(verticesNew.begin() + (moved_grid_depth - 1) * grid_height * grid_width * 6, grid_width * grid_height * 6, posZSideNew.begin());
     // Copy +/- y sides
-    for (int z = 0; z < grid_depth; z++) {
+    for (int z = 0; z < moved_grid_depth; z++) {
         int negFieldStartIdx = z * grid_height * grid_width * 6;
         int posFieldStartIdx = negFieldStartIdx + grid_height * grid_width * 6 - grid_width * 6;
         int sideIdx = z * grid_width * 6;
@@ -230,7 +241,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
 
     faceTriangles.clear();
-    faceTriangles.reserve((grid_width * grid_height + grid_width * grid_depth + grid_height * grid_depth) * 6 * 6 * 2);
+    faceTriangles.reserve((grid_width * grid_height + grid_width * moved_grid_depth + grid_height * moved_grid_depth) * 6 * 6 * 2);
 
     // z+ face
     for (int x = 0; x < grid_width-1; x++) {
@@ -246,7 +257,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
 
     // y+ face
     for (int x = 0; x < grid_width-1; x++) {
-        for (int z = 0; z < grid_depth-1; z++) {
+        for (int z = 0; z < moved_grid_depth-1; z++) {
             faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + z * grid_width) * 6, posYSide.begin() + (x + z * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + (z + 1) * grid_width) * 6, posYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + z * grid_width) * 6, posYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
@@ -258,7 +269,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
 
 //    // x+ face
     for (int y = 0; y < grid_height-1; y++) {
-        for (int z = 0; z < grid_depth-1; z++) {
+        for (int z = 0; z < moved_grid_depth-1; z++) {
             faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + z * grid_height) * 6, posXSide.begin() + (y + z * grid_height) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + (z + 1) * grid_height) * 6, posXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + z * grid_height) * 6, posXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
@@ -282,7 +293,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
 //
     // y- face
     for (int x = 0; x < grid_width-1; x++) {
-        for (int z = 0; z < grid_depth-1; z++) {
+        for (int z = 0; z < moved_grid_depth-1; z++) {
             faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + z * grid_width) * 6, negYSide.begin() + (x + z * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + (z + 1) * grid_width) * 6, negYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + z * grid_width) * 6, negYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
@@ -294,7 +305,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
 //
 //    // x- face
     for (int y = 0; y < grid_height-1; y++) {
-        for (int z = 0; z < grid_depth-1; z++) {
+        for (int z = 0; z < moved_grid_depth-1; z++) {
             faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + z * grid_height) * 6, negXSide.begin() + (y + z * grid_height) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + (z + 1) * grid_height) * 6, negXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + z * grid_height) * 6, negXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
