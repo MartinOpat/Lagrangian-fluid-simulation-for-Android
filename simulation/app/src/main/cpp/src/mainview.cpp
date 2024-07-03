@@ -150,7 +150,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     int move_attrib_x = 0;  // [0, width)
     int moved_grid_width = grid_width - move_attrib_x;
 
-    int move_attrib_y = 20;  // [0, height)
+    int move_attrib_y = 0;  // [0, height)
     int moved_grid_height = grid_height - move_attrib_y;
 
     int move_attrib_z = 0;  // [0, depth)
@@ -180,7 +180,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
         // Copy +/- x sides
         for (int y = 0; y < grid_height; y++) {
             int negXFieldStartIdx = y * grid_width * 6 + z * grid_height * grid_width * 6;
-            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6-6;
+            int posXFieldStartIdx = negXFieldStartIdx + moved_grid_width * 6-6;
             int sideXIdx = z * grid_height * 6 + y*6;
             std::copy_n(&(verticesOld[posXFieldStartIdx]), 6, &(posXSideOld[sideXIdx]));
             std::copy_n(&(verticesOld[negXFieldStartIdx]), 6, &(negXSideOld[sideXIdx]));
@@ -209,7 +209,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
         // Copy +/- x sides
         for (int y = 0; y < grid_height; y++) {
             int negXFieldStartIdx = y * grid_width * 6 + z * grid_height * grid_width * 6;
-            int posXFieldStartIdx = negXFieldStartIdx + grid_width * 6-6;
+            int posXFieldStartIdx = negXFieldStartIdx + moved_grid_width * 6-6;
             int sideXIdx = z * grid_height * 6 + y*6;
             std::copy_n(&(verticesNew[posXFieldStartIdx]), 6, &(posXSideNew[sideXIdx]));
             std::copy_n(&(verticesNew[negXFieldStartIdx]), 6, &(negXSideNew[sideXIdx]));
@@ -244,7 +244,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     faceTriangles.reserve((grid_width * grid_height + grid_width * moved_grid_depth + grid_height * moved_grid_depth) * 6 * 6 * 2);
 
     // z+ face
-    for (int x = 0; x < grid_width-1; x++) {
+    for (int x = 0; x < moved_grid_width-1; x++) {
         for (int y = 0; y < moved_grid_height-1; y++) {
             faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + y * grid_width) * 6, posZSide.begin() + (x + y * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + (y + 1) * grid_width) * 6, posZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
@@ -256,7 +256,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
 
     // y+ face
-    for (int x = 0; x < grid_width-1; x++) {
+    for (int x = 0; x < moved_grid_width-1; x++) {
         for (int z = 0; z < moved_grid_depth-1; z++) {
             faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + z * grid_width) * 6, posYSide.begin() + (x + z * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + (z + 1) * grid_width) * 6, posYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
@@ -280,7 +280,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
 //
     // z- face
-    for (int x = 0; x < grid_width-1; x++) {
+    for (int x = 0; x < moved_grid_width-1; x++) {
         for (int y = 0; y < moved_grid_height-1; y++) {
             faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + y * grid_width) * 6, negZSide.begin() + (x + y * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + (y + 1) * grid_width) * 6, negZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
@@ -292,7 +292,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
 //
     // y- face
-    for (int x = 0; x < grid_width-1; x++) {
+    for (int x = 0; x < moved_grid_width-1; x++) {
         for (int z = 0; z < moved_grid_depth-1; z++) {
             faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + z * grid_width) * 6, negYSide.begin() + (x + z * grid_width) * 6 + 6);
             faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + (z + 1) * grid_width) * 6, negYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
