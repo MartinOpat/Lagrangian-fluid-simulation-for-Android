@@ -176,6 +176,7 @@ private:
     GLuint particleVAO;
     GLuint vectorFieldVBO;
     GLuint vectorFieldVAO;
+    GLuint vectorFieldEBO;
     GLuint computeVectorField0SSBO;
     GLuint computeVectorField1SSBO;
     GLuint computeVectorField2SSBO;
@@ -183,6 +184,7 @@ private:
 
     // Array containing vertices for the triangles forming the faces of the cuboid
     std::vector<float> faceTriangles;
+    std::vector<unsigned int> faceTriangleIndices;
 
     // Faces moving
     int move_attrib_x = 0;  // [0, width)
