@@ -217,9 +217,6 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
         }
     }
 
-    // TODO: Make it less dense here.
-
-
     std::vector<float> posXSide(posXSideOld.size());
     std::vector<float> negXSide(negXSideOld.size());
     std::vector<float> posYSide(posYSideOld.size());
@@ -256,16 +253,6 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
 
     // Note: Order of vertices matters!!! (culling)
     // z+ face
-//    for (int x = 0; x < moved_grid_width-1; x++) {
-//        for (int y = 0; y < moved_grid_height-1; y++) {
-//            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + y * grid_width) * 6, posZSide.begin() + (x + y * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + ((x + 1) + y * grid_width) * 6, posZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + (y + 1) * grid_width) * 6, posZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + ((x + 1) + y * grid_width) * 6, posZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6, posZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posZSide.begin() + (x + (y + 1) * grid_width) * 6, posZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
-//        }
-//    }
     int offset = 0;
     for (int x = 0; x < moved_grid_width - 1; x++) {
         for (int y = 0; y < moved_grid_height - 1; y++) {
@@ -281,16 +268,6 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     offset += grid_width * grid_height;
 
     // y+ face
-//    for (int x = 0; x < moved_grid_width-1; x++) {
-//        for (int z = 0; z < moved_grid_depth-1; z++) {
-//            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + z * grid_width) * 6, posYSide.begin() + (x + z * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + (z + 1) * grid_width) * 6, posYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + z * grid_width) * 6, posYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + z * grid_width) * 6, posYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + (x + (z + 1) * grid_width) * 6, posYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6, posYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
-//        }
-//    }
     for (int x = 0; x < moved_grid_width - 1; x++) {
         for (int z = 0; z < moved_grid_depth - 1; z++) {
             faceTriangleIndices.push_back(offset + x + z * grid_width);
@@ -304,17 +281,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
     offset += grid_width * grid_depth;
 
-//    // x+ face
-//    for (int y = 0; y < moved_grid_height-1; y++) {
-//        for (int z = 0; z < moved_grid_depth-1; z++) {
-//            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + z * grid_height) * 6, posXSide.begin() + (y + z * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + z * grid_height) * 6, posXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + (z + 1) * grid_height) * 6, posXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + z * grid_height) * 6, posXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6, posXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), posXSide.begin() + (y + (z + 1) * grid_height) * 6, posXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-//        }
-//    }
+    // x+ face
     for (int y = 0; y < moved_grid_height - 1; y++) {
         for (int z = 0; z < moved_grid_depth - 1; z++) {
             faceTriangleIndices.push_back(offset + y + z * grid_height);
@@ -328,18 +295,8 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
     offset += grid_height * grid_depth;
 
-//
+
     // z- face
-//    for (int x = 0; x < moved_grid_width-1; x++) {
-//        for (int y = 0; y < moved_grid_height-1; y++) {
-//            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + y * grid_width) * 6, negZSide.begin() + (x + y * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + (y + 1) * grid_width) * 6, negZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + ((x + 1) + y * grid_width) * 6, negZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + ((x + 1) + y * grid_width) * 6, negZSide.begin() + ((x + 1) + y * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + (x + (y + 1) * grid_width) * 6, negZSide.begin() + (x + (y + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6, negZSide.begin() + ((x + 1) + (y + 1) * grid_width) * 6 + 6);
-//        }
-//    }
     for (int x = 0; x < moved_grid_width - 1; x++) {
         for (int y = 0; y < moved_grid_height - 1; y++) {
             faceTriangleIndices.push_back(offset + x + y * grid_width);
@@ -353,18 +310,8 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
     offset += grid_width * grid_height;
 
-//
+
     // y- face
-//    for (int x = 0; x < moved_grid_width-1; x++) {
-//        for (int z = 0; z < moved_grid_depth-1; z++) {
-//            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + z * grid_width) * 6, negYSide.begin() + (x + z * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + z * grid_width) * 6, negYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + (z + 1) * grid_width) * 6, negYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + z * grid_width) * 6, negYSide.begin() + ((x + 1) + z * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6, negYSide.begin() + ((x + 1) + (z + 1) * grid_width) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negYSide.begin() + (x + (z + 1) * grid_width) * 6, negYSide.begin() + (x + (z + 1) * grid_width) * 6 + 6);
-//        }
-//    }
     for (int x = 0; x < moved_grid_width - 1; x++) {
         for (int z = 0; z < moved_grid_depth - 1; z++) {
             faceTriangleIndices.push_back(offset + x + z * grid_width);
@@ -378,18 +325,7 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     }
     offset += grid_width * grid_depth;
 
-//
 //    // x- face
-//    for (int y = 0; y < moved_grid_height-1; y++) {
-//        for (int z = 0; z < moved_grid_depth-1; z++) {
-//            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + z * grid_height) * 6, negXSide.begin() + (y + z * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + (z + 1) * grid_height) * 6, negXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + z * grid_height) * 6, negXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + z * grid_height) * 6, negXSide.begin() + ((y + 1) + z * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + (y + (z + 1) * grid_height) * 6, negXSide.begin() + (y + (z + 1) * grid_height) * 6 + 6);
-//            faceTriangles.insert(faceTriangles.end(), negXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6, negXSide.begin() + ((y + 1) + (z + 1) * grid_height) * 6 + 6);
-//        }
-//    }
     for (int y = 0; y < moved_grid_height - 1; y++) {
         for (int z = 0; z < moved_grid_depth - 1; z++) {
             faceTriangleIndices.push_back(offset + y + z * grid_height);
@@ -424,8 +360,6 @@ void Mainview::drawVectorField(int size) {
     glUniformMatrix4fv(viewLocationBox, 1, GL_TRUE, &transforms->viewTransform[0][0]);
 
 
-//    LOGI("Mainview", "Drawing vector field of size: %zu", faceTriangles.size());
-//    glDrawArrays(GL_TRIANGLES, 0, faceTriangles.size() / 6);
     glDrawElements(GL_TRIANGLES, faceTriangleIndices.size(), GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
