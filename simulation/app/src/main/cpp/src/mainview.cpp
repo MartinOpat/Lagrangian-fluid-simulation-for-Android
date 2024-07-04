@@ -37,12 +37,12 @@ void Mainview::setFrame() {
 //    glEnable(GL_BLEND); // Enable blending
 //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-//    // Enable face culling
-//    glEnable(GL_CULL_FACE);
-//    // Cull back faces
-//    glCullFace(GL_BACK);
-//    // Set front faces as counter-clockwise
-//    glFrontFace(GL_CCW);
+    // Enable face culling
+    glEnable(GL_CULL_FACE);
+    // Cull back faces
+    glCullFace(GL_BACK);
+    // Set front faces as counter-clockwise
+    glFrontFace(GL_CCW);
 
 // Enable depth testing
     glEnable(GL_DEPTH_TEST);
@@ -294,12 +294,12 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     for (int x = 0; x < moved_grid_width - 1; x++) {
         for (int z = 0; z < moved_grid_depth - 1; z++) {
             faceTriangleIndices.push_back(offset + x + z * grid_width);
-            faceTriangleIndices.push_back(offset + (x + 1) + z * grid_width);
             faceTriangleIndices.push_back(offset + x + (z + 1) * grid_width);
+            faceTriangleIndices.push_back(offset + (x + 1) + z * grid_width);
 
             faceTriangleIndices.push_back(offset + (x + 1) + z * grid_width);
-            faceTriangleIndices.push_back(offset + (x + 1) + (z + 1) * grid_width);
             faceTriangleIndices.push_back(offset + x + (z + 1) * grid_width);
+            faceTriangleIndices.push_back(offset + (x + 1) + (z + 1) * grid_width);
         }
     }
     offset += grid_width * grid_depth;
@@ -343,12 +343,12 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     for (int x = 0; x < moved_grid_width - 1; x++) {
         for (int y = 0; y < moved_grid_height - 1; y++) {
             faceTriangleIndices.push_back(offset + x + y * grid_width);
-            faceTriangleIndices.push_back(offset + (x + 1) + y * grid_width);
             faceTriangleIndices.push_back(offset + x + (y + 1) * grid_width);
+            faceTriangleIndices.push_back(offset + (x + 1) + y * grid_width);
 
             faceTriangleIndices.push_back(offset + (x + 1) + y * grid_width);
-            faceTriangleIndices.push_back(offset + (x + 1) + (y + 1) * grid_width);
             faceTriangleIndices.push_back(offset + x + (y + 1) * grid_width);
+            faceTriangleIndices.push_back(offset + (x + 1) + (y + 1) * grid_width);
         }
     }
     offset += grid_width * grid_height;
@@ -393,12 +393,12 @@ void Mainview::loadVectorFieldData(std::vector<float>& verticesOld, std::vector<
     for (int y = 0; y < moved_grid_height - 1; y++) {
         for (int z = 0; z < moved_grid_depth - 1; z++) {
             faceTriangleIndices.push_back(offset + y + z * grid_height);
-            faceTriangleIndices.push_back(offset + (y + 1) + z * grid_height);
             faceTriangleIndices.push_back(offset + y + (z + 1) * grid_height);
+            faceTriangleIndices.push_back(offset + (y + 1) + z * grid_height);
 
             faceTriangleIndices.push_back(offset + (y + 1) + z * grid_height);
-            faceTriangleIndices.push_back(offset + (y + 1) + (z + 1) * grid_height);
             faceTriangleIndices.push_back(offset + y + (z + 1) * grid_height);
+            faceTriangleIndices.push_back(offset + (y + 1) + (z + 1) * grid_height);
         }
     }
 
