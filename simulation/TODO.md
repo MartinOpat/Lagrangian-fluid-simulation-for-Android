@@ -11,6 +11,7 @@
 
 ## Native side
 - Delete unused functions
+- Take out functions from native-lib into a class called application and make the native-lib only be responsible for JNI communication
 
 ## Stuff to research
 - Try cuberiles after all
