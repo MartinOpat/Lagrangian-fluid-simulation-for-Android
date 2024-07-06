@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/sample_text"
-        android:layout_width="81dp"
-        android:layout_height="29dp"
-        android:text="Hello World!"
+    <!-- FrameLayout to contain GLSurfaceView -->
+    <FrameLayout
+        android:id="@+id/glContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent" >
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

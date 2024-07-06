@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
@@ -50,7 +51,12 @@ public class MainActivity extends Activity {
         getAspectRatio();
         fileAccessHelper.checkAndRequestPermissions();
         setupGLSurfaceView();
-        setContentView(glSurfaceView);
+
+        setContentView(R.layout.activity_main);
+        FrameLayout container = findViewById(R.id.glContainer);
+        container.addView(glSurfaceView, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
     }
 
     private void getAspectRatio() {
