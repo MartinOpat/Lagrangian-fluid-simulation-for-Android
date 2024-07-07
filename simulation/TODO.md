@@ -12,7 +12,6 @@
 ## Native side
 - Delete unused functions
 - Take out functions from native-lib into a class called application and make the native-lib only be responsible for JNI communication
-- Make the alternative scaling (the one that looks good) be an option that can be easily chosen (make TIME_STEP not be pre-defined constant value)
 
 ## Stuff to research
 - Try cuberiles after all

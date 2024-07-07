@@ -46,6 +46,7 @@ appState *globalAppState = new appState();
 
 // Global variables from consts.h
 float global_time_in_step = 0.0f;
+float one_day_simulation_period = 0.0f;
 Mode mode;
 
 
@@ -74,7 +75,7 @@ void loadInitStep() {
 
 void check_update() {
     global_time_in_step += (globalAppState->physics)->dt;
-    if (global_time_in_step >= TIME_STEP) {
+    if (global_time_in_step >= one_day_simulation_period) {
         global_time_in_step = 0.0f;
 
         (globalAppState->eglContextManager)->syncEGLContext(globalAppState->readerThreadPool);
@@ -102,33 +103,38 @@ void init(std::string packageName) {
     globalAppState->touchHandler = new TouchHandler((globalAppState->mainview)->getTransforms());
     globalAppState->reader = new NetCDFReader(packageName);
 
-    //////////////////////// Double gyre ////////////////////////
+    //////////////////////// Double gyre regular scaling ////////////////////////
+//    one_day_simulation_period = 50.0f;
 //    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
 //    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
-//    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Keep this commented if using loading from file
+    /////////////////////////////////////////////////////////////
+
+    //////////////////////// Double gyre alternative scaling ////////////////////////
+    one_day_simulation_period = 10.0f;
+    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);
+    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.02f);
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////
-    globalAppState->vectorFieldHandler = new VectorFieldHandler();
-    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
-    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*(globalAppState->physics), NUM_PARTICLES);  // Keep this commented if using loading from file
+//    one_day_simulation_period = 50.0f;
+//    globalAppState->vectorFieldHandler = new VectorFieldHandler();
+//    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
     /////////////////////////////////////////////////////////////
 
-    // Initialization from file
-//    globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);
+
+    globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);  // Initialization from file
+//    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Diagonal line code-wise initialization
+//    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*(globalAppState->physics), NUM_PARTICLES);  // Random uniform code-wise initialization
+
 
     globalAppState->timer = new Timer<std::chrono::steady_clock>();
-
     globalAppState->readerThreadPool = new ThreadPool(1);
     globalAppState->eglContextManager = new EGLContextManager();
-
     LOGI("native-lib", "init complete");
 }
 
 extern "C" {
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_drawFrame(JNIEnv* env, jobject /* this */) {
-//        appState *state = static_cast<appState *>(userData);
-
         check_update();
         (globalAppState->particlesHandler)->simulateParticles(*(globalAppState->mainview));
         (globalAppState->mainview)->setFrame();

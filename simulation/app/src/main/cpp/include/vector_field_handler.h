@@ -25,7 +25,7 @@ public:
      * @param finenessXY The fineness of the vector field in the X and Y axes.
      * @param finenessZ The fineness of the vector field in the Z-axis.
      */
-    VectorFieldHandler(int finenessX = 1, int finenessY = 1, int finenessZ = 1);
+    VectorFieldHandler(int finenessX = 1, int finenessY = 1, int finenessZ = 1, bool alt = false);
 
     /**
      * @brief Gets the velocity field at the given position.
@@ -120,6 +120,30 @@ public:
     int getDepth() {return depth;};
 
 private:
+    // Different vector field loading methods
+    bool alt = false;  // Boolean to switch between the two methods
+    /**
+     * @brief Prepares the vertex data with the given u, v, and w data.
+     *
+     * @param uData The u data.
+     * @param vData The v data.
+     * @param wData The w data.
+     *
+     * @note Default - preserves the original (max) magnitude ratios of the vectors.
+     */
+    void prepareVertexDataHelper(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
+
+    /**
+     * @brief Prepares the vertex data with the given u, v, and w data.
+     *
+     * @param uData The u data.
+     * @param vData The v data.
+     * @param wData The w data.
+     *
+     * @note Alternative - normalizes the magnitudes of the x,y, and z vectors to the same maximum value.
+     */
+    void prepareVertexDataHelperAlt(const std::vector<float>& uData, const std::vector<float>& vData, const std::vector<float>& wData);
+
     // Dimensions of the loaded vector field
     int width ;
     int height;
