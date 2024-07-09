@@ -104,15 +104,15 @@ void init(std::string packageName) {
     globalAppState->reader = new NetCDFReader(packageName);
 
     //////////////////////// Double gyre regular scaling ////////////////////////
-//    one_day_simulation_period = 50.0f;
-//    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
-//    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
+    one_day_simulation_period = 50.0f;
+    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
+    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Double gyre alternative scaling ////////////////////////
-    one_day_simulation_period = 10.0f;
-    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);
-    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.02f);
+//    one_day_simulation_period = 10.0f;
+//    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);
+//    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.02f);
     /////////////////////////////////////////////////////////////
 
     //////////////////////// Perlin noise ////////////////////////
