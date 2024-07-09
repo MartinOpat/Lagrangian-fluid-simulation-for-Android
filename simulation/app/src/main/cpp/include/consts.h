@@ -30,8 +30,5 @@ enum class Mode {
 };
 extern Mode mode;
 
-//// Application state - user (i.e. programmer) defined
-//struct appState;
-//extern appState *globalAppState;
 
 #endif //LAGRANGIAN_FLUID_SIMULATION_CONSTS_H

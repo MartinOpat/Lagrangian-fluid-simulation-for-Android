@@ -82,11 +82,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 # For including libraries (outside NDK) later on
 # include_directories(include/)
 
-# TODO: Maybe add this to make sure the C++ standard is enforced
-#set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
-#        CXX_STANDARD 17
-#        CXX_STANDARD_REQUIRED ON)
-
 # Compiler flags
 # target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -Wall -Wextra -O2)
 

@@ -20,18 +20,56 @@
 template<typename ClockType>
 class Timer {
 public:
+    /**
+     * @brief Constructor for the Timer class.
+     */
     Timer();
 
+    /**
+     * @brief Starts the timer.
+     */
     void start();
+
+    /**
+     * @brief Stops the timer.
+     */
     void stop();
+
+    /**
+     * @brief Gets the elapsed time in seconds.
+     *
+     * @return The elapsed time in seconds.
+     */
     float getElapsedTimeInSeconds();
+
+    /**
+     * @brief Gets the elapsed time in milliseconds.
+     *
+     * @return The elapsed time in milliseconds.
+     */
     std::chrono::milliseconds getElapsedTime();
 
+    /**
+     * @brief Logs the frames per second to console.
+     */
     void logFPS();
+
+    /**
+     * @brief Logs the elapsed time to console.
+     */
     void logElapsedTime();
 
+    /**
+     * @brief Checks if the timer is started.
+     *
+     * @return True if the timer is started, false otherwise.
+     */
     bool isStarted();
 
+    /**
+     * @brief Measures the time elapsed since the last measurement.
+     * @note This method logs the elapsed time to console every `displayFrequency` milliseconds.
+     */
     void measure();
 
 private:

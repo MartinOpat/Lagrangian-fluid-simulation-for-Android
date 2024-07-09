@@ -122,6 +122,7 @@ void init(std::string packageName) {
     /////////////////////////////////////////////////////////////
 
 
+    // Choose one of the following particle initialization methods
     globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);  // Initialization from file
 //    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Diagonal line code-wise initialization
 //    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*(globalAppState->physics), NUM_PARTICLES);  // Random uniform code-wise initialization
@@ -144,7 +145,7 @@ extern "C" {
         (globalAppState->mainview)->drawUI();
     }
 
-    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupGraphics(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename
+    JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupNative(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename
         globalAppState->mainview = new Mainview(AAssetManager_fromJava(env, assetManager));
         (globalAppState->mainview)->setupGraphics();
 
@@ -182,7 +183,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {  // TODO: Is there a reason for this to be exported ?
+    Java_com_rug_lagrangianfluidsimulation_MainActivity_createBuffers(JNIEnv *env, jobject thiz) {
         (globalAppState->mainview)->createVectorFieldBuffer((globalAppState->vectorFieldHandler)->getOldVertices());
         (globalAppState->mainview)->createParticlesBuffer((globalAppState->particlesHandler)->getParticlesPositions());
         (globalAppState->mainview)->createComputeBuffer((globalAppState->vectorFieldHandler)->getOldVertices(), (globalAppState->vectorFieldHandler)->getNewVertices(), (globalAppState->vectorFieldHandler)->getFutureVertices());

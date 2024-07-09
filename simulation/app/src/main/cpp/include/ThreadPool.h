@@ -1,6 +1,6 @@
 //
 // Created: https://github.com/progschj/ThreadPool
-// Modified by: Martin K. Mwila
+// Modified by: Martin Opat
 //
 #ifndef THREAD_POOL_H
 #define THREAD_POOL_H
