@@ -1,11 +1,15 @@
 #!/bin/bash
 
-ABI=${1:-arm64-v8a}
-NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+# ABI=${1:-arm64-v8a}
+# NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+echo "Using ABI: ${ABI}"
+echo "Using NDK location: ${NDK}"
+echo "Using architecture: ${ARCH} (compiler prefix: ${COMPILER_PREFIX})"
 
-#export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
+# Define NDK path and toolchain
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export TARGET=$ABI-linux-android
+# export TARGET=$ABI-linux-android
+export TARGET=$COMPILER_PREFIX
 export API=21
 
 # Setup Compiler Variables
@@ -17,14 +21,14 @@ export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
 export STRIP=$TOOLCHAIN/bin/llvm-strip
 
 # Setup Additional Flags
-export SYSROOT=$TOOLCHAIN/sysroot
+export SYSROOT="$TOOLCHAIN/sysroot"
 export CFLAGS="--sysroot $SYSROOT"
 export CXXFLAGS="--sysroot $SYSROOT"
 export LDFLAGS="--sysroot $SYSROOT -L$SYSROOT/usr/lib"
 export CPPFLAGS="-I$SYSROOT/usr/include"
 
-
 cd ../zlib/source
-./configure --prefix=$SYSROOT/usr --shared
-make && make install
+echo $PWD
+./configure --prefix="$SYSROOT/usr" --shared
+make && make install && make clean
 cd ../../build_scripts
