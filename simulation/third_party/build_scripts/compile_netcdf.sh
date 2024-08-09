@@ -1,12 +1,15 @@
 #!/bin/bash
 
-ABI=${1:-arm64-v8a}
-NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+# ABI=${1:-arm64-v8a}
+# NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+echo "Using ABI: ${ABI}"
+echo "Using NDK location: ${NDK}"
+echo "Using architecture: ${ARCH} (compiler prefix: ${COMPILER_PREFIX})"
 
 # Define NDK path and toolchain
-#export NDK=/home/martin/Android/Sdk/ndk/25.1.8937393
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-export TARGET=$ABI-linux-android
+# export TARGET=$ABI-linux-android
+export TARGET=$COMPILER_PREFIX
 export API=21
 
 # Setup Compiler Variables

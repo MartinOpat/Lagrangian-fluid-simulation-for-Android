@@ -1,11 +1,33 @@
 #!/bin/bash
 
 # Default value for ABI if not provided
-ABI=${1:-arm64-v8a}
-NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
+export ABI=${1:-arm64-v8a}
+export NDK=${2:-/home/martin/Android/Sdk/ndk/25.1.8937393}
 
 # Script operations using the ABI variable
 echo "Using ABI: $ABI"
+echo "Using NDK location: $NDK"
+
+# architecture scanning
+export ARCH=""
+export COMPILER_PREFIX=""
+
+case $ABI in
+    "arm64-v8a"|"arm64v8a"|"arm64_v8a")
+	export ARCH="aarch64"
+	export COMPILER_PREFIX="${ARCH}-linux-android";;
+    "armeabi-v7a"|"arm-v7a"|"armv7a")
+	export ARCH="armv7a"
+	export COMPILER_PREFIX="${ARCH}-linux-androideabi";;
+    "x86")
+	export ARCH="i686"
+	export COMPILER_PREFIX="${ARCH}-linux-android";;
+    "x86_64")
+	export ARCH="armv7a"
+	export COMPILER_PREFIX="${ARCH}-linux-android";;
+    *) ;;
+esac
+echo "Using architecture: ${ARCH} (compiler prefix: ${COMPILER_PREFIX})"
 
 # Get third party libs
 
@@ -61,10 +83,25 @@ chmod +x compile_netcdf_cxx.sh
 ./compile_netcdf_cxx.sh $ABI $NDK
 cd ..
 
+# ==== Question: where are the VTK libs ? - I have re-added the lines from the original config script. ==== #
+# Get and install vtk
+mkdir vtk
+cd vtk
+mkdir source
+mkdir build
+cd source
+curl -L -o vtk.tar.gz https://www.vtk.org/files/release/9.3/VTK-9.3.0.tar.gz
+tar -xzf vtk.tar.gz --strip-components=1
+cd ../../build_scripts
+chmod +x compile_vtk.sh
+./compile_vtk.sh $ABI $NDK
+cd ..
+
 # Copy shared libraries to the app
 cd ..
 mkdir -p app/src/main/jniLibs/$ABI
 cp -r $NDK/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/$ABI/libc++_shared.so app/src/main/jniLibs/$ABI
+# ==== Question: doesn't this need to change to target for all being 'app/src/main/jniLibs/$ABI' ? ==== #
 cp -r $NDK/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/$ABI/libhdf5.so app/src/main/jniLibs/
 cp -r $NDK/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/$ABI/libhdf5_hl.so app/src/main/jniLibs/
 cp -r $NDK/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/$ABI/libhdf5_cpp.so app/src/main/jniLibs/
