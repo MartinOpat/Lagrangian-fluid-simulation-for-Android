@@ -9,7 +9,7 @@ sudo apt-get install cmake
 sudo apt-get install libxml2-dev
 sudo apt-get install curl
 sudo apt-get install patchelf
-sudo apt-get clang
+sudo apt-get install clang
 ```
 
 ### Installing 3rd party libraries
