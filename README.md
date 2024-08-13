@@ -18,10 +18,7 @@ The SDK and NDK can be installed either at the initial (one-time) setup for Andr
 - NDK (side by side)
 - Android SDK Platform-tools
 
-After pressing `apply`, an installer should appear. Once everything is finished, you can leave the settings. Also make sure that Java 17+ is installed, if not you can install it via:
-```bash
-sudo apt-get install openjdk-17-jdk
-```
+After pressing `apply`, an installer should appear. Once everything is finished, you can leave the settings. 
 
 Note that SDK `34.0.0` and NDK `25.1.8937393` were used during the development (see [3rd party applications](#3rd-party-applications) for more detailed info)
 
