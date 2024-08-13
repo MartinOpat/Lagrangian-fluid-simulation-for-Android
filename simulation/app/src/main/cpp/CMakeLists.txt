@@ -78,6 +78,25 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         EGL
 )
 
+# Config file exporting environment variables
+set(CONFIG_FILE "${CMAKE_SOURCE_DIR}/config.txt")
+
+# Load config file func.
+function(load_config FILE_PATH)
+    file(STRINGS ${FILE_PATH} ConfigLines REGEX "^[^#]+=.+")
+    foreach(Line ${ConfigLines})
+        string(REGEX REPLACE "^[ ]*([^= ]+)[ ]*=.*" "\\1" Key ${Line})
+        string(REGEX REPLACE "^[^=]*=[ ]*(.*)" "\\1" Value ${Line})
+        set(${Key} "${Value}" CACHE INTERNAL "Config value")
+        message("Configured ${Key} as ${Value}")
+    endforeach()
+endfunction()
+load_config(${CONFIG_FILE})
+
+# Add definitions for C++
+if(LOAD_POSITIONS_FROM_FILE)
+    add_definitions(-DLOAD_POSITIONS_FROM_FILE=${LOAD_POSITIONS_FROM_FILE})
+endif()
 
 # For including libraries (outside NDK) later on
 # include_directories(include/)

@@ -143,6 +143,10 @@ extern "C" {
         (globalAppState->vectorFieldHandler)->draw(*(globalAppState->mainview));
         (globalAppState->particlesHandler)->draw(*(globalAppState->mainview));
         (globalAppState->mainview)->drawUI();
+
+#ifdef LOAD_POSITIONS_FROM_FILE
+        LOGI("native-lib", "Loading initial positions");
+#endif
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupNative(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename
