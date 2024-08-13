@@ -8,7 +8,6 @@ echo "Using architecture: ${ARCH} (compiler prefix: ${COMPILER_PREFIX})"
 
 # Define NDK path and toolchain
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
-# export TARGET=$ABI-linux-android
 export TARGET=$COMPILER_PREFIX
 export API=29
 

@@ -1,5 +1,5 @@
 # How to install the necessary third-party libraries manually
-Note that it is recommended to use the provided configure bash script in the root of this repo.
+**Note that it is recommended to use the provided configure bash script in the root of this repo.**
 
 ## Installing prerequisites
 Firstly, make sure all the necessary packages are installed on your system. On Ubuntu, you can run:
@@ -13,7 +13,7 @@ sudo apt-get install patchelf
 Note that other packages might be necessary. In case on of these libraries is missing, the error message will usually tell you which package is missing.
 
 ## Shared libraries
-Make sure that for all required third-party libraries (currently [zlib](https://github.com/madler/zlib), [hdf5](https://github.com/HDFGroup/hdf5) and [netcdf](https://github.com/Unidata/netcdf-c)) you download the source files and place (extract) them in the `third_party` directory.
+Make sure that for all required third-party libraries (currently [zlib](https://github.com/madler/zlib), [hdf5](https://github.com/HDFGroup/hdf5) and [netcdf](https://github.com/Unidata/netcdf-c)) you download the source files and place (extract) them in the `third_party` directory. **Note that all the `.sh` scripts below need to be modified into their stand-alone state (see commented out input arguments).**
 
 ### Installing zlib
 Assuming you are in the `third_party/build_scripts` directory, to install [zlib](https://github.com/madler/zlib) you can run:
