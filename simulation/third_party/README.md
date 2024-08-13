@@ -10,6 +10,7 @@ sudo apt-get install libxml2-dev
 sudo apt-get install curl
 sudo apt-get install patchelf
 sudo apt-get install clang
+sudo apt-get install m4
 ```
 
 ### Installing 3rd party libraries
