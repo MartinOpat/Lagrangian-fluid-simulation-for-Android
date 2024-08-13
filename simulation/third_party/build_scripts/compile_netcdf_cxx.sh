@@ -10,7 +10,7 @@ echo "Using architecture: ${ARCH} (compiler prefix: ${COMPILER_PREFIX})"
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/linux-x86_64
 # export TARGET=$ABI-linux-android
 export TARGET=$COMPILER_PREFIX
-export API=21
+export API=29
 
 # Setup Compiler Variables
 export AR=$TOOLCHAIN/bin/llvm-ar
@@ -21,7 +21,7 @@ export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
 export STRIP=$TOOLCHAIN/bin/llvm-strip
 
 # Setup Additional Flags
-export SYSROOT=$TOOLCHAIN/sysroot
+export SYSROOT="$TOOLCHAIN/sysroot"
 export CFLAGS="--sysroot $SYSROOT"
 export CXXFLAGS="--sysroot $SYSROOT"
 export LDFLAGS="--sysroot $SYSROOT -L$SYSROOT/usr/lib"
