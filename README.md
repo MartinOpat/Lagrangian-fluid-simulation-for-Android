@@ -66,3 +66,14 @@ For compiling and building the project for Android, the following list of tools 
 - [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) 35.0.1
 - [CMake](https://cmake.org/) 3.22.1
 - [Gradle](https://gradle.org/) 8.4
+
+## Repository structure
+All the code is located in the [simulation](simulation) folder.
+
+To see third-party libraries and how to (re)compile them, see [simulation/third_party](simulation/third_party). The precompiled (shared) third_party libraries files can be found at [jniLibs](simulation/app/src/main/jniLibs).
+
+The Java code is located at [java](simulation/app/src/main/java/com/rug/lagrangianfluidsimulation).
+
+The C++ code is located at [cpp](simulation/app/src/main/cpp).
+
+The app layout can be adjusted using [activity_main.xml](simulation/app/src/main/res/layout/activity_main.xml)
