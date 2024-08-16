@@ -96,36 +96,53 @@ void check_update() {
 
 
 void init(std::string packageName) {
+    // Choose the mode of operation
+#ifdef USE_GPU
     mode = Mode::computeShaders;
+#elif USE_CPU_PARALLELISM
+    mode = Mode::parallel;
+#else
+    mode = Mode::sequential;
+#endif
 
+    // Start initialization on frame 0
     globalAppState->currentFrame = 0;
-
     globalAppState->touchHandler = new TouchHandler((globalAppState->mainview)->getTransforms());
     globalAppState->reader = new NetCDFReader(packageName);
 
+    // Choose physics preset
+#ifdef DOUBLE_GYRE_DEFAULT_SETTINGS
     //////////////////////// Double gyre regular scaling ////////////////////////
     one_day_simulation_period = 50.0f;
-    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5);
     globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
     /////////////////////////////////////////////////////////////
-
-    //////////////////////// Double gyre alternative scaling ////////////////////////
-//    one_day_simulation_period = 10.0f;
-//    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);
-//    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.02f);
-    /////////////////////////////////////////////////////////////
-
+#elif PERLIN_DEFAULT_SETTINGS
     //////////////////////// Perlin noise ////////////////////////
-//    one_day_simulation_period = 50.0f;
-//    globalAppState->vectorFieldHandler = new VectorFieldHandler();
-//    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
+    one_day_simulation_period = 50.0f;
+    globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
     /////////////////////////////////////////////////////////////
+#else
+    //////////////////////// Double gyre alternative scaling ////////////////////////
+    one_day_simulation_period = 10.0f;
+    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.02f);
+    /////////////////////////////////////////////////////////////
+#endif
+
+    // Initialize vector field handler, i.e., graphics
+#ifdef REDUCE_FIELD_GRAPHICS
+    globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);  // reduced
+#else
+    globalAppState->vectorFieldHandler = new VectorFieldHandler();  // full
+#endif
 
 
-    // Choose one of the following particle initialization methods
+    // Choose particle initialization method
+#ifdef LOAD_POSITIONS_FROM_FILE
     globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);  // Initialization from file
-//    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Diagonal line code-wise initialization
+#else
+    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Diagonal line code-wise initialization
 //    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*(globalAppState->physics), NUM_PARTICLES);  // Random uniform code-wise initialization
+#endif
 
 
     globalAppState->timer = new Timer<std::chrono::steady_clock>();
@@ -143,10 +160,6 @@ extern "C" {
         (globalAppState->vectorFieldHandler)->draw(*(globalAppState->mainview));
         (globalAppState->particlesHandler)->draw(*(globalAppState->mainview));
         (globalAppState->mainview)->drawUI();
-
-//#ifdef LOAD_POSITIONS_FROM_FILE
-//        LOGI("native-lib", "Loading initial positions");
-//#endif
     }
 
     JNIEXPORT void JNICALL Java_com_rug_lagrangianfluidsimulation_MainActivity_setupNative(JNIEnv* env, jobject obj, jobject assetManager, jstring path) {  // TODO: Rename

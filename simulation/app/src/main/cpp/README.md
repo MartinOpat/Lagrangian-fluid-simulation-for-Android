@@ -17,3 +17,13 @@ The variables can be accessed in the native code as:
 - `USE_GPU`: Whether to use the GPU for the calculations.
 - `USE_CPU_PARALLELISM`: Whether to use multiple CPU threads for the calculations.
 
+Setting any of the above variables to `1` will enable the feature, setting it to `0` will disable it. Note that the following sets of variables are mutually exclusive and should not be set to `1` at the same time:
+- `DOUBLE_GYRE_DEFAULT_SETTINGS` and `PERLIN_DEFAULT_SETTINGS`
+- `USE_GPU` and `USE_CPU_PARALLELISM`
+
+Setting both `DOUBLE_GYRE_DEFAULT_SETTINGS` and `PERLIN_DEFAULT_SETTINGS` to `0` will default in an alternative double gyre physics preset.
+
+Setting both `USE_GPU` and `USE_CPU_PARALLELISM` to `0` will default in using a sequetial CPU implementation.
+
+
+
