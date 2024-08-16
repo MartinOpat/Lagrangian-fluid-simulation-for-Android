@@ -74,6 +74,7 @@ To see third-party libraries and how to (re)compile them, see [simulation/third_
 
 The Java code is located at [java](simulation/app/src/main/java/com/rug/lagrangianfluidsimulation).
 
-The C++ code is located at [cpp](simulation/app/src/main/cpp).
+The C++ code is located at [cpp](simulation/app/src/main/cpp). The (pre-defined) project settings can be edited using [config.txt](simulation/app/src/main/cpp/config.txt)
 
 The app layout can be adjusted using [activity_main.xml](simulation/app/src/main/res/layout/activity_main.xml)
+
