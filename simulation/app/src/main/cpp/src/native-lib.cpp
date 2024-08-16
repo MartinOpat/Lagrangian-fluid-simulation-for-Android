@@ -118,7 +118,7 @@ void init(std::string packageName) {
     //////////////////////// Double gyre regular scaling ////////////////////////
     LOGI("native-lib", "Double gyre default settings");
     one_day_simulation_period = 50.0f;
-    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
+    globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.05f);
     /////////////////////////////////////////////////////////////
 #elif PERLIN_DEFAULT_SETTINGS
     //////////////////////// Perlin noise ////////////////////////
