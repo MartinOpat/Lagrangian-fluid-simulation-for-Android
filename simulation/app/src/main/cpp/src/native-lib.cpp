@@ -98,10 +98,13 @@ void check_update() {
 void init(std::string packageName) {
     // Choose the mode of operation
 #ifdef USE_GPU
+    LOGI("native-lib", "Using GPU");
     mode = Mode::computeShaders;
 #elif USE_CPU_PARALLELISM
+    LOGI("native-lib", "Using CPU parallelism");
     mode = Mode::parallel;
 #else
+    LOGI("native-lib", "Using CPU sequential");
     mode = Mode::sequential;
 #endif
 
@@ -113,16 +116,19 @@ void init(std::string packageName) {
     // Choose physics preset
 #ifdef DOUBLE_GYRE_DEFAULT_SETTINGS
     //////////////////////// Double gyre regular scaling ////////////////////////
+    LOGI("native-lib", "Double gyre default settings");
     one_day_simulation_period = 50.0f;
     globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.1f);
     /////////////////////////////////////////////////////////////
 #elif PERLIN_DEFAULT_SETTINGS
     //////////////////////// Perlin noise ////////////////////////
+    LOGI("native-lib", "Perlin noise default settings");
     one_day_simulation_period = 50.0f;
     globalAppState->physics = new Physics(*globalAppState->vectorFieldHandler, Physics::Model::particles_advection, 0.02f);
     /////////////////////////////////////////////////////////////
 #else
     //////////////////////// Double gyre alternative scaling ////////////////////////
+    LOGI("native-lib", "Double gyre alternative settings");
     one_day_simulation_period = 10.0f;
     globalAppState->physics = new Physics(*(globalAppState->vectorFieldHandler), Physics::Model::particles_advection, 0.02f);
     /////////////////////////////////////////////////////////////
@@ -130,16 +136,20 @@ void init(std::string packageName) {
 
     // Initialize vector field handler, i.e., graphics
 #ifdef REDUCE_FIELD_GRAPHICS
+    LOGI("native-lib", "Reduced field graphics");
     globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);  // reduced
 #else
+    LOGI("native-lib", "Full field graphics");
     globalAppState->vectorFieldHandler = new VectorFieldHandler();  // full
 #endif
 
 
     // Choose particle initialization method
 #ifdef LOAD_POSITIONS_FROM_FILE
+    LOGI("native-lib", "Loading particles from file");
     globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);  // Initialization from file
 #else
+    LOGI("native-lib", "Loading particles from code");
     globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::line , *(globalAppState->physics), NUM_PARTICLES);  // Diagonal line code-wise initialization
 //    globalAppState->particlesHandler = new ParticlesHandler(ParticlesHandler::InitType::uniform ,*(globalAppState->physics), NUM_PARTICLES);  // Random uniform code-wise initialization
 #endif
