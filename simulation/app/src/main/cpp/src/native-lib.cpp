@@ -97,7 +97,7 @@ void check_update() {
 
 void init(std::string packageName) {
     // Choose the mode of operation
-#ifdef USE_GPU
+#if USE_GPU
     LOGI("native-lib", "Using GPU");
     mode = Mode::computeShaders;
 #elif USE_CPU_PARALLELISM
@@ -114,7 +114,7 @@ void init(std::string packageName) {
     globalAppState->reader = new NetCDFReader(packageName);
 
     // Choose physics preset
-#ifdef DOUBLE_GYRE_DEFAULT_SETTINGS
+#if DOUBLE_GYRE_DEFAULT_SETTINGS
     //////////////////////// Double gyre regular scaling ////////////////////////
     LOGI("native-lib", "Double gyre default settings");
     one_day_simulation_period = 50.0f;
@@ -135,7 +135,7 @@ void init(std::string packageName) {
 #endif
 
     // Initialize vector field handler, i.e., graphics
-#ifdef REDUCE_FIELD_GRAPHICS
+#if REDUCE_FIELD_GRAPHICS
     LOGI("native-lib", "Reduced field graphics");
     globalAppState->vectorFieldHandler = new VectorFieldHandler(15, 15, 5, true);  // reduced
 #else
@@ -145,7 +145,7 @@ void init(std::string packageName) {
 
 
     // Choose particle initialization method
-#ifdef LOAD_POSITIONS_FROM_FILE
+#if LOAD_POSITIONS_FROM_FILE
     LOGI("native-lib", "Loading particles from file");
     globalAppState->particlesHandler = new ParticlesHandler(*globalAppState->physics, NUM_PARTICLES);  // Initialization from file
 #else

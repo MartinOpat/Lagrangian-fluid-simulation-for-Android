@@ -81,6 +81,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 # Config file exporting environment variables
 set(CONFIG_FILE "${CMAKE_SOURCE_DIR}/config.txt")
 
+# Use configure_file to track changes in config.txt
+configure_file(${CONFIG_FILE} ${CMAKE_BINARY_DIR}/config.txt COPYONLY)
+
 # Load config file func.
 function(load_config FILE_PATH)
     file(STRINGS ${FILE_PATH} ConfigLines REGEX "^[^#]+=.+")
@@ -91,6 +94,13 @@ function(load_config FILE_PATH)
         message("Configured ${Key} as ${Value}")
     endforeach()
 endfunction()
+
+unset(LOAD_POSITIONS_FROM_FILE CACHE)
+unset(REDUCE_FIELD_GRAPHICS CACHE)
+unset(DOUBLE_GYRE_DEFAULT_SETTINGS CACHE)
+unset(PERLIN_DEFAULT_SETTINGS CACHE)
+unset(USE_GPU CACHE)
+unset(USE_CPU_PARALLELISM CACHE)
 load_config(${CONFIG_FILE})
 
 # Add definitions for C++
