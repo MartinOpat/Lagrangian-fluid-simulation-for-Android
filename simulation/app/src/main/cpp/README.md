@@ -25,6 +25,8 @@ Setting both `DOUBLE_GYRE_DEFAULT_SETTINGS` and `PERLIN_DEFAULT_SETTINGS` to `0`
 
 Setting both `USE_GPU` and `USE_CPU_PARALLELISM` to `0` will default in using a sequetial CPU implementation.
 
+Note that even when `LOAD_POSITIONS_FROM_FILE` is set to `0`, the application still expects the user to select a file in the initialization process. However, the file is not used this case - it can be any file.
+
 ## Adding new variables
 To add a new variable, simply add a new line to the `config.txt` file with the following format:
 ```
