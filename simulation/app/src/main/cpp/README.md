@@ -25,5 +25,24 @@ Setting both `DOUBLE_GYRE_DEFAULT_SETTINGS` and `PERLIN_DEFAULT_SETTINGS` to `0`
 
 Setting both `USE_GPU` and `USE_CPU_PARALLELISM` to `0` will default in using a sequetial CPU implementation.
 
+## Adding new variables
+To add a new variable, simply add a new line to the `config.txt` file with the following format:
+```
+VARIABLE_NAME=VALUE
+```
+where `VARIABLE_NAME` is the name of the variable and `VALUE` is the value of the variable. Then, add the following lines to the `CMakeLists.txt` file:
+```cmake
+unset(VARIABLE_NAME CACHE)
+```
+and 
+```cmake
+if(VARIABLE_NAME)
+    add_definitions(-DVARIABLE_NAME=${VARIABLE_NAME})
+endif()
+```
+The above lines can either be added at the bottom of the file, or in the appropriate section of the file where these commands are set for the existing variables.
+
+
+
 
 
