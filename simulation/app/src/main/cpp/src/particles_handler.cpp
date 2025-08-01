@@ -8,9 +8,9 @@
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :
         physics(physics), num(num),
 //        pool(std::thread::hardware_concurrency()),
-        pool(2),
+        pool(4),
 //        thread_count(std::thread::hardware_concurrency())
-        thread_count(2)
+        thread_count(4)
         {
     initParticles(type);
     isInitialized = true;
@@ -109,7 +109,7 @@ void ParticlesHandler::updateParticles() {
 void ParticlesHandler::updateParticlesParallel() {
     // setup threads
 //    int num_threads = std::thread::hardware_concurrency();
-    int num_threads = 2;
+    int num_threads = 4;
     std::vector<std::thread> threads(num_threads);
     auto chunk_size = particles.size() / num_threads;
 
