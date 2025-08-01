@@ -37,11 +37,11 @@ ThreadPool *threadPool;
 EGLContextManager *eglContextManager;
 
 Timer<std::chrono::steady_clock>* timer;
-//CpuTimer* cpuTimer;
+CpuTimer* cpuTimer;
 //CpuTimer* cpuLoaderTimer;
 //GpuTimer* gpuRenderTimer;
 //GpuTimer* gpuComputeTimer;
-//CpuTimer* cpuComputeTimer;
+CpuTimer* cpuComputeTimer;
 
 // From consts.h
 float global_time_in_step = 0.0f;
@@ -103,11 +103,11 @@ void check_update() {
         });
 
         // Wait for the thread to finish
-//        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
+        threadPool->waitForAll();  // TODO: Only for measuring process, to eliminate measuring loader time in compute time
     }
 
     timer->measure();
-//    cpuTimer->measure();
+    cpuTimer->measure();
 }
 
 
@@ -123,11 +123,11 @@ void init() {
 //    particlesHandler = new ParticlesHandler(*physics, NUM_PARTICLES);  // Initialization from file
 
     timer = new Timer<std::chrono::steady_clock>();
-//    cpuTimer = new CpuTimer();
+    cpuTimer = new CpuTimer();
 //    gpuRenderTimer = new GpuTimer();
 //    gpuComputeTimer = new GpuTimer();
 //    cpuLoaderTimer = new CpuTimer();
-//    cpuComputeTimer = new CpuTimer();
+    cpuComputeTimer = new CpuTimer();
 
     threadPool = new ThreadPool(1);
     eglContextManager = new EGLContextManager();
@@ -141,15 +141,15 @@ extern "C" {
         static std::chrono::steady_clock::time_point lastTime2 = std::chrono::steady_clock::now();
         check_update();
 
-//        if (mode == Mode::computeShaders) {
+        if (mode == Mode::computeShaders) {
 //            gpuComputeTimer->start();
-//        } else {
-//            cpuComputeTimer->start();
-//        }
+        } else {
+            cpuComputeTimer->start();
+        }
         ///////////////////////////////////////////////// Measured section
         particlesHandler->simulateParticles(*mainview);
         /////////////////////////////////////////////////
-//        if (mode == Mode::computeShaders) {
+        if (mode == Mode::computeShaders) {
 //            gpuComputeTimer->stop();
 //            gpuComputeTimer->countMeasurement();
 //            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
@@ -157,15 +157,15 @@ extern "C" {
 //                gpuComputeTimer->reset();
 //                lastTime2 = std::chrono::steady_clock::now();
 //            }
-//        } else {
-//            cpuComputeTimer->stop();
-//            cpuComputeTimer->countMeasurement();
-//            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
-//                cpuComputeTimer->logElapsedTime("Compute");
-//                cpuComputeTimer->reset();
-//                lastTime2 = std::chrono::steady_clock::now();
-//            }
-//        }
+        } else {
+            cpuComputeTimer->stop();
+            cpuComputeTimer->countMeasurement();
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - lastTime2).count() > 1000) {
+                cpuComputeTimer->logElapsedTime("Compute");
+                cpuComputeTimer->reset();
+                lastTime2 = std::chrono::steady_clock::now();
+            }
+        }
 
 
 //        gpuRenderTimer->start();
@@ -249,7 +249,8 @@ extern "C" {
         delete physics;
         delete touchHandler;
         delete timer;
-//        delete cpuTimer;
+        delete cpuTimer;
+        delete cpuComputeTimer;
 //        delete cpuLoaderTimer;
 //        delete gpuRenderTimer;
 //        delete gpuComputeTimer;
