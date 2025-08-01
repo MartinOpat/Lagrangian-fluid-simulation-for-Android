@@ -1,0 +1,793 @@
+08-01 18:50:21.001 13648 13692 I CpuTimer: Elapsed time: 37.409000 ms
+08-01 18:50:21.985 13648 13692 I CpuTimerCompute: Elapsed time: 30.086018 ms
+08-01 18:50:21.986 13648 13692 I Timer   : Elapsed time: 8.869721 ms
+08-01 18:50:22.003 13648 13692 I CpuTimer: Elapsed time: 30.482509 ms
+08-01 18:50:22.993 13648 13692 I CpuTimerCompute: Elapsed time: 30.063191 ms
+08-01 18:50:22.993 13648 13692 I Timer   : Elapsed time: 8.761595 ms
+08-01 18:50:23.011 13648 13692 I CpuTimer: Elapsed time: 30.518426 ms
+08-01 18:50:23.996 13648 13692 I CpuTimerCompute: Elapsed time: 30.096930 ms
+08-01 18:50:23.997 13648 13692 I Timer   : Elapsed time: 8.803446 ms
+08-01 18:50:24.015 13648 13692 I CpuTimer: Elapsed time: 30.571500 ms
+08-01 18:50:25.000 13648 13692 I CpuTimerCompute: Elapsed time: 30.021482 ms
+08-01 18:50:25.000 13648 13692 I Timer   : Elapsed time: 8.799457 ms
+08-01 18:50:25.018 13648 13692 I CpuTimer: Elapsed time: 30.499219 ms
+08-01 18:50:26.068 13648 13692 I Timer   : Elapsed time: 24.825340 ms
+08-01 18:50:26.068 13648 13692 I CpuTimer: Elapsed time: 45.835366 ms
+08-01 18:50:26.077 13648 13692 I CpuTimerCompute: Elapsed time: 30.360545 ms
+08-01 18:50:27.072 13648 13692 I Timer   : Elapsed time: 8.808255 ms
+08-01 18:50:27.072 13648 13692 I CpuTimer: Elapsed time: 30.680737 ms
+08-01 18:50:27.081 13648 13692 I CpuTimerCompute: Elapsed time: 30.254009 ms
+08-01 18:50:28.074 13648 13692 I Timer   : Elapsed time: 8.710629 ms
+08-01 18:50:28.074 13648 13692 I CpuTimer: Elapsed time: 30.977643 ms
+08-01 18:50:28.082 13648 13692 I CpuTimerCompute: Elapsed time: 30.583374 ms
+08-01 18:50:29.082 13648 13692 I Timer   : Elapsed time: 8.688007 ms
+08-01 18:50:29.082 13648 13692 I CpuTimer: Elapsed time: 30.470517 ms
+08-01 18:50:29.090 13648 13692 I CpuTimerCompute: Elapsed time: 30.079207 ms
+08-01 18:50:30.090 13648 13692 I Timer   : Elapsed time: 8.689130 ms
+08-01 18:50:30.090 13648 13692 I CpuTimer: Elapsed time: 30.688207 ms
+08-01 18:50:30.098 13648 13692 I CpuTimerCompute: Elapsed time: 30.299026 ms
+08-01 18:50:31.110 13648 13692 I Timer   : Elapsed time: 26.153456 ms
+08-01 18:50:31.110 13648 13692 I CpuTimer: Elapsed time: 45.951128 ms
+08-01 18:50:31.119 13648 13692 I CpuTimerCompute: Elapsed time: 30.095897 ms
+08-01 18:50:32.111 13648 13692 I Timer   : Elapsed time: 8.784250 ms
+08-01 18:50:32.111 13648 13692 I CpuTimer: Elapsed time: 30.898947 ms
+08-01 18:50:32.128 13648 13692 I CpuTimerCompute: Elapsed time: 30.496383 ms
+08-01 18:50:33.114 13648 13692 I Timer   : Elapsed time: 8.721500 ms
+08-01 18:50:33.114 13648 13692 I CpuTimer: Elapsed time: 30.611713 ms
+08-01 18:50:33.131 13648 13692 I CpuTimerCompute: Elapsed time: 30.195417 ms
+08-01 18:50:34.117 13648 13692 I Timer   : Elapsed time: 8.720492 ms
+08-01 18:50:34.117 13648 13692 I CpuTimer: Elapsed time: 30.571678 ms
+08-01 18:50:34.135 13648 13692 I CpuTimerCompute: Elapsed time: 30.182000 ms
+08-01 18:50:35.122 13648 13692 I Timer   : Elapsed time: 8.814268 ms
+08-01 18:50:35.122 13648 13692 I CpuTimer: Elapsed time: 31.008781 ms
+08-01 18:50:35.142 13648 13692 I CpuTimerCompute: Elapsed time: 30.620482 ms
+08-01 18:50:36.263 13648 13692 I Timer   : Elapsed time: 27.154285 ms
+08-01 18:50:36.263 13648 13692 I CpuTimer: Elapsed time: 49.802905 ms
+08-01 18:50:36.273 13648 13692 I CpuTimerCompute: Elapsed time: 33.934171 ms
+08-01 18:50:37.263 13648 13692 I Timer   : Elapsed time: 10.004524 ms
+08-01 18:50:37.263 13648 13692 I CpuTimer: Elapsed time: 34.583290 ms
+08-01 18:50:37.283 13648 13692 I CpuTimerCompute: Elapsed time: 34.075941 ms
+08-01 18:50:38.265 13648 13692 I Timer   : Elapsed time: 9.916433 ms
+08-01 18:50:38.265 13648 13692 I CpuTimer: Elapsed time: 34.468673 ms
+08-01 18:50:38.284 13648 13692 I CpuTimerCompute: Elapsed time: 34.029248 ms
+08-01 18:50:39.268 13648 13692 I Timer   : Elapsed time: 10.027658 ms
+08-01 18:50:39.268 13648 13692 I CpuTimer: Elapsed time: 34.742940 ms
+08-01 18:50:39.287 13648 13692 I CpuTimerCompute: Elapsed time: 34.243590 ms
+08-01 18:50:40.276 13648 13692 I Timer   : Elapsed time: 9.975962 ms
+08-01 18:50:40.276 13648 13692 I CpuTimer: Elapsed time: 34.521010 ms
+08-01 18:50:40.295 13648 13692 I CpuTimerCompute: Elapsed time: 34.004307 ms
+08-01 18:50:41.914 13648 13692 I Timer   : Elapsed time: 16.714357 ms
+08-01 18:50:41.914 13648 13692 I CpuTimer: Elapsed time: 40.940153 ms
+08-01 18:50:41.924 13648 13692 I CpuTimerCompute: Elapsed time: 34.109021 ms
+08-01 18:50:42.918 13648 13692 I Timer   : Elapsed time: 10.037560 ms
+08-01 18:50:42.918 13648 13692 I CpuTimer: Elapsed time: 34.662650 ms
+08-01 18:50:42.927 13648 13692 I CpuTimerCompute: Elapsed time: 34.135550 ms
+08-01 18:50:43.919 13648 13692 I Timer   : Elapsed time: 10.008827 ms
+08-01 18:50:43.919 13648 13692 I CpuTimer: Elapsed time: 34.784580 ms
+08-01 18:50:43.938 13648 13692 I CpuTimerCompute: Elapsed time: 34.286891 ms
+08-01 18:50:44.925 13648 13692 I Timer   : Elapsed time: 9.968111 ms
+08-01 18:50:44.925 13648 13692 I CpuTimer: Elapsed time: 34.521594 ms
+08-01 18:50:44.945 13648 13692 I CpuTimerCompute: Elapsed time: 34.048970 ms
+08-01 18:50:45.936 13648 13692 I Timer   : Elapsed time: 10.523431 ms
+08-01 18:50:45.936 13648 13692 I CpuTimer: Elapsed time: 36.192792 ms
+08-01 18:50:45.946 13648 13692 I CpuTimerCompute: Elapsed time: 35.729589 ms
+08-01 18:50:46.946 13648 13692 I Timer   : Elapsed time: 10.626145 ms
+08-01 18:50:46.946 13648 13692 I CpuTimer: Elapsed time: 36.720095 ms
+08-01 18:50:46.956 13648 13692 I CpuTimerCompute: Elapsed time: 36.217474 ms
+08-01 18:50:47.952 13648 13692 I Timer   : Elapsed time: 40.272926 ms
+08-01 18:50:47.953 13648 13692 I CpuTimer: Elapsed time: 64.694240 ms
+08-01 18:50:47.963 13648 13692 I CpuTimerCompute: Elapsed time: 38.003280 ms
+08-01 18:50:48.954 13648 13692 I Timer   : Elapsed time: 10.657024 ms
+08-01 18:50:48.954 13648 13692 I CpuTimer: Elapsed time: 36.828234 ms
+08-01 18:50:48.964 13648 13692 I CpuTimerCompute: Elapsed time: 36.267681 ms
+08-01 18:50:49.957 13648 13692 I Timer   : Elapsed time: 10.662621 ms
+08-01 18:50:49.957 13648 13692 I CpuTimer: Elapsed time: 36.705202 ms
+08-01 18:50:49.967 13648 13692 I CpuTimerCompute: Elapsed time: 36.183511 ms
+08-01 18:50:50.959 13648 13692 I Timer   : Elapsed time: 10.666659 ms
+08-01 18:50:50.960 13648 13692 I CpuTimer: Elapsed time: 36.709862 ms
+08-01 18:50:50.970 13648 13692 I CpuTimerCompute: Elapsed time: 36.197798 ms
+08-01 18:50:51.965 13648 13692 I Timer   : Elapsed time: 10.691153 ms
+08-01 18:50:51.965 13648 13692 I CpuTimer: Elapsed time: 36.825255 ms
+08-01 18:50:51.975 13648 13692 I CpuTimerCompute: Elapsed time: 36.304532 ms
+08-01 18:50:52.968 13648 13692 I Timer   : Elapsed time: 10.669263 ms
+08-01 18:50:52.968 13648 13692 I CpuTimer: Elapsed time: 36.936053 ms
+08-01 18:50:52.978 13648 13692 I CpuTimerCompute: Elapsed time: 36.406149 ms
+08-01 18:50:53.978 13648 13692 I Timer   : Elapsed time: 38.842751 ms
+08-01 18:50:53.978 13648 13692 I CpuTimer: Elapsed time: 61.488269 ms
+08-01 18:50:53.988 13648 13692 I CpuTimerCompute: Elapsed time: 36.381308 ms
+08-01 18:50:54.981 13648 13692 I Timer   : Elapsed time: 10.673799 ms
+08-01 18:50:54.981 13648 13692 I CpuTimer: Elapsed time: 37.022766 ms
+08-01 18:50:54.991 13648 13692 I CpuTimerCompute: Elapsed time: 36.488809 ms
+08-01 18:50:55.986 13648 13692 I Timer   : Elapsed time: 10.690679 ms
+08-01 18:50:55.986 13648 13692 I CpuTimer: Elapsed time: 36.948117 ms
+08-01 18:50:55.996 13648 13692 I CpuTimerCompute: Elapsed time: 36.397043 ms
+08-01 18:50:56.988 13648 13692 I Timer   : Elapsed time: 10.658032 ms
+08-01 18:50:56.988 13648 13692 I CpuTimer: Elapsed time: 36.745872 ms
+08-01 18:50:56.999 13648 13692 I CpuTimerCompute: Elapsed time: 36.255819 ms
+08-01 18:50:57.991 13648 13692 I Timer   : Elapsed time: 10.673203 ms
+08-01 18:50:57.991 13648 13692 I CpuTimer: Elapsed time: 36.764213 ms
+08-01 18:50:58.002 13648 13692 I CpuTimerCompute: Elapsed time: 36.239777 ms
+08-01 18:50:59.000 13648 13692 I Timer   : Elapsed time: 10.732867 ms
+08-01 18:50:59.001 13648 13692 I CpuTimer: Elapsed time: 36.889883 ms
+08-01 18:50:59.011 13648 13692 I CpuTimerCompute: Elapsed time: 36.298851 ms
+08-01 18:51:00.007 13648 13692 I Timer   : Elapsed time: 38.715279 ms
+08-01 18:51:00.007 13648 13692 I CpuTimer: Elapsed time: 62.732962 ms
+08-01 18:51:00.017 13648 13692 I CpuTimerCompute: Elapsed time: 37.062923 ms
+08-01 18:51:01.010 13648 13692 I Timer   : Elapsed time: 10.663325 ms
+08-01 18:51:01.010 13648 13692 I CpuTimer: Elapsed time: 36.771000 ms
+08-01 18:51:01.020 13648 13692 I CpuTimerCompute: Elapsed time: 36.287915 ms
+08-01 18:51:02.021 13648 13692 I Timer   : Elapsed time: 10.641384 ms
+08-01 18:51:02.021 13648 13692 I CpuTimer: Elapsed time: 36.836747 ms
+08-01 18:51:02.031 13648 13692 I CpuTimerCompute: Elapsed time: 36.330211 ms
+08-01 18:51:03.025 13648 13692 I Timer   : Elapsed time: 10.681265 ms
+08-01 18:51:03.025 13648 13692 I CpuTimer: Elapsed time: 36.836043 ms
+08-01 18:51:03.035 13648 13692 I CpuTimerCompute: Elapsed time: 36.306755 ms
+08-01 18:51:04.027 13648 13692 I Timer   : Elapsed time: 10.657073 ms
+08-01 18:51:04.027 13648 13692 I CpuTimer: Elapsed time: 36.954426 ms
+08-01 18:51:04.037 13648 13692 I CpuTimerCompute: Elapsed time: 36.461596 ms
+08-01 18:51:05.032 13648 13692 I Timer   : Elapsed time: 10.689014 ms
+08-01 18:51:05.032 13648 13692 I CpuTimer: Elapsed time: 36.853681 ms
+08-01 18:51:05.042 13648 13692 I CpuTimerCompute: Elapsed time: 36.322255 ms
+08-01 18:51:06.032 13648 13692 I Timer   : Elapsed time: 40.001850 ms
+08-01 18:51:06.032 13648 13692 I CpuTimer: Elapsed time: 62.820160 ms
+08-01 18:51:06.052 13648 13692 I CpuTimerCompute: Elapsed time: 36.662308 ms
+08-01 18:51:07.035 13648 13692 I Timer   : Elapsed time: 10.674143 ms
+08-01 18:51:07.035 13648 13692 I CpuTimer: Elapsed time: 36.932223 ms
+08-01 18:51:07.056 13648 13692 I CpuTimerCompute: Elapsed time: 36.388053 ms
+08-01 18:51:08.039 13648 13692 I Timer   : Elapsed time: 10.682109 ms
+08-01 18:51:08.040 13648 13692 I CpuTimer: Elapsed time: 36.909500 ms
+08-01 18:51:08.060 13648 13692 I CpuTimerCompute: Elapsed time: 36.377181 ms
+08-01 18:51:09.050 13648 13692 I Timer   : Elapsed time: 10.748217 ms
+08-01 18:51:09.050 13648 13692 I CpuTimer: Elapsed time: 37.209351 ms
+08-01 18:51:09.071 13648 13692 I CpuTimerCompute: Elapsed time: 36.658957 ms
+08-01 18:51:10.056 13648 13692 I Timer   : Elapsed time: 10.697373 ms
+08-01 18:51:10.056 13648 13692 I CpuTimer: Elapsed time: 36.982596 ms
+08-01 18:51:10.077 13648 13692 I CpuTimerCompute: Elapsed time: 36.482309 ms
+08-01 18:51:11.064 13648 13692 I Timer   : Elapsed time: 10.723909 ms
+08-01 18:51:11.064 13648 13692 I CpuTimer: Elapsed time: 37.002032 ms
+08-01 18:51:11.085 13648 13692 I CpuTimerCompute: Elapsed time: 36.455362 ms
+08-01 18:51:12.071 13648 13692 I Timer   : Elapsed time: 38.756527 ms
+08-01 18:51:12.072 13648 13692 I CpuTimer: Elapsed time: 62.396231 ms
+08-01 18:51:12.097 13648 13692 I CpuTimerCompute: Elapsed time: 36.738192 ms
+08-01 18:51:13.073 13648 13692 I Timer   : Elapsed time: 10.767550 ms
+08-01 18:51:13.073 13648 13692 I CpuTimer: Elapsed time: 37.045505 ms
+08-01 18:51:13.105 13648 13692 I CpuTimerCompute: Elapsed time: 36.442947 ms
+08-01 18:51:14.078 13648 13692 I Timer   : Elapsed time: 10.804406 ms
+08-01 18:51:14.078 13648 13692 I CpuTimer: Elapsed time: 37.123989 ms
+08-01 18:51:14.109 13648 13692 I CpuTimerCompute: Elapsed time: 36.575237 ms
+08-01 18:51:15.080 13648 13692 I Timer   : Elapsed time: 10.772535 ms
+08-01 18:51:15.080 13648 13692 I CpuTimer: Elapsed time: 37.062333 ms
+08-01 18:51:15.112 13648 13692 I CpuTimerCompute: Elapsed time: 36.494720 ms
+08-01 18:51:16.090 13648 13692 I Timer   : Elapsed time: 10.859396 ms
+08-01 18:51:16.090 13648 13692 I CpuTimer: Elapsed time: 37.297118 ms
+08-01 18:51:16.114 13648 13692 I CpuTimerCompute: Elapsed time: 36.776207 ms
+08-01 18:51:17.097 13648 13692 I Timer   : Elapsed time: 10.833329 ms
+08-01 18:51:17.097 13648 13692 I CpuTimer: Elapsed time: 37.239677 ms
+08-01 18:51:17.118 13648 13692 I CpuTimerCompute: Elapsed time: 36.620333 ms
+08-01 18:51:18.192 13648 13692 I Timer   : Elapsed time: 32.194088 ms
+08-01 18:51:18.192 13648 13692 I CpuTimer: Elapsed time: 56.510882 ms
+08-01 18:51:18.202 13648 13692 I CpuTimerCompute: Elapsed time: 36.590061 ms
+08-01 18:51:19.201 13648 13692 I Timer   : Elapsed time: 10.843438 ms
+08-01 18:51:19.201 13648 13692 I CpuTimer: Elapsed time: 37.350452 ms
+08-01 18:51:19.211 13648 13692 I CpuTimerCompute: Elapsed time: 36.800204 ms
+08-01 18:51:20.203 13648 13692 I Timer   : Elapsed time: 10.782184 ms
+08-01 18:51:20.203 13648 13692 I CpuTimer: Elapsed time: 37.313935 ms
+08-01 18:51:20.214 13648 13692 I CpuTimerCompute: Elapsed time: 36.731559 ms
+08-01 18:51:21.215 13648 13692 I Timer   : Elapsed time: 10.756661 ms
+08-01 18:51:21.215 13648 13692 I CpuTimer: Elapsed time: 37.048926 ms
+08-01 18:51:21.225 13648 13692 I CpuTimerCompute: Elapsed time: 36.501840 ms
+08-01 18:51:22.224 13648 13692 I Timer   : Elapsed time: 10.851690 ms
+08-01 18:51:22.224 13648 13692 I CpuTimer: Elapsed time: 37.215774 ms
+08-01 18:51:22.234 13648 13692 I CpuTimerCompute: Elapsed time: 36.594978 ms
+08-01 18:51:23.233 13648 13692 I Timer   : Elapsed time: 10.731985 ms
+08-01 18:51:23.233 13648 13692 I CpuTimer: Elapsed time: 37.038947 ms
+08-01 18:51:23.243 13648 13692 I CpuTimerCompute: Elapsed time: 36.500564 ms
+08-01 18:51:24.316 13648 13692 I Timer   : Elapsed time: 32.833355 ms
+08-01 18:51:24.317 13648 13692 I CpuTimer: Elapsed time: 56.922485 ms
+08-01 18:51:24.330 13648 13692 I CpuTimerCompute: Elapsed time: 37.047394 ms
+08-01 18:51:25.320 13648 13692 I Timer   : Elapsed time: 10.909796 ms
+08-01 18:51:25.320 13648 13692 I CpuTimer: Elapsed time: 37.251239 ms
+08-01 18:51:25.341 13648 13692 I CpuTimerCompute: Elapsed time: 36.540624 ms
+08-01 18:51:26.328 13648 13692 I Timer   : Elapsed time: 10.835771 ms
+08-01 18:51:26.328 13648 13692 I CpuTimer: Elapsed time: 37.171527 ms
+08-01 18:51:26.351 13648 13692 I CpuTimerCompute: Elapsed time: 36.602505 ms
+08-01 18:51:27.338 13648 13692 I Timer   : Elapsed time: 10.859766 ms
+08-01 18:51:27.338 13648 13692 I CpuTimer: Elapsed time: 37.277581 ms
+08-01 18:51:27.359 13648 13692 I CpuTimerCompute: Elapsed time: 36.679032 ms
+08-01 18:51:28.346 13648 13692 I Timer   : Elapsed time: 10.956754 ms
+08-01 18:51:28.346 13648 13692 I CpuTimer: Elapsed time: 37.222967 ms
+08-01 18:51:28.367 13648 13692 I CpuTimerCompute: Elapsed time: 36.586707 ms
+08-01 18:51:29.352 13648 13692 I Timer   : Elapsed time: 10.813996 ms
+08-01 18:51:29.352 13648 13692 I CpuTimer: Elapsed time: 37.246151 ms
+08-01 18:51:29.373 13648 13692 I CpuTimerCompute: Elapsed time: 36.677591 ms
+08-01 18:51:30.510 13648 13692 I Timer   : Elapsed time: 31.294569 ms
+08-01 18:51:30.510 13648 13692 I CpuTimer: Elapsed time: 55.629784 ms
+08-01 18:51:30.521 13648 13692 I CpuTimerCompute: Elapsed time: 36.645528 ms
+08-01 18:51:31.520 13648 13692 I Timer   : Elapsed time: 10.853140 ms
+08-01 18:51:31.520 13648 13692 I CpuTimer: Elapsed time: 37.280957 ms
+08-01 18:51:31.530 13648 13692 I CpuTimerCompute: Elapsed time: 36.704667 ms
+08-01 18:51:32.528 13648 13692 I Timer   : Elapsed time: 10.837396 ms
+08-01 18:51:32.528 13648 13692 I CpuTimer: Elapsed time: 37.162065 ms
+08-01 18:51:32.538 13648 13692 I CpuTimerCompute: Elapsed time: 36.566516 ms
+08-01 18:51:33.531 13648 13692 I Timer   : Elapsed time: 10.787747 ms
+08-01 18:51:33.531 13648 13692 I CpuTimer: Elapsed time: 37.147634 ms
+08-01 18:51:33.541 13648 13692 I CpuTimerCompute: Elapsed time: 36.613946 ms
+08-01 18:51:34.542 13648 13692 I Timer   : Elapsed time: 10.865415 ms
+08-01 18:51:34.542 13648 13692 I CpuTimer: Elapsed time: 37.249290 ms
+08-01 18:51:34.552 13648 13692 I CpuTimerCompute: Elapsed time: 36.642366 ms
+08-01 18:51:35.549 13648 13692 I Timer   : Elapsed time: 10.828926 ms
+08-01 18:51:35.549 13648 13692 I CpuTimer: Elapsed time: 37.279022 ms
+08-01 18:51:35.559 13648 13692 I CpuTimerCompute: Elapsed time: 36.725892 ms
+08-01 18:51:36.666 13648 13692 I Timer   : Elapsed time: 31.925718 ms
+08-01 18:51:36.666 13648 13692 I CpuTimer: Elapsed time: 56.221600 ms
+08-01 18:51:36.677 13648 13692 I CpuTimerCompute: Elapsed time: 36.682114 ms
+08-01 18:51:37.668 13648 13692 I Timer   : Elapsed time: 11.009743 ms
+08-01 18:51:37.668 13648 13692 I CpuTimer: Elapsed time: 37.708703 ms
+08-01 18:51:37.679 13648 13692 I CpuTimerCompute: Elapsed time: 37.135418 ms
+08-01 18:51:38.672 13648 13692 I Timer   : Elapsed time: 10.906651 ms
+08-01 18:51:38.672 13648 13692 I CpuTimer: Elapsed time: 37.382435 ms
+08-01 18:51:38.682 13648 13692 I CpuTimerCompute: Elapsed time: 36.764848 ms
+08-01 18:51:39.677 13648 13692 I Timer   : Elapsed time: 10.807918 ms
+08-01 18:51:39.677 13648 13692 I CpuTimer: Elapsed time: 37.295022 ms
+08-01 18:51:39.687 13648 13692 I CpuTimerCompute: Elapsed time: 36.731753 ms
+08-01 18:51:40.685 13648 13692 I Timer   : Elapsed time: 10.838544 ms
+08-01 18:51:40.685 13648 13692 I CpuTimer: Elapsed time: 37.345634 ms
+08-01 18:51:40.695 13648 13692 I CpuTimerCompute: Elapsed time: 36.760011 ms
+08-01 18:51:41.696 13648 13692 I Timer   : Elapsed time: 10.983118 ms
+08-01 18:51:41.696 13648 13692 I CpuTimer: Elapsed time: 37.553293 ms
+08-01 18:51:41.706 13648 13692 I CpuTimerCompute: Elapsed time: 36.960924 ms
+08-01 18:51:42.837 13648 13692 I Timer   : Elapsed time: 29.269131 ms
+08-01 18:51:42.837 13648 13692 I CpuTimer: Elapsed time: 54.045333 ms
+08-01 18:51:42.850 13648 13692 I CpuTimerCompute: Elapsed time: 37.078333 ms
+08-01 18:51:43.841 13648 13692 I Timer   : Elapsed time: 11.029497 ms
+08-01 18:51:43.841 13648 13692 I CpuTimer: Elapsed time: 37.654132 ms
+08-01 18:51:43.852 13648 13692 I CpuTimerCompute: Elapsed time: 36.905352 ms
+08-01 18:51:44.851 13648 13692 I Timer   : Elapsed time: 10.975178 ms
+08-01 18:51:44.851 13648 13692 I CpuTimer: Elapsed time: 37.559207 ms
+08-01 18:51:44.862 13648 13692 I CpuTimerCompute: Elapsed time: 36.974837 ms
+08-01 18:51:45.859 13648 13692 I Timer   : Elapsed time: 11.322292 ms
+08-01 18:51:45.859 13648 13692 I CpuTimer: Elapsed time: 38.893764 ms
+08-01 18:51:45.871 13648 13692 I CpuTimerCompute: Elapsed time: 38.324281 ms
+08-01 18:51:46.867 13648 13692 I Timer   : Elapsed time: 11.723653 ms
+08-01 18:51:46.867 13648 13692 I CpuTimer: Elapsed time: 40.186047 ms
+08-01 18:51:46.878 13648 13692 I CpuTimerCompute: Elapsed time: 39.540860 ms
+08-01 18:51:47.873 13648 13692 I Timer   : Elapsed time: 11.692498 ms
+08-01 18:51:47.873 13648 13692 I CpuTimer: Elapsed time: 40.071698 ms
+08-01 18:51:47.884 13648 13692 I CpuTimerCompute: Elapsed time: 39.434698 ms
+08-01 18:51:49.260 13648 13692 I Timer   : Elapsed time: 24.762918 ms
+08-01 18:51:49.260 13648 13692 I CpuTimer: Elapsed time: 51.812554 ms
+08-01 18:51:49.272 13648 13692 I CpuTimerCompute: Elapsed time: 39.376161 ms
+08-01 18:51:50.265 13648 13692 I Timer   : Elapsed time: 11.818176 ms
+08-01 18:51:50.265 13648 13692 I CpuTimer: Elapsed time: 40.281706 ms
+08-01 18:51:50.276 13648 13692 I CpuTimerCompute: Elapsed time: 39.642906 ms
+08-01 18:51:51.274 13648 13692 I Timer   : Elapsed time: 11.731925 ms
+08-01 18:51:51.274 13648 13692 I CpuTimer: Elapsed time: 40.182209 ms
+08-01 18:51:51.285 13648 13692 I CpuTimerCompute: Elapsed time: 39.553465 ms
+08-01 18:51:52.280 13648 13692 I Timer   : Elapsed time: 11.706912 ms
+08-01 18:51:52.281 13648 13692 I CpuTimer: Elapsed time: 40.137709 ms
+08-01 18:51:52.291 13648 13692 I CpuTimerCompute: Elapsed time: 39.550070 ms
+08-01 18:51:53.290 13648 13692 I Timer   : Elapsed time: 11.743198 ms
+08-01 18:51:53.291 13648 13692 I CpuTimer: Elapsed time: 40.161674 ms
+08-01 18:51:53.302 13648 13692 I CpuTimerCompute: Elapsed time: 39.578186 ms
+08-01 18:51:54.293 13648 13692 I Timer   : Elapsed time: 11.793857 ms
+08-01 18:51:54.293 13648 13692 I CpuTimer: Elapsed time: 40.287376 ms
+08-01 18:51:54.305 13648 13692 I CpuTimerCompute: Elapsed time: 39.638165 ms
+08-01 18:51:55.920 13648 13692 I Timer   : Elapsed time: 22.600985 ms
+08-01 18:51:55.921 13648 13692 I CpuTimer: Elapsed time: 50.028861 ms
+08-01 18:51:55.932 13648 13692 I CpuTimerCompute: Elapsed time: 39.648764 ms
+08-01 18:51:56.929 13648 13692 I Timer   : Elapsed time: 11.867703 ms
+08-01 18:51:56.929 13648 13692 I CpuTimer: Elapsed time: 40.524471 ms
+08-01 18:51:56.941 13648 13692 I CpuTimerCompute: Elapsed time: 39.840682 ms
+08-01 18:51:57.934 13648 13692 I Timer   : Elapsed time: 11.817832 ms
+08-01 18:51:57.934 13648 13692 I CpuTimer: Elapsed time: 40.436506 ms
+08-01 18:51:57.945 13648 13692 I CpuTimerCompute: Elapsed time: 39.772671 ms
+08-01 18:51:58.936 13648 13692 I Timer   : Elapsed time: 11.782304 ms
+08-01 18:51:58.936 13648 13692 I CpuTimer: Elapsed time: 40.406212 ms
+08-01 18:51:58.948 13648 13692 I CpuTimerCompute: Elapsed time: 39.804082 ms
+08-01 18:51:59.940 13648 13692 I Timer   : Elapsed time: 11.813813 ms
+08-01 18:51:59.940 13648 13692 I CpuTimer: Elapsed time: 40.427753 ms
+08-01 18:51:59.952 13648 13692 I CpuTimerCompute: Elapsed time: 39.807624 ms
+08-01 18:52:00.946 13648 13692 I Timer   : Elapsed time: 11.829670 ms
+08-01 18:52:00.946 13648 13692 I CpuTimer: Elapsed time: 40.582953 ms
+08-01 18:52:00.957 13648 13692 I CpuTimerCompute: Elapsed time: 39.942624 ms
+08-01 18:52:02.591 13648 13692 I Timer   : Elapsed time: 21.936390 ms
+08-01 18:52:02.591 13648 13692 I CpuTimer: Elapsed time: 49.604787 ms
+08-01 18:52:02.607 13648 13692 I CpuTimerCompute: Elapsed time: 39.858933 ms
+08-01 18:52:03.603 13648 13692 I Timer   : Elapsed time: 11.900703 ms
+08-01 18:52:03.603 13648 13692 I CpuTimer: Elapsed time: 40.436082 ms
+08-01 18:52:03.615 13648 13692 I CpuTimerCompute: Elapsed time: 39.787624 ms
+08-01 18:52:04.608 13648 13692 I Timer   : Elapsed time: 11.960814 ms
+08-01 18:52:04.608 13648 13692 I CpuTimer: Elapsed time: 40.756071 ms
+08-01 18:52:04.619 13648 13692 I CpuTimerCompute: Elapsed time: 40.046833 ms
+08-01 18:52:05.614 13648 13692 I Timer   : Elapsed time: 12.120983 ms
+08-01 18:52:05.614 13648 13692 I CpuTimer: Elapsed time: 41.329892 ms
+08-01 18:52:05.626 13648 13692 I CpuTimerCompute: Elapsed time: 40.667699 ms
+08-01 18:52:06.619 13648 13692 I Timer   : Elapsed time: 12.728279 ms
+08-01 18:52:06.620 13648 13692 I CpuTimer: Elapsed time: 43.309000 ms
+08-01 18:52:06.632 13648 13692 I CpuTimerCompute: Elapsed time: 42.652848 ms
+08-01 18:52:07.631 13648 13692 I Timer   : Elapsed time: 12.806067 ms
+08-01 18:52:07.631 13648 13692 I CpuTimer: Elapsed time: 43.478278 ms
+08-01 18:52:07.643 13648 13692 I CpuTimerCompute: Elapsed time: 42.793152 ms
+08-01 18:52:08.636 13648 13692 I Timer   : Elapsed time: 12.722674 ms
+08-01 18:52:08.637 13648 13692 I CpuTimer: Elapsed time: 43.319987 ms
+08-01 18:52:08.648 13648 13692 I CpuTimerCompute: Elapsed time: 42.653177 ms
+08-01 18:52:09.643 13648 13692 I Timer   : Elapsed time: 52.945179 ms
+08-01 18:52:09.643 13648 13692 I CpuTimer: Elapsed time: 80.632053 ms
+08-01 18:52:09.655 13648 13692 I CpuTimerCompute: Elapsed time: 44.146526 ms
+08-01 18:52:10.653 13648 13692 I Timer   : Elapsed time: 12.783356 ms
+08-01 18:52:10.653 13648 13692 I CpuTimer: Elapsed time: 43.455430 ms
+08-01 18:52:10.664 13648 13692 I CpuTimerCompute: Elapsed time: 42.804063 ms
+08-01 18:52:11.664 13648 13692 I Timer   : Elapsed time: 12.797979 ms
+08-01 18:52:11.664 13648 13692 I CpuTimer: Elapsed time: 43.644316 ms
+08-01 18:52:11.676 13648 13692 I CpuTimerCompute: Elapsed time: 42.993949 ms
+08-01 18:52:12.673 13648 13692 I Timer   : Elapsed time: 12.777164 ms
+08-01 18:52:12.673 13648 13692 I CpuTimer: Elapsed time: 43.521759 ms
+08-01 18:52:12.686 13648 13692 I CpuTimerCompute: Elapsed time: 42.853165 ms
+08-01 18:52:13.678 13648 13692 I Timer   : Elapsed time: 12.883085 ms
+08-01 18:52:13.678 13648 13692 I CpuTimer: Elapsed time: 43.700756 ms
+08-01 18:52:13.691 13648 13692 I CpuTimerCompute: Elapsed time: 43.037154 ms
+08-01 18:52:14.687 13648 13692 I Timer   : Elapsed time: 12.771043 ms
+08-01 18:52:14.687 13648 13692 I CpuTimer: Elapsed time: 43.659544 ms
+08-01 18:52:14.699 13648 13692 I CpuTimerCompute: Elapsed time: 42.939354 ms
+08-01 18:52:15.692 13648 13692 I Timer   : Elapsed time: 12.880061 ms
+08-01 18:52:15.692 13648 13692 I CpuTimer: Elapsed time: 43.745987 ms
+08-01 18:52:15.704 13648 13692 I CpuTimerCompute: Elapsed time: 43.021462 ms
+08-01 18:52:16.783 13648 13692 I Timer   : Elapsed time: 54.539978 ms
+08-01 18:52:16.783 13648 13692 I CpuTimer: Elapsed time: 81.344900 ms
+08-01 18:52:16.796 13648 13692 I CpuTimerCompute: Elapsed time: 43.149450 ms
+08-01 18:52:17.795 13648 13692 I Timer   : Elapsed time: 12.966865 ms
+08-01 18:52:17.795 13648 13692 I CpuTimer: Elapsed time: 43.960936 ms
+08-01 18:52:17.807 13648 13692 I CpuTimerCompute: Elapsed time: 43.202436 ms
+08-01 18:52:18.805 13648 13692 I Timer   : Elapsed time: 12.946968 ms
+08-01 18:52:18.805 13648 13692 I CpuTimer: Elapsed time: 43.936282 ms
+08-01 18:52:18.817 13648 13692 I CpuTimerCompute: Elapsed time: 43.220462 ms
+08-01 18:52:19.805 13648 13692 I Timer   : Elapsed time: 12.990239 ms
+08-01 18:52:19.805 13648 13692 I CpuTimer: Elapsed time: 43.963870 ms
+08-01 18:52:19.831 13648 13692 I CpuTimerCompute: Elapsed time: 43.223526 ms
+08-01 18:52:20.813 13648 13692 I Timer   : Elapsed time: 12.916765 ms
+08-01 18:52:20.813 13648 13692 I CpuTimer: Elapsed time: 43.811487 ms
+08-01 18:52:20.837 13648 13692 I CpuTimerCompute: Elapsed time: 43.102064 ms
+08-01 18:52:21.816 13648 13692 I Timer   : Elapsed time: 13.031459 ms
+08-01 18:52:21.816 13648 13692 I CpuTimer: Elapsed time: 44.159532 ms
+08-01 18:52:21.842 13648 13692 I CpuTimerCompute: Elapsed time: 43.418870 ms
+08-01 18:52:22.824 13648 13692 I Timer   : Elapsed time: 13.091062 ms
+08-01 18:52:22.824 13648 13692 I CpuTimer: Elapsed time: 44.227545 ms
+08-01 18:52:22.849 13648 13692 I CpuTimerCompute: Elapsed time: 43.453091 ms
+08-01 18:52:24.085 13648 13692 I Timer   : Elapsed time: 36.005569 ms
+08-01 18:52:24.085 13648 13692 I CpuTimer: Elapsed time: 64.990143 ms
+08-01 18:52:24.101 13648 13692 I CpuTimerCompute: Elapsed time: 43.801618 ms
+08-01 18:52:25.088 13648 13692 I Timer   : Elapsed time: 13.199948 ms
+08-01 18:52:25.088 13648 13692 I CpuTimer: Elapsed time: 44.469618 ms
+08-01 18:52:25.113 13648 13692 I CpuTimerCompute: Elapsed time: 43.520818 ms
+08-01 18:52:26.095 13648 13692 I Timer   : Elapsed time: 13.074565 ms
+08-01 18:52:26.095 13648 13692 I CpuTimer: Elapsed time: 44.344078 ms
+08-01 18:52:26.120 13648 13692 I CpuTimerCompute: Elapsed time: 43.613091 ms
+08-01 18:52:27.098 13648 13692 I Timer   : Elapsed time: 13.201266 ms
+08-01 18:52:27.098 13648 13692 I CpuTimer: Elapsed time: 44.581289 ms
+08-01 18:52:27.125 13648 13692 I CpuTimerCompute: Elapsed time: 43.893763 ms
+08-01 18:52:28.100 13648 13692 I Timer   : Elapsed time: 13.182584 ms
+08-01 18:52:28.100 13648 13692 I CpuTimer: Elapsed time: 44.501145 ms
+08-01 18:52:28.127 13648 13692 I CpuTimerCompute: Elapsed time: 43.726289 ms
+08-01 18:52:29.101 13648 13692 I Timer   : Elapsed time: 13.172320 ms
+08-01 18:52:29.102 13648 13692 I CpuTimer: Elapsed time: 44.604500 ms
+08-01 18:52:29.139 13648 13692 I CpuTimerCompute: Elapsed time: 43.805610 ms
+08-01 18:52:30.110 13648 13692 I Timer   : Elapsed time: 13.268281 ms
+08-01 18:52:30.110 13648 13692 I CpuTimer: Elapsed time: 44.762355 ms
+08-01 18:52:30.149 13648 13692 I CpuTimerCompute: Elapsed time: 44.023237 ms
+08-01 18:52:31.499 13648 13692 I Timer   : Elapsed time: 32.293148 ms
+08-01 18:52:31.499 13648 13692 I CpuTimer: Elapsed time: 61.493000 ms
+08-01 18:52:31.520 13648 13692 I CpuTimerCompute: Elapsed time: 44.195512 ms
+08-01 18:52:32.504 13648 13692 I Timer   : Elapsed time: 13.407207 ms
+08-01 18:52:32.504 13648 13692 I CpuTimer: Elapsed time: 44.993627 ms
+08-01 18:52:32.530 13648 13692 I CpuTimerCompute: Elapsed time: 44.067303 ms
+08-01 18:52:33.509 13648 13692 I Timer   : Elapsed time: 13.395796 ms
+08-01 18:52:33.509 13648 13692 I CpuTimer: Elapsed time: 45.007160 ms
+08-01 18:52:33.536 13648 13692 I CpuTimerCompute: Elapsed time: 44.202000 ms
+08-01 18:52:34.512 13648 13692 I Timer   : Elapsed time: 13.373263 ms
+08-01 18:52:34.512 13648 13692 I CpuTimer: Elapsed time: 45.192707 ms
+08-01 18:52:34.538 13648 13692 I CpuTimerCompute: Elapsed time: 44.382427 ms
+08-01 18:52:35.517 13648 13692 I Timer   : Elapsed time: 13.388853 ms
+08-01 18:52:35.517 13648 13692 I CpuTimer: Elapsed time: 45.078200 ms
+08-01 18:52:35.542 13648 13692 I CpuTimerCompute: Elapsed time: 44.336413 ms
+08-01 18:52:36.528 13648 13692 I Timer   : Elapsed time: 13.479199 ms
+08-01 18:52:36.528 13648 13692 I CpuTimer: Elapsed time: 45.234840 ms
+08-01 18:52:36.555 13648 13692 I CpuTimerCompute: Elapsed time: 44.508653 ms
+08-01 18:52:37.534 13648 13692 I Timer   : Elapsed time: 13.422151 ms
+08-01 18:52:37.535 13648 13692 I CpuTimer: Elapsed time: 45.334960 ms
+08-01 18:52:37.560 13648 13692 I CpuTimerCompute: Elapsed time: 44.485707 ms
+08-01 18:52:39.022 13648 13692 I Timer   : Elapsed time: 29.740850 ms
+08-01 18:52:39.022 13648 13692 I CpuTimer: Elapsed time: 60.312500 ms
+08-01 18:52:39.040 13648 13692 I CpuTimerCompute: Elapsed time: 44.531714 ms
+08-01 18:52:40.024 13648 13692 I Timer   : Elapsed time: 13.541611 ms
+08-01 18:52:40.024 13648 13692 I CpuTimer: Elapsed time: 45.427176 ms
+08-01 18:52:40.049 13648 13692 I CpuTimerCompute: Elapsed time: 44.586213 ms
+08-01 18:52:41.035 13648 13692 I Timer   : Elapsed time: 13.481202 ms
+08-01 18:52:41.035 13648 13692 I CpuTimer: Elapsed time: 45.290720 ms
+08-01 18:52:41.061 13648 13692 I CpuTimerCompute: Elapsed time: 44.503813 ms
+08-01 18:52:42.048 13648 13692 I Timer   : Elapsed time: 13.500635 ms
+08-01 18:52:42.048 13648 13692 I CpuTimer: Elapsed time: 45.417200 ms
+08-01 18:52:42.073 13648 13692 I CpuTimerCompute: Elapsed time: 44.607000 ms
+08-01 18:52:43.058 13648 13692 I Timer   : Elapsed time: 13.464713 ms
+08-01 18:52:43.058 13648 13692 I CpuTimer: Elapsed time: 45.433520 ms
+08-01 18:52:43.084 13648 13692 I CpuTimerCompute: Elapsed time: 44.652240 ms
+08-01 18:52:44.070 13648 13692 I Timer   : Elapsed time: 13.501001 ms
+08-01 18:52:44.070 13648 13692 I CpuTimer: Elapsed time: 45.360573 ms
+08-01 18:52:44.097 13648 13692 I CpuTimerCompute: Elapsed time: 44.576733 ms
+08-01 18:52:45.077 13648 13692 I Timer   : Elapsed time: 13.598863 ms
+08-01 18:52:45.077 13648 13692 I CpuTimer: Elapsed time: 45.688338 ms
+08-01 18:52:45.103 13648 13692 I CpuTimerCompute: Elapsed time: 44.826365 ms
+08-01 18:52:46.591 13648 13692 I Timer   : Elapsed time: 29.117014 ms
+08-01 18:52:46.591 13648 13692 I CpuTimer: Elapsed time: 60.084000 ms
+08-01 18:52:46.605 13648 13692 I CpuTimerCompute: Elapsed time: 44.892549 ms
+08-01 18:52:47.601 13648 13692 I Timer   : Elapsed time: 13.647160 ms
+08-01 18:52:47.601 13648 13692 I CpuTimer: Elapsed time: 45.771959 ms
+08-01 18:52:47.616 13648 13692 I CpuTimerCompute: Elapsed time: 44.957311 ms
+08-01 18:52:48.604 13648 13692 I Timer   : Elapsed time: 13.736969 ms
+08-01 18:52:48.604 13648 13692 I CpuTimer: Elapsed time: 45.825904 ms
+08-01 18:52:48.617 13648 13692 I CpuTimerCompute: Elapsed time: 44.941452 ms
+08-01 18:52:49.606 13648 13692 I Timer   : Elapsed time: 13.731346 ms
+08-01 18:52:49.607 13648 13692 I CpuTimer: Elapsed time: 45.833548 ms
+08-01 18:52:49.619 13648 13692 I CpuTimerCompute: Elapsed time: 45.010452 ms
+08-01 18:52:50.620 13648 13692 I Timer   : Elapsed time: 13.691984 ms
+08-01 18:52:50.620 13648 13692 I CpuTimer: Elapsed time: 45.982405 ms
+08-01 18:52:50.634 13648 13692 I CpuTimerCompute: Elapsed time: 45.224568 ms
+08-01 18:52:51.629 13648 13692 I Timer   : Elapsed time: 13.819986 ms
+08-01 18:52:51.629 13648 13692 I CpuTimer: Elapsed time: 46.366767 ms
+08-01 18:52:51.642 13648 13692 I CpuTimerCompute: Elapsed time: 45.465877 ms
+08-01 18:52:52.641 13648 13692 I Timer   : Elapsed time: 13.862464 ms
+08-01 18:52:52.641 13648 13692 I CpuTimer: Elapsed time: 46.343329 ms
+08-01 18:52:52.655 13648 13692 I CpuTimerCompute: Elapsed time: 45.518671 ms
+08-01 18:52:54.257 13648 13692 I Timer   : Elapsed time: 26.938774 ms
+08-01 18:52:54.257 13648 13692 I CpuTimer: Elapsed time: 58.497433 ms
+08-01 18:52:54.271 13648 13692 I CpuTimerCompute: Elapsed time: 45.738500 ms
+08-01 18:52:55.270 13648 13692 I Timer   : Elapsed time: 13.875445 ms
+08-01 18:52:55.270 13648 13692 I CpuTimer: Elapsed time: 46.435521 ms
+08-01 18:52:55.283 13648 13692 I CpuTimerCompute: Elapsed time: 45.573247 ms
+08-01 18:52:56.277 13648 13692 I Timer   : Elapsed time: 13.988432 ms
+08-01 18:52:56.278 13648 13692 I CpuTimer: Elapsed time: 46.834278 ms
+08-01 18:52:56.290 13648 13692 I CpuTimerCompute: Elapsed time: 45.942458 ms
+08-01 18:52:57.278 13648 13692 I Timer   : Elapsed time: 13.896619 ms
+08-01 18:52:57.278 13648 13692 I CpuTimer: Elapsed time: 46.370486 ms
+08-01 18:52:57.291 13648 13692 I CpuTimerCompute: Elapsed time: 45.525667 ms
+08-01 18:52:58.280 13648 13692 I Timer   : Elapsed time: 13.907646 ms
+08-01 18:52:58.280 13648 13692 I CpuTimer: Elapsed time: 46.696583 ms
+08-01 18:52:58.293 13648 13692 I CpuTimerCompute: Elapsed time: 45.841972 ms
+08-01 18:52:59.281 13648 13692 I Timer   : Elapsed time: 13.913143 ms
+08-01 18:52:59.282 13648 13692 I CpuTimer: Elapsed time: 46.766222 ms
+08-01 18:52:59.295 13648 13692 I CpuTimerCompute: Elapsed time: 45.949194 ms
+08-01 18:53:00.282 13648 13692 I Timer   : Elapsed time: 13.897093 ms
+08-01 18:53:00.282 13648 13692 I CpuTimer: Elapsed time: 46.547472 ms
+08-01 18:53:00.309 13648 13692 I CpuTimerCompute: Elapsed time: 45.644973 ms
+08-01 18:53:01.989 13648 13692 I Timer   : Elapsed time: 25.478672 ms
+08-01 18:53:01.990 13648 13692 I CpuTimer: Elapsed time: 57.310672 ms
+08-01 18:53:02.014 13648 13692 I CpuTimerCompute: Elapsed time: 46.278121 ms
+08-01 18:53:02.992 13648 13692 I Timer   : Elapsed time: 14.315874 ms
+08-01 18:53:02.992 13648 13692 I CpuTimer: Elapsed time: 47.471814 ms
+08-01 18:53:03.019 13648 13692 I CpuTimerCompute: Elapsed time: 46.486465 ms
+08-01 18:53:03.998 13648 13692 I Timer   : Elapsed time: 14.168987 ms
+08-01 18:53:03.998 13648 13692 I CpuTimer: Elapsed time: 47.377099 ms
+08-01 18:53:04.024 13648 13692 I CpuTimerCompute: Elapsed time: 46.477099 ms
+08-01 18:53:05.010 13648 13692 I Timer   : Elapsed time: 14.058801 ms
+08-01 18:53:05.010 13648 13692 I CpuTimer: Elapsed time: 47.117250 ms
+08-01 18:53:05.040 13648 13692 I CpuTimerCompute: Elapsed time: 46.364000 ms
+08-01 18:53:06.016 13648 13692 I Timer   : Elapsed time: 14.158231 ms
+08-01 18:53:06.016 13648 13692 I CpuTimer: Elapsed time: 47.506648 ms
+08-01 18:53:06.042 13648 13692 I CpuTimerCompute: Elapsed time: 46.556887 ms
+08-01 18:53:07.021 13648 13692 I Timer   : Elapsed time: 14.165029 ms
+08-01 18:53:07.021 13648 13692 I CpuTimer: Elapsed time: 47.384451 ms
+08-01 18:53:07.048 13648 13692 I CpuTimerCompute: Elapsed time: 46.503127 ms
+08-01 18:53:08.032 13648 13692 I Timer   : Elapsed time: 14.231940 ms
+08-01 18:53:08.032 13648 13692 I CpuTimer: Elapsed time: 47.561014 ms
+08-01 18:53:08.058 13648 13692 I CpuTimerCompute: Elapsed time: 46.627507 ms
+08-01 18:53:09.033 13648 13692 I Timer   : Elapsed time: 14.100903 ms
+08-01 18:53:09.033 13648 13692 I CpuTimer: Elapsed time: 47.571746 ms
+08-01 18:53:09.063 13648 13692 I CpuTimerCompute: Elapsed time: 46.795915 ms
+08-01 18:53:10.034 13648 13692 I Timer   : Elapsed time: 83.354698 ms
+08-01 18:53:10.034 13648 13692 I CpuTimer: Elapsed time: 110.906417 ms
+08-01 18:53:10.075 13648 13692 I CpuTimerCompute: Elapsed time: 47.047846 ms
+08-01 18:53:11.043 13648 13692 I Timer   : Elapsed time: 14.218965 ms
+08-01 18:53:11.043 13648 13692 I CpuTimer: Elapsed time: 47.550056 ms
+08-01 18:53:11.085 13648 13692 I CpuTimerCompute: Elapsed time: 46.717775 ms
+08-01 18:53:12.051 13648 13692 I Timer   : Elapsed time: 14.191639 ms
+08-01 18:53:12.051 13648 13692 I CpuTimer: Elapsed time: 47.449141 ms
+08-01 18:53:12.095 13648 13692 I CpuTimerCompute: Elapsed time: 46.587549 ms
+08-01 18:53:13.064 13648 13692 I Timer   : Elapsed time: 14.270984 ms
+08-01 18:53:13.064 13648 13692 I CpuTimer: Elapsed time: 47.754479 ms
+08-01 18:53:13.105 13648 13692 I CpuTimerCompute: Elapsed time: 46.792127 ms
+08-01 18:53:14.078 13648 13692 I Timer   : Elapsed time: 14.279082 ms
+08-01 18:53:14.078 13648 13692 I CpuTimer: Elapsed time: 47.708845 ms
+08-01 18:53:14.119 13648 13692 I CpuTimerCompute: Elapsed time: 46.806620 ms
+08-01 18:53:15.081 13648 13692 I Timer   : Elapsed time: 14.322834 ms
+08-01 18:53:15.081 13648 13692 I CpuTimer: Elapsed time: 47.738057 ms
+08-01 18:53:15.124 13648 13692 I CpuTimerCompute: Elapsed time: 46.942586 ms
+08-01 18:53:16.095 13648 13692 I Timer   : Elapsed time: 14.483355 ms
+08-01 18:53:16.095 13648 13692 I CpuTimer: Elapsed time: 48.278000 ms
+08-01 18:53:16.126 13648 13692 I CpuTimerCompute: Elapsed time: 47.506507 ms
+08-01 18:53:17.867 13648 13692 I Timer   : Elapsed time: 26.447258 ms
+08-01 18:53:17.867 13648 13692 I CpuTimer: Elapsed time: 59.267746 ms
+08-01 18:53:17.882 13648 13692 I CpuTimerCompute: Elapsed time: 47.369106 ms
+08-01 18:53:18.872 13648 13692 I Timer   : Elapsed time: 14.363213 ms
+08-01 18:53:18.872 13648 13692 I CpuTimer: Elapsed time: 48.090871 ms
+08-01 18:53:18.886 13648 13692 I CpuTimerCompute: Elapsed time: 47.157600 ms
+08-01 18:53:19.877 13648 13692 I Timer   : Elapsed time: 14.343282 ms
+08-01 18:53:19.877 13648 13692 I CpuTimer: Elapsed time: 48.140514 ms
+08-01 18:53:19.890 13648 13692 I CpuTimerCompute: Elapsed time: 47.235743 ms
+08-01 18:53:20.886 13648 13692 I Timer   : Elapsed time: 14.414060 ms
+08-01 18:53:20.886 13648 13692 I CpuTimer: Elapsed time: 48.382429 ms
+08-01 18:53:20.898 13648 13692 I CpuTimerCompute: Elapsed time: 47.476471 ms
+08-01 18:53:21.899 13648 13692 I Timer   : Elapsed time: 14.478999 ms
+08-01 18:53:21.899 13648 13692 I CpuTimer: Elapsed time: 48.528600 ms
+08-01 18:53:21.913 13648 13692 I CpuTimerCompute: Elapsed time: 47.649357 ms
+08-01 18:53:22.912 13648 13692 I Timer   : Elapsed time: 14.462976 ms
+08-01 18:53:22.912 13648 13692 I CpuTimer: Elapsed time: 48.478486 ms
+08-01 18:53:22.925 13648 13692 I CpuTimerCompute: Elapsed time: 47.550500 ms
+08-01 18:53:23.915 13648 13692 I Timer   : Elapsed time: 14.542135 ms
+08-01 18:53:23.915 13648 13692 I CpuTimer: Elapsed time: 48.902841 ms
+08-01 18:53:23.928 13648 13692 I CpuTimerCompute: Elapsed time: 47.994275 ms
+08-01 18:53:24.919 13648 13692 I Timer   : Elapsed time: 14.551684 ms
+08-01 18:53:24.920 13648 13692 I CpuTimer: Elapsed time: 48.749159 ms
+08-01 18:53:24.933 13648 13692 I CpuTimerCompute: Elapsed time: 47.889174 ms
+08-01 18:53:25.921 13648 13692 I Timer   : Elapsed time: 52.695206 ms
+08-01 18:53:25.921 13648 13692 I CpuTimer: Elapsed time: 85.643421 ms
+08-01 18:53:25.935 13648 13692 I CpuTimerCompute: Elapsed time: 48.893474 ms
+08-01 18:53:26.934 13648 13692 I Timer   : Elapsed time: 14.678197 ms
+08-01 18:53:26.934 13648 13692 I CpuTimer: Elapsed time: 49.228159 ms
+08-01 18:53:26.948 13648 13692 I CpuTimerCompute: Elapsed time: 48.379464 ms
+08-01 18:53:27.941 13648 13692 I Timer   : Elapsed time: 14.814466 ms
+08-01 18:53:27.941 13648 13692 I CpuTimer: Elapsed time: 49.389750 ms
+08-01 18:53:27.956 13648 13692 I CpuTimerCompute: Elapsed time: 48.488750 ms
+08-01 18:53:28.949 13648 13692 I Timer   : Elapsed time: 14.607066 ms
+08-01 18:53:28.949 13648 13692 I CpuTimer: Elapsed time: 49.119870 ms
+08-01 18:53:28.962 13648 13692 I CpuTimerCompute: Elapsed time: 48.131246 ms
+08-01 18:53:29.950 13648 13692 I Timer   : Elapsed time: 14.717535 ms
+08-01 18:53:29.950 13648 13692 I CpuTimer: Elapsed time: 49.362912 ms
+08-01 18:53:29.964 13648 13692 I CpuTimerCompute: Elapsed time: 48.449191 ms
+08-01 18:53:30.960 13648 13692 I Timer   : Elapsed time: 14.637317 ms
+08-01 18:53:30.960 13648 13692 I CpuTimer: Elapsed time: 49.122580 ms
+08-01 18:53:30.974 13648 13692 I CpuTimerCompute: Elapsed time: 48.231246 ms
+08-01 18:53:31.963 13648 13692 I Timer   : Elapsed time: 14.744650 ms
+08-01 18:53:31.963 13648 13692 I CpuTimer: Elapsed time: 49.501721 ms
+08-01 18:53:31.976 13648 13692 I CpuTimerCompute: Elapsed time: 48.540029 ms
+08-01 18:53:32.968 13648 13692 I Timer   : Elapsed time: 14.781035 ms
+08-01 18:53:32.968 13648 13692 I CpuTimer: Elapsed time: 49.378044 ms
+08-01 18:53:32.982 13648 13692 I CpuTimerCompute: Elapsed time: 48.441794 ms
+08-01 18:53:33.981 13648 13692 I Timer   : Elapsed time: 72.345222 ms
+08-01 18:53:33.981 13648 13692 I CpuTimer: Elapsed time: 101.924786 ms
+08-01 18:53:34.000 13648 13692 I CpuTimerCompute: Elapsed time: 49.880500 ms
+08-01 18:53:34.983 13648 13692 I Timer   : Elapsed time: 14.954647 ms
+08-01 18:53:34.983 13648 13692 I CpuTimer: Elapsed time: 50.131925 ms
+08-01 18:53:35.011 13648 13692 I CpuTimerCompute: Elapsed time: 48.899956 ms
+08-01 18:53:35.991 13648 13692 I Timer   : Elapsed time: 14.816277 ms
+08-01 18:53:35.991 13648 13692 I CpuTimer: Elapsed time: 49.815588 ms
+08-01 18:53:36.019 13648 13692 I CpuTimerCompute: Elapsed time: 48.929985 ms
+08-01 18:53:37.003 13648 13692 I Timer   : Elapsed time: 14.887366 ms
+08-01 18:53:37.003 13648 13692 I CpuTimer: Elapsed time: 49.676147 ms
+08-01 18:53:37.032 13648 13692 I CpuTimerCompute: Elapsed time: 48.788779 ms
+08-01 18:53:38.008 13648 13692 I Timer   : Elapsed time: 14.776123 ms
+08-01 18:53:38.008 13648 13692 I CpuTimer: Elapsed time: 49.454588 ms
+08-01 18:53:38.036 13648 13692 I CpuTimerCompute: Elapsed time: 48.487529 ms
+08-01 18:53:39.009 13648 13692 I Timer   : Elapsed time: 14.718557 ms
+08-01 18:53:39.009 13648 13692 I CpuTimer: Elapsed time: 49.411632 ms
+08-01 18:53:39.051 13648 13692 I CpuTimerCompute: Elapsed time: 48.440652 ms
+08-01 18:53:40.016 13648 13692 I Timer   : Elapsed time: 14.814629 ms
+08-01 18:53:40.017 13648 13692 I CpuTimer: Elapsed time: 49.598029 ms
+08-01 18:53:40.062 13648 13692 I CpuTimerCompute: Elapsed time: 48.840853 ms
+08-01 18:53:41.017 13648 13692 I Timer   : Elapsed time: 14.925634 ms
+08-01 18:53:41.017 13648 13692 I CpuTimer: Elapsed time: 49.984478 ms
+08-01 18:53:41.066 13648 13692 I CpuTimerCompute: Elapsed time: 49.316149 ms
+08-01 18:53:42.196 13648 13692 I Timer   : Elapsed time: 45.367229 ms
+08-01 18:53:42.196 13648 13692 I CpuTimer: Elapsed time: 77.993269 ms
+08-01 18:53:42.215 13648 13692 I CpuTimerCompute: Elapsed time: 49.062333 ms
+08-01 18:53:43.203 13648 13692 I Timer   : Elapsed time: 14.807176 ms
+08-01 18:53:43.203 13648 13692 I CpuTimer: Elapsed time: 49.735956 ms
+08-01 18:53:43.217 13648 13692 I CpuTimerCompute: Elapsed time: 48.563162 ms
+08-01 18:53:44.211 13648 13692 I Timer   : Elapsed time: 14.818574 ms
+08-01 18:53:44.211 13648 13692 I CpuTimer: Elapsed time: 49.664647 ms
+08-01 18:53:44.227 13648 13692 I CpuTimerCompute: Elapsed time: 48.944618 ms
+08-01 18:53:45.228 13648 13692 I Timer   : Elapsed time: 14.958953 ms
+08-01 18:53:45.228 13648 13692 I CpuTimer: Elapsed time: 50.153809 ms
+08-01 18:53:45.242 13648 13692 I CpuTimerCompute: Elapsed time: 49.104294 ms
+08-01 18:53:46.231 13648 13692 I Timer   : Elapsed time: 14.960856 ms
+08-01 18:53:46.231 13648 13692 I CpuTimer: Elapsed time: 50.049358 ms
+08-01 18:53:46.245 13648 13692 I CpuTimerCompute: Elapsed time: 49.152806 ms
+08-01 18:53:47.233 13648 13692 I Timer   : Elapsed time: 14.955110 ms
+08-01 18:53:47.233 13648 13692 I CpuTimer: Elapsed time: 50.181343 ms
+08-01 18:53:47.247 13648 13692 I CpuTimerCompute: Elapsed time: 49.219716 ms
+08-01 18:53:48.242 13648 13692 I Timer   : Elapsed time: 15.059074 ms
+08-01 18:53:48.242 13648 13692 I CpuTimer: Elapsed time: 50.259328 ms
+08-01 18:53:48.256 13648 13692 I CpuTimerCompute: Elapsed time: 49.320776 ms
+08-01 18:53:49.251 13648 13692 I Timer   : Elapsed time: 15.062245 ms
+08-01 18:53:49.251 13648 13692 I CpuTimer: Elapsed time: 50.807299 ms
+08-01 18:53:49.265 13648 13692 I CpuTimerCompute: Elapsed time: 49.887851 ms
+08-01 18:53:50.432 13648 13692 I Timer   : Elapsed time: 42.176563 ms
+08-01 18:53:50.432 13648 13692 I CpuTimer: Elapsed time: 75.144857 ms
+08-01 18:53:50.447 13648 13692 I CpuTimerCompute: Elapsed time: 50.063821 ms
+08-01 18:53:51.434 13648 13692 I Timer   : Elapsed time: 15.169456 ms
+08-01 18:53:51.434 13648 13692 I CpuTimer: Elapsed time: 50.731864 ms
+08-01 18:53:51.463 13648 13692 I CpuTimerCompute: Elapsed time: 49.796209 ms
+08-01 18:53:52.438 13648 13692 I Timer   : Elapsed time: 15.212556 ms
+08-01 18:53:52.438 13648 13692 I CpuTimer: Elapsed time: 50.766848 ms
+08-01 18:53:52.466 13648 13692 I CpuTimerCompute: Elapsed time: 49.762439 ms
+08-01 18:53:53.449 13648 13692 I Timer   : Elapsed time: 15.085452 ms
+08-01 18:53:53.449 13648 13692 I CpuTimer: Elapsed time: 50.533313 ms
+08-01 18:53:53.477 13648 13692 I CpuTimerCompute: Elapsed time: 49.680448 ms
+08-01 18:53:54.459 13648 13692 I Timer   : Elapsed time: 14.853875 ms
+08-01 18:53:54.459 13648 13692 I CpuTimer: Elapsed time: 49.902279 ms
+08-01 18:53:54.490 13648 13692 I CpuTimerCompute: Elapsed time: 49.130456 ms
+08-01 18:53:55.465 13648 13692 I Timer   : Elapsed time: 15.237093 ms
+08-01 18:53:55.465 13648 13692 I CpuTimer: Elapsed time: 51.109045 ms
+08-01 18:53:55.494 13648 13692 I CpuTimerCompute: Elapsed time: 50.126606 ms
+08-01 18:53:56.470 13648 13692 I Timer   : Elapsed time: 15.227199 ms
+08-01 18:53:56.470 13648 13692 I CpuTimer: Elapsed time: 50.964924 ms
+08-01 18:53:56.498 13648 13692 I CpuTimerCompute: Elapsed time: 49.988273 ms
+08-01 18:53:57.471 13648 13692 I Timer   : Elapsed time: 15.166693 ms
+08-01 18:53:57.471 13648 13692 I CpuTimer: Elapsed time: 50.629727 ms
+08-01 18:53:57.499 13648 13692 I CpuTimerCompute: Elapsed time: 49.741530 ms
+08-01 18:53:58.765 13648 13692 I Timer   : Elapsed time: 36.988811 ms
+08-01 18:53:58.766 13648 13692 I CpuTimer: Elapsed time: 70.224371 ms
+08-01 18:53:58.785 13648 13692 I CpuTimerCompute: Elapsed time: 50.146912 ms
+08-01 18:53:59.767 13648 13692 I Timer   : Elapsed time: 15.404544 ms
+08-01 18:53:59.767 13648 13692 I CpuTimer: Elapsed time: 51.592292 ms
+08-01 18:53:59.796 13648 13692 I CpuTimerCompute: Elapsed time: 50.384030 ms
+08-01 18:54:00.776 13648 13692 I Timer   : Elapsed time: 15.279202 ms
+08-01 18:54:00.776 13648 13692 I CpuTimer: Elapsed time: 50.821515 ms
+08-01 18:54:00.805 13648 13692 I CpuTimerCompute: Elapsed time: 49.839182 ms
+08-01 18:54:01.783 13648 13692 I Timer   : Elapsed time: 15.257660 ms
+08-01 18:54:01.783 13648 13692 I CpuTimer: Elapsed time: 50.728955 ms
+08-01 18:54:01.811 13648 13692 I CpuTimerCompute: Elapsed time: 49.735379 ms
+08-01 18:54:02.793 13648 13692 I Timer   : Elapsed time: 15.301031 ms
+08-01 18:54:02.793 13648 13692 I CpuTimer: Elapsed time: 50.988485 ms
+08-01 18:54:02.827 13648 13692 I CpuTimerCompute: Elapsed time: 50.345333 ms
+08-01 18:54:03.797 13648 13692 I Timer   : Elapsed time: 15.454173 ms
+08-01 18:54:03.797 13648 13692 I CpuTimer: Elapsed time: 51.520292 ms
+08-01 18:54:03.840 13648 13692 I CpuTimerCompute: Elapsed time: 50.220364 ms
+08-01 18:54:04.802 13648 13692 I Timer   : Elapsed time: 15.223720 ms
+08-01 18:54:04.802 13648 13692 I CpuTimer: Elapsed time: 50.841515 ms
+08-01 18:54:04.847 13648 13692 I CpuTimerCompute: Elapsed time: 49.993333 ms
+08-01 18:54:05.813 13648 13692 I Timer   : Elapsed time: 15.545319 ms
+08-01 18:54:05.813 13648 13692 I CpuTimer: Elapsed time: 51.560077 ms
+08-01 18:54:05.857 13648 13692 I CpuTimerCompute: Elapsed time: 50.572677 ms
+08-01 18:54:07.257 13648 13692 I Timer   : Elapsed time: 35.221741 ms
+08-01 18:54:07.257 13648 13692 I CpuTimer: Elapsed time: 69.516512 ms
+08-01 18:54:07.274 13648 13692 I CpuTimerCompute: Elapsed time: 50.648846 ms
+08-01 18:54:08.267 13648 13692 I Timer   : Elapsed time: 15.303004 ms
+08-01 18:54:08.267 13648 13692 I CpuTimer: Elapsed time: 51.474833 ms
+08-01 18:54:08.281 13648 13692 I CpuTimerCompute: Elapsed time: 50.438667 ms
+08-01 18:54:09.281 13648 13692 I Timer   : Elapsed time: 15.128947 ms
+08-01 18:54:09.281 13648 13692 I CpuTimer: Elapsed time: 51.147388 ms
+08-01 18:54:09.295 13648 13692 I CpuTimerCompute: Elapsed time: 50.313582 ms
+08-01 18:54:10.286 13648 13692 I Timer   : Elapsed time: 15.224595 ms
+08-01 18:54:10.286 13648 13692 I CpuTimer: Elapsed time: 50.924985 ms
+08-01 18:54:10.299 13648 13692 I CpuTimerCompute: Elapsed time: 49.961258 ms
+08-01 18:54:11.297 13648 13692 I Timer   : Elapsed time: 15.322712 ms
+08-01 18:54:11.297 13648 13692 I CpuTimer: Elapsed time: 51.301197 ms
+08-01 18:54:11.311 13648 13692 I CpuTimerCompute: Elapsed time: 50.438697 ms
+08-01 18:54:12.300 13648 13692 I Timer   : Elapsed time: 15.198422 ms
+08-01 18:54:12.300 13648 13692 I CpuTimer: Elapsed time: 51.369470 ms
+08-01 18:54:12.314 13648 13692 I CpuTimerCompute: Elapsed time: 50.437803 ms
+08-01 18:54:13.300 13648 13692 I Timer   : Elapsed time: 15.154673 ms
+08-01 18:54:13.301 13648 13692 I CpuTimer: Elapsed time: 50.825803 ms
+08-01 18:54:13.329 13648 13692 I CpuTimerCompute: Elapsed time: 49.908463 ms
+08-01 18:54:14.313 13648 13692 I Timer   : Elapsed time: 15.336279 ms
+08-01 18:54:14.313 13648 13692 I CpuTimer: Elapsed time: 50.970258 ms
+08-01 18:54:14.348 13648 13692 I CpuTimerCompute: Elapsed time: 50.408530 ms
+08-01 18:54:15.666 13648 13692 I Timer   : Elapsed time: 36.578640 ms
+08-01 18:54:15.666 13648 13692 I CpuTimer: Elapsed time: 70.848297 ms
+08-01 18:54:15.683 13648 13692 I CpuTimerCompute: Elapsed time: 50.068667 ms
+08-01 18:54:16.673 13648 13692 I Timer   : Elapsed time: 15.489590 ms
+08-01 18:54:16.673 13648 13692 I CpuTimer: Elapsed time: 51.894446 ms
+08-01 18:54:16.688 13648 13692 I CpuTimerCompute: Elapsed time: 51.064092 ms
+08-01 18:54:17.679 13648 13692 I Timer   : Elapsed time: 15.471145 ms
+08-01 18:54:17.679 13648 13692 I CpuTimer: Elapsed time: 52.230308 ms
+08-01 18:54:17.693 13648 13692 I CpuTimerCompute: Elapsed time: 51.347631 ms
+08-01 18:54:18.688 13648 13692 I Timer   : Elapsed time: 15.516820 ms
+08-01 18:54:18.688 13648 13692 I CpuTimer: Elapsed time: 52.158323 ms
+08-01 18:54:18.702 13648 13692 I CpuTimerCompute: Elapsed time: 51.242631 ms
+08-01 18:54:19.694 13648 13692 I Timer   : Elapsed time: 15.474860 ms
+08-01 18:54:19.694 13648 13692 I CpuTimer: Elapsed time: 52.352923 ms
+08-01 18:54:19.708 13648 13692 I CpuTimerCompute: Elapsed time: 51.465462 ms
+08-01 18:54:20.695 13648 13692 I Timer   : Elapsed time: 15.644142 ms
+08-01 18:54:20.695 13648 13692 I CpuTimer: Elapsed time: 52.501672 ms
+08-01 18:54:20.712 13648 13692 I CpuTimerCompute: Elapsed time: 51.811500 ms
+08-01 18:54:21.710 13648 13692 I Timer   : Elapsed time: 15.865957 ms
+08-01 18:54:21.710 13648 13692 I CpuTimer: Elapsed time: 53.258734 ms
+08-01 18:54:21.725 13648 13692 I CpuTimerCompute: Elapsed time: 52.161547 ms
+08-01 18:54:22.723 13648 13692 I Timer   : Elapsed time: 15.823863 ms
+08-01 18:54:22.723 13648 13692 I CpuTimer: Elapsed time: 52.985922 ms
+08-01 18:54:22.737 13648 13692 I CpuTimerCompute: Elapsed time: 52.009922 ms
+08-01 18:54:24.245 13648 13692 I Timer   : Elapsed time: 31.711540 ms
+08-01 18:54:24.246 13648 13692 I CpuTimer: Elapsed time: 67.553708 ms
+08-01 18:54:24.266 13648 13692 I CpuTimerCompute: Elapsed time: 52.518563 ms
+08-01 18:54:25.250 13648 13692 I Timer   : Elapsed time: 15.949368 ms
+08-01 18:54:25.250 13648 13692 I CpuTimer: Elapsed time: 53.463571 ms
+08-01 18:54:25.282 13648 13692 I CpuTimerCompute: Elapsed time: 52.235906 ms
+08-01 18:54:26.251 13648 13692 I Timer   : Elapsed time: 15.882129 ms
+08-01 18:54:26.251 13648 13692 I CpuTimer: Elapsed time: 53.156651 ms
+08-01 18:54:26.297 13648 13692 I CpuTimerCompute: Elapsed time: 52.117500 ms
+08-01 18:54:27.264 13648 13692 I Timer   : Elapsed time: 15.830333 ms
+08-01 18:54:27.264 13648 13692 I CpuTimer: Elapsed time: 53.020156 ms
+08-01 18:54:27.311 13648 13692 I CpuTimerCompute: Elapsed time: 52.224953 ms
+08-01 18:54:28.273 13648 13692 I Timer   : Elapsed time: 15.759562 ms
+08-01 18:54:28.273 13648 13692 I CpuTimer: Elapsed time: 52.803406 ms
+08-01 18:54:28.319 13648 13692 I CpuTimerCompute: Elapsed time: 51.762203 ms
+08-01 18:54:29.287 13648 13692 I Timer   : Elapsed time: 15.836665 ms
+08-01 18:54:29.287 13648 13692 I CpuTimer: Elapsed time: 53.205906 ms
+08-01 18:54:29.331 13648 13692 I CpuTimerCompute: Elapsed time: 52.196031 ms
+08-01 18:54:30.301 13648 13692 I Timer   : Elapsed time: 15.852436 ms
+08-01 18:54:30.301 13648 13692 I CpuTimer: Elapsed time: 52.672328 ms
+08-01 18:54:30.336 13648 13692 I CpuTimerCompute: Elapsed time: 51.923175 ms
+08-01 18:54:31.319 13648 13692 I Timer   : Elapsed time: 16.146210 ms
+08-01 18:54:31.319 13648 13692 I CpuTimer: Elapsed time: 53.663349 ms
+08-01 18:54:31.348 13648 13692 I CpuTimerCompute: Elapsed time: 52.393016 ms
+08-01 18:54:33.006 13648 13692 I Timer   : Elapsed time: 30.672270 ms
+08-01 18:54:33.006 13648 13692 I CpuTimer: Elapsed time: 66.186182 ms
+08-01 18:54:33.020 13648 13692 I CpuTimerCompute: Elapsed time: 51.625185 ms
+08-01 18:54:34.014 13648 13692 I Timer   : Elapsed time: 15.750852 ms
+08-01 18:54:34.014 13648 13692 I CpuTimer: Elapsed time: 52.799984 ms
+08-01 18:54:34.028 13648 13692 I CpuTimerCompute: Elapsed time: 51.924281 ms
+08-01 18:54:35.022 13648 13692 I Timer   : Elapsed time: 15.760470 ms
+08-01 18:54:35.023 13648 13692 I CpuTimer: Elapsed time: 52.817266 ms
+08-01 18:54:35.037 13648 13692 I CpuTimerCompute: Elapsed time: 51.960750 ms
+08-01 18:54:36.034 13648 13692 I Timer   : Elapsed time: 15.559173 ms
+08-01 18:54:36.034 13648 13692 I CpuTimer: Elapsed time: 52.278169 ms
+08-01 18:54:36.048 13648 13692 I CpuTimerCompute: Elapsed time: 51.355677 ms
+08-01 18:54:37.035 13648 13692 I Timer   : Elapsed time: 15.640900 ms
+08-01 18:54:37.035 13648 13692 I CpuTimer: Elapsed time: 52.009891 ms
+08-01 18:54:37.050 13648 13692 I CpuTimerCompute: Elapsed time: 51.004984 ms
+08-01 18:54:38.039 13648 13692 I Timer   : Elapsed time: 15.677122 ms
+08-01 18:54:38.039 13648 13692 I CpuTimer: Elapsed time: 52.592203 ms
+08-01 18:54:38.053 13648 13692 I CpuTimerCompute: Elapsed time: 51.667641 ms
+08-01 18:54:39.049 13648 13692 I Timer   : Elapsed time: 15.541540 ms
+08-01 18:54:39.049 13648 13692 I CpuTimer: Elapsed time: 52.348508 ms
+08-01 18:54:39.064 13648 13692 I CpuTimerCompute: Elapsed time: 51.520831 ms
+08-01 18:54:40.055 13648 13692 I Timer   : Elapsed time: 15.725607 ms
+08-01 18:54:40.055 13648 13692 I CpuTimer: Elapsed time: 52.601750 ms
+08-01 18:54:40.072 13648 13692 I CpuTimerCompute: Elapsed time: 51.829609 ms
+08-01 18:54:41.646 13648 13692 I Timer   : Elapsed time: 31.815586 ms
+08-01 18:54:41.646 13648 13692 I CpuTimer: Elapsed time: 67.870360 ms
+08-01 18:54:41.663 13648 13692 I CpuTimerCompute: Elapsed time: 52.070280 ms
+08-01 18:54:42.650 13648 13692 I Timer   : Elapsed time: 16.179785 ms
+08-01 18:54:42.650 13648 13692 I CpuTimer: Elapsed time: 53.734016 ms
+08-01 18:54:42.680 13648 13692 I CpuTimerCompute: Elapsed time: 52.595048 ms
+08-01 18:54:43.656 13648 13692 I Timer   : Elapsed time: 15.972468 ms
+08-01 18:54:43.656 13648 13692 I CpuTimer: Elapsed time: 54.183111 ms
+08-01 18:54:43.687 13648 13692 I CpuTimerCompute: Elapsed time: 53.284238 ms
+08-01 18:54:44.664 13648 13692 I Timer   : Elapsed time: 15.994762 ms
+08-01 18:54:44.664 13648 13692 I CpuTimer: Elapsed time: 53.957730 ms
+08-01 18:54:44.694 13648 13692 I CpuTimerCompute: Elapsed time: 53.063730 ms
+08-01 18:54:45.674 13648 13692 I Timer   : Elapsed time: 16.027193 ms
+08-01 18:54:45.674 13648 13692 I CpuTimer: Elapsed time: 53.669508 ms
+08-01 18:54:45.709 13648 13692 I CpuTimerCompute: Elapsed time: 53.064460 ms
+08-01 18:54:46.684 13648 13692 I Timer   : Elapsed time: 16.036549 ms
+08-01 18:54:46.684 13648 13692 I CpuTimer: Elapsed time: 53.777937 ms
+08-01 18:54:46.714 13648 13692 I CpuTimerCompute: Elapsed time: 52.467984 ms
+08-01 18:54:47.696 13648 13692 I Timer   : Elapsed time: 16.055542 ms
+08-01 18:54:47.696 13648 13692 I CpuTimer: Elapsed time: 53.693794 ms
+08-01 18:54:47.726 13648 13692 I CpuTimerCompute: Elapsed time: 52.795317 ms
+08-01 18:54:48.709 13648 13692 I Timer   : Elapsed time: 16.607462 ms
+08-01 18:54:48.709 13648 13692 I CpuTimer: Elapsed time: 54.293295 ms
+08-01 18:54:48.741 13648 13692 I CpuTimerCompute: Elapsed time: 53.273803 ms
+08-01 18:54:49.710 13648 13692 I Timer   : Elapsed time: 16.964520 ms
+08-01 18:54:49.710 13648 13692 I CpuTimer: Elapsed time: 54.910305 ms
+08-01 18:54:49.758 13648 13692 I CpuTimerCompute: Elapsed time: 53.965100 ms
+08-01 18:54:50.722 13648 13692 I Timer   : Elapsed time: 72.284828 ms
+08-01 18:54:50.722 13648 13692 I CpuTimer: Elapsed time: 103.553786 ms
+08-01 18:54:50.769 13648 13692 I CpuTimerCompute: Elapsed time: 51.585357 ms
+08-01 18:54:51.735 13648 13692 I Timer   : Elapsed time: 16.077894 ms
+08-01 18:54:51.735 13648 13692 I CpuTimer: Elapsed time: 54.127000 ms
+08-01 18:54:51.789 13648 13692 I CpuTimerCompute: Elapsed time: 53.766683 ms
+08-01 18:54:52.750 13648 13692 I Timer   : Elapsed time: 16.632803 ms
+08-01 18:54:52.750 13648 13692 I CpuTimer: Elapsed time: 55.212656 ms
+08-01 18:54:52.800 13648 13692 I CpuTimerCompute: Elapsed time: 53.640885 ms
+08-01 18:54:53.754 13648 13692 I Timer   : Elapsed time: 17.016920 ms
+08-01 18:54:53.754 13648 13692 I CpuTimer: Elapsed time: 55.053881 ms
+08-01 18:54:53.819 13648 13692 I CpuTimerCompute: Elapsed time: 54.195167 ms
+08-01 18:54:54.762 13648 13692 I Timer   : Elapsed time: 16.795963 ms
+08-01 18:54:54.762 13648 13692 I CpuTimer: Elapsed time: 54.905200 ms
+08-01 18:54:54.826 13648 13692 I CpuTimerCompute: Elapsed time: 53.895817 ms
+08-01 18:54:55.764 13648 13692 I Timer   : Elapsed time: 16.984394 ms
+08-01 18:54:55.764 13648 13692 I CpuTimer: Elapsed time: 55.013949 ms
+08-01 18:54:55.841 13648 13692 I CpuTimerCompute: Elapsed time: 53.879817 ms
+08-01 18:54:56.778 13648 13692 I Timer   : Elapsed time: 16.632439 ms
+08-01 18:54:56.779 13648 13692 I CpuTimer: Elapsed time: 54.102492 ms
+08-01 18:54:56.861 13648 13692 I CpuTimerCompute: Elapsed time: 53.317607 m
