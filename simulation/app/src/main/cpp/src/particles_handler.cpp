@@ -6,7 +6,10 @@
 
 
 ParticlesHandler::ParticlesHandler(InitType type, Physics& physics, int num) :
-        physics(physics), num(num), pool(std::thread::hardware_concurrency()), thread_count(std::thread::hardware_concurrency()) {
+        physics(physics), num(num),
+//        pool(std::thread::hardware_concurrency()),
+        pool(2),
+        thread_count(std::thread::hardware_concurrency()) {
     initParticles(type);
     isInitialized = true;
     srand(112358);  // Set rand() seed for reproducibility

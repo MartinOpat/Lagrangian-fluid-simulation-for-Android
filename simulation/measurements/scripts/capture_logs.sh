@@ -10,7 +10,7 @@ BASE_LOGFILE="logs_${NUM_PARTICLES}_${MODE}.txt"
 counter=0
 LOGFILE="${BASE_LOGFILE%.txt}$counter.txt"
 while [[ -f $LOGFILE ]]; do
-    let counter+=1
+    let counter+=97
     LOGFILE="${BASE_LOGFILE%.txt}$counter.txt"
 done
 echo "Logging to $LOGFILE"
