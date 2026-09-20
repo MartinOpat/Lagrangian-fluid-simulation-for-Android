@@ -6,6 +6,8 @@
     2. [Building the app](#building-the-app)
 2. [Installing the app](#installing-the-app)
 3. [3rd party libraries](#3rd-party-libraries)
+4. [Repository structure](#repository-structure)
+5. [Publication details](#publication)
 
 
 
@@ -77,4 +79,24 @@ The Java code is located at [java](simulation/app/src/main/java/com/rug/lagrangi
 The C++ code is located at [cpp](simulation/app/src/main/cpp). The (pre-defined) project settings can be edited using [config.txt](simulation/app/src/main/cpp/config.txt)
 
 The app layout can be adjusted using [activity_main.xml](simulation/app/src/main/res/layout/activity_main.xml)
+
+## Publication
+Read more about the architecture and theory behind this work in the [Lagrangian Fluid Transport Simulation Using Mobile Devices](10.1016/j.simpat.2025.103214) publication.
+
+If you use this work, please cite it as:
+```bibtex
+@article{OPAT2025103214,
+    title = {Lagrangian fluid transport simulation using mobile devices},
+    journal = {Simulation Modelling Practice and Theory},
+    volume = {145},
+    pages = {103214},
+    year = {2025},
+    issn = {1569-190X},
+    doi = {https://doi.org/10.1016/j.simpat.2025.103214},
+    url = {https://www.sciencedirect.com/science/article/pii/S1569190X25001492},
+    author = {Martin Opat and Julian Koellermeier and Christian Kehl},
+    keywords = {Lagrangian, Fluid, Tracking, Particle, Advection, Android, GPU},
+}
+```
+
 
